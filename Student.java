@@ -25,7 +25,7 @@ public class Student implements Serializable {
 	private String nationality;
 	private String username;
 	private String password;
-	private int numAU;
+	private static int numAU;
 	//Courses listC = new Courses[];     //array size set after students setCourses?
 	//Courses waitlist = new Courses[];
 	

@@ -15,8 +15,8 @@ import java.util.ListIterator;
 public class Course implements Serializable{
     private String CourseCode;         // changed int to string cuz eg. CE2001
     private String CourseName;
-    private String CourseDescription;
-    private int AUawarded;
+    private static String CourseDescription;
+    private static int AUawarded;
     private Cindex[] ListCindex;
 
     public Course(String cc, String cn, String d, int AU) {

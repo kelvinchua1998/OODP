@@ -97,6 +97,7 @@ public static void main(String[] args) {
                 break;
             }
             case 2:{
+                dropCourse();
                 break;
             }
             case 3:{
@@ -180,12 +181,40 @@ private static void addCourse(){
     else if(vacancy != -1){
         //add course stuff
         
-        Student.minusAU();    // minus amt of au left
+        Student.minusAU();    // minus amt of au of student left
         System.out.println("Course added!");
     }
     else{
         System.out.println("Course index full! Adding to waitlist.");
         //add to waitlist stuff and 2 courses cant clash
+    }
+
+}
+
+private static void dropCourse(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter coursecode: ");
+    String coursecode = sc.next();
+    if (coursecode.equals("#"))
+        return;
+    //else ...  error checking
+
+    System.out.println("Are you sure?");
+    System.out.println("1-yes 0-no");
+    int choice = sc.nextInt();
+
+    while(choice != 1 || choice != 0){
+        if(choice == 1){
+            //drop course stuff
+
+            Student.plusAU();  //add back amt of au to student
+            System.out.println("Course dropped!");
+        }
+        else if(choice == 0){return;}
+        else{
+            System.out.println("invalid choice!");
+        }
     }
 
 }
