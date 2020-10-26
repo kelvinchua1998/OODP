@@ -149,6 +149,7 @@ private static void checkVacancy() {
 
 }
 
+
 private static void addCourse{
 
     Scanner sc = new Scanner(System.in);
