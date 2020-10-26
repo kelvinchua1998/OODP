@@ -158,6 +158,7 @@ private static void addCourse{
     if (coursecode.equals("#"))
         return;
     //else if(coursecode == Course.
+    
     // how to make course details?  course details oso show vacancy
 
     System.out.println("Please enter index: ");
@@ -170,13 +171,16 @@ private static void addCourse{
     if(){  //how to check timetable clash?
         System.out.println("Unable to add because of timetable clash!");
     }
+    //else if hv reached max AU?
+
     else if(vacancy != -1){
         //add course stuff
+        // minus amt of au left
         System.out.println("Course added!");
     }
     else{
         System.out.println("Course index full! Adding to waitlist.");
-        //add to waitlist stuff
+        //add to waitlist stuff and 2 courses cant clash
     }
 
 }
