@@ -148,4 +148,37 @@ private static void checkVacancy() {
 
 
 }
+
+private static void addCourse{
+
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter coursecode: ");
+    String coursecode = sc.next();
+    if (coursecode.equals("#"))
+        return;
+    //else if(coursecode == Course.
+    // how to make course details?  course details oso show vacancy
+
+    System.out.println("Please enter index: ");
+    String cindex = sc.next();
+    //error checking
+
+    int vacancy = Cindex.getVacancyCindex(coursecode, cindex);
+
+
+    if(){  //how to check timetable clash?
+        System.out.println("Unable to add because of timetable clash!");
+    }
+    else if(vacancy != -1){
+        //add course stuff
+        System.out.println("Course added!");
+    }
+    else{
+        System.out.println("Course index full! Adding to waitlist.");
+        //add to waitlist stuff
+    }
+
+}
+
 }
