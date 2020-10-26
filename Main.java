@@ -1,6 +1,7 @@
 import java.util.Date;
 import java.util.Scanner;
 
+import Package.Student;
 import jdk.nashorn.internal.ir.VarNode;
 
 public class Main {
@@ -92,6 +93,7 @@ public static void main(String[] args) {
         int choice = sc.nextInt();
         switch(choice){
             case 1:{
+                addCourse();
                 break;
             }
             case 2:{
@@ -150,7 +152,7 @@ private static void checkVacancy() {
 }
 
 
-private static void addCourse{
+private static void addCourse(){
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
@@ -158,9 +160,9 @@ private static void addCourse{
     String coursecode = sc.next();
     if (coursecode.equals("#"))
         return;
-    //else if(coursecode == Course.
+    //else if(coursecode == Course.   //error checking
     
-    // how to make course details?  course details oso show vacancy
+    Course.getCourseDescription();//course details should oso show vacancy
 
     System.out.println("Please enter index: ");
     String cindex = sc.next();
@@ -172,11 +174,13 @@ private static void addCourse{
     if(){  //how to check timetable clash?
         System.out.println("Unable to add because of timetable clash!");
     }
-    //else if hv reached max AU?
-
+    else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
+        System.out.println("Not enough AUs");
+    }
     else if(vacancy != -1){
         //add course stuff
-        // minus amt of au left
+        
+        Student.minusAU();    // minus amt of au left
         System.out.println("Course added!");
     }
     else{

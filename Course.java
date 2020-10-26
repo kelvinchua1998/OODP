@@ -16,12 +16,14 @@ public class Course implements Serializable{
     private String CourseCode;         // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
+    private int AUawarded;
     private Cindex[] ListCindex;
 
-    public Course(String cc, String cn, String d) {
+    public Course(String cc, String cn, String d, int AU) {
         CourseCode = cc;
         CourseName = cn;
         CourseDescription = d;
+        AUawarded = AU;
     }
 
     public String getCourseCode() {
@@ -40,12 +42,20 @@ public class Course implements Serializable{
         CourseName = courseName;
     }
 
-    public String getCourseDescription() {
+    public static String getCourseDescription() {
         return CourseDescription;
     }
 
     public void setCourseDescription(String courseDescription) {
         CourseDescription = courseDescription;
+    }
+
+    public void setAU(int au){
+        AUawarded = au;
+    }
+
+    public static int getAU(){
+        return AUawarded;
     }
 
     public Cindex[] getListCindex() {

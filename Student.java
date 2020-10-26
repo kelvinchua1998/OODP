@@ -25,13 +25,11 @@ public class Student implements Serializable {
 	private String nationality;
 	private String username;
 	private String password;
-<<<<<<< HEAD
 	private int numAU;
 	//Courses listC = new Courses[];     //array size set after students setCourses?
 	//Courses waitlist = new Courses[];
 	
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) {
-=======
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private List<Course> listCourse; // array size set after students setCourses?
@@ -39,24 +37,20 @@ public class Student implements Serializable {
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, String pwd, long accessStartDateTime, long accessEndDateTime) {
->>>>>>> c2d2a755aa72095aeded810e9d594b9750b5831e
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
-<<<<<<< HEAD
 		this.numAU = numAU;
 		password = pwd;
 		//all these info get from separate file?
-=======
 		this.username = username;
 		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
 		listCourse = new ArrayList<Course>();
 		waitlist = new ArrayList<Course>();
->>>>>>> c2d2a755aa72095aeded810e9d594b9750b5831e
 	}
 
 	public String getPassword() {
@@ -82,21 +76,18 @@ public class Student implements Serializable {
 	public String getMatricNum() {
 		return matricNum;
 	}
-<<<<<<< HEAD
 	
-	public int getNumAuAvail(){
+	public static int getNumAuAvail(){
 		return numAU;
 	}
 
-	public void minusAU(){   //minus after adding course
-		//numAU -= Course.getNumAU();
+	public static void minusAU(){   //minus after adding course
+		numAU -= Course.getAU();
 	}
 
-	public void plusAU(){  //plus after dropping course
-		//numAu += Course.getNumAU();
+	public static void plusAU(){  //plus after dropping course
+		numAU += Course.getAU();
 	}
-=======
->>>>>>> c2d2a755aa72095aeded810e9d594b9750b5831e
 
 	public Boolean verifyPassword(String enPwd) {
 		if (enPwd == password)
