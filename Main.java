@@ -219,4 +219,14 @@ private static void dropCourse(){
 
 }
 
+private static void checkPrintCourse(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    
+    while(code != '#'){
+        String code = sc.next();
+        //Student.getCourses();
+    }
+}
+
 }

@@ -29,20 +29,21 @@ public class Student implements Serializable {
 	//Courses listC = new Courses[];     //array size set after students setCourses?
 	//Courses waitlist = new Courses[];
 	
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) {
+	//public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) 
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private List<Course> listCourse; // array size set after students setCourses?
 	private List<Course> waitlist;
+	
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, String pwd, long accessStartDateTime, long accessEndDateTime) {
+			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
-		this.numAU = numAU;
+		Student.numAU = numAU;
 		password = pwd;
 		//all these info get from separate file?
 		this.username = username;
@@ -121,10 +122,11 @@ public class Student implements Serializable {
 	}
 
 	/*
-	 * public String getCourses() { return courses[]; //notsure }
+	 * public static String getCourses() { return courses[]; //notsure }
 	 * 
 	 * public String getWaitlist() { return waitlist[]; }
 	 */
+
 	public static void SerializeStudentList(List<Student> studentList) {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(path + "student.ser");
@@ -195,7 +197,7 @@ public class Student implements Serializable {
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
 		long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, pwd,
+		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, numAU, password,
 				AccessStartTimeInms, AccessEndTimeInms);
 		StudentList.add(newStudent);
 
@@ -233,7 +235,7 @@ public class Student implements Serializable {
 
 		SerializeStudentList(studentList);
 		studentList = null;
-		studentList = SerializeStudent.DeserializeStudentList();
+		studentList = SerializeStudent.DeserializeStudentList();  //isit SerializeStudentList?
 
 		// using the student functions
 
