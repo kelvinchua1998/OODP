@@ -11,8 +11,6 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-import org.graalvm.compiler.lir.amd64.AMD64ControlFlow.FloatCondSetOp;
-
 public class Student implements Serializable {
 	static final String path = "C:\\Users\\User\\Desktop\\CZ2002 OODP java\\";
 
@@ -25,18 +23,27 @@ public class Student implements Serializable {
 	private String nationality;
 	private String username;
 	private String password;
+	private static int numAU;
+	//Courses listC = new Courses[];     //array size set after students setCourses?
+	//Courses waitlist = new Courses[];
+	
+	//public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) 
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private List<Course> listCourse; // array size set after students setCourses?
 	private List<Course> waitlist;
+	
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, String pwd, long accessStartDateTime, long accessEndDateTime) {
+			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
+		Student.numAU = numAU;
+		password = pwd;
+		//all these info get from separate file?
 		this.username = username;
 		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
@@ -67,6 +74,18 @@ public class Student implements Serializable {
 
 	public String getMatricNum() {
 		return matricNum;
+	}
+	
+	public static int getNumAuAvail(){
+		return numAU;
+	}
+
+	public static void minusAU(){   //minus after adding course
+		numAU -= Course.getAU();
+	}
+
+	public static void plusAU(){  //plus after dropping course
+		numAU += Course.getAU();
 	}
 
 	public Boolean verifyPassword(String enPwd) {
@@ -101,10 +120,11 @@ public class Student implements Serializable {
 	}
 
 	/*
-	 * public String getCourses() { return courses[]; //notsure }
+	 * public static String getCourses() { return courses[]; //notsure }
 	 * 
 	 * public String getWaitlist() { return waitlist[]; }
 	 */
+
 	public static void SerializeStudentList(List<Student> studentList) {
 		try {
 			FileOutputStream fileOut = new FileOutputStream(path + "student.ser");
@@ -135,7 +155,7 @@ public class Student implements Serializable {
 		return null;
 	}
 
-	private static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
+	public static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return StudentList.get(i);
@@ -188,7 +208,7 @@ public class Student implements Serializable {
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
 		long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, pwd,
+		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, numAU, password,
 				AccessStartTimeInms, AccessEndTimeInms);
 		StudentList.add(newStudent);
 
@@ -199,15 +219,16 @@ public class Student implements Serializable {
 		// Creating a set of mock Data
 		long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 12, 00).getTimeInMillis();
 		long accessEndDateTime = new GregorianCalendar(2020, 01, 30, 12, 00).getTimeInMillis();
-		Student studentObj = new Student("Melvin", "Chua", "Male", "Singapore", "U1234567G", "username1" ,"password",
+		Student studentObj = new Student("Melvin", "Chua", "Male", "Singapore", "U1234567G", "username1" ,numAU, "password",accessStartDateTime, accessEndDateTime);
+		Student studentObj2 = new Student("Kelvin", "Chua", "Male", "Singapore", "U1231413Y","username2", numAU,"password",accessStartDateTime, accessEndDateTime);
+		Student studentObj3 = new Student("qwerty", "Bates", "Female", "Malaysian", "U1231414A","username3", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
-		Student studentObj2 = new Student("Kelvin", "Chua", "Male", "Singapore", "U1231413Y","username2", "password",
+		Student studentObj4 = new Student("asdfg", "Yip", "Male", "Singapore", "U1231234G", "username4", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
-		Student studentObj3 = new Student("qwerty", "Bates", "Female", "Malaysian", "U1231414A","username3", "password",
-				accessStartDateTime, accessEndDateTime);
-		Student studentObj4 = new Student("asdfg", "Yip", "Male", "Singapore", "U1231234G", "username4","password",
-				accessStartDateTime, accessEndDateTime);
-		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G","username5", "password",
+		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G","username5", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
 
 		List<Student> studentList = new ArrayList<Student>();

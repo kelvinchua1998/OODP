@@ -3,8 +3,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import jdk.nashorn.internal.ir.VarNode;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -13,16 +11,17 @@ public class Main {
 
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
-        // ask user whether is student Or Admin
-        // if student check whether is allowed period
-        // if within allowed period => ask for matric number and pw
-        // else admin ask for username and pw
+        
         while (!verified) {
+            System.out.println("Are You Signing in as:");
+            System.out.println("1.Admin");
+            System.out.println("2.Student");
+            int choice = sc.nextInt();
             System.out.println("Please Enter Username:");
             String matricNum = sc.next();
             System.out.println("Please Enter Password");
             String pw = sc.next();
-            verified = login.verifyUser(matricNum, pw);
+            verified = login.verifyUser(matricNum, pw, choice);
             if (!verified) {
                 System.out.println("login incorrect! Please Login Again!");
             } else {
@@ -76,7 +75,7 @@ public class Main {
 
         }
 
-        while (runnning) {
+        while(runnning){
             System.out.println("Welcome Student Name Matric Number!");
             System.out.println("Select your option(1-6)");
             System.out.println("1. *Add Course");
@@ -84,67 +83,68 @@ public class Main {
             System.out.println("3. Check/Print Courses Registered");
             System.out.println("4. Check Vacancies Available ");
             System.out.println("5. Change Index Number of Course");
-            System.out.println(
-                    "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
+            System.out.println("6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
             System.out.println("7. Logout");
-
+            
             int choice = sc.nextInt();
-            switch (choice) {
-                case 1: {
+            switch(choice){
+                case 1:{
+                    addCourse();
                     break;
                 }
-                case 2: {
+                case 2:{
+                    dropCourse();
                     break;
                 }
-                case 3: {
+                case 3:{
                     break;
                 }
-                case 4: {
+                case 4:{
                     break;
                 }
-                case 5: {
+                case 5:{
                     break;
                 }
-                case 6: {
+                case 6:{
                     break;
                 }
-                case 7: {
+                case 7:{
                     runnning = false;
                     break;
                 }
-                default: {
-
+                default:{
+    
                 }
-
+    
             }
-
+    
         }
 
     }
 
-    private static void checkVacancy() {
-        String coursecode;
-        String cindex;
+private static void checkVacancy() {
+    String coursecode;
+    String cindex;
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
-        System.out.println("Please enter coursecode: ");
-        coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter coursecode: ");
+    coursecode = sc.next();
+    if (coursecode.equals("#"))
+        return;
 
-        System.out.println("Please enter index: ");
-        cindex = sc.next();
+    System.out.println("Please enter index: ");
+    cindex = sc.next();
 
-        int vacancy = Cindex.getVacancyCindex(coursecode, cindex);
+    int vacancy = Cindex.getVacancyCindex(coursecode, cindex);
 
-        if (vacancy != -1) {
-            System.out.printf("course code: %s \n index: %s \n vacancy: %d\n", coursecode, cindex, vacancy);
-        } else {
-            System.out.println("course index not found! please try again!");
-        }
-
+    if (vacancy != -1) {
+        System.out.printf("course code: %s \n index: %s \n vacancy: %d\n", coursecode, cindex, vacancy);
+    } else {
+        System.out.println("course index not found! please try again!");
     }
+
+}
 
 private static void addCourse(){
 
@@ -154,8 +154,9 @@ private static void addCourse(){
     String coursecode = sc.next();
     if (coursecode.equals("#"))
         return;
-    //else if(coursecode == Course.
-    // how to make course details?  course details oso show vacancy
+    //else if(coursecode == Course.   //error checking
+    
+    Course.getCourseDescription();//course details should oso show vacancy
 
     System.out.println("Please enter index: ");
     String cindex = sc.next();
@@ -166,13 +167,18 @@ private static void addCourse(){
     if(){  //how to check timetable clash?
         System.out.println("Unable to add because of timetable clash!");
     }
+    else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
+        System.out.println("Not enough AUs");
+    }
     else if(vacancy != -1){
         //add course stuff
+        
+        Student.minusAU();    // minus amt of au of student left
         System.out.println("Course added!");
     }
     else{
         System.out.println("Course index full! Adding to waitlist.");
-        //add to waitlist stuff
+        //add to waitlist stuff and 2 courses cant clash
     }
 
 }
@@ -223,16 +229,79 @@ private static void addCourse(){
         System.out.printf("Access time for %s changed!\n", matricNum);
     }
 
-    public static void AddStudent(){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
-        System.out.println("Please enter MatricNum: ");
-        String matricNum = sc.next();
-        if (matricNum.equals("#"))
-            return;
 
-        boolean unique = Student.verifyUniqueMatricNum(matricNum);
+private static void dropCourse(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter coursecode: ");
+    String coursecode = sc.next();
+    if (coursecode.equals("#"))
+        return;
+    //else ...  error checking
 
-        if()
+    System.out.println("Are you sure?");
+    System.out.println("1-yes 0-no");
+    int choice = sc.nextInt();
+
+    while(choice != 1 || choice != 0){
+        if(choice == 1){
+            //drop course stuff
+
+            Student.plusAU();  //add back amt of au to student
+            System.out.println("Course dropped!");
+        }
+        else if(choice == 0){return;}
+        else{
+            System.out.println("invalid choice!");
+        }
+    }
+
+}
+
+private static void checkPrintCourse(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    
+    while(code != '#'){
+        String code = sc.next();
+        //Student.getCourses();
     }
 }
+
+
+public static void AddStudent(){
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter MatricNum: ");
+    String matricNum = sc.next();
+
+    boolean unique;
+    if (matricNum.equals("#"))
+        return;
+    else{
+        unique = Student.verifyUniqueMatricNum(matricNum);
+    }
+
+    if(unique == true){
+        System.out.println("Please enter Password: ");
+        String password = sc.next();
+
+        System.out.println("Please enter First Name: ");
+        String firstname = sc.next();
+        System.out.println("Please enter Last Name: ");
+        String lastname = sc.next();
+        System.out.println("Please enter Gender: ");
+        String gender = sc.next();
+        System.out.println("Please enter Nationality: ");
+        String nationality = sc.next();
+        System.out.println("Please enter Username: ");
+        String username = sc.next();
+        int numAUs = 0;
+        long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+        long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+        
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum,username ,numAUs, password ,accessStartDateTime, accessEndDateTime);
+    }
+}
+
+
