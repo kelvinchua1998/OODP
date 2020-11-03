@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import Package.Student;
+
 public class Cindex extends Course implements Serializable{
     private String index;
     private int totalVacancy;
@@ -46,28 +48,28 @@ public class Cindex extends Course implements Serializable{
         this.totalVacancy = totalVacancy;
     }
 
-    public String[] getWaitList() {
+    public ArrayList<Student> getWaitList() {
         return waitList;
     }
 
-    public void setWaitList(String[] waitList) {
+    public void setWaitList(ArrayList<Student> waitList) {
         this.waitList = waitList;
     }
 
-    public String[] getRegisteredStudents() {
+    public ArrayList<Student> getRegisteredStudents() {
         return registeredStudents;
     }
 
-    public void setRegisteredStudents(String[] registeredStudents) {
+    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
         this.registeredStudents = registeredStudents;
     }
 
-    public Lesson[] getSchedule() {
-        return Schedule;
+    public ArrayList<Lesson> getSchedule() {
+        return this.schedule;
     }
 
-    public void setSchedule(Lesson[] schedule) {
-        Schedule = schedule;
+    public void setSchedule(ArrayList<Lesson> schedule) {
+        this.schedule = schedule;
     }
 
     private static void SerializeCindexList(List<Cindex> cindexList){
@@ -124,6 +126,7 @@ public class Cindex extends Course implements Serializable{
         }
     
     }
+
     private static Cindex searchCindex(String coursecode, String Cindex) {
         List<Cindex> cindexList = new ArrayList<Cindex>();
         cindexList = null;
@@ -151,8 +154,12 @@ public class Cindex extends Course implements Serializable{
         }else{
             return -1;
         }
-        
-        
+    }
+
+    public static ArrayList<Student> getStudentList(String coursecode,String index){
+        Cindex singleIndex = searchCindex(coursecode, index);
+
+        return singleIndex.getRegisteredStudents();
     }
 
    

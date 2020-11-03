@@ -30,9 +30,9 @@ public class Student implements Serializable {
 	//public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) 
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private List<Course> listCourse; // array size set after students setCourses?
+	private List<Course> courseregistered; // array size set after students setCourses?
 	private List<Course> waitlist;
-	
+	private List<Cindex> Cindexregistered;
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
@@ -48,8 +48,10 @@ public class Student implements Serializable {
 		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
-		listCourse = new ArrayList<Course>();
+		courseregistered = new ArrayList<Course>();
+		Cindexregistered = new ArrayList<Cindex>();
 		waitlist = new ArrayList<Course>();
+		
 	}
 
 	public String getPassword() {
