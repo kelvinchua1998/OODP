@@ -180,6 +180,11 @@ public static void main(String[] args) {
 
 
 private static void addCourse(){
+    //add course
+    //chekc timetable clash
+    // check vacancy of Cindex
+    // if full go waiting list
+    //if have vacancy register for C index
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
@@ -197,10 +202,11 @@ private static void addCourse(){
     //error checking
 
     int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
-
+    
+    checkTimeTableClash();
 
     if(){  //how to check timetable clash?
-        checkTimeTableClash();
+        
         System.out.println("Unable to add because of timetable clash!");
     }
     else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
@@ -218,9 +224,7 @@ private static void addCourse(){
 
 }
 
-private static void checkTimeTableClash() {
 
-}
 
 private static void dropCourse() {
     Scanner sc = new Scanner(System.in);
