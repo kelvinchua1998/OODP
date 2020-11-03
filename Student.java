@@ -30,9 +30,9 @@ public class Student implements Serializable {
 	//public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) 
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private List<Course> courseregistered; // array size set after students setCourses?
+	private List<Course> listCourse; // array size set after students setCourses?
 	private List<Course> waitlist;
-	private List<Cindex> Cindexregistered;
+	
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
@@ -48,10 +48,8 @@ public class Student implements Serializable {
 		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
-		courseregistered = new ArrayList<Course>();
-		Cindexregistered = new ArrayList<Cindex>();
+		listCourse = new ArrayList<Course>();
 		waitlist = new ArrayList<Course>();
-		
 	}
 
 	public String getPassword() {
@@ -121,11 +119,31 @@ public class Student implements Serializable {
 		this.username = username;
 	}
 
+
+	public void addCourse(Course cindex){
+		listCourse.add(cindex);
+	}
+
+
 	/*
 	 * public static String getCourses() { return courses[]; //notsure }
 	 * 
 	 * public String getWaitlist() { return waitlist[]; }
 	 */
+
+	private static Student searchSingleStudent(String matricNum){
+        List<Student> studentList= null;
+
+        studentList = DeserializeStudentList();
+
+        for (int i = 0; i < studentList.size(); i++) {
+            if (studentList.get(i).getMatricNum().equals(matricNum) )
+                return studentList.get(i);
+        }
+
+        return null;
+    }
+
 
 	public static void SerializeStudentList(List<Student> studentList) {
 		try {

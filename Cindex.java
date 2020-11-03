@@ -161,7 +161,6 @@ public class Cindex extends Course implements Serializable{
 
         return singleIndex.getRegisteredStudents();
     }
-
-   
+    
 }
 
