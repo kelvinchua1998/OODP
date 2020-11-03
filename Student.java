@@ -1,5 +1,3 @@
-package Package;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +10,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+
+import org.graalvm.compiler.lir.amd64.AMD64ControlFlow.FloatCondSetOp;
 
 public class Student implements Serializable {
 	static final String path = "C:\\Users\\User\\Desktop\\CZ2002 OODP java\\";
@@ -155,6 +155,8 @@ public class Student implements Serializable {
 
 	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
 			Calendar newAccessEndDateTime) {
+		
+		
 		List<Student> StudentList = DeserializeStudentList();
 		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
 		int index = getIndexbyMatricNum(matricNum, StudentList);
@@ -167,6 +169,17 @@ public class Student implements Serializable {
 		StudentList.set(index, StudentObj);
 
 		SerializeStudentList(StudentList);
+	}
+
+	public static boolean verifyUniqueMatricNum(String matricNum){
+		List<Student> StudentList = DeserializeStudentList();
+
+		for(int i =0; i < StudentList.size();i++){
+			if(StudentList.get(i).getMatricNum() == matricNum){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
@@ -213,7 +226,7 @@ public class Student implements Serializable {
 
 		SerializeStudentList(studentList);
 		studentList = null;
-		studentList = SerializeStudent.DeserializeStudentList();
+		studentList = DeserializeStudentList();
 
 		// using the student functions
 
