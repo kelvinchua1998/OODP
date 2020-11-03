@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -42,7 +43,7 @@ public static void main(String[] args) {
         System.out.println("3. Add/Update a course (course code, school, its index numbers and vacancy).");
         System.out.println("4. Check available slot for an index number (vacancy in a class)");
         System.out.println("5. Print student list by index number.");
-        System.out.println("6. Print student list by course (a2ll students registered for the selected course).");
+        System.out.println("6. Print student list by course (all students registered for the selected course).");
         System.out.println("[ print only student’s name, gender and nationality ]");
         System.out.println("7. Logout");
         
@@ -62,9 +63,11 @@ public static void main(String[] args) {
                 break;
             }
             case 5:{
+                printStudentListByCIndex();
                 break;
             }
             case 6:{
+
                 break;
             }
             case 7:{
@@ -104,11 +107,11 @@ public static void main(String[] args) {
                 break;
             }
             case 4:{
-                checkVacancy();
+                
                 break;
             }
             case 5:{
-                printStudentListByCIndex()
+                
                 break;
             }
             case 6:{
@@ -132,7 +135,7 @@ public static void main(String[] args) {
     private static void printStudentListByCIndex() {
     String coursecode;
     String cindex;
-
+    ArrayList<Student> studentList=null;
     
 
     Scanner sc = new Scanner(System.in);
@@ -145,10 +148,12 @@ public static void main(String[] args) {
     System.out.println("Please enter index: ");
     cindex = sc.next();
 
-    Cindex.getStudentList(coursecode, cindex);
-
-
+    studentList = Cindex.getStudentList(coursecode, cindex);
+    System.out.printf("student in %s\n",coursecode);
+    for (int i=0 ; i < studentList.size();i ++){
+        System.out.printf("%d. %s %s",i,studentList.get(i).getFirstName(),studentList.get(i).getLastName());
     }
+}
 
     private static void checkVacancy() {
     String coursecode;
@@ -171,8 +176,6 @@ public static void main(String[] args) {
     }else{
         System.out.println("course index not found! please try again!");
     }
-
-
 }
 
 
@@ -197,6 +200,7 @@ private static void addCourse(){
 
 
     if(){  //how to check timetable clash?
+        checkTimeTableClash();
         System.out.println("Unable to add because of timetable clash!");
     }
     else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
@@ -204,8 +208,7 @@ private static void addCourse(){
     }
     else if(vacancy != -1){
         //add course stuff
-        
-        Student.minusAU();    // minus amt of au of student left
+        Student.minusAU();// minus amt of au of student left
         System.out.println("Course added!");
     }
     else{
@@ -215,7 +218,11 @@ private static void addCourse(){
 
 }
 
-private static void dropCourse(){
+private static void checkTimeTableClash() {
+
+}
+
+private static void dropCourse() {
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
     System.out.println("Please enter coursecode: ");
@@ -252,5 +259,7 @@ private static void checkPrintCourse(){
         //Student.getCourses();
     }
 }
+
+
 
 }
