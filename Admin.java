@@ -50,8 +50,16 @@ public class Admin implements Serializable{
         return vacancy;
     }
    
+   public static Admin getAdminbyUsername(String username, List<Admin> adminList) {
+		for (int i = 0; i < adminList.size(); i++) {
+			if (adminList.get(i).getUserName() == username) {
+				return adminList.get(i);
+			}
+		}
+		return null;
+	}
 
-   private static void SerializeAdminList(List<Admin> adminList) {
+   public static void SerializeAdminList(List<Admin> adminList) {
       try {
          FileOutputStream fileOut = new FileOutputStream("admin.ser");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -64,7 +72,7 @@ public class Admin implements Serializable{
       }
    }
    
-   private static List<Admin> DeserializeAdminList() {
+   public static List<Admin> DeserializeAdminList() {
       try {
          List<Admin> adminList2;
          FileInputStream fileIn = new FileInputStream("admin.ser");

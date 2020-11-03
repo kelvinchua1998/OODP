@@ -1,5 +1,3 @@
-//package Package;
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -177,7 +175,7 @@ public class Student implements Serializable {
 		return null;
 	}
 
-	private static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
+	public static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return StudentList.get(i);
@@ -197,6 +195,8 @@ public class Student implements Serializable {
 
 	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
 			Calendar newAccessEndDateTime) {
+		
+		
 		List<Student> StudentList = DeserializeStudentList();
 		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
 		int index = getIndexbyMatricNum(matricNum, StudentList);
@@ -209,6 +209,17 @@ public class Student implements Serializable {
 		StudentList.set(index, StudentObj);
 
 		SerializeStudentList(StudentList);
+	}
+
+	public static boolean verifyUniqueMatricNum(String matricNum){
+		List<Student> StudentList = DeserializeStudentList();
+
+		for(int i =0; i < StudentList.size();i++){
+			if(StudentList.get(i).getMatricNum() == matricNum){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
@@ -228,15 +239,16 @@ public class Student implements Serializable {
 		// Creating a set of mock Data
 		long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 12, 00).getTimeInMillis();
 		long accessEndDateTime = new GregorianCalendar(2020, 01, 30, 12, 00).getTimeInMillis();
-		Student studentObj = new Student("Melvin", "Chua", "Male", "Singapore", "U1234567G", "username1" ,"password",
+		Student studentObj = new Student("Melvin", "Chua", "Male", "Singapore", "U1234567G", "username1" ,numAU, "password",accessStartDateTime, accessEndDateTime);
+		Student studentObj2 = new Student("Kelvin", "Chua", "Male", "Singapore", "U1231413Y","username2", numAU,"password",accessStartDateTime, accessEndDateTime);
+		Student studentObj3 = new Student("qwerty", "Bates", "Female", "Malaysian", "U1231414A","username3", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
-		Student studentObj2 = new Student("Kelvin", "Chua", "Male", "Singapore", "U1231413Y","username2", "password",
+		Student studentObj4 = new Student("asdfg", "Yip", "Male", "Singapore", "U1231234G", "username4", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
-		Student studentObj3 = new Student("qwerty", "Bates", "Female", "Malaysian", "U1231414A","username3", "password",
-				accessStartDateTime, accessEndDateTime);
-		Student studentObj4 = new Student("asdfg", "Yip", "Male", "Singapore", "U1231234G", "username4","password",
-				accessStartDateTime, accessEndDateTime);
-		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G","username5", "password",
+		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G","username5", numAU,
+				"password",
 				accessStartDateTime, accessEndDateTime);
 
 		List<Student> studentList = new ArrayList<Student>();
@@ -255,7 +267,7 @@ public class Student implements Serializable {
 
 		SerializeStudentList(studentList);
 		studentList = null;
-		studentList = SerializeStudent.DeserializeStudentList();  //isit SerializeStudentList?
+		studentList = DeserializeStudentList();
 
 		// using the student functions
 
