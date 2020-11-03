@@ -15,7 +15,7 @@ import java.util.ListIterator;
 public class Course implements Serializable{
     private String CourseCode;         // changed int to string cuz eg. CE2001
     private String CourseName;
-    private static String CourseDescription;
+    private String CourseDescription;
     private static int AUawarded;
     private Cindex[] ListCindex;
 
@@ -42,7 +42,7 @@ public class Course implements Serializable{
         CourseName = courseName;
     }
 
-    public static String getCourseDescription() {
+    public String getCourseDescription() {
         return CourseDescription;
     }
 
@@ -124,6 +124,24 @@ public class Course implements Serializable{
            System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().CourseDescription);
         }
     
+    }
+
+    private static Course searchSingleCourse(String courseCode){
+        List<Course> courseList= null;
+
+        courseList = DeserializeCourseList();
+
+        for (int i = 0; i < courseList.size(); i++) {
+            if (courseList.get(i).getCourseCode().equals(courseCode) )
+                return courseList.get(i);
+        }
+
+        return null;
+    }
+
+    public static String getCourseDescription( String courseCode) {
+        Course singleCourse = searchSingleCourse(courseCode);
+        return singleCourse.getCourseDescription();
     }
 }
 

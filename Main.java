@@ -104,9 +104,11 @@ public static void main(String[] args) {
                 break;
             }
             case 4:{
+                checkVacancy();
                 break;
             }
             case 5:{
+                printStudentListByCIndex()
                 break;
             }
             case 6:{
@@ -127,7 +129,28 @@ public static void main(String[] args) {
 
 }
 
-private static void checkVacancy() {
+    private static void printStudentListByCIndex() {
+    String coursecode;
+    String cindex;
+
+    
+
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter \' # \'to return to main menu ");
+    System.out.println("Please enter coursecode: ");
+    coursecode = sc.next();
+    if (coursecode.equals("#"))
+        return;
+
+    System.out.println("Please enter index: ");
+    cindex = sc.next();
+
+    Cindex.getStudentList(coursecode, cindex);
+
+
+    }
+
+    private static void checkVacancy() {
     String coursecode;
     String cindex;
 
@@ -163,13 +186,14 @@ private static void addCourse(){
         return;
     //else if(coursecode == Course.   //error checking
     
-    Course.getCourseDescription();//course details should oso show vacancy
+    String coursedescription = Course.getCourseDescription(coursecode);
+    System.out.println(coursedescription);
 
     System.out.println("Please enter index: ");
     String cindex = sc.next();
     //error checking
 
-    int vacancy = Cindex.getVacancyCindex(coursecode, cindex);
+    int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
 
 
     if(){  //how to check timetable clash?
