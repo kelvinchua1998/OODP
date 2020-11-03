@@ -149,7 +149,25 @@ public class Main {
     for (int i=0 ; i < studentList.size();i ++){
         System.out.printf("%d. %s %s",i,studentList.get(i).getFirstName(),studentList.get(i).getLastName());
     }
-}
+    }
+
+    private static void printStudentListByCourse() {
+        String coursecode;
+        ArrayList<Student> studentList=null;
+    
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
+    
+        studentList = Course.getStudentList(coursecode);
+        System.out.printf("student in %s\n",coursecode);
+        for (int i=0 ; i < studentList.size();i ++){
+            System.out.printf("%d. %s %s",i,studentList.get(i).getFirstName(),studentList.get(i).getLastName());
+        }
+        }
 
     private static void checkVacancy() {
     String coursecode;
