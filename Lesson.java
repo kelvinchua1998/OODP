@@ -1,10 +1,12 @@
 import java.io.Serializable;
+import java.sql.Time;
 
 public class Lesson implements Serializable{
     
     String Cindex;
     String Course;
 
+    
     public Lesson(String course, String cindex) {
         Cindex = cindex;
         Course = course;

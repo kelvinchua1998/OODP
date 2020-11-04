@@ -13,16 +13,21 @@ public class Main {
 
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
-        
+        String matricNum ;
+        String pw ;
         while (!verified) {
             System.out.println("Are You Signing in as:");
             System.out.println("1.Admin");
             System.out.println("2.Student");
             AdminorStudent = sc.nextInt();
+
             System.out.println("Please Enter Username:");
-            String matricNum = sc.next();
+
+            matricNum = sc.next();
+
             System.out.println("Please Enter Password");
-            String pw = sc.next();
+            pw = sc.next();
+
             verified = login.verifyUser(matricNum, pw, AdminorStudent);
             if (!verified) {
                 System.out.println("login incorrect! Please Login Again!");
@@ -48,9 +53,11 @@ public class Main {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1: {
+                        EditStudentAccessPeriod();
                         break;
                     }
                     case 2: {
+                        AddStudent();
                         break;
                     }
                     case 3: {
@@ -61,6 +68,7 @@ public class Main {
                         break;
                     }
                     case 5: {
+                        printStudentListByCIndex();
                         break;
                     }
                     case 6: {
@@ -93,14 +101,15 @@ public class Main {
                 int choice = sc.nextInt();
                 switch(choice){
                     case 1:{
-                        addCourse();
+                        addCourse(matricNum);
                         break;
                     }
                     case 2:{
-                        dropCourse();
+                        dropCourse(matricNum);
                         break;
                     }
                     case 3:{
+                        checkPrintCourse(matricNum);
                         break;
                     }
                     case 4:{
@@ -174,7 +183,7 @@ public class Main {
     }
 }
 
-private static void addCourse(){
+private static void addCourse( String matricNum){
     //add course
     //chekc timetable clash
     // check vacancy of Cindex
@@ -198,8 +207,7 @@ private static void addCourse(){
 
     int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
     
-    checkTimeTableClash();
-
+    
     if(){  //how to check timetable clash?
         
         System.out.println("Unable to add because of timetable clash!");
@@ -219,7 +227,7 @@ private static void addCourse(){
 
 }
 
-    public static void EditStudentAccessPeriod() {
+    private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter MatricNum: ");
@@ -265,10 +273,10 @@ private static void addCourse(){
         System.out.printf("Access time for %s changed!\n", matricNum);
     }
 
-private static void checkTimeTableClash() {
 
 
-private static void dropCourse() {
+
+private static void dropCourse(String matricNum) {
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
     System.out.println("Please enter coursecode: ");
@@ -284,7 +292,9 @@ private static void dropCourse() {
     while(choice != 1 || choice != 0){
         if(choice == 1){
             //drop course stuff
+            ArrayList<Student> studentList;
 
+            Student.removeCourseMain(matricNum,coursecode);
             Student.plusAU();  //add back amt of au to student
             System.out.println("Course dropped!");
         }
@@ -296,18 +306,17 @@ private static void dropCourse() {
 
 }
 
-private static void checkPrintCourse(){
+private static void checkPrintCourse(String matricNum){
     Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
     
-    while(code != '#'){
-        String code = sc.next();
-        //Student.getCourses();
-    }
+    Student.printCourseMain(matricNum);
+    System.out.println("press enter to return to main menu ");
+
+    String code = sc.next();
 }
 
 
-public static void AddStudent(){
+private static void AddStudent(){
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
     System.out.println("Please enter MatricNum: ");

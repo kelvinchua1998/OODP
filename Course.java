@@ -17,7 +17,7 @@ public class Course implements Serializable{
     private String CourseName;
     private String CourseDescription;
     private static int AUawarded;
-    private Cindex[] ListCindex;
+    private ArrayList<Cindex> ListCindex;
 
     public Course(String cc, String cn, String d, int AU) {
         CourseCode = cc;

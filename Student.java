@@ -30,7 +30,7 @@ public class Student implements Serializable {
 	//public Student(String firstName, String lastName, String gender, String nationality, String matricNum, int numAU, String pwd) 
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private List<Course> listCourse; // array size set after students setCourses?
+	private List<Course> registeredCourse; 
 	private List<Course> waitlist;
 	
 
@@ -48,7 +48,9 @@ public class Student implements Serializable {
 		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
-		listCourse = new ArrayList<Course>();
+		//the course in this array list would ONLY CONTAIN 1 C INDEX
+		//wouldnt make sense to create another class
+		registeredCourse = new ArrayList<Course>();
 		waitlist = new ArrayList<Course>();
 	}
 
@@ -124,26 +126,41 @@ public class Student implements Serializable {
 		listCourse.add(cindex);
 	}
 
+	public List<Course> getRegisteredCourse() {
+		return registeredCourse;
+	}
 
-	/*
-	 * public static String getCourses() { return courses[]; //notsure }
-	 * 
-	 * public String getWaitlist() { return waitlist[]; }
-	 */
+	public void setRegisteredCourse(List<Course> registeredCourse) {
+		this.registeredCourse = registeredCourse;
+	}
 
-	private static Student searchSingleStudent(String matricNum){
-        List<Student> studentList= null;
+	public List<Course> getWaitlist() {
+		return waitlist;
+	}
 
-        studentList = DeserializeStudentList();
+	public void setWaitlist(List<Course> waitlist) {
+		this.waitlist = waitlist;
+	}
 
-        for (int i = 0; i < studentList.size(); i++) {
-            if (studentList.get(i).getMatricNum().equals(matricNum) )
-                return studentList.get(i);
-        }
+	public static void removeCourseMain(String matricNum, String CourseCode){
+		
+		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+		
+		int index = getIndexbyMatricNum(matricNum, studentList);
 
-        return null;
-    }
+		studentList.get(index).removeCourse(CourseCode);
 
+		SerializeStudentList(studentList);
+	}
+
+	private void removeCourse(String CourseCode){
+
+		for (int i =0 ; i< registeredCourse.size();i++){
+			if (registeredCourse.get(i).getCourseCode().equals(CourseCode)){
+				registeredCourse.remove(i);
+			}
+		}
+	}
 
 	public static void SerializeStudentList(List<Student> studentList) {
 		try {
@@ -302,4 +319,20 @@ public class Student implements Serializable {
 			System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getAccessStartTime() + ", " + ListItr.next().getAccessEndTime());
 		}
 	}
+
+	public static void printCourseMain(String matricNum) {
+		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+		
+		int index = getIndexbyMatricNum(matricNum, studentList);
+
+		ArrayList <Course> registercourses = (ArrayList<Course>) studentList.get(index).getRegisteredCourse();
+
+		System.out.println("registered Courses: ");
+		for(int i =0 ; i< registercourses.size();i++){
+			System.out.printf("%d. %s %s",i,registercourses.get(i).getCourseCode(),registercourses.get(i).getCourseName());
+		}
+
+	}
+
+	
 }
