@@ -18,12 +18,15 @@ public class Course implements Serializable{
     private String CourseDescription;
     private static int AUawarded;
     private ArrayList<Cindex> ListCindex;
+    private ArrayList<Student> registeredStudents;
 
-    public Course(String cc, String cn, String d, int AU) {
+    public Course(String cc, String cn, String d, int AU, 
+                    ArrayList<Student> registeredStudents) {
         CourseCode = cc;
         CourseName = cn;
         CourseDescription = d;
         AUawarded = AU;
+        this.registeredStudents = registeredStudents;
     }
 
     public String getCourseCode() {
@@ -142,6 +145,20 @@ public class Course implements Serializable{
     public static String getCourseDescription( String courseCode) {
         Course singleCourse = searchSingleCourse(courseCode);
         return singleCourse.getCourseDescription();
+    }
+
+    public ArrayList<Student> getRegisteredStudents() {
+        return registeredStudents;
+    }
+
+    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
+        this.registeredStudents = registeredStudents;
+    }
+
+    public static ArrayList<Student> getStudentList(String coursecode){
+        Course singleIndex = searchSingleCourse(coursecode);
+
+        return singleIndex.getRegisteredStudents();
     }
 }
 
