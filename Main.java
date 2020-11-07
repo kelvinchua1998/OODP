@@ -510,34 +510,36 @@ private static void addCourse( String matricNum){
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
-        boolean unique;
-        if (matricNum.equals("#"))
-            return;
-        else {
-            unique = Student.verifyUniqueMatricNum(matricNum);
+        System.out.println("Please enter Password: ");
+        String password = sc.next();
+
+        System.out.println("Please enter First Name: ");
+        String firstname = sc.next();
+        System.out.println("Please enter Last Name: ");
+        String lastname = sc.next();
+        System.out.println("Please enter Gender: ");
+        String gender = sc.next();
+        System.out.println("Please enter Nationality: ");
+        String nationality = sc.next();
+        System.out.println("Please enter Username: ");
+        String username = sc.next();
+        int numAUs = 0;
+        long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+        long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, numAUs, password, accessStartDateTime, accessEndDateTime);
+        
+        boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
+
+        while(unique != true){
+            System.out.println("MatricNum not Unique! Please enter MatricNum: ");
+            matricNum = sc.next();
+            studentObj.setMatricNum(matricNum);
         }
 
-        if (unique == true) {
-            System.out.println("Please enter Password: ");
-            String password = sc.next();
-
-            System.out.println("Please enter First Name: ");
-            String firstname = sc.next();
-            System.out.println("Please enter Last Name: ");
-            String lastname = sc.next();
-            System.out.println("Please enter Gender: ");
-            String gender = sc.next();
-            System.out.println("Please enter Nationality: ");
-            String nationality = sc.next();
-            System.out.println("Please enter Username: ");
-            String username = sc.next();
-            int numAUs = 0;
-            long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
-            long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
-
-            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, numAUs,
-                    password, accessStartDateTime, accessEndDateTime);
-        }
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        studentList.add(studentObj);
+        databaseManager.SerializeStudentList(studentList);
     }
-
 }
