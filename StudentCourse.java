@@ -1,11 +1,11 @@
-public class RegisteredCourse {
+public class StudentCourse {
     private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
     private static int AUawarded;
     private Cindex index;
 
-    public registeredCourse(String courseCode, String courseName, String courseDescription, Cindex index) {
+    public StudentCourse(String courseCode, String courseName, String courseDescription, Cindex index) {
         CourseCode = courseCode;
         CourseName = courseName;
         CourseDescription = courseDescription;
