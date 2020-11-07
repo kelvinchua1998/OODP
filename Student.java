@@ -31,8 +31,8 @@ public class Student implements Serializable {
 	// nationality, String matricNum, int numAU, String pwd)
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private ArrayList<Course> registeredCourse;
-	private ArrayList<Course> waitlist;
+	private ArrayList<RegisteredCourse> registeredCourse;
+	private ArrayList<RegisteredCourse> waitlist;
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
@@ -238,7 +238,21 @@ public class Student implements Serializable {
 			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
 					registercourses.get(i).getCourseName());
 		}
+	}
 
+	public boolean checkClash(Cindex index){
+		//return true if clash
+		// false if no clash
+
+		for(int i =0; i < index.getSchedule().size();i++){
+			Lesson singleLesson = index.getSchedule().get(i);
+
+			// check index start time less then end time in students schedule
+			for (int cindexstud=0;cindexstud<this.getRegisteredCourse().size();cindexstud++){
+				//for each cindex in student schedule
+				Cindex singleIndex =
+			}
+		}
 	}
 
 	public static void main(String[] args) {
