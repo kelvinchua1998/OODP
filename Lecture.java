@@ -69,7 +69,7 @@ public class Lecture extends Lesson implements Serializable{
        Lecture lectureObj4 = new Lecture("d","1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "Lt1","tuesday");
        Lecture lectureObj5 = new Lecture("e","1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "Lt1","tuesday");
  
-       List<Lecture> lecturetList = new ArrayList<Lecture>();
+       ArrayList<Lecture> lecturetList = new ArrayList<Lecture>();
        lecturetList.add(lectureObj1);
        lecturetList.add(lectureObj2);
        lecturetList.add(lectureObj3);

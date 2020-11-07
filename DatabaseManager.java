@@ -9,7 +9,7 @@ public class DatabaseManager {
 
    String FILEPATH = "database\\";
 
-   public void SerializeCourseList(List<Course> courseList) {
+   public void SerializeCourseList(ArrayList<Course> courseList) {
       FileOutputStream fileOut;
       ObjectOutputStream out;
       try {
@@ -25,12 +25,12 @@ public class DatabaseManager {
 
    }
 
-   public List<Course> DeserializeCourseList() {
+   public ArrayList<Course> DeserializeCourseList() {
       try {
-         List<Course> courseList2;
+        ArrayList<Course> courseList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "course.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         courseList2 = (List<Course>) in.readObject();
+         courseList2 = (ArrayList<Course>) in.readObject();
          in.close();
          fileIn.close();
          return courseList2;
@@ -42,7 +42,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeCindexList(List<Cindex> cindexList) {
+   public void SerializeCindexList(ArrayList<Cindex> cindexList) {
       FileOutputStream fileOut;
       ObjectOutputStream out;
       try {
@@ -58,12 +58,12 @@ public class DatabaseManager {
 
    }
 
-   public List<Cindex> DeserializeCindexList() {
+   public ArrayList<Cindex> DeserializeCindexList() {
       try {
-         List<Cindex> cindexList2;
+        ArrayList<Cindex> cindexList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "cindex.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         cindexList2 = (List<Cindex>) in.readObject();
+         cindexList2 = (ArrayList<Cindex>) in.readObject();
          in.close();
          fileIn.close();
          return cindexList2;
@@ -75,7 +75,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeAdminList(List<Admin> adminList) {
+   public void SerializeAdminList(ArrayList<Admin> adminList) {
       try {
          FileOutputStream fileOut = new FileOutputStream(FILEPATH + "admin.ser");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -88,12 +88,12 @@ public class DatabaseManager {
       }
    }
 
-   public List<Admin> DeserializeAdminList() {
+   public ArrayList<Admin> DeserializeAdminList() {
       try {
-         List<Admin> adminList2;
+        ArrayList<Admin> adminList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "admin.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         adminList2 = (List<Admin>) in.readObject();
+         adminList2 = (ArrayList<Admin>) in.readObject();
          in.close();
          fileIn.close();
          return adminList2;
@@ -105,7 +105,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeLabsList(List<Labs> labsList) {
+   public void SerializeLabsList(ArrayList<Labs> labsList) {
       FileOutputStream fileOut;
       ObjectOutputStream out;
       try {
@@ -120,12 +120,12 @@ public class DatabaseManager {
       }
    }
 
-   public List<Labs> DeserializeLabsList() {
+   public ArrayList<Labs> DeserializeLabsList() {
       try {
-         List<Labs> labsList2;
+        ArrayList<Labs> labsList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "labs.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         labsList2 = (List<Labs>) in.readObject();
+         labsList2 = (ArrayList<Labs>) in.readObject();
          in.close();
          fileIn.close();
          return labsList2;
@@ -137,7 +137,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeLectureList(List<Lecture> lectureList) {
+   public void SerializeLectureList(ArrayList<Lecture> lectureList) {
       FileOutputStream fileOut;
       ObjectOutputStream out;
       try {
@@ -152,12 +152,12 @@ public class DatabaseManager {
       }
    }
 
-   public List<Lecture> DeserializeLectureList() {
+   public ArrayList<Lecture> DeserializeLectureList() {
       try {
-         List<Lecture> lectureList2;
+        ArrayList<Lecture> lectureList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "lecture.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         lectureList2 = (List<Lecture>) in.readObject();
+         lectureList2 = (ArrayList<Lecture>) in.readObject();
          in.close();
          fileIn.close();
          return lectureList2;
@@ -169,7 +169,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeStudentList(List<Student> studentList) {
+   public void SerializeStudentList(ArrayList<Student> studentList) {
       try {
          FileOutputStream fileOut = new FileOutputStream(FILEPATH + "student.ser");
          ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -182,12 +182,12 @@ public class DatabaseManager {
       }
    }
 
-   public List<Student> DeserializeStudentList() {
+   public ArrayList<Student> DeserializeStudentList() {
       try {
-         List<Student> studentsList2;
+        ArrayList<Student> studentsList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "student.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         studentsList2 = (List<Student>) in.readObject();
+         studentsList2 = (ArrayList<Student>) in.readObject();
          in.close();
          fileIn.close();
          return studentsList2;
@@ -199,7 +199,7 @@ public class DatabaseManager {
       return null;
    }
 
-   public void SerializeTutorialList(List<Tutorial> tutorialList) {
+   public void SerializeTutorialList(ArrayList<Tutorial> tutorialList) {
       FileOutputStream fileOut;
       ObjectOutputStream out;
       try {
@@ -214,12 +214,12 @@ public class DatabaseManager {
       }
    }
 
-   public List<Tutorial> DeserializeTutorialList() {
+   public ArrayList<Tutorial> DeserializeTutorialList() {
       try {
-         List<Tutorial> tutorialList2;
+        ArrayList<Tutorial> tutorialList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "tutorial.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
-         tutorialList2 = (List<Tutorial>) in.readObject();
+         tutorialList2 = (ArrayList<Tutorial>) in.readObject();
          in.close();
          fileIn.close();
          return tutorialList2;

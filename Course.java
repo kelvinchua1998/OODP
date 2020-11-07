@@ -109,7 +109,7 @@ public class Course implements Serializable {
         Course course4 = new Course("CE1007", "Data Structures", "description");
         Course course5 = new Course("CE1105", "Digital Logic", "description");
 
-        List<Course> courseList = new ArrayList<Course>();
+        ArrayList<Course> courseList = new ArrayList<Course>();
         courseList.add(course1);
         courseList.add(course2);
         courseList.add(course3);

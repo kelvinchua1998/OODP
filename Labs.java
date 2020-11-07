@@ -76,7 +76,7 @@ public class Labs extends Lesson implements Serializable{
     Labs LabsObj4 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
     Labs LabsObj5 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
 
-    List<Labs> LabsList = new ArrayList<Labs>();
+    ArrayList<Labs> LabsList = new ArrayList<Labs>();
     LabsList.add(LabsObj1);
     LabsList.add(LabsObj2);
     LabsList.add(LabsObj3);

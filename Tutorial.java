@@ -66,7 +66,7 @@ public class Tutorial extends Lesson implements Serializable{
     Tutorial tutorialObj4 = new Tutorial("d", "1", Time.valueOf("11:00:00"),Time.valueOf("11:00:00"), "Lt1", "Monday");
     Tutorial tutorialObj5 = new Tutorial("e", "1", Time.valueOf("11:00:00"),Time.valueOf("11:00:00"), "Lt1", "Monday");
 
-    List<Tutorial> tutorialList = new ArrayList<Tutorial>();
+    ArrayList<Tutorial> tutorialList = new ArrayList<Tutorial>();
     tutorialList.add(tutorialObj1);
     tutorialList.add(tutorialObj2);
     tutorialList.add(tutorialObj3);

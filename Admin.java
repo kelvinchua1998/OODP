@@ -66,7 +66,7 @@ public class Admin implements Serializable{
     Admin adminObj4 = new Admin("asdfg", "password");
     Admin adminObj5 = new Admin("zxcvc", "password");
 
-    List<Admin> adminList = new ArrayList<Admin>();
+    ArrayList<Admin> adminList = new ArrayList<Admin>();
     adminList.add(adminObj);
     adminList.add(adminObj2);
     adminList.add(adminObj3);
