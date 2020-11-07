@@ -124,90 +124,90 @@ public class Cindex {
 
     }
 
-    public Cindex addNewIndex(String index, int capacity) throws ParseException {
-        Cindex CindexObj = new Cindex(index, capacity);
+    // public Cindex addNewIndex(String index, int capacity) throws ParseException {
+    //     Cindex CindexObj = new Cindex(index, capacity);
 
-        System.out.println("Add new lesson: ");
-        System.out.println("0.Stop adding lesson ");
-        System.out.println("1.Add new Lecture ");
-        System.out.println("2.Add new Tutorial ");
-        System.out.println("3.Add new Lab ");
+    //     System.out.println("Add new lesson: ");
+    //     System.out.println("0.Stop adding lesson ");
+    //     System.out.println("1.Add new Lecture ");
+    //     System.out.println("2.Add new Tutorial ");
+    //     System.out.println("3.Add new Lab ");
 
-        Scanner sc = new Scanner(System.in);
+    //     Scanner sc = new Scanner(System.in);
 
-        DateFormat timeformat = new SimpleDateFormat("HHmm");
-        int choice = -1;
+    //     DateFormat timeformat = new SimpleDateFormat("HHmm");
+    //     int choice = -1;
 
-        while (choice != 0) {
-            choice = sc.nextInt();
-            switch (choice) {
-                case 0:
-                    break;
-                case 1:
-                    System.out.println("Start Time: ");
-                    String startTimeLect = sc.next();
-                    Date startTimeParsedLect = timeformat.parse(startTimeLect);
+    //     while (choice != 0) {
+    //         choice = sc.nextInt();
+    //         switch (choice) {
+    //             case 0:
+    //                 break;
+    //             case 1:
+    //                 System.out.println("Start Time: ");
+    //                 String startTimeLect = sc.next();
+    //                 Date startTimeParsedLect = timeformat.parse(startTimeLect);
 
-                    System.out.println("End Time: ");
-                    String endTimeLect = sc.next();
-                    Date endTimeParsedLect = timeformat.parse(endTimeLect);
+    //                 System.out.println("End Time: ");
+    //                 String endTimeLect = sc.next();
+    //                 Date endTimeParsedLect = timeformat.parse(endTimeLect);
 
-                    System.out.println("Venue: ");
-                    String venueLect = sc.next();
+    //                 System.out.println("Venue: ");
+    //                 String venueLect = sc.next();
 
-                    System.out.println("Day Of Week: ");
-                    String dayOfweekLect = sc.next();
+    //                 System.out.println("Day Of Week: ");
+    //                 String dayOfweekLect = sc.next();
 
-                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect, dayOfweekLect);
+    //                 Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect, dayOfweekLect);
 
-                    CindexObj.schedule.add(lecture);
-                    break;
-                case 2:
-                    System.out.println("Start Time: ");
-                    String startTimeTut = sc.next();
-                    Date startTimeParsedTut = timeformat.parse(startTimeTut);
+    //                 CindexObj.schedule.add(lecture);
+    //                 break;
+    //             case 2:
+    //                 System.out.println("Start Time: ");
+    //                 String startTimeTut = sc.next();
+    //                 Date startTimeParsedTut = timeformat.parse(startTimeTut);
 
-                    System.out.println("End Time: ");
-                    String endTimeTut = sc.next();
-                    Date endTimeParsedTut = timeformat.parse(endTimeTut);
+    //                 System.out.println("End Time: ");
+    //                 String endTimeTut = sc.next();
+    //                 Date endTimeParsedTut = timeformat.parse(endTimeTut);
 
-                    System.out.println("Venue: ");
-                    String venueTut = sc.next();
+    //                 System.out.println("Venue: ");
+    //                 String venueTut = sc.next();
 
-                    System.out.println("Day Of Week: ");
-                    String dayOfweekTut = sc.next();
+    //                 System.out.println("Day Of Week: ");
+    //                 String dayOfweekTut = sc.next();
 
-                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, dayOfweekTut);
+    //                 Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, dayOfweekTut);
 
-                    CindexObj.schedule.add(tutorial);
-                    break;
-                case 3:
-                    System.out.println("Start Time: ");
-                    String startTimeLab = sc.next();
-                    Date startTimeParsedLab = timeformat.parse(startTimeLab);
+    //                 CindexObj.schedule.add(tutorial);
+    //                 break;
+    //             case 3:
+    //                 System.out.println("Start Time: ");
+    //                 String startTimeLab = sc.next();
+    //                 Date startTimeParsedLab = timeformat.parse(startTimeLab);
 
-                    System.out.println("End Time: ");
-                    String endTimeLab = sc.next();
-                    Date endTimeParsedLab = timeformat.parse(endTimeLab);
+    //                 System.out.println("End Time: ");
+    //                 String endTimeLab = sc.next();
+    //                 Date endTimeParsedLab = timeformat.parse(endTimeLab);
 
-                    System.out.println("Venue: ");
-                    String venueLab = sc.next();
+    //                 System.out.println("Venue: ");
+    //                 String venueLab = sc.next();
 
-                    System.out.println("Day Of Week: ");
-                    String dayOfweekLab = sc.next();
+    //                 System.out.println("Day Of Week: ");
+    //                 String dayOfweekLab = sc.next();
 
-                    System.out.println("Odd or Even: ");
-                    String oddOrEvenLab = sc.next();
+    //                 System.out.println("Odd or Even: ");
+    //                 String oddOrEvenLab = sc.next();
 
-                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab, oddOrEvenLab);
+    //                 Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab, oddOrEvenLab);
 
-                    CindexObj.schedule.add(lab);
-                    break;
-            }
-        }
+    //                 CindexObj.schedule.add(lab);
+    //                 break;
+    //         }
+    //     }
 
-        return CindexObj;
-    }
+    //     return CindexObj;
+    // }
 
     public static void main(String[] args) {
         // mock data from ce1105
