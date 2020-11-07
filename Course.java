@@ -102,34 +102,34 @@ public class Course implements Serializable {
         return null;
     }
 
-    public void addNewCourse(String CourseCode, String CourseName, String CourseDescription, int AU){
-        ArrayList<Student> studentList = new ArrayList<Student>();
-        ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
+    // public void addNewCourse(String CourseCode, String CourseName, String CourseDescription, int AU){
+    //     ArrayList<Student> studentList = new ArrayList<Student>();
+    //     ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
 
-        Course courseObj = new Course(CourseCode,CourseName,CourseDescription,AU,studentList,CindexList);
+    //     Course courseObj = new Course(CourseCode,CourseName,CourseDescription,AU,studentList,CindexList);
 
-        System.out.println("Add new index: ");
-        System.out.println("0.Quit");
-        System.out.println("1.Add new index");
-        Scanner sc = new Scanner(System.in);
-        int choice = -1;
+    //     System.out.println("Add new index: ");
+    //     System.out.println("0.Quit");
+    //     System.out.println("1.Add new index");
+    //     Scanner sc = new Scanner(System.in);
+    //     int choice = -1;
         
-        while(choice != 0){
-            choice = sc.nextInt();
-            switch(choice){
-                case 0:
-                    break;
-                case 1:
-                    addNewCindex();
-            }
-        }
+    //     while(choice != 0){
+    //         choice = sc.nextInt();
+    //         switch(choice){
+    //             case 0:
+    //                 break;
+    //             case 1:
+    //                 addNewCindex();
+    //         }
+    //     }
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
-        courseList.add(courseObj);
-        databaseManager.SerializeCourseList(courseList);
-        System.out.println("Course added");
-    }
+    //     DatabaseManager databaseManager = new DatabaseManager();
+    //     ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+    //     courseList.add(courseObj);
+    //     databaseManager.SerializeCourseList(courseList);
+    //     System.out.println("Course added");
+    // }
 
     public static void main(String[] args) {
         // mock data
