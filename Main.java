@@ -65,6 +65,7 @@ public class Main {
                         break;
                     }
                     case 4: {
+                        //checked can
                         checkVacancy();
                         break;
                     }
@@ -162,10 +163,18 @@ public class Main {
     cindex = sc.next();
 
     studentList = Cindex.getStudentList(coursecode, cindex);
-    System.out.printf("student in %s\n",coursecode);
-    for (int i=0 ; i < studentList.size();i ++){
+    if (studentList != null){
+        System.out.printf("student in %s\n",coursecode);
+
+        for (int i=0 ; i < studentList.size();i ++){
         System.out.printf("%d. %s %s",i,studentList.get(i).getFirstName(),studentList.get(i).getLastName());
+        }
+        
+    }else{
+        System.out.println("course index not found! please try again!");
     }
+    }
+    
     }
 
     private static void printStudentListByCourse() {
@@ -224,7 +233,7 @@ private static void addCourse( String matricNum){
         return;
     //else if(coursecode == Course.   //error checking
     // print list of indexes adn vacancies in the course
-    
+
     String coursedescription = Course.getCourseDescription(coursecode);
     System.out.println(coursedescription);
 
