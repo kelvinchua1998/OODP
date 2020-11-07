@@ -1,8 +1,14 @@
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
+
 public class DatabaseManager {
 
-    Const FILEPATH= "database\\";
+   String FILEPATH= "database\\";
 
-    
     private void SerializeCourseList(List<Course> courseList){
         FileOutputStream fileOut ;
         ObjectOutputStream out;
