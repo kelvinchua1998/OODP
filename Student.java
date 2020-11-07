@@ -198,7 +198,7 @@ public class Student implements Serializable {
 		databaseManager.SerializeStudentList(StudentList);
 	}
 
-	public static boolean verifyUniqueMatricNum(String matricNum) {
+	public boolean verifyUniqueMatricNum(String matricNum) {
 		DatabaseManager databaseManager = new DatabaseManager();
 		List<Student> StudentList = databaseManager.DeserializeStudentList();
 
@@ -321,5 +321,9 @@ public class Student implements Serializable {
 			System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getAccessStartTime() + ", "
 					+ ListItr.next().getAccessEndTime());
 		}
+	}
+
+	public void setMatricNum(String matricNum) {
+		this.matricNum = matricNum;
 	}
 }
