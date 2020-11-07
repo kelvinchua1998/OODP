@@ -59,35 +59,6 @@ public class Admin implements Serializable{
 		return null;
 	}
 
-   public static void SerializeAdminList(List<Admin> adminList) {
-      try {
-         FileOutputStream fileOut = new FileOutputStream("admin.ser");
-         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-         out.writeObject(adminList);
-         out.close();
-         fileOut.close();
-         System.out.printf("Serialized data is saved\n");
-      } catch (IOException i) {
-         i.printStackTrace();
-      }
-   }
-   
-   public static List<Admin> DeserializeAdminList() {
-      try {
-         List<Admin> adminList2;
-         FileInputStream fileIn = new FileInputStream("admin.ser");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         adminList2 = (List<Admin>) in.readObject();
-         in.close();
-         fileIn.close();
-         return adminList2;
-      } catch (IOException i) {
-         i.printStackTrace();
-      } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-      }
-      return null;
-   }
    public static void main(String[] args) {
     Admin adminObj = new Admin("limjingda", "password");
     Admin adminObj2 = new Admin("kelvinchua", "password");

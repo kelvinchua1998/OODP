@@ -57,37 +57,6 @@ public class Tutorial extends Lesson implements Serializable{
         this.dayOfWeek = dayOfWeek;
     }
 
-    private static void SerializeTutorialList(List<Tutorial> tutorialList) {
-        FileOutputStream fileOut ;
-        ObjectOutputStream out;
-      try {
-         fileOut = new FileOutputStream("tutorial.ser");
-        out = new ObjectOutputStream(fileOut);
-         out.writeObject(tutorialList);
-         out.close();
-         fileOut.close();
-         System.out.printf("Serialized data is saved\n");
-      } catch (IOException i) {
-         i.printStackTrace();
-      }
-   }
-
-   private static List<Tutorial> DeserializeTutorialList() {
-       try{
-         List<Tutorial> tutorialList2;
-         FileInputStream fileIn = new FileInputStream("tutorial.ser");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         tutorialList2 = (List<Tutorial>) in.readObject();
-         in.close();
-         fileIn.close();
-         return tutorialList2;
-      } catch (IOException i) {
-         i.printStackTrace();
-      } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-      }
-      return null;
-   }
    public static void main(String[] args) {
        
 

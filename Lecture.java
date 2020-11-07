@@ -58,37 +58,6 @@ public class Lecture extends Lesson implements Serializable{
     }
     
     
-    private static void SerializeLectureList(List<Lecture> lectureList) {
-        FileOutputStream fileOut ;
-        ObjectOutputStream out;
-      try {
-        fileOut = new FileOutputStream("lecture.ser");
-        out = new ObjectOutputStream(fileOut);
-        out.writeObject(lectureList);
-        out.close();
-        fileOut.close();
-        System.out.printf("Serialized data is saved\n");
-      } catch (IOException i) {
-        i.printStackTrace();
-      }
-   }
-
-   private static List<Lecture> DeserializeLectureList() {
-       try{
-        List<Lecture> lectureList2;
-        FileInputStream fileIn = new FileInputStream("lecture.ser");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        lectureList2 = (List<Lecture>) in.readObject();
-        in.close();
-        fileIn.close();
-         return lectureList2;
-      } catch (IOException i) {
-        i.printStackTrace();
-      } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-      }
-      return null;
-   }
 
    public static void main(String[] args) {
        //serialise mock data

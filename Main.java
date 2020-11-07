@@ -13,8 +13,8 @@ public class Main {
 
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
-        String matricNum ;
-        String pw ;
+        String matricNum =null;
+        String pw =null;
         while (!verified) {
             System.out.println("Are You Signing in as:");
             System.out.println("1.Admin");
@@ -230,9 +230,9 @@ private static void addCourse( String matricNum){
         
         System.out.println("Unable to add because of timetable clash!");
     }
-    else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
-        System.out.println("Not enough AUs");
-    }
+    // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
+    //     System.out.println("Not enough AUs");
+    // }
     else if(vacancy != -1){
         //add course stuff
         Student.minusAU();// minus amt of au of student left
@@ -295,6 +295,8 @@ private static void addCourse( String matricNum){
 
 
 private static void dropCourse(String matricNum) {
+    //have to show the student reg courses
+    // remove the student from the courses registered students
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
     System.out.println("Please enter coursecode: ");
@@ -370,3 +372,4 @@ private static void AddStudent(){
 }
 
 
+}

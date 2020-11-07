@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.sql.Time;
 
-public class Lesson implements Serializable{
+public abstract class Lesson implements Serializable {
     
     String Cindex;
     String Course;
@@ -28,6 +28,8 @@ public class Lesson implements Serializable{
         Course = course;
     }
 
+    public abstract Time getStartTime();
     
+    public abstract Time getEndTime();
     
 }

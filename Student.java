@@ -162,35 +162,6 @@ public class Student implements Serializable {
 		}
 	}
 
-	public static void SerializeStudentList(List<Student> studentList) {
-		try {
-			FileOutputStream fileOut = new FileOutputStream(path + "student.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(studentList);
-			out.close();
-			fileOut.close();
-			System.out.printf("Serialized data is saved\n");
-		} catch (IOException i) {
-			i.printStackTrace();
-		}
-	}
-
-	public static List<Student> DeserializeStudentList() {
-		try {
-			List<Student> studentsList2;
-			FileInputStream fileIn = new FileInputStream(path + "student.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			studentsList2 = (List<Student>) in.readObject();
-			in.close();
-			fileIn.close();
-			return studentsList2;
-		} catch (IOException i) {
-			i.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 
 	public static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
@@ -251,6 +222,8 @@ public class Student implements Serializable {
 
 		SerializeStudentList(StudentList);
 	}
+
+
 
 	public static void main(String[] args) {
 		// Creating a set of mock Data

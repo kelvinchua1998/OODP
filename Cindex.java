@@ -72,38 +72,6 @@ public class Cindex extends Course implements Serializable{
         this.schedule = schedule;
     }
 
-    private static void SerializeCindexList(List<Cindex> cindexList){
-        FileOutputStream fileOut ;
-        ObjectOutputStream out;
-        try {
-            fileOut = new FileOutputStream("cindex.ser");
-            out = new ObjectOutputStream(fileOut);
-            out.writeObject(cindexList);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved\n");
-          } catch (IOException i) {
-            i.printStackTrace();
-          }
-    
-    }
-    
-    private static List<Cindex> DeserializeCindexList() {
-        try{
-         List<Cindex> cindexList2;
-         FileInputStream fileIn = new FileInputStream("cindex.ser");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         cindexList2 = (List<Cindex>) in.readObject();
-         in.close();
-         fileIn.close();
-          return cindexList2;
-       } catch (IOException i) {
-         i.printStackTrace();
-       } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-       }
-       return null;
-    }
     
     public static void main(String[] args) {
         //mock data from ce1105

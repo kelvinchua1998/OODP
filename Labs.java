@@ -66,37 +66,6 @@ public class Labs extends Lesson implements Serializable{
         this.oddOrEven = oddOrEven;
     }
 
-    private static void SerializeLabsList(List<Labs> labsList) {
-        FileOutputStream fileOut ;
-        ObjectOutputStream out;
-      try {
-         fileOut = new FileOutputStream("labs.ser");
-        out = new ObjectOutputStream(fileOut);
-         out.writeObject(labsList);
-         out.close();
-         fileOut.close();
-         System.out.printf("Serialized data is saved\n");
-      } catch (IOException i) {
-         i.printStackTrace();
-      }
-   }
-
-   private static List<Labs> DeserializeLabsList() { 
-       try{
-         List<Labs> labsList2;
-         FileInputStream fileIn = new FileInputStream("labs.ser");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         labsList2 = (List<Labs>) in.readObject();
-         in.close();
-         fileIn.close();
-         return labsList2;
-      } catch (IOException i) {
-         i.printStackTrace();
-      } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-      }
-      return null;
-   }
 
    public static void main(String[] args) {
        

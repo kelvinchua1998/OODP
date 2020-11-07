@@ -69,38 +69,6 @@ public class Course implements Serializable{
         ListCindex = listCindex;
     }
 
-    private static void SerializeCourseList(List<Course> courseList){
-        FileOutputStream fileOut ;
-        ObjectOutputStream out;
-        try {
-            fileOut = new FileOutputStream("course.ser");
-            out = new ObjectOutputStream(fileOut);
-            out.writeObject(courseList);
-            out.close();
-            fileOut.close();
-            System.out.printf("Serialized data is saved\n");
-          } catch (IOException i) {
-            i.printStackTrace();
-          }
-    
-    }
-    
-    private static List<Course> DeserializeCourseList() {
-        try{
-         List<Course> courseList2;
-         FileInputStream fileIn = new FileInputStream("course.ser");
-         ObjectInputStream in = new ObjectInputStream(fileIn);
-         courseList2 = (List<Course>) in.readObject();
-         in.close();
-         fileIn.close();
-          return courseList2;
-       } catch (IOException i) {
-         i.printStackTrace();
-       } catch (ClassNotFoundException e) {
-         e.printStackTrace();
-       }
-       return null;
-    }
     
     public static void main(String[] args) {
         //mock data
