@@ -41,52 +41,50 @@ public class Main {
         }
         switch (AdminorStudent) {
             case 1:
-                while (runnning) {
-                    System.out.println("Welcome Admin!");
-                    System.out.println("Select your option(1-6)");
-                    System.out.println("1. Edit student access period");
-                    System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
-                    System.out.println("3. Add/Update a course (course code, school, its index numbers and vacancy).");
-                    System.out.println("4. Check available slot for an index number (vacancy in a class)");
-                    System.out.println("5. Print student list by index number.");
-                    System.out.println(
-                            "6. Print student list by course (a2ll students registered for the selected course).");
-                    System.out.println("[ print only student’s name, gender and nationality ]");
-                    System.out.println("7. Logout");
-
-                    int choice = sc.nextInt();
-                    switch (choice) {
-                        case 1: {
-                            EditStudentAccessPeriod();
-                            break;
-                        }
-                        case 2: {
-                            AddStudent();
-                            break;
-                        }
-                        case 3: {
-                            adminAddCourse();
-                            break;
-                        }
-                        case 4: {
-                            checkVacancy();
-                            break;
-                        }
-                        case 5: {
-                            printStudentListByCIndex();
-                            break;
-                        }
-                        case 6: {
-                            break;
-                        }
-                        case 7: {
-                            runnning = false;
-                            break;
-                        }
-                        default: {
-
-                        }
-
+            while (runnning) {
+                System.out.println("Welcome Admin!");
+                System.out.println("Select your option(1-6)");
+                System.out.println("1. Edit student access period");
+                System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
+                System.out.println("3. Add/Update a course (course code, school, its index numbers and vacancy).");
+                System.out.println("4. Check available slot for an index number (vacancy in a class)");
+                System.out.println("5. Print student list by index number.");
+                System.out.println("6. Print student list by course (a2ll students registered for the selected course).");
+                System.out.println("[ print only student’s name, gender and nationality ]");
+                System.out.println("7. Logout");
+    
+                int choice = sc.nextInt();
+                switch (choice) {
+                    case 1: {
+                        EditStudentAccessPeriod();
+                        break;
+                    }
+                    case 2: {
+                        AddStudent();
+                        break;
+                    }
+                    case 3: {
+                        adminAddCourse();
+                        break;
+                    }
+                    case 4: {
+                        //checked can
+                        checkVacancy();
+                        break;
+                    }
+                    case 5: {
+                        printStudentListByCIndex();
+                        break;
+                    }
+                    case 6: {
+                        break;
+                    }
+                    case 7: {
+                        runnning = false;
+                        break;
+                    }
+                    default: {
+    
                     }
 
                 }
@@ -324,11 +322,19 @@ public class Main {
         System.out.println("Please enter index: ");
         cindex = sc.next();
 
-        studentList = Cindex.getStudentList(coursecode, cindex);
-        System.out.printf("student in %s\n", coursecode);
-        for (int i = 0; i < studentList.size(); i++) {
-            System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+    studentList = Cindex.getStudentList(coursecode, cindex);
+    if (studentList != null){
+        System.out.printf("student in %s\n",coursecode);
+
+        for (int i=0 ; i < studentList.size();i ++){
+        System.out.printf("%d. %s %s",i,studentList.get(i).getFirstName(),studentList.get(i).getLastName());
         }
+        
+    }else{
+        System.out.println("course index not found! please try again!");
+    }
+    }
+    
     }
 
     private static void printStudentListByCourse() {
@@ -387,7 +393,7 @@ private static void addCourse( String matricNum){
         return;
     //else if(coursecode == Course.   //error checking
     // print list of indexes adn vacancies in the course
-    
+
     String coursedescription = Course.getCourseDescription(coursecode);
     System.out.println(coursedescription);
 
