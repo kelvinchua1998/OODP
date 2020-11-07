@@ -143,14 +143,15 @@ public class Student implements Serializable {
 	}
 
 	public static void removeCourseMain(String matricNum, String CourseCode){
-		
-		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+		DatabaseManager databaseManager = new DatabaseManager();
+
+		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
 		
 		int index = getIndexbyMatricNum(matricNum, studentList);
 
 		studentList.get(index).removeCourse(CourseCode);
 
-		SerializeStudentList(studentList);
+		databaseManager.SerializeStudentList(studentList);
 	}
 
 	private void removeCourse(String CourseCode){
@@ -181,11 +182,10 @@ public class Student implements Serializable {
 		return -1;
 	}
 
-	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
-			Calendar newAccessEndDateTime) {
+	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime, Calendar newAccessEndDateTime) {
+		DatabaseManager databaseManager = new DatabaseManager();
 		
-		
-		List<Student> StudentList = DeserializeStudentList();
+		List<Student> StudentList = databaseManager.DeserializeStudentList();
 		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
 		int index = getIndexbyMatricNum(matricNum, StudentList);
 
@@ -196,11 +196,12 @@ public class Student implements Serializable {
 
 		StudentList.set(index, StudentObj);
 
-		SerializeStudentList(StudentList);
+		databaseManager.SerializeStudentList(StudentList);
 	}
 
 	public static boolean verifyUniqueMatricNum(String matricNum){
-		List<Student> StudentList = DeserializeStudentList();
+		DatabaseManager databaseManager = new DatabaseManager();
+		List<Student> StudentList = databaseManager.DeserializeStudentList();
 
 		for(int i =0; i < StudentList.size();i++){
 			if(StudentList.get(i).getMatricNum() == matricNum){
@@ -210,9 +211,10 @@ public class Student implements Serializable {
 		return true;
 	}
 
-	public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
-		List<Student> StudentList = DeserializeStudentList();
+	public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+		DatabaseManager databaseManager = new DatabaseManager();
+
+		List<Student> StudentList = databaseManager.DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
 		long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
@@ -220,10 +222,23 @@ public class Student implements Serializable {
 				AccessStartTimeInms, AccessEndTimeInms);
 		StudentList.add(newStudent);
 
-		SerializeStudentList(StudentList);
+		databaseManager.SerializeStudentList(StudentList);
 	}
 
+	public static void printCourseMain(String matricNum) {
+		DatabaseManager databaseManager = new DatabaseManager();
+		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
+		
+		int index = getIndexbyMatricNum(matricNum, studentList);
 
+		ArrayList <Course> registercourses = (ArrayList<Course>) studentList.get(index).getRegisteredCourse();
+
+		System.out.println("registered Courses: ");
+		for(int i =0 ; i< registercourses.size();i++){
+			System.out.printf("%d. %s %s",i,registercourses.get(i).getCourseCode(),registercourses.get(i).getCourseName());
+		}
+
+	}
 
 	public static void main(String[] args) {
 		// Creating a set of mock Data
@@ -254,10 +269,10 @@ public class Student implements Serializable {
 		// studentObj.gender = "Male";
 		// studentObj.nationality = "Singapore";
 		// studentObj.password = "password";
-
-		SerializeStudentList(studentList);
+		DatabaseManager databaseManager = new DatabaseManager();
+		databaseManager.SerializeStudentList(studentList);
 		studentList = null;
-		studentList = DeserializeStudentList();
+		studentList = databaseManager.DeserializeStudentList();
 
 		// using the student functions
 
@@ -292,20 +307,4 @@ public class Student implements Serializable {
 			System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getAccessStartTime() + ", " + ListItr.next().getAccessEndTime());
 		}
 	}
-
-	public static void printCourseMain(String matricNum) {
-		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
-		
-		int index = getIndexbyMatricNum(matricNum, studentList);
-
-		ArrayList <Course> registercourses = (ArrayList<Course>) studentList.get(index).getRegisteredCourse();
-
-		System.out.println("registered Courses: ");
-		for(int i =0 ; i< registercourses.size();i++){
-			System.out.printf("%d. %s %s",i,registercourses.get(i).getCourseCode(),registercourses.get(i).getCourseName());
-		}
-
-	}
-
-	
 }
