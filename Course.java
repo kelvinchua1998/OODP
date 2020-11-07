@@ -1,5 +1,4 @@
 
-
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,16 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class Course implements Serializable{
-    private String CourseCode;         // changed int to string cuz eg. CE2001
+public class Course implements Serializable {
+    private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
     private static int AUawarded;
-    private ArrayList<Cindex> ListCindex;
-    private ArrayList<Student> registeredStudents;
+    private List<Cindex> ListCindex;
+    private List<Student> registeredStudents;
 
-    public Course(String cc, String cn, String d, int AU, 
-                    ArrayList<Student> registeredStudents) {
+    public Course(String cc, String cn, String d, int AU, List<Student> registeredStudents) {
         CourseCode = cc;
         CourseName = cn;
         CourseDescription = d;
@@ -53,80 +51,81 @@ public class Course implements Serializable{
         CourseDescription = courseDescription;
     }
 
-    public void setAU(int au){
+    public void setAU(int au) {
         AUawarded = au;
     }
 
-    public static int getAU(){
+    public static int getAU() {
         return AUawarded;
     }
 
-    public Cindex[] getListCindex() {
+    public List<Cindex> getListCindex() {
         return ListCindex;
     }
 
-    public void setListCindex(Cindex[] listCindex) {
+    public void setListCindex(List<Cindex> listCindex) {
         ListCindex = listCindex;
     }
 
-    
-    public static void main(String[] args) {
-        //mock data
-        
-        Course course1 = new Course("CE2001", "Algorithms", "description");
-        Course course2 = new Course("CE2005", "Operating Systems", "description");
-        Course course3 = new Course("CE2006", "Software Engineering", "description");
-        Course course4 = new Course("CE1007", "Data Structures", "description");
-        Course course5 = new Course("CE1105", "Digital Logic", "description");
-    
-        List<Course> courseList = new ArrayList<Course>();
-        courseList.add(course1);
-        courseList.add(course2);
-        courseList.add(course3);
-        courseList.add(course4);
-        courseList.add(course5);
-    
-        SerializeCourseList(courseList);
-        courseList = null;
-        courseList = DeserializeCourseList();
-    
-        ListIterator<Course> ListItr = courseList.listIterator();
-        while (ListItr.hasNext()) {
-           System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().CourseDescription);
-        }
-    
+    public static String getCourseDescription(String courseCode) {
+        Course singleCourse = searchSingleCourse(courseCode);
+        return singleCourse.getCourseDescription();
     }
 
-    private static Course searchSingleCourse(String courseCode){
-        List<Course> courseList= null;
+    public List<Student> getRegisteredStudents() {
+        return registeredStudents;
+    }
 
-        courseList = DeserializeCourseList();
+    public void setRegisteredStudents(List<Student> registeredStudents) {
+        this.registeredStudents = registeredStudents;
+    }
+
+    public static List<Student> getStudentList(String coursecode) {
+        Course singleIndex = searchSingleCourse(coursecode);
+
+        return singleIndex.getRegisteredStudents();
+    }
+
+    private static Course searchSingleCourse(String courseCode) {
+        List<Course> courseList = null;
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        courseList = databaseManager.DeserializeCourseList();
 
         for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseCode().equals(courseCode) )
+            if (courseList.get(i).getCourseCode().equals(courseCode))
                 return courseList.get(i);
         }
 
         return null;
     }
 
-    public static String getCourseDescription( String courseCode) {
-        Course singleCourse = searchSingleCourse(courseCode);
-        return singleCourse.getCourseDescription();
+    public static void main(String[] args) {
+        // mock data
+
+        Course course1 = new Course("CE2001", "Algorithms", "description");
+        Course course2 = new Course("CE2005", "Operating Systems", "description");
+        Course course3 = new Course("CE2006", "Software Engineering", "description");
+        Course course4 = new Course("CE1007", "Data Structures", "description");
+        Course course5 = new Course("CE1105", "Digital Logic", "description");
+
+        List<Course> courseList = new ArrayList<Course>();
+        courseList.add(course1);
+        courseList.add(course2);
+        courseList.add(course3);
+        courseList.add(course4);
+        courseList.add(course5);
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.SerializeCourseList(courseList);
+        courseList = null;
+        courseList = databaseManager.DeserializeCourseList();
+
+        ListIterator<Course> ListItr = courseList.listIterator();
+        while (ListItr.hasNext()) {
+            System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().CourseDescription);
+        }
+
     }
 
-    public ArrayList<Student> getRegisteredStudents() {
-        return registeredStudents;
-    }
-
-    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
-        this.registeredStudents = registeredStudents;
-    }
-
-    public static ArrayList<Student> getStudentList(String coursecode){
-        Course singleIndex = searchSingleCourse(coursecode);
-
-        return singleIndex.getRegisteredStudents();
-    }
 }
-
