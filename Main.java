@@ -88,6 +88,7 @@ public class Main {
                     }
 
                 }
+            }
 
             case 2:
                 while (runnning) {
@@ -337,6 +338,9 @@ public class Main {
     
     }
 
+    private static void adminAddCourse() {
+    }
+
     private static void printStudentListByCourse() {
         String coursecode;
         ArrayList<Student> studentList = null;
@@ -349,6 +353,7 @@ public class Main {
             return;
 
         studentList = Course.getStudentList(coursecode);
+
         System.out.printf("student in %s\n", coursecode);
         for (int i = 0; i < studentList.size(); i++) {
             System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());

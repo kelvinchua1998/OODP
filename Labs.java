@@ -67,33 +67,33 @@ public class Labs extends Lesson implements Serializable{
     }
 
 
-   public static void main(String[] args) {
+//    public static void main(String[] args) {
        
 
-    Labs LabsObj1 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj2 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj3 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj4 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj5 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+//     Labs LabsObj1 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+//     Labs LabsObj2 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+//     Labs LabsObj3 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+//     Labs LabsObj4 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+//     Labs LabsObj5 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
 
-    ArrayList<Labs> LabsList = new ArrayList<Labs>();
-    LabsList.add(LabsObj1);
-    LabsList.add(LabsObj2);
-    LabsList.add(LabsObj3);
-    LabsList.add(LabsObj4);
-    LabsList.add(LabsObj5);
+//     ArrayList<Labs> LabsList = new ArrayList<Labs>();
+//     LabsList.add(LabsObj1);
+//     LabsList.add(LabsObj2);
+//     LabsList.add(LabsObj3);
+//     LabsList.add(LabsObj4);
+//     LabsList.add(LabsObj5);
 
     
-   SerializeLabsList(LabsList);
-   LabsList = null;
-   LabsList = DeserializeLabsList();
+//    SerializeLabsList(LabsList);
+//    LabsList = null;
+//    LabsList = DeserializeLabsList();
 
-   ListIterator<Labs> ListItr = LabsList.listIterator();
-   while (ListItr.hasNext()) {
-      System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getStartTime().toString());
-   }
+//    ListIterator<Labs> ListItr = LabsList.listIterator();
+//    while (ListItr.hasNext()) {
+//       System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getStartTime().toString());
+//    }
 
-   }
+//    }
 
    
 }

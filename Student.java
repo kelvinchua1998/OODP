@@ -12,7 +12,7 @@ import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Student implements Serializable {
-	static final String path = "C:\\Users\\User\\Desktop\\CZ2002 OODP java\\";
+	// static final String FILEPATH = "database\\";
 
 	private static final long serialVersionUID = 1L;
 

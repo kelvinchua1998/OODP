@@ -17,7 +17,7 @@ public class Course implements Serializable {
     private String CourseName;
     private String CourseDescription;
     private int AU;
-    private ArrayList<Cindex> ListCindex;
+    private ArrayList<Cindex> listCindex;
     private ArrayList<Student> registeredStudents;
 
     public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents, ArrayList<Cindex> ListCindex) {
@@ -62,11 +62,11 @@ public class Course implements Serializable {
     }
 
     public ArrayList<Cindex> getListCindex() {
-        return ListCindex;
+        return listCindex;
     }
 
-    public void setListCindex(ArrayList<Cindex> listCindex) {
-        ListCindex = listCindex;
+    public void setListCindex(ArrayList<Cindex> Cindex) {
+        listCindex = Cindex;
     }
 
     public String getCourseDescription(String courseCode) {
@@ -130,33 +130,5 @@ public class Course implements Serializable {
     //     databaseManager.SerializeCourseList(courseList);
     //     System.out.println("Course added");
     // }
-
-    public static void main(String[] args) {
-        // mock data
-
-        Course course1 = new Course("CE2001", "Algorithms", "description");
-        Course course2 = new Course("CE2005", "Operating Systems", "description");
-        Course course3 = new Course("CE2006", "Software Engineering", "description");
-        Course course4 = new Course("CE1007", "Data Structures", "description");
-        Course course5 = new Course("CE1105", "Digital Logic", "description");
-
-        ArrayList<Course> courseList = new ArrayList<Course>();
-        courseList.add(course1);
-        courseList.add(course2);
-        courseList.add(course3);
-        courseList.add(course4);
-        courseList.add(course5);
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.SerializeCourseList(courseList);
-        courseList = null;
-        courseList = databaseManager.DeserializeCourseList();
-
-        ListIterator<Course> ListItr = courseList.listIterator();
-        while (ListItr.hasNext()) {
-            System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().CourseDescription);
-        }
-
-    }
 
 }

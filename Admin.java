@@ -73,10 +73,11 @@ public class Admin implements Serializable{
     adminList.add(adminObj4);
     adminList.add(adminObj5);
 
+    DatabaseManager databaseManager = new DatabaseManager();
+    databaseManager.SerializeAdminList(adminList);
 
-    SerializeAdminList(adminList);
     adminList = null;
-    adminList = DeserializeAdminList();
+    adminList = databaseManager.DeserializeAdminList();
 
     ListIterator<Admin> ListItr = adminList.listIterator();
     while (ListItr.hasNext()) {
