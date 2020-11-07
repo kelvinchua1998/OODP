@@ -6,19 +6,18 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Labs extends Lesson implements Serializable{
     
-    private Time startTime;
-    private Time endTime;
+    private Date startTime;
+    private Date endTime;
     private String venue;
     private String dayOfWeek;
     private String oddOrEven;
 
-    public Labs(String course, String cindex, Time startTime, Time endTime, String venue, String dayOfWeek,
-    String oddOrEven) {
-    super(course, cindex);
+    public Labs(Date startTime, Date endTime, String venue, String dayOfWeek, String oddOrEven) {
     this.startTime = startTime;
     this.endTime = endTime;
     this.venue = venue;
@@ -26,19 +25,20 @@ public class Labs extends Lesson implements Serializable{
     this.oddOrEven = oddOrEven;
     }
    
-    public Time getStartTime() {
+
+	public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
@@ -70,11 +70,11 @@ public class Labs extends Lesson implements Serializable{
    public static void main(String[] args) {
        
 
-    Labs LabsObj1 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj2 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj3 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj4 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
-    Labs LabsObj5 = new Labs("a", "1", Time.valueOf("11:00:00"), Time.valueOf("11:00:00"), "lt1", "monday","odd");
+    Labs LabsObj1 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+    Labs LabsObj2 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+    Labs LabsObj3 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+    Labs LabsObj4 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
+    Labs LabsObj5 = new Labs("a", "1", Date.valueOf("11:00:00"), Date.valueOf("11:00:00"), "lt1", "monday","odd");
 
     ArrayList<Labs> LabsList = new ArrayList<Labs>();
     LabsList.add(LabsObj1);

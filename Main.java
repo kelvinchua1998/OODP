@@ -61,6 +61,7 @@ public class Main {
                         break;
                     }
                     case 3: {
+                        adminAddCourse();
                         break;
                     }
                     case 4: {
@@ -135,6 +136,13 @@ public class Main {
 
         }
 
+    }
+
+    private static void adminAddCourse() {
+        //ask course details
+        Course newCourse = new Course();
+
+        //ask wan
     }
 
     private static void printStudentListByCIndex() {

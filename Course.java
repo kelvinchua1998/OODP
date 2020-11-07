@@ -10,22 +10,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Scanner;
 
 public class Course implements Serializable {
     private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
-    private static int AUawarded;
+    private int AU;
     private ArrayList<Cindex> ListCindex;
     private ArrayList<Student> registeredStudents;
 
-    public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents) {
-        CourseCode = cc;
-        CourseName = cn;
-        CourseDescription = d;
-        AUawarded = AU;
+    public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents, ArrayList<Cindex> ListCindex) {
+        this.CourseCode = cc;
+        this.CourseName = cn;
+        this.CourseDescription = d;
+        this.AU = AU;
         this.registeredStudents = registeredStudents;
     }
+
 
     public String getCourseCode() {
         return CourseCode;
@@ -52,11 +54,11 @@ public class Course implements Serializable {
     }
 
     public void setAU(int au) {
-        AUawarded = au;
+        this.AU = au;
     }
 
-    public static int getAU() {
-        return AUawarded;
+    public int getAU() {
+        return this.AU;
     }
 
     public ArrayList<Cindex> getListCindex() {
@@ -67,7 +69,7 @@ public class Course implements Serializable {
         ListCindex = listCindex;
     }
 
-    public static String getCourseDescription(String courseCode) {
+    public String getCourseDescription(String courseCode) {
         Course singleCourse = searchSingleCourse(courseCode);
         return singleCourse.getCourseDescription();
     }
@@ -80,13 +82,13 @@ public class Course implements Serializable {
         this.registeredStudents = registeredStudents;
     }
 
-    public static ArrayList<Student> getStudentList(String coursecode) {
+    public ArrayList<Student> getStudentList(String coursecode) {
         Course singleIndex = searchSingleCourse(coursecode);
 
         return singleIndex.getRegisteredStudents();
     }
 
-    private static Course searchSingleCourse(String courseCode) {
+    private Course searchSingleCourse(String courseCode) {
         ArrayList<Course> courseList = null;
 
         DatabaseManager databaseManager = new DatabaseManager();
@@ -98,6 +100,35 @@ public class Course implements Serializable {
         }
 
         return null;
+    }
+
+    public void addNewCourse(String CourseCode, String CourseName, String CourseDescription, int AU){
+        ArrayList<Student> studentList = new ArrayList<Student>();
+        ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
+
+        Course courseObj = new Course(CourseCode,CourseName,CourseDescription,AU,studentList,CindexList);
+
+        System.out.println("Add new index: ");
+        System.out.println("0.Quit");
+        System.out.println("1.Add new index");
+        Scanner sc = new Scanner(System.in);
+        int choice = -1;
+        
+        while(choice != 0){
+            choice = sc.nextInt();
+            switch(choice){
+                case 0:
+                    break;
+                case 1:
+                    addNewCindex();
+            }
+        }
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+        courseList.add(courseObj);
+        databaseManager.SerializeCourseList(courseList);
+        System.out.println("Course added");
     }
 
     public static void main(String[] args) {

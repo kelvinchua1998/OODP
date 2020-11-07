@@ -7,37 +7,37 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.time.MonthDay;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
 public class Lecture extends Lesson implements Serializable{
     
-    private Time startTime;
-    private Time endTime;
+    private Date startTime;
+    private Date endTime;
     private String venue;
     private String dayOfweek;
 
-    public Lecture(String course, String cindex, Time startTime, Time endTime, String venue, String dayOfweek) {
-        super(course,cindex);
+    public Lecture(Date startTime, Date endTime, String venue, String dayOfweek) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.venue = venue;
         this.dayOfweek = dayOfweek;
     }
     
-    public Time getStartTime() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 
