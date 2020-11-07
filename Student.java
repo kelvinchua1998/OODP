@@ -31,8 +31,8 @@ public class Student implements Serializable {
 	// nationality, String matricNum, int numAU, String pwd)
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private List<Course> registeredCourse;
-	private List<Course> waitlist;
+	private ArrayList<Course> registeredCourse;
+	private ArrayList<Course> waitlist;
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
@@ -125,19 +125,19 @@ public class Student implements Serializable {
 		listCourse.add(cindex);
 	}
 
-	public List<Course> getRegisteredCourse() {
+	public ArrayList<Course> getRegisteredCourse() {
 		return registeredCourse;
 	}
 
-	public void setRegisteredCourse(List<Course> registeredCourse) {
+	public void setRegisteredCourse(ArrayList<Course> registeredCourse) {
 		this.registeredCourse = registeredCourse;
 	}
 
-	public List<Course> getWaitlist() {
+	public ArrayList<Course> getWaitlist() {
 		return waitlist;
 	}
 
-	public void setWaitlist(List<Course> waitlist) {
+	public void setWaitlist(ArrayList<Course> waitlist) {
 		this.waitlist = waitlist;
 	}
 
@@ -162,7 +162,7 @@ public class Student implements Serializable {
 		}
 	}
 
-	public static Student getStudentbyMatricNum(String matricNum, List<Student> StudentList) {
+	public static Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return StudentList.get(i);
@@ -171,7 +171,7 @@ public class Student implements Serializable {
 		return null;
 	}
 
-	private static int getIndexbyMatricNum(String matricNum, List<Student> StudentList) {
+	private static int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return i;
@@ -214,7 +214,7 @@ public class Student implements Serializable {
 			String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
 		DatabaseManager databaseManager = new DatabaseManager();
 
-		List<Student> StudentList = databaseManager.DeserializeStudentList();
+		ArrayList<Student> StudentList = databaseManager.DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
 		long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
@@ -256,7 +256,7 @@ public class Student implements Serializable {
 		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G", "username5", numAU,
 				"password", accessStartDateTime, accessEndDateTime);
 
-		List<Student> studentList = new ArrayList<Student>();
+		ArrayList<Student> studentList = new ArrayList<Student>();
 		studentList.add(studentObj);
 		studentList.add(studentObj2);
 		studentList.add(studentObj3);

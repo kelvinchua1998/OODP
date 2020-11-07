@@ -14,8 +14,9 @@ public class Login {
 
         switch(choice){
             case 1:
-            List<Admin> adminList = new ArrayList<Admin>();
-            adminList = Admin.DeserializeAdminList()
+            ArrayList<Admin> adminList = new ArrayList<Admin>();
+            DatabaseManager databaseManager = new DatabaseManager();
+            adminList = databaseManager.DeserializeAdminList()
 
             Admin adminobj = Admin.getAdminbyUsername(Username, adminList);
 
@@ -29,8 +30,9 @@ public class Login {
             break;
 
             case 2:
-            List<Student> studentList = new ArrayList<Student>();
-            studentList = Student.DeserializeStudentList();
+            ArrayList<Student> studentList = new ArrayList<Student>();
+            DatabaseManager databaseManager = new DatabaseManager();
+            studentList = databaseManager.DeserializeStudentList();
 
             Student studentobj = Student.getStudentbyMatricNum(Username, studentList);
 
