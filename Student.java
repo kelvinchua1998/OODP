@@ -12,9 +12,7 @@ import java.util.ListIterator;
 import java.util.Scanner;
 
 public class Student implements Serializable {
-	// static final String FILEPATH = "database\\";
-
-	private static final long serialVersionUID = 1L;
+private static final long serialVersionUID = 1L;
 
 	private String matricNum;
 	private String gender;
@@ -82,13 +80,13 @@ public class Student implements Serializable {
 		return numAU;
 	}
 
-	public static void minusAU() { // minus after adding course
-		numAU -= Course.getAU();
-	}
+	// public static void minusAU() { // minus after adding course
+	// 	numAU -= Course.getAU();
+	// }
 
-	public static void plusAU() { // plus after dropping course
-		numAU += Course.getAU();
-	}
+	// public static void plusAU() { // plus after dropping course
+	// 	numAU += Course.getAU();
+	// }
 
 	public Boolean verifyPassword(String enPwd) {
 		if (enPwd == password)
@@ -184,7 +182,7 @@ public class Student implements Serializable {
 			Calendar newAccessEndDateTime) {
 		DatabaseManager databaseManager = new DatabaseManager();
 
-		List<Student> StudentList = databaseManager.DeserializeStudentList();
+		ArrayList<Student> StudentList = databaseManager.DeserializeStudentList();
 		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
 		int index = getIndexbyMatricNum(matricNum, StudentList);
 
@@ -231,7 +229,7 @@ public class Student implements Serializable {
 
 		int index = getIndexbyMatricNum(matricNum, studentList);
 
-		ArrayList<Course> registercourses = (ArrayList<Course>) studentList.get(index).getRegisteredCourse();
+		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
 
 		System.out.println("registered Courses: ");
 		for (int i = 0; i < registercourses.size(); i++) {
@@ -250,77 +248,10 @@ public class Student implements Serializable {
 			// check index start time less then end time in students schedule
 			for (int cindexstud=0;cindexstud<this.getRegisteredCourse().size();cindexstud++){
 				//for each cindex in student schedule
-				Cindex singleIndex =
+				Cindex singleIndex ;
 			}
 		}
-	}
-
-	public static void main(String[] args) {
-		// Creating a set of mock Data
-		long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 12, 00).getTimeInMillis();
-		long accessEndDateTime = new GregorianCalendar(2020, 01, 30, 12, 00).getTimeInMillis();
-		Student studentObj = new Student("Melvin", "Chua", "Male", "Singapore", "U1234567G", "username1", numAU,
-				"password", accessStartDateTime, accessEndDateTime);
-		Student studentObj2 = new Student("Kelvin", "Chua", "Male", "Singapore", "U1231413Y", "username2", numAU,
-				"password", accessStartDateTime, accessEndDateTime);
-		Student studentObj3 = new Student("qwerty", "Bates", "Female", "Malaysian", "U1231414A", "username3", numAU,
-				"password", accessStartDateTime, accessEndDateTime);
-		Student studentObj4 = new Student("asdfg", "Yip", "Male", "Singapore", "U1231234G", "username4", numAU,
-				"password", accessStartDateTime, accessEndDateTime);
-		Student studentObj5 = new Student("zxcvc", "Ang", "Female", "Singapore", "U4321567G", "username5", numAU,
-				"password", accessStartDateTime, accessEndDateTime);
-
-		ArrayList<Student> studentList = new ArrayList<Student>();
-		studentList.add(studentObj);
-		studentList.add(studentObj2);
-		studentList.add(studentObj3);
-		studentList.add(studentObj4);
-		studentList.add(studentObj5);
-
-		// studentObj.firstName = "Melvin";
-		// studentObj.lastName = "Chua";
-		// studentObj.matricNum = "U1234567G";
-		// studentObj.gender = "Male";
-		// studentObj.nationality = "Singapore";
-		// studentObj.password = "password";
-		DatabaseManager databaseManager = new DatabaseManager();
-		databaseManager.SerializeStudentList(studentList);
-		studentList = null;
-		studentList = databaseManager.DeserializeStudentList();
-
-		// using the student functions
-
-		Scanner sc = new Scanner(System.in);
-		int year;
-		int month;
-		int day;
-		int hour;
-		int minute;
-		System.out.println("AccessStartDateTime: ");
-		year = sc.nextInt();
-		month = sc.nextInt();
-		day = sc.nextInt();
-		hour = sc.nextInt();
-		minute = sc.nextInt();
-
-		Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
-
-		System.out.println("AccessEndDateTime: ");
-		year = sc.nextInt();
-		month = sc.nextInt();
-		day = sc.nextInt();
-		hour = sc.nextInt();
-		minute = sc.nextInt();
-
-		Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
-
-		EditStudentAccessPeriod("U1234567G", accessStartTime, accessEndTime);
-
-		ListIterator<Student> ListItr = studentList.listIterator();
-		while (ListItr.hasNext()) {
-			System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getAccessStartTime() + ", "
-					+ ListItr.next().getAccessEndTime());
-		}
+		return false;
 	}
 
 	public void setMatricNum(String matricNum) {

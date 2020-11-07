@@ -11,12 +11,12 @@ public class Login {
 
     public boolean verifyUser(String Username,String Password, int choice){
         boolean verified=false;
+        DatabaseManager databaseManager = new DatabaseManager();
 
         switch(choice){
-            case 1:
-            ArrayList<Admin> adminList = new ArrayList<Admin>();
-            DatabaseManager databaseManager = new DatabaseManager();
-            adminList = databaseManager.DeserializeAdminList()
+            case 1:{
+                 ArrayList<Admin> adminList = new ArrayList<Admin>();
+            adminList = databaseManager.DeserializeAdminList();
 
             Admin adminobj = Admin.getAdminbyUsername(Username, adminList);
 
@@ -28,10 +28,11 @@ public class Login {
                 System.out.println("Admin not found. please register as a Admin first!");
             }
             break;
+            }
+           
 
-            case 2:
-            ArrayList<Student> studentList = new ArrayList<Student>();
-            DatabaseManager databaseManager = new DatabaseManager();
+            case 2:{
+                ArrayList<Student> studentList = new ArrayList<Student>();
             studentList = databaseManager.DeserializeStudentList();
 
             Student studentobj = Student.getStudentbyMatricNum(Username, studentList);
@@ -45,6 +46,12 @@ public class Login {
             }
 
             break;
+            }
+
+
+            default: {
+                // print invalid choice
+            }
         }
         
         return verified;

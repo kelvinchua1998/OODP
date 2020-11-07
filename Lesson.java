@@ -1,35 +1,11 @@
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.Date;
 
-public abstract class Lesson {
+public abstract class Lesson implements Serializable {
+
+    public abstract Date getStartTime();
     
-    // String Cindex;
-    // String Course;
-
-
-    // public Lesson(String course, String cindex) {
-    //     Cindex = cindex;
-    //     Course = course;
-    // }
-
-    // public String getCindex() {
-    //     return Cindex;
-    // }
-
-    // public void setCindex(String cindex) {
-    //     Cindex = cindex;
-    // }
-
-    // public String getCourse() {
-    //     return Course;
-    // }
-
-    // public void setCourse(String course) {
-    //     Course = course;
-    // }
-
-    public abstract Time getStartTime();
-    
-    public abstract Time getEndTime();
+    public abstract Date getEndTime();
     
 }

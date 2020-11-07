@@ -59,31 +59,6 @@ public class Admin implements Serializable{
 		return null;
 	}
 
-   public static void main(String[] args) {
-    Admin adminObj = new Admin("limjingda", "password");
-    Admin adminObj2 = new Admin("kelvinchua", "password");
-    Admin adminObj3 = new Admin("qwerty", "password");
-    Admin adminObj4 = new Admin("asdfg", "password");
-    Admin adminObj5 = new Admin("zxcvc", "password");
-
-    ArrayList<Admin> adminList = new ArrayList<Admin>();
-    adminList.add(adminObj);
-    adminList.add(adminObj2);
-    adminList.add(adminObj3);
-    adminList.add(adminObj4);
-    adminList.add(adminObj5);
-
-    DatabaseManager databaseManager = new DatabaseManager();
-    databaseManager.SerializeAdminList(adminList);
-
-    adminList = null;
-    adminList = databaseManager.DeserializeAdminList();
-
-    ListIterator<Admin> ListItr = adminList.listIterator();
-    while (ListItr.hasNext()) {
-       System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getUserName());
-    }
-   }
 
    
 }

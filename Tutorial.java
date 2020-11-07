@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,35 +55,6 @@ public class Tutorial extends Lesson implements Serializable{
     public void setDayOfWeek(String dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
-
-   public static void main(String[] args) {
-       
-
-    Tutorial tutorialObj1 = new Tutorial("a", "1", Date.valueOf("11:00:00"),Date.valueOf("11:00:00"), "Lt1", "Monday");
-    Tutorial tutorialObj2 = new Tutorial("b", "1", Date.valueOf("11:00:00"),Date.valueOf("11:00:00"), "Lt1", "Monday");
-    Tutorial tutorialObj3 = new Tutorial("c", "1", Date.valueOf("11:00:00"),Date.valueOf("11:00:00"), "Lt1", "Monday");
-    Tutorial tutorialObj4 = new Tutorial("d", "1", Date.valueOf("11:00:00"),Date.valueOf("11:00:00"), "Lt1", "Monday");
-    Tutorial tutorialObj5 = new Tutorial("e", "1", Date.valueOf("11:00:00"),Date.valueOf("11:00:00"), "Lt1", "Monday");
-
-    ArrayList<Tutorial> tutorialList = new ArrayList<Tutorial>();
-    tutorialList.add(tutorialObj1);
-    tutorialList.add(tutorialObj2);
-    tutorialList.add(tutorialObj3);
-    tutorialList.add(tutorialObj4);
-    tutorialList.add(tutorialObj5);
-
-    
-   SerializeTutorialList(tutorialList);
-   tutorialList = null;
-   tutorialList = DeserializeTutorialList();
-
-   ListIterator<Tutorial> ListItr = tutorialList.listIterator();
-   while (ListItr.hasNext()) {
-      System.out.println("index:" + ListItr.nextIndex() + " value:" + ListItr.next().getStartTime().toString());
-   }
-
-   }
-
 
     
 

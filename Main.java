@@ -1,5 +1,4 @@
 import java.util.Calendar;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -203,7 +202,7 @@ public class Main {
                                 try {
                                     startTimeParsedLect = timeformat.parse(startTimeLect);
                                 } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
+                                   
                                     e.printStackTrace();
                                 }
 
@@ -213,7 +212,7 @@ public class Main {
                                 try {
                                     endTimeParsedLect = timeformat.parse(endTimeLect);
                                 } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
+                                    
                                     e.printStackTrace();
                                 }
 
@@ -336,7 +335,7 @@ public class Main {
     }
     }
     
-    }
+    
 
     private static void adminAddCourse() {
     }

@@ -19,7 +19,7 @@ public class DatabaseManager {
          out.writeObject(courseList);
          out.close();
          fileOut.close();
-         System.out.printf("Serialized data is saved\n");
+         System.out.println("Serialized data is saved");
       } catch (IOException i) {
          i.printStackTrace();
       }
@@ -50,8 +50,8 @@ public class DatabaseManager {
          out.writeObject(adminList);
          out.close();
          fileOut.close();
-         System.out.printf("Serialized data is saved\n");
-      } catch (IOException i) {
+         System.out.println("Serialized data is saved");
+          } catch (IOException i) {
          i.printStackTrace();
       }
    }
@@ -81,7 +81,7 @@ public class DatabaseManager {
          out.writeObject(studentList);
          out.close();
          fileOut.close();
-         System.out.printf("Serialized data is saved\n");
+         System.out.println("Serialized data is saved");
       } catch (IOException i) {
          i.printStackTrace();
       }

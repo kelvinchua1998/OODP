@@ -1,11 +1,13 @@
-public class StudentCourse {
+import java.io.Serializable;
+
+public class StudentCourse implements Serializable{
     private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
-    private static int AUawarded;
+    private int AU;
     private Cindex index;
 
-    public StudentCourse(String courseCode, String courseName, String courseDescription, Cindex index) {
+    public StudentCourse(String courseCode, String courseName, String courseDescription, Cindex index)  {
         CourseCode = courseCode;
         CourseName = courseName;
         CourseDescription = courseDescription;
@@ -36,12 +38,12 @@ public class StudentCourse {
         CourseDescription = courseDescription;
     }
 
-    public static int getAUawarded() {
-        return AUawarded;
+    public int getAUawarded() {
+        return AU;
     }
 
-    public static void setAUawarded(int aUawarded) {
-        AUawarded = aUawarded;
+    public void setAUawarded(int aUawarded) {
+        this.AU = aUawarded;
     }
 
     public Cindex getIndex() {
