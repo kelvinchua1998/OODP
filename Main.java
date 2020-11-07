@@ -386,6 +386,7 @@ private static void addCourse( String matricNum){
     if (coursecode.equals("#"))
         return;
     //else if(coursecode == Course.   //error checking
+    // print list of indexes adn vacancies in the course
     
     String coursedescription = Course.getCourseDescription(coursecode);
     System.out.println(coursedescription);

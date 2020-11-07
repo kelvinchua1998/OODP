@@ -31,8 +31,8 @@ public class Student implements Serializable {
 	// nationality, String matricNum, int numAU, String pwd)
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
-	private ArrayList<Course> registeredCourse;
-	private ArrayList<Course> waitlist;
+	private ArrayList<StudentCourse> registeredCourse;
+	private ArrayList<StudentCourse> waitlist;
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
 			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
@@ -50,8 +50,8 @@ public class Student implements Serializable {
 		this.AccessEndDateTime = accessEndDateTime;
 		// the course in this array list would ONLY CONTAIN 1 C INDEX
 		// wouldnt make sense to create another class
-		registeredCourse = new ArrayList<Course>();
-		waitlist = new ArrayList<Course>();
+		registeredCourse = new ArrayList<StudentCourse>();
+		waitlist = new ArrayList<StudentCourse>();
 	}
 
 	public String getPassword() {
@@ -121,23 +121,23 @@ public class Student implements Serializable {
 		this.username = username;
 	}
 
-	public void addCourse(Course cindex) {
-		listCourse.add(cindex);
+	public void addCourse(StudentCourse registeredCourse) {
+		this.registeredCourse.add(registeredCourse);
 	}
 
-	public ArrayList<Course> getRegisteredCourse() {
+	public ArrayList<StudentCourse> getRegisteredCourse() {
 		return registeredCourse;
 	}
 
-	public void setRegisteredCourse(ArrayList<Course> registeredCourse) {
+	public void setRegisteredCourse(ArrayList<StudentCourse> registeredCourse) {
 		this.registeredCourse = registeredCourse;
 	}
 
-	public ArrayList<Course> getWaitlist() {
+	public ArrayList<StudentCourse> getWaitlist() {
 		return waitlist;
 	}
 
-	public void setWaitlist(ArrayList<Course> waitlist) {
+	public void setWaitlist(ArrayList<StudentCourse> waitlist) {
 		this.waitlist = waitlist;
 	}
 
@@ -238,7 +238,21 @@ public class Student implements Serializable {
 			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
 					registercourses.get(i).getCourseName());
 		}
+	}
 
+	public boolean checkClash(Cindex index){
+		//return true if clash
+		// false if no clash
+
+		for(int i =0; i < index.getSchedule().size();i++){
+			Lesson singleLesson = index.getSchedule().get(i);
+
+			// check index start time less then end time in students schedule
+			for (int cindexstud=0;cindexstud<this.getRegisteredCourse().size();cindexstud++){
+				//for each cindex in student schedule
+				Cindex singleIndex =
+			}
+		}
 	}
 
 	public static void main(String[] args) {
