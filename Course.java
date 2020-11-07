@@ -16,10 +16,10 @@ public class Course implements Serializable {
     private String CourseName;
     private String CourseDescription;
     private static int AUawarded;
-    private List<Cindex> ListCindex;
-    private List<Student> registeredStudents;
+    private ArrayList<Cindex> ListCindex;
+    private ArrayList<Student> registeredStudents;
 
-    public Course(String cc, String cn, String d, int AU, List<Student> registeredStudents) {
+    public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents) {
         CourseCode = cc;
         CourseName = cn;
         CourseDescription = d;
@@ -59,11 +59,11 @@ public class Course implements Serializable {
         return AUawarded;
     }
 
-    public List<Cindex> getListCindex() {
+    public ArrayList<Cindex> getListCindex() {
         return ListCindex;
     }
 
-    public void setListCindex(List<Cindex> listCindex) {
+    public void setListCindex(ArrayList<Cindex> listCindex) {
         ListCindex = listCindex;
     }
 
@@ -72,22 +72,22 @@ public class Course implements Serializable {
         return singleCourse.getCourseDescription();
     }
 
-    public List<Student> getRegisteredStudents() {
+    public ArrayList<Student> getRegisteredStudents() {
         return registeredStudents;
     }
 
-    public void setRegisteredStudents(List<Student> registeredStudents) {
+    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
         this.registeredStudents = registeredStudents;
     }
 
-    public static List<Student> getStudentList(String coursecode) {
+    public static ArrayList<Student> getStudentList(String coursecode) {
         Course singleIndex = searchSingleCourse(coursecode);
 
         return singleIndex.getRegisteredStudents();
     }
 
     private static Course searchSingleCourse(String courseCode) {
-        List<Course> courseList = null;
+        ArrayList<Course> courseList = null;
 
         DatabaseManager databaseManager = new DatabaseManager();
         courseList = databaseManager.DeserializeCourseList();
@@ -109,7 +109,7 @@ public class Course implements Serializable {
         Course course4 = new Course("CE1007", "Data Structures", "description");
         Course course5 = new Course("CE1105", "Digital Logic", "description");
 
-        List<Course> courseList = new ArrayList<Course>();
+        ArrayList<Course> courseList = new ArrayList<Course>();
         courseList.add(course1);
         courseList.add(course2);
         courseList.add(course3);

@@ -83,10 +83,11 @@ public class Cindex extends Course implements Serializable{
     
         List<Cindex> cindexList = new ArrayList<Cindex>();
         cindexList.add(cindex1);
-    
-        SerializeCindexList(cindexList);
+        
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.SerializeCindexList(cindexList);
         cindexList = null;
-        cindexList = DeserializeCindexList();
+        cindexList = databaseManager.DeserializeCindexList();
     
         ListIterator<Cindex> ListItr = cindexList.listIterator();
         while (ListItr.hasNext()) {
