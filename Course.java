@@ -69,7 +69,7 @@ public class Course implements Serializable {
         listCindex = Cindex;
     }
 
-    public String getCourseDescription(String courseCode) {
+    public static String getCourseDescription(String courseCode) {
         Course singleCourse = searchSingleCourse(courseCode);
         return singleCourse.getCourseDescription();
     }
@@ -82,7 +82,7 @@ public class Course implements Serializable {
         this.registeredStudents = registeredStudents;
     }
 
-    public ArrayList<Student> getStudentList(String coursecode) {
+    public static ArrayList<Student> getStudentList(String coursecode) {
         Course singleIndex = searchSingleCourse(coursecode);
 
         return singleIndex.getRegisteredStudents();

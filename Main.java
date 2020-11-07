@@ -1,4 +1,5 @@
 import java.util.Calendar;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,11 +106,11 @@ public class Main {
                     int choice = sc.nextInt();
                     switch (choice) {
                         case 1: {
-                            addCourse(matricNum);
+                            // addCourse(matricNum);
                             break;
                         }
                         case 2: {
-                            dropCourse(matricNum);
+                            // dropCourse(matricNum);
                             break;
                         }
                         case 3: {
@@ -335,10 +336,6 @@ public class Main {
     }
     }
     
-    
-
-    private static void adminAddCourse() {
-    }
 
     private static void printStudentListByCourse() {
         String coursecode;
@@ -382,50 +379,50 @@ public class Main {
         }
     }
 
-private static void addCourse( String matricNum){
-    //add course
-    //chekc timetable clash
-    // check vacancy of Cindex
-    // if full go waiting list
-    //if have vacancy register for C index
+// private static void addCourse( String matricNum){
+//     //add course
+//     //chekc timetable clash
+//     // check vacancy of Cindex
+//     // if full go waiting list
+//     //if have vacancy register for C index
 
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
-    System.out.println("Please enter coursecode: ");
-    String coursecode = sc.next();
-    if (coursecode.equals("#"))
-        return;
-    //else if(coursecode == Course.   //error checking
-    // print list of indexes adn vacancies in the course
+//     Scanner sc = new Scanner(System.in);
+//     System.out.println("Enter \' # \'to return to main menu ");
+//     System.out.println("Please enter coursecode: ");
+//     String coursecode = sc.next();
+//     if (coursecode.equals("#"))
+//         return;
+//     //else if(coursecode == Course.   //error checking
+//     // print list of indexes adn vacancies in the course
 
-    String coursedescription = Course.getCourseDescription(coursecode);
-    System.out.println(coursedescription);
+//     String coursedescription = Course.getCourseDescription(coursecode);
+//     System.out.println(coursedescription);
 
-    System.out.println("Please enter index: ");
-    String cindex = sc.next();
-    //error checking
+//     System.out.println("Please enter index: ");
+//     String cindex = sc.next();
+//     //error checking
 
-    int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
+//     int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
     
     
-    if(){  //how to check timetable clash?
+//     if(){  //how to check timetable clash?
         
-        System.out.println("Unable to add because of timetable clash!");
-    }
-    // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
-    //     System.out.println("Not enough AUs");
-    // }
-    else if(vacancy != -1){
-        //add course stuff
-        Student.minusAU();// minus amt of au of student left
-        System.out.println("Course added!");
-    }
-    else{
-        System.out.println("Course index full! Adding to waitlist.");
-        //add to waitlist stuff and 2 courses cant clash
-    }
+//         System.out.println("Unable to add because of timetable clash!");
+//     }
+//     // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
+//     //     System.out.println("Not enough AUs");
+//     // }
+//     else if(vacancy != -1){
+//         //add course stuff
+//         Student.minusAU();// minus amt of au of student left
+//         System.out.println("Course added!");
+//     }
+//     else{
+//         System.out.println("Course index full! Adding to waitlist.");
+//         //add to waitlist stuff and 2 courses cant clash
+//     }
 
-}
+// }
 
     private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);
@@ -473,37 +470,37 @@ private static void addCourse( String matricNum){
         System.out.printf("Access time for %s changed!\n", matricNum);
     }
 
-    private static void dropCourse(String matricNum) {
-        // have to show the student reg courses
-        // remove the student from the courses registered students
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
-        System.out.println("Please enter coursecode: ");
-        String coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
-        // else ... error checking
+    // private static void dropCourse(String matricNum) {
+    //     // have to show the student reg courses
+    //     // remove the student from the courses registered students
+    //     Scanner sc = new Scanner(System.in);
+    //     System.out.println("Enter \' # \'to return to main menu ");
+    //     System.out.println("Please enter coursecode: ");
+    //     String coursecode = sc.next();
+    //     if (coursecode.equals("#"))
+    //         return;
+    //     // else ... error checking
 
-        System.out.println("Are you sure?");
-        System.out.println("1-yes 0-no");
-        int choice = sc.nextInt();
+    //     System.out.println("Are you sure?");
+    //     System.out.println("1-yes 0-no");
+    //     int choice = sc.nextInt();
 
-        while (choice != 1 || choice != 0) {
-            if (choice == 1) {
-                // drop course stuff
-                ArrayList<Student> studentList;
+    //     while (choice != 1 || choice != 0) {
+    //         if (choice == 1) {
+    //             // drop course stuff
+    //             ArrayList<Student> studentList;
 
-                Student.removeCourseMain(matricNum, coursecode);
-                Student.plusAU(); // add back amt of au to student
-                System.out.println("Course dropped!");
-            } else if (choice == 0) {
-                return;
-            } else {
-                System.out.println("invalid choice!");
-            }
-        }
+    //             Student.removeCourseMain(matricNum, coursecode);
+    //             Student.plusAU(); // add back amt of au to student
+    //             System.out.println("Course dropped!");
+    //         } else if (choice == 0) {
+    //             return;
+    //         } else {
+    //             System.out.println("invalid choice!");
+    //         }
+    //     }
 
-    }
+    // }
 
     private static void checkPrintCourse(String matricNum) {
         Scanner sc = new Scanner(System.in);
