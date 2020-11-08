@@ -1,15 +1,7 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
 
 public class Student implements Serializable {
 private static final long serialVersionUID = 1L;
@@ -179,7 +171,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
-			Calendar newAccessEndDateTime) {
+		Calendar newAccessEndDateTime) {
 		DatabaseManager databaseManager = new DatabaseManager();
 
 		ArrayList<Student> StudentList = databaseManager.DeserializeStudentList();
@@ -256,5 +248,17 @@ private static final long serialVersionUID = 1L;
 
 	public void setMatricNum(String matricNum) {
 		this.matricNum = matricNum;
+	}
+
+	public static void main(String[] args) {
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "Student","Student", 0, "Student", 0, 0);
+        
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+
+        studentList.add(studentObj);
+
+        databaseManager.SerializeStudentList(studentList);
 	}
 }

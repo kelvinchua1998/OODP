@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class Cindex  implements Serializable{
+public class Cindex implements Serializable{
     private String index;
     private int Capacity;
     private ArrayList<Student> waitList;
@@ -80,45 +80,5 @@ public class Cindex  implements Serializable{
         return this.Capacity - registeredStudents.size();
 
     }
-
-    public static int getVacancyCindex(String coursecode, String index) {
-        Cindex singleIndex = searchCindex(coursecode, index);
-
-        if (singleIndex != null) {
-            return singleIndex.getCurrentVacancy();
-        } else {
-            return -1;
-        }
-    }
-
-    public static ArrayList<Student> getStudentList(String coursecode, String index) {
-        Cindex singleIndex = searchCindex(coursecode, index);
-
-        return singleIndex.getRegisteredStudents();
-    }
-
-    private static Cindex searchCindex(String coursecode, String Cindex) {
-        ArrayList<Course> courseList = new ArrayList<Course>();
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        courseList = databaseManager.DeserializeCourseList();
-
-        for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseCode().equals(coursecode)) {
-                Course courseObj = courseList.get(i);
-                ArrayList<Cindex> CindexObj = courseObj.getListCindex();
-                for (int j = 0; j < CindexObj.size(); j++) {
-                    if (CindexObj.get(j).equals(Cindex)) {
-                        return CindexObj.get(j);
-                    }
-                }
-
-            }
-        }
-
-        return null;
-
-    }
-
 
 }
