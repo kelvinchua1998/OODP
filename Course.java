@@ -1,16 +1,5 @@
-
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-//import java.sql.Time;
-//import java.time.MonthDay;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Scanner;
 
 public class Course implements Serializable {
     private String CourseCode; // changed int to string cuz eg. CE2001
@@ -85,35 +74,12 @@ public class Course implements Serializable {
         return singleIndex.getRegisteredStudents();
     }
 
- 
+    public static void main(String[] args) {
+        ArrayList<Course> courseList = new ArrayList<Course>();
 
-    // public void addNewCourse(String CourseCode, String CourseName, String CourseDescription, int AU){
-    //     ArrayList<Student> studentList = new ArrayList<Student>();
-    //     ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
+        DatabaseManager databaseManager = new DatabaseManager();
 
-    //     Course courseObj = new Course(CourseCode,CourseName,CourseDescription,AU,studentList,CindexList);
-
-    //     System.out.println("Add new index: ");
-    //     System.out.println("0.Quit");
-    //     System.out.println("1.Add new index");
-    //     Scanner sc = new Scanner(System.in);
-    //     int choice = -1;
-        
-    //     while(choice != 0){
-    //         choice = sc.nextInt();
-    //         switch(choice){
-    //             case 0:
-    //                 break;
-    //             case 1:
-    //                 addNewCindex();
-    //         }
-    //     }
-
-    //     DatabaseManager databaseManager = new DatabaseManager();
-    //     ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
-    //     courseList.add(courseObj);
-    //     databaseManager.SerializeCourseList(courseList);
-    //     System.out.println("Course added");
-    // }
+        databaseManager.SerializeCourseList(courseList);
+    }
 
 }

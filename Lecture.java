@@ -1,15 +1,5 @@
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.sql.Time;
-import java.time.MonthDay;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.ListIterator;
 
 public class Lecture extends Lesson implements Serializable{
     
