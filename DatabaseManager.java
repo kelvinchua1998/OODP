@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 public class DatabaseManager {
 
@@ -143,4 +143,110 @@ public class DatabaseManager {
 
       return singleIndex.getRegisteredStudents();
    }
+
+
+   //for print student list by course
+   public Course searchCourse(String coursecode) {
+      ArrayList<Course> courseList = new ArrayList<Course>();
+   
+      DatabaseManager databaseManager = new DatabaseManager();
+      courseList = databaseManager.DeserializeCourseList();
+   
+      for (int i = 0; i < courseList.size(); i++) {
+          if (courseList.get(i).getCourseCode().equals(coursecode)) {
+              Course courseObj = courseList.get(i);
+              return courseObj;
+          }
+      }
+   
+      return null;
+   
+   }
+
+   public ArrayList<Student> getStudentList(String coursecode){
+      Course singleCourse = searchCourse(coursecode);
+
+      return singleCourse.getRegisteredStudents();
+   }
+//=======
+   public void addStudentintoStudentDB(Student studentObj){
+      ArrayList<Student> studentList = DeserializeStudentList();
+      studentList.add(studentObj);
+      SerializeStudentList(studentList);
+   }
+
+   public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
+		Calendar newAccessEndDateTime) {
+
+		ArrayList<Student> StudentList = DeserializeStudentList();
+		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
+		int index = getIndexbyMatricNum(matricNum, StudentList);
+
+		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
+		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
+		StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+		StudentObj.setAccessStartTime(newAccessEndDateTimeInms);
+
+		StudentList.set(index, StudentObj);
+
+		SerializeStudentList(StudentList);
+   }
+   
+   public static Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return StudentList.get(i);
+			}
+		}
+		return null;
+   }
+   
+   private static int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return i;
+			}
+		}
+		return -1;
+   }
+   
+   public void removeCourseMain(String matricNum, String CourseCode) {
+		DatabaseManager databaseManager = new DatabaseManager();
+
+		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
+
+		int index = getIndexbyMatricNum(matricNum, studentList);
+
+      Student studentObj = studentList.get(index);
+      studentObj.removeCourse(CourseCode);
+      
+		databaseManager.SerializeStudentList(studentList);
+   }
+   
+   public void printCourseMain(String matricNum) {
+		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+
+		int index = getIndexbyMatricNum(matricNum, studentList);
+
+		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
+
+		System.out.println("registered Courses: ");
+		for (int i = 0; i < registercourses.size(); i++) {
+			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
+					registercourses.get(i).getCourseName());
+		}
+	}
+   
+   public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+		ArrayList<Student> StudentList = DeserializeStudentList();
+
+		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
+      long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
+      int numAU = 0;
+
+		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
+		StudentList.add(newStudent);
+
+		SerializeStudentList(StudentList);
+	}
 }
