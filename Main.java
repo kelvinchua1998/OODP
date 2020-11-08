@@ -119,6 +119,7 @@ public class Main {
                         break;
                     }
                     case 4: {
+                        //vacancyAvailable
                         break;
                     }
                     case 5: {
@@ -362,6 +363,25 @@ private static void printStudentListByCourse() {
         }
     } else {
         System.out.println("course not found! please try again!");
+    }
+}
+
+private void vacancyAvailable() {
+    Scanner sc = new Scanner(System.in);
+
+    int vacancy;
+    String coursecode;
+    String cindex;
+
+    System.out.println("Please enter coursecode: ");
+    coursecode = sc.next();
+    vacancy = Course.searchSingleCourse.size() - Course.getStudentList(coursecode).size();
+
+    if (vacancy > 0){
+        System.out.printf("Vacancy for course code: %s" + "%d", coursecode, vacancy);
+    }
+    else{
+        System.out.printf("No vacancy for course code");
     }
 }
 
