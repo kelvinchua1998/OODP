@@ -69,10 +69,7 @@ public class Course implements Serializable {
         listCindex = Cindex;
     }
 
-    public String getCourseDescription(String courseCode) {
-        Course singleCourse = searchSingleCourse(courseCode);
-        return singleCourse.getCourseDescription();
-    }
+    
 
     public ArrayList<Student> getRegisteredStudents() {
         return registeredStudents;
@@ -88,19 +85,7 @@ public class Course implements Serializable {
         return singleIndex.getRegisteredStudents();
     }
 
-    private static Course searchSingleCourse(String courseCode) {
-        ArrayList<Course> courseList = null;
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        courseList = databaseManager.DeserializeCourseList();
-
-        for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseCode().equals(courseCode))
-                return courseList.get(i);
-        }
-
-        return null;
-    }
+ 
 
     // public void addNewCourse(String CourseCode, String CourseName, String CourseDescription, int AU){
     //     ArrayList<Student> studentList = new ArrayList<Student>();

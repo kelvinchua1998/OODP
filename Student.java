@@ -246,9 +246,17 @@ private static final long serialVersionUID = 1L;
 			Lesson singleLesson = index.getSchedule().get(i);
 
 			// check index start time less then end time in students schedule
-			for (int cindexstud=0;cindexstud<this.getRegisteredCourse().size();cindexstud++){
+			for (int u=0;u<this.getRegisteredCourse().size();u++){
 				//for each cindex in student schedule
-				Cindex singleIndex ;
+				for (int =0 ; w< getRegisteredCourse().get(u).getIndex().getSchedule().size() ){
+					Lesson singleLessonStudent = getRegisteredCourse().get(u).getIndex().getSchedule().get(w);
+					if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime()) || singleLesson.getEndTime().after(singleLessonStudent.getStartTime())){
+						// clash when the start time of the index lesson is before the student index lesson end time
+						// vice versa
+						return true;
+					}
+				}
+				
 			}
 		}
 		return false;

@@ -106,7 +106,7 @@ public class Main {
                 int choice = sc.nextInt();
                 switch (choice) {
                     case 1: {
-                        // addCourse(matricNum);
+                        addCourse(matricNum);
                         break;
                     }
                     case 2: {
@@ -326,7 +326,7 @@ private static void printStudentListByCIndex() {
     cindex = sc.next();
 
     studentList =databaseManager.getStudentList(coursecode, cindex);
-    
+
     if (studentList != null) {
         System.out.printf("student in %s\n", coursecode);
 
@@ -382,50 +382,76 @@ private static void checkVacancy() {
         }
     }
 
-// private static void addCourse( String matricNum){
-//     //add course
-//     //chekc timetable clash
-//     // check vacancy of Cindex
-//     // if full go waiting list
-//     //if have vacancy register for C index
+private static void addCourse( String matricNum){
+    //add course
+    //chekc timetable clash
+    // check vacancy of Cindex
+    // if full go waiting list
+    //if have vacancy register for C index
 
-//     Scanner sc = new Scanner(System.in);
-//     System.out.println("Enter \' # \'to return to main menu ");
-//     System.out.println("Please enter coursecode: ");
-//     String coursecode = sc.next();
-//     if (coursecode.equals("#"))
-//         return;
-//     //else if(coursecode == Course.   //error checking
-//     // print list of indexes adn vacancies in the course
-
-//     String coursedescription = Course.getCourseDescription(coursecode);
-//     System.out.println(coursedescription);
-
-//     System.out.println("Please enter index: ");
-//     String cindex = sc.next();
-//     //error checking
-
-//     int vacancy = Cindex.getVacancyCindex(coursecode, cindex);//course details should oso show vacancy
+    Scanner sc = new Scanner(System.in);
+    DatabaseManager databaseManager = new DatabaseManager();
+    int choice ;
+    while(choice != 0){
+        System.out.println("Enter 0 to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        String coursecode = sc.next();
     
-    
-//     if(){  //how to check timetable clash?
+        if (coursecode.equals("#"))
+            return;
+
+        Course singleCourse = databaseManager.searchSingleCourse(coursecode);
+        if (singleCourse != null){
+            System.out.println(singleCourse.getCourseDescription());
+
+            // print list of indexes and vacancies in the course 
+            // shud show timetable clash for each index
+            //show index lesson timings
+
+            System.out.printf("%s %s", singleCourse.getCourseCode(),singleCourse.getCourseName());
+            System.out.println("-------------------------------------");
+            System.out.println("index   /   vacacy   /    waitlist");
+            for (int i = 0; i < singleCourse.getListCindex().size();i++){
+                Cindex singleindex = singleCourse.getListCindex().get(i);
+                System.out.printf("%d.  %s  /  %d  /  %d",i+1, singleindex.getIndex(),singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+            }
+            
+        }else{
+            System.out.println("course not found! please enter course code again ");
+            continue;
+        }
         
-//         System.out.println("Unable to add because of timetable clash!");
-//     }
-//     // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
-//     //     System.out.println("Not enough AUs");
-//     // }
-//     else if(vacancy != -1){
-//         //add course stuff
-//         Student.minusAU();// minus amt of au of student left
-//         System.out.println("Course added!");
-//     }
-//     else{
-//         System.out.println("Course index full! Adding to waitlist.");
-//         //add to waitlist stuff and 2 courses cant clash
-//     }
+        System.out.println("Please enter choice: ");
+        System.out.println("Enter \' # \'to go back to main menu");
+        String choiceIndex = sc.next();
+        if (coursecode.equals("#"))
+            return;
+        else{
+            Cindex singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
+            
+        }
+        
+        
+        if(){  //how to check timetable clash?
+            
+            System.out.println("Unable to add because of timetable clash!");
+        }
+        // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
+        //     System.out.println("Not enough AUs");
+        // }
+        else if(vacancy != -1){
+            //add course stuff
+            Student.minusAU();// minus amt of au of student left
+            System.out.println("Course added!");
+        }
+        else{
+            System.out.println("Course index full! Adding to waitlist.");
+            //add to waitlist stuff and 2 courses cant clash
+        }
 
-// }
+    }
+    
+}
 
     private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);

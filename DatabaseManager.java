@@ -143,4 +143,19 @@ public class DatabaseManager {
 
       return singleIndex.getRegisteredStudents();
    }
+
+
+  public Course searchSingleCourse(String courseCode) {
+   ArrayList<Course> courseList = null;
+
+   DatabaseManager databaseManager = new DatabaseManager();
+   courseList = databaseManager.DeserializeCourseList();
+
+   for (int i = 0; i < courseList.size(); i++) {
+       if (courseList.get(i).getCourseCode().equals(courseCode))
+           return courseList.get(i);
+   }
+
+   return null;
+}
 }
