@@ -77,6 +77,7 @@ public class Main {
                         break;
                     }
                     case 6: {
+                        printStudentListByCourse(); 
                         break;
                     }
                     case 7: {
@@ -325,10 +326,10 @@ private static void printStudentListByCIndex() {
     System.out.println("Please enter index: ");
     cindex = sc.next();
 
-    studentList =databaseManager.getStudentList(coursecode, cindex);
+    studentList = databaseManager.getStudentList(coursecode, cindex);
     
     if (studentList != null) {
-        System.out.printf("student in %s\n", coursecode);
+        System.out.printf("student in %s\n", cindex);  //changed coursecode to cindex since printing list by cindex
 
         for (int i = 0; i < studentList.size(); i++) {
             System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
@@ -342,6 +343,7 @@ private static void printStudentListByCIndex() {
 private static void printStudentListByCourse() {
     String coursecode;
     ArrayList<Student> studentList = null;
+    DatabaseManager databaseManager = new DatabaseManager();
 
     Scanner sc = new Scanner(System.in);
     System.out.println("Enter \' # \'to return to main menu ");
@@ -350,11 +352,16 @@ private static void printStudentListByCourse() {
     if (coursecode.equals("#"))
         return;
 
-    studentList = Course.getStudentList(coursecode);
+    studentList = databaseManager.getStudentList(coursecode);
 
-    System.out.printf("student in %s\n", coursecode);
-    for (int i = 0; i < studentList.size(); i++) {
-        System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+    if (studentList != null) {
+        System.out.printf("student in %s\n", coursecode);
+    
+        for (int i = 0; i < studentList.size(); i++) {
+            System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+        }
+    } else {
+        System.out.println("course not found! please try again!");
     }
 }
 
