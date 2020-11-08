@@ -88,7 +88,7 @@ public class Main {
                     }
                 }
 
-            case "student":{
+            case "student": {
                 while (runnning) {
                     System.out.println("Welcome Student Name Matric Number!");
                     System.out.println("Select your option(1-6)");
@@ -136,7 +136,7 @@ public class Main {
 
                 }
             }
-            default:{
+            default: {
 
             }
         }
@@ -153,7 +153,7 @@ public class Main {
         System.out.println("Add new Course ");
         System.out.println("Course Code: ");
         String CourseCode = sc.next();
-        sc.nextLine(); 
+        sc.nextLine();
 
         System.out.println("Course Name: ");
         String CourseName = sc.nextLine();
@@ -185,14 +185,14 @@ public class Main {
 
                     Cindex CindexObj = new Cindex(index, Capacity);
 
-                    System.out.println("Add new lesson: ");
-                    System.out.println("0.Stop adding lesson ");
-                    System.out.println("1.Add new Lecture ");
-                    System.out.println("2.Add new Tutorial ");
-                    System.out.println("3.Add new Lab ");
-
                     ArrayList<Lesson> schedule = new ArrayList<Lesson>();
                     while (choice != 0) {
+                        System.out.println("Add new lesson: ");
+                        System.out.println("0.Stop adding lesson ");
+                        System.out.println("1.Add new Lecture ");
+                        System.out.println("2.Add new Tutorial ");
+                        System.out.println("3.Add new Lab ");
+
                         choice = sc.nextInt();
 
                         switch (choice) {
@@ -311,35 +311,36 @@ public class Main {
         System.out.println("Course added");
     }
 
-private static void printStudentListByCIndex() {
-    String coursecode;
-    String cindex;
-    ArrayList<Student> studentList = null;
-    DatabaseManager databaseManager = new DatabaseManager();
+    private static void printStudentListByCIndex() {
+        String coursecode;
+        String cindex;
+        ArrayList<Student> studentList = null;
+        DatabaseManager databaseManager = new DatabaseManager();
 
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
-    System.out.println("Please enter coursecode: ");
-    coursecode = sc.next();
-    if (coursecode.equals("#"))
-        return;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
 
-    System.out.println("Please enter index: ");
-    cindex = sc.next();
+        System.out.println("Please enter index: ");
+        cindex = sc.next();
 
-    studentList =databaseManager.getStudentList(coursecode, cindex);
+        studentList = databaseManager.getStudentList(coursecode, cindex);
 
-    if (studentList != null) {
-        System.out.printf("student in %s\n", coursecode);
+        if (studentList != null) {
+            System.out.printf("student in %s\n", coursecode);
 
-        for (int i = 0; i < studentList.size(); i++) {
-            System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+            for (int i = 0; i < studentList.size(); i++) {
+                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+            }
+
+        } else {
+            System.out.println("course index not found! please try again!");
         }
-
-    } else {
-        System.out.println("course index not found! please try again!");
     }
-}
+
     private static void printStudentListByCourse() {
         String coursecode;
         ArrayList<Student> studentList = null;
@@ -508,34 +509,34 @@ private static void addCourse( String matricNum){
     }
 
     private static void dropCourse(String matricNum) {
-    // have to show the student reg courses
-    // remove the student from the courses registered students
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
-    System.out.println("Please enter coursecode: ");
-    String coursecode = sc.next();
-    if (coursecode.equals("#"))
-    return;
-    // else ... error checking
+        // have to show the student reg courses
+        // remove the student from the courses registered students
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        String coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
+        // else ... error checking
 
-    System.out.println("Are you sure?");
-    System.out.println("1-yes 0-no");
-    int choice = sc.nextInt();
+        System.out.println("Are you sure?");
+        System.out.println("1-yes 0-no");
+        int choice = sc.nextInt();
 
-    while (choice != 1 || choice != 0) {
-    if (choice == 1) {
-    // drop course stuff
-    ArrayList<Student> studentList;
+        while (choice != 1 || choice != 0) {
+            if (choice == 1) {
+                // drop course stuff
+                ArrayList<Student> studentList;
 
-    Student.removeCourseMain(matricNum, coursecode);
-    Student.plusAU(); // add back amt of au to student
-    System.out.println("Course dropped!");
-    } else if (choice == 0) {
-    return;
-    } else {
-    System.out.println("invalid choice!");
-    }
-    }
+                Student.removeCourseMain(matricNum, coursecode);
+                Student.plusAU(); // add back amt of au to student
+                System.out.println("Course dropped!");
+            } else if (choice == 0) {
+                return;
+            } else {
+                System.out.println("invalid choice!");
+            }
+        }
 
     }
 
@@ -571,8 +572,9 @@ private static void addCourse( String matricNum){
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,numAUs, accessStartDateTime, accessEndDateTime);
-        
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
+                numAUs, accessStartDateTime, accessEndDateTime);
+
         boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
 
         while (unique != true) {
