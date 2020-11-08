@@ -13,7 +13,7 @@ private static final long serialVersionUID = 1L;
 	private String nationality;
 	private String username;
 	private String password;
-	private static int numAU;
+	private int numAU;
 	// Courses listC = new Courses[]; //array size set after students setCourses?
 	// Courses waitlist = new Courses[];
 
@@ -25,13 +25,13 @@ private static final long serialVersionUID = 1L;
 	private ArrayList<StudentCourse> waitlist;
 
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, int numAU, String pwd, long accessStartDateTime, long accessEndDateTime) {
+			String username, String pwd, int numAU ,long accessStartDateTime, long accessEndDateTime) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
-		Student.numAU = numAU;
+		this.numAU = numAU;
 		password = pwd;
 		// all these info get from separate file?
 		this.username = username;
@@ -68,7 +68,7 @@ private static final long serialVersionUID = 1L;
 		return matricNum;
 	}
 
-	public static int getNumAuAvail() {
+	public int getNumAuAvail() {
 		return numAU;
 	}
 
@@ -152,20 +152,7 @@ private static final long serialVersionUID = 1L;
 		return true;
 	}
 
-	public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
-		DatabaseManager databaseManager = new DatabaseManager();
-
-		ArrayList<Student> StudentList = databaseManager.DeserializeStudentList();
-
-		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
-		long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, numAU, password,
-				AccessStartTimeInms, AccessEndTimeInms);
-		StudentList.add(newStudent);
-
-		databaseManager.SerializeStudentList(StudentList);
-	}
+	
 
 	public boolean checkClash(Cindex index){
 		//return true if clash
@@ -188,7 +175,7 @@ private static final long serialVersionUID = 1L;
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "Student","Student", 0, "Student", 0, 0);
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "Student","Student","Student", 0,  0, 0);
         
 
         DatabaseManager databaseManager = new DatabaseManager();
