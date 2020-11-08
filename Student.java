@@ -2,43 +2,35 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student implements Serializable {
-private static final long serialVersionUID = 1L;
+public class Student extends User implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String matricNum;
 	private String gender;
 	private String firstName;
 	private String lastName;
 	private String nationality;
-	private String username;
-	private String password;
 	private int numAU;
-	// Courses listC = new Courses[]; //array size set after students setCourses?
-	// Courses waitlist = new Courses[];
-
-	// public Student(String firstName, String lastName, String gender, String
-	// nationality, String matricNum, int numAU, String pwd)
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum,
-			String username, String pwd, int numAU ,long accessStartDateTime, long accessEndDateTime) {
+	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, int numAU, long accessStartDateTime, long accessEndDateTime) {
+		super(username,password,"student");
+
+		User userObj = new User(username, password, "student");
+		DatabaseManager databaseManager = new DatabaseManager();
+		databaseManager.adduser(userObj);
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
 		this.numAU = numAU;
-		password = pwd;
-		// all these info get from separate file?
-		this.username = username;
-		this.password = pwd;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
-		// the course in this array list would ONLY CONTAIN 1 C INDEX
-		// wouldnt make sense to create another class
 		registeredCourse = new ArrayList<StudentCourse>();
 		waitlist = new ArrayList<StudentCourse>();
 	}
@@ -176,7 +168,6 @@ private static final long serialVersionUID = 1L;
 	public static void main(String[] args) {
 		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "Student","Student","Student", 0,  0, 0);
         
-
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
 

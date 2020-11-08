@@ -1,61 +1,24 @@
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class Login {
-    // username for student is their matric number
-    private String Username;
-    private String Password;
-    // private Date currentDate;
 
-    public boolean verifyUser(String Username,String Password, int choice){
-        boolean verified=false;
+    public String verifyUser(String Username,String Password){
         DatabaseManager databaseManager = new DatabaseManager();
 
-        switch(choice){
-            case 1:{
-                 ArrayList<Admin> adminList = new ArrayList<Admin>();
-            adminList = databaseManager.DeserializeAdminList();
-
-            Admin adminobj = Admin.getAdminbyUsername(Username, adminList);
-
-            if(adminobj != null){
-                if(adminobj.getPassword() == Password){
-                    verified = true;
+        ArrayList<User> UserList = databaseManager.DeserializeUserList();
+        for(int i=0; i < UserList.size(); i++){
+            if(UserList.get(i).username.equals(Username)){
+                if(UserList.get(i).password.equals(Password)){
+                    return UserList.get(i).userType;
+                }else{
+                    System.out.println("Password is wrg");
+                    return null;
                 }
-            }else{
-                System.out.println("Admin not found. please register as a Admin first!");
-            }
-            break;
-            }
-           
-
-            case 2:{
-                ArrayList<Student> studentList = new ArrayList<Student>();
-            studentList = databaseManager.DeserializeStudentList();
-
-            Student studentobj = Student.getStudentbyMatricNum(Username, studentList);
-
-            if(studentobj != null){
-                if(studentobj.getPassword() == Password){
-                    verified = true;
-                }
-            }else{
-                System.out.println("Student not found. please register as Student first!");
-            }
-
-            break;
-            }
-
-
-            default: {
-                // print invalid choice
             }
         }
-        
-        return verified;
-
+        System.out.println("user not found");
+        return null;
     }
 
     public boolean verifyPeriod(Date currentDate){

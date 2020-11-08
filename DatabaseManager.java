@@ -43,6 +43,39 @@ public class DatabaseManager {
       return null;
    }
 
+   public void SerializeUserList(ArrayList<User> UserList) {
+      FileOutputStream fileOut;
+      ObjectOutputStream out;
+      try {
+         fileOut = new FileOutputStream(FILEPATH + "user.ser");
+         out = new ObjectOutputStream(fileOut);
+         out.writeObject(UserList);
+         out.close();
+         fileOut.close();
+         System.out.println("Serialized data is saved");
+      } catch (IOException i) {
+         i.printStackTrace();
+      }
+
+   }
+
+   public ArrayList<User> DeserializeUserList() {
+      try {
+        ArrayList<User> userList;
+         FileInputStream fileIn = new FileInputStream(FILEPATH + "user.ser");
+         ObjectInputStream in = new ObjectInputStream(fileIn);
+         userList = (ArrayList<User>) in.readObject();
+         in.close();
+         fileIn.close();
+         return userList;
+      } catch (IOException i) {
+         i.printStackTrace();
+      } catch (ClassNotFoundException e) {
+         e.printStackTrace();
+      }
+      return null;
+   }
+
    public void SerializeAdminList(ArrayList<Admin> adminList) {
       try {
          FileOutputStream fileOut = new FileOutputStream(FILEPATH + "admin.ser");
@@ -192,7 +225,7 @@ public class DatabaseManager {
 		SerializeStudentList(StudentList);
    }
    
-   public static Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+   public Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return StudentList.get(i);
@@ -201,7 +234,7 @@ public class DatabaseManager {
 		return null;
    }
    
-   private static int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+   private int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
 		for (int i = 0; i < StudentList.size(); i++) {
 			if (StudentList.get(i).getMatricNum() == matricNum) {
 				return i;
@@ -245,8 +278,15 @@ public class DatabaseManager {
       int numAU = 0;
 
 		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
-		StudentList.add(newStudent);
+      StudentList.add(newStudent);
 
-		SerializeStudentList(StudentList);
-	}
+      SerializeStudentList(StudentList);
+
+   }
+   
+   public void adduser(User userObj){
+      ArrayList<User> userList = DeserializeUserList();
+      userList.add(userObj);
+      SerializeUserList(userList);
+   }
 }
