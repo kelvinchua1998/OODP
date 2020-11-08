@@ -145,6 +145,31 @@ public class DatabaseManager {
       return singleIndex.getRegisteredStudents();
    }
 
+
+   //for print student list by course
+   public Course searchCourse(String coursecode) {
+      ArrayList<Course> courseList = new ArrayList<Course>();
+   
+      DatabaseManager databaseManager = new DatabaseManager();
+      courseList = databaseManager.DeserializeCourseList();
+   
+      for (int i = 0; i < courseList.size(); i++) {
+          if (courseList.get(i).getCourseCode().equals(coursecode)) {
+              Course courseObj = courseList.get(i);
+              return courseObj;
+          }
+      }
+   
+      return null;
+   
+   }
+
+   public ArrayList<Student> getStudentList(String coursecode){
+      Course singleCourse = searchCourse(coursecode);
+
+      return singleCourse.getRegisteredStudents();
+   }
+//=======
    public void addStudentintoStudentDB(Student studentObj){
       ArrayList<Student> studentList = DeserializeStudentList();
       studentList.add(studentObj);
