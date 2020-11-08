@@ -296,6 +296,8 @@ public class Main {
 
                                 schedule.add(lab);
                                 break;
+
+                            
                         }
                     }
                     CindexObj.setSchedule(schedule);
@@ -339,7 +341,7 @@ public class Main {
     }else{
         System.out.println("course index not found! please try again!");
     }
-    }
+}
     
 
     private static void printStudentListByCourse() {
