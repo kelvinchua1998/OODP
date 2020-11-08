@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
 
-public class Cindex  implements Serializable{
+public class Cindex implements Serializable{
     private String index;
     private int Capacity;
     private ArrayList<Student> waitList;

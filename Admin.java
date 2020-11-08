@@ -59,6 +59,16 @@ public class Admin implements Serializable{
 		return null;
 	}
 
+    public static void main(String[] args) {
+        Admin adminObj = new Admin("Admin", "Admin");
+        
 
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
+
+        adminList.add(adminObj);
+
+        databaseManager.SerializeAdminList(adminList);
+    }
    
 }
