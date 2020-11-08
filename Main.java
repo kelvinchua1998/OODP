@@ -543,9 +543,8 @@ public class Main {
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                numAUs, accessStartDateTime, accessEndDateTime);
-
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,numAUs, accessStartDateTime, accessEndDateTime);
+        
         boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
 
         while (unique != true) {
