@@ -142,6 +142,7 @@ public class Main {
 
     }
 
+<<<<<<< Updated upstream
     private static void adminAddCourse(){
         ArrayList<Student> studentList = new ArrayList<Student>();
         ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
@@ -306,6 +307,10 @@ public class Main {
         courseList.add(courseObj);
         databaseManager.SerializeCourseList(courseList);
         System.out.println("Course added");
+=======
+    private void Vacancy() {
+        
+>>>>>>> Stashed changes
     }
 
     private static void printStudentListByCIndex() {
