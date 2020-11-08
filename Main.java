@@ -475,7 +475,8 @@ private static void checkVacancy() {
 
         Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
 
-        Student.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
 
         System.out.printf("Access time for %s changed!\n", matricNum);
     }
@@ -553,10 +554,7 @@ private static void checkVacancy() {
             matricNum = sc.next();
             studentObj.setMatricNum(matricNum);
         }
-
         DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        studentList.add(studentObj);
-        databaseManager.SerializeStudentList(studentList);
+        databaseManager.addStudentintoStudentDB(studentObj);
     }
 }

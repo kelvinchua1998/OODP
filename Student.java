@@ -131,20 +131,7 @@ private static final long serialVersionUID = 1L;
 		this.waitlist = waitlist;
 	}
 
-	public static void removeCourseMain(String matricNum, String CourseCode) {
-		DatabaseManager databaseManager = new DatabaseManager();
-
-		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
-
-		int index = getIndexbyMatricNum(matricNum, studentList);
-
-		studentList.get(index).removeCourse(CourseCode);
-
-		databaseManager.SerializeStudentList(studentList);
-	}
-
-	private void removeCourse(String CourseCode) {
-
+	public void removeCourse(String CourseCode) {
 		for (int i = 0; i < registeredCourse.size(); i++) {
 			if (registeredCourse.get(i).getCourseCode().equals(CourseCode)) {
 				registeredCourse.remove(i);
@@ -152,41 +139,6 @@ private static final long serialVersionUID = 1L;
 		}
 	}
 
-	public static Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return StudentList.get(i);
-			}
-		}
-		return null;
-	}
-
-	private static int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	public static void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
-		Calendar newAccessEndDateTime) {
-		DatabaseManager databaseManager = new DatabaseManager();
-
-		ArrayList<Student> StudentList = databaseManager.DeserializeStudentList();
-		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
-		int index = getIndexbyMatricNum(matricNum, StudentList);
-
-		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
-		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-		StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
-		StudentObj.setAccessStartTime(newAccessEndDateTimeInms);
-
-		StudentList.set(index, StudentObj);
-
-		databaseManager.SerializeStudentList(StudentList);
-	}
 
 	public boolean verifyUniqueMatricNum(String matricNum) {
 		DatabaseManager databaseManager = new DatabaseManager();
@@ -213,21 +165,6 @@ private static final long serialVersionUID = 1L;
 		StudentList.add(newStudent);
 
 		databaseManager.SerializeStudentList(StudentList);
-	}
-
-	public static void printCourseMain(String matricNum) {
-		DatabaseManager databaseManager = new DatabaseManager();
-		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
-
-		int index = getIndexbyMatricNum(matricNum, studentList);
-
-		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
-
-		System.out.println("registered Courses: ");
-		for (int i = 0; i < registercourses.size(); i++) {
-			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
-					registercourses.get(i).getCourseName());
-		}
 	}
 
 	public boolean checkClash(Cindex index){
