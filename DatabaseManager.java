@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class DatabaseManager {
@@ -143,4 +144,73 @@ public class DatabaseManager {
 
       return singleIndex.getRegisteredStudents();
    }
+
+   public void addStudentintoStudentDB(Student studentObj){
+      ArrayList<Student> studentList = DeserializeStudentList();
+      studentList.add(studentObj);
+      SerializeStudentList(studentList);
+   }
+
+   public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
+		Calendar newAccessEndDateTime) {
+
+		ArrayList<Student> StudentList = DeserializeStudentList();
+		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
+		int index = getIndexbyMatricNum(matricNum, StudentList);
+
+		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
+		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
+		StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+		StudentObj.setAccessStartTime(newAccessEndDateTimeInms);
+
+		StudentList.set(index, StudentObj);
+
+		SerializeStudentList(StudentList);
+   }
+   
+   public static Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return StudentList.get(i);
+			}
+		}
+		return null;
+   }
+   
+   private static int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return i;
+			}
+		}
+		return -1;
+   }
+   
+   public void removeCourseMain(String matricNum, String CourseCode) {
+		DatabaseManager databaseManager = new DatabaseManager();
+
+		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
+
+		int index = getIndexbyMatricNum(matricNum, studentList);
+
+      Student studentObj = studentList.get(index);
+      studentObj.removeCourse(CourseCode);
+      
+		databaseManager.SerializeStudentList(studentList);
+   }
+   
+   public void printCourseMain(String matricNum) {
+		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+
+		int index = getIndexbyMatricNum(matricNum, studentList);
+
+		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
+
+		System.out.println("registered Courses: ");
+		for (int i = 0; i < registercourses.size(); i++) {
+			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
+					registercourses.get(i).getCourseName());
+		}
+	}
+   
 }
