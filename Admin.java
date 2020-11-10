@@ -2,66 +2,24 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Admin implements Serializable{
-
+public class Admin extends User implements Serializable{
     private static final long serialVersionUID = 1L;
-    private String username;
-    private String password;
-    public String accessTime;
-    public String course;
-    public int courseIndex;
-    public int vacancy;
 
     public Admin(String username, String password){
-        this.username = username;
-        this.password = password;
-    }
-    public String getPassword(){
-        return this.password;}
-        
-    public String getUserName(){
-        return this.username;
-    }
+        super(username,password,"admin");
 
-    
-    public void addStudent(Object Admin) {
-		return;
-	}
-	
-	public String studentAccessTime() {
-		return accessTime;
-	}
-	
-	public String addCourse(){
-        return course;
-    }
+        User userObj = new User(username, password, "admin");
+		DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.adduser(userObj);
 
-    public int updateCourse(){
-        return courseIndex;
     }
-
-    public int checkVacancy(){
-        return vacancy;
-    }
-   
-   public static Admin getAdminbyUsername(String username, List<Admin> adminList) {
-		for (int i = 0; i < adminList.size(); i++) {
-			if (adminList.get(i).getUserName() == username) {
-				return adminList.get(i);
-			}
-		}
-		return null;
-	}
 
     public static void main(String[] args) {
-        Admin adminObj = new Admin("Admin", "Admin");
-        
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
+        Admin adminObj = new Admin("admin", "admin");
+        ArrayList<Admin> adminList = new ArrayList<Admin>();
 
         adminList.add(adminObj);
-
+        DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.SerializeAdminList(adminList);
     }
    
