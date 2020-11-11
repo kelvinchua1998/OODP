@@ -178,19 +178,6 @@ public class DatabaseManager {
    }
 
 
-  public Course searchSingleCourse(String courseCode) {
-   ArrayList<Course> courseList = null;
-
-   DatabaseManager databaseManager = new DatabaseManager();
-   courseList = databaseManager.DeserializeCourseList();
-
-   for (int i = 0; i < courseList.size(); i++) {
-       if (courseList.get(i).getCourseCode().equals(courseCode))
-           return courseList.get(i);
-   }
-
-   return null;
-}
    //for print student list by course
    public Course searchCourse(String coursecode) {
       ArrayList<Course> courseList = new ArrayList<Course>();
@@ -215,6 +202,19 @@ public class DatabaseManager {
       return singleCourse.getRegisteredStudents();
    }
    
+
+   //print courses in database
+   public ArrayList<Course> getCourseList(){
+      ArrayList<Course> courseList = new ArrayList<Course>();
+
+      DatabaseManager databaseManager = new DatabaseManager();
+      courseList = databaseManager.DeserializeCourseList();
+
+         return courseList;
+      
+   }
+
+//=======
    public void addStudentintoStudentDB(Student studentObj){
       ArrayList<Student> studentList = DeserializeStudentList();
       studentList.add(studentObj);

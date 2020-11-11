@@ -179,11 +179,10 @@ public class Student extends User implements Serializable {
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "Student","Student","Student", 0,  0, 0);
-		ArrayList<Student> studentList = new ArrayList<Student>();
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G","student","student", 0,  0, 0);
+		DatabaseManager databaseManager = new DatabaseManager();
+		ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
 		
-        DatabaseManager databaseManager = new DatabaseManager();
-
         studentList.add(studentObj);
 
         databaseManager.SerializeStudentList(studentList);

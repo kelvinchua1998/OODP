@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.function.IntPredicate;
 
 public class Main {
 
@@ -49,6 +50,7 @@ public class Main {
                             "6. Print student list by course (a2ll students registered for the selected course).");
                     System.out.println("[ print only student’s name, gender and nationality ]");
                     System.out.println("7. Logout");
+                    System.out.println("8. Print available courses");
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -81,6 +83,11 @@ public class Main {
                             runnning = false;
                             break;
                         }
+
+                        case 8: {
+                            getAvailCourse();
+                            break;
+                        }
                         default: {
 
                         }
@@ -88,7 +95,7 @@ public class Main {
                     }
                 }
 
-            case "student":{
+            case "student": {
                 while (runnning) {
                     System.out.println("Welcome Student Name Matric Number!");
                     System.out.println("Select your option(1-6)");
@@ -100,6 +107,7 @@ public class Main {
                     System.out.println(
                             "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                     System.out.println("7. Logout");
+                    
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -116,9 +124,11 @@ public class Main {
                             break;
                         }
                         case 4: {
+                            vacancyAvailable();
                             break;
                         }
                         case 5: {
+                            changeIndex(matricNum);
                             break;
                         }
                         case 6: {
@@ -136,7 +146,7 @@ public class Main {
 
                 }
             }
-            default:{
+            default: {
 
             }
         }
@@ -151,9 +161,9 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Add new Course ");
-        System.out.println("Course Code: ");
+        System.out.println("Course Code: ");          //check for duplicates
         String CourseCode = sc.next();
-        sc.nextLine(); 
+        sc.nextLine();
 
         System.out.println("Course Name: ");
         String CourseName = sc.nextLine();
@@ -167,6 +177,8 @@ public class Main {
         Course courseObj = new Course(CourseCode, CourseName, CourseDescription, AU, studentList, CindexList);
 
         int choice = -1;
+
+        ArrayList<Cindex> cindexArrayList = new ArrayList<>();
 
         while (choice != 0) {
             System.out.println("Add new index: ");
@@ -185,14 +197,14 @@ public class Main {
 
                     Cindex CindexObj = new Cindex(index, Capacity);
 
-                    System.out.println("Add new lesson: ");
-                    System.out.println("0.Stop adding lesson ");
-                    System.out.println("1.Add new Lecture ");
-                    System.out.println("2.Add new Tutorial ");
-                    System.out.println("3.Add new Lab ");
-
                     ArrayList<Lesson> schedule = new ArrayList<Lesson>();
                     while (choice != 0) {
+                        System.out.println("Add new lesson: ");
+                        System.out.println("0.Stop adding lesson ");
+                        System.out.println("1.Add new Lecture ");
+                        System.out.println("2.Add new Tutorial ");
+                        System.out.println("3.Add new Lab ");
+
                         choice = sc.nextInt();
 
                         switch (choice) {
@@ -301,9 +313,10 @@ public class Main {
                         }
                     }
                     CindexObj.setSchedule(schedule);
+                    cindexArrayList.add(CindexObj);
             }
         }
-
+        courseObj.setListCindex(cindexArrayList);
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
         courseList.add(courseObj);
@@ -311,35 +324,36 @@ public class Main {
         System.out.println("Course added");
     }
 
-private static void printStudentListByCIndex() {
-    String coursecode;
-    String cindex;
-    ArrayList<Student> studentList = null;
-    DatabaseManager databaseManager = new DatabaseManager();
+    private static void printStudentListByCIndex() {
+        String coursecode;
+        String cindex;
+        ArrayList<Student> studentList = null;
+        DatabaseManager databaseManager = new DatabaseManager();
 
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
-    System.out.println("Please enter coursecode: ");
-    coursecode = sc.next();
-    if (coursecode.equals("#"))
-        return;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
 
-    System.out.println("Please enter index: ");
-    cindex = sc.next();
+        System.out.println("Please enter index: ");
+        cindex = sc.next();
 
-    studentList =databaseManager.getStudentList(coursecode, cindex);
+        studentList = databaseManager.getStudentList(coursecode, cindex);
 
-    if (studentList != null) {
-        System.out.printf("student in %s\n", coursecode);
+        if (studentList != null) {
+            System.out.printf("student in %s\n", coursecode);
 
-        for (int i = 0; i < studentList.size(); i++) {
-            System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+            for (int i = 0; i < studentList.size(); i++) {
+                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+            }
+
+        } else {
+            System.out.println("course index not found! please try again!");
         }
-
-    } else {
-        System.out.println("course index not found! please try again!");
     }
-}
+
     private static void printStudentListByCourse() {
         String coursecode;
         ArrayList<Student> studentList = null;
@@ -354,15 +368,47 @@ private static void printStudentListByCIndex() {
 
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
-        if (studentList != null) {
-            System.out.printf("student in %s\n", coursecode);
+        if (studentList != null) {           
+            System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s ", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
         } else {
             System.out.println("course not found! please try again!");
         }
+        System.out.println();
+    }
+
+    private static void getAvailCourse(){
+        ArrayList<Course> courseList = null;
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Press any key to proceed");
+        String coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
+        
+        courseList = databaseManager.getCourseList();
+
+        if(courseList != null){
+            System.out.println("courses: ");
+
+            for(int i = 0; i<courseList.size(); i++){
+                System.out.printf("%d. %s : \n", i+1, courseList.get(i).getCourseCode());
+
+                //for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
+                    System.out.printf("\t %s \n", courseList.get(i).getListCindex());
+                //}
+            }
+        }else{
+            System.out.println("no courses added yet");
+        }
+
+        System.out.println();
+        
     }
 
     private static void checkVacancy() {
@@ -547,34 +593,34 @@ private static void addCourse( String username){
     }
 
     private static void dropCourse(String matricNum) {
-    // have to show the student reg courses
-    // remove the student from the courses registered students
-    Scanner sc = new Scanner(System.in);
-    System.out.println("Enter \' # \'to return to main menu ");
-    System.out.println("Please enter coursecode: ");
-    String coursecode = sc.next();
-    if (coursecode.equals("#"))
-    return;
-    // else ... error checking
+        // have to show the student reg courses
+        // remove the student from the courses registered students
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter coursecode: ");
+        String coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
+        // else ... error checking
 
-    System.out.println("Are you sure?");
-    System.out.println("1-yes 0-no");
-    int choice = sc.nextInt();
+        System.out.println("Are you sure?");
+        System.out.println("1-yes 0-no");
+        int choice = sc.nextInt();
 
-    while (choice != 1 || choice != 0) {
-    if (choice == 1) {
-    // drop course stuff
-    ArrayList<Student> studentList;
+        while (choice != 1 || choice != 0) {
+            if (choice == 1) {
+                // drop course stuff
+                ArrayList<Student> studentList;
 
-    Student.removeCourseMain(matricNum, coursecode);
-    Student.plusAU(); // add back amt of au to student
-    System.out.println("Course dropped!");
-    } else if (choice == 0) {
-    return;
-    } else {
-    System.out.println("invalid choice!");
-    }
-    }
+                Student.removeCourseMain(matricNum, coursecode);
+                Student.plusAU(); // add back amt of au to student
+                System.out.println("Course dropped!");
+            } else if (choice == 0) {
+                return;
+            } else {
+                System.out.println("invalid choice!");
+            }
+        }
 
     }
 
@@ -610,8 +656,9 @@ private static void addCourse( String username){
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,numAUs, accessStartDateTime, accessEndDateTime);
-        
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
+                numAUs, accessStartDateTime, accessEndDateTime);
+
         boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
 
         while (unique != true) {
@@ -622,4 +669,69 @@ private static void addCourse( String username){
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.addStudentintoStudentDB(studentObj);
     }
+
+    private static void vacancyAvailable() {
+        Scanner sc = new Scanner(System.in);
+    
+        int vacancy;
+        String coursecode;
+        String cindex;
+        Course courseobj;
+    
+        System.out.println("Please enter coursecode: ");
+        coursecode = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        courseobj = databaseManager.searchCourse(coursecode);
+        ArrayList<Cindex> CindexList = courseobj.getListCindex();
+
+        for(int i=0; i<CindexList.size(); i++){
+            System.out.println("index: " + CindexList.get(i).getIndex() + "Vacancy: " +  CindexList.get(i).getCurrentVacancy());
+        }
+    
+    }
+
+    private static void changeIndex(String matricnumber){
+        Scanner sc = new Scanner(System.in);
+        StudentCourse studentCourse = null;
+        int indexOfRegisteredCourse = 0;
+        String input;
+
+        System.out.println("Please enter coursecode that you want to change index: ");
+        input = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+
+        for(int i=0; i < registeredcourse.size(); i++){
+            if(registeredcourse.get(i).getCourseCode().equals(input)){
+                studentCourse = registeredcourse.get(i);
+                indexOfRegisteredCourse = i;
+            }
+            break;
+        }
+
+        System.out.println("Your Current index: " + studentCourse.getIndex().getIndex());
+        System.out.println("New index: ");
+        input = sc.next();
+
+        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
+        Cindex oldindex = studentCourse.getIndex();
+        if(newindex.getCurrentVacancy() == 0){
+            
+            newindex.getWaitList().add(studentobj);
+            registeredcourse.remove(indexOfRegisteredCourse);
+            System.out.println("index is removed from your registered course, you are placed in waitlist for your new index");
+        }else{
+            newindex.getRegisteredStudents().add(studentobj);
+            oldindex.getRegisteredStudents().remove(studentobj);
+
+            studentCourse.setIndex(newindex);
+            System.out.println("you have changed your index successfully");
+        }
+
+    }
+
 }
