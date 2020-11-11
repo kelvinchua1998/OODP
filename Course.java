@@ -75,11 +75,28 @@ public class Course implements Serializable {
     }
 
     public static void main(String[] args) {
-        ArrayList<Course> courseList = new ArrayList<Course>();
-
+        ArrayList<Course> courseList;
+        ArrayList<Student> studentList;
+        ArrayList<Cindex> CindexList;
         DatabaseManager databaseManager = new DatabaseManager();
 
-        databaseManager.SerializeCourseList(courseList);
+        courseList = databaseManager.DeserializeCourseList();
+        for(int i = 0; i<courseList.size(); i++){
+            System.out.println(courseList.get(i).getCourseCode());   
+            System.out.println(courseList.get(i).getCourseDescription());  
+            System.out.println(courseList.get(i).getCourseName());  
+        }
+        CindexList = courseList.get(0).getListCindex();
+        System.out.println(CindexList.get(0).getIndex());
+
+
+        // studentList = databaseManager.DeserializeStudentList();
+        // Student studentobj = studentList.get(0);
+        // courseList.get(0).getRegisteredStudents().add(studentobj);
+
+        // databaseManager.SerializeCourseList(courseList);
+        
+
     }
 
 }
