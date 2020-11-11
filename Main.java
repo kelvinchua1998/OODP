@@ -665,7 +665,6 @@ private static void addCourse( String matricNum){
         ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
         Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
-        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
 
         for(int i=0; i < registeredcourse.size(); i++){
             if(registeredcourse.get(i).getCourseCode().equals(input)){
@@ -680,12 +679,12 @@ private static void addCourse( String matricNum){
         input = sc.next();
 
         Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
-        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
+        Cindex oldindex = studentCourse.getIndex();
         if(newindex.getCurrentVacancy() == 0){
             
             newindex.getWaitList().add(studentobj);
             registeredcourse.remove(indexOfRegisteredCourse);
-            System.out.println("index is removed from your registered course, you are placed in waitlist");
+            System.out.println("index is removed from your registered course, you are placed in waitlist for your new index");
         }else{
             newindex.getRegisteredStudents().add(studentobj);
             oldindex.getRegisteredStudents().remove(studentobj);
