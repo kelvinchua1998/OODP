@@ -214,6 +214,22 @@ public class DatabaseManager {
 
       return singleCourse.getRegisteredStudents();
    }
+
+   //print courses in database
+   public ArrayList<Course> getCourseList(){
+      ArrayList<Course> courseList = new ArrayList<Course>();
+
+      DatabaseManager databaseManager = new DatabaseManager();
+      courseList = databaseManager.DeserializeCourseList();
+
+      for (int i = 0; i < courseList.size(); i++) {
+      //   System.out.println(courseList.get(i).getCourseCode());
+         return courseList;
+      }
+
+      return null;
+   }
+
 //=======
    public void addStudentintoStudentDB(Student studentObj){
       ArrayList<Student> studentList = DeserializeStudentList();
