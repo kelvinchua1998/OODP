@@ -209,12 +209,12 @@ public class DatabaseManager {
    
    }
 
-   public ArrayList<Student> getStudentList(String coursecode){
+   public ArrayList<Student> getStudentListbyCourse(String coursecode){
       Course singleCourse = searchCourse(coursecode);
 
       return singleCourse.getRegisteredStudents();
    }
-//=======
+   
    public void addStudentintoStudentDB(Student studentObj){
       ArrayList<Student> studentList = DeserializeStudentList();
       studentList.add(studentObj);
@@ -238,18 +238,22 @@ public class DatabaseManager {
 		SerializeStudentList(StudentList);
    }
    
-   public Student getStudentbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return StudentList.get(i);
+   public Student getStudentbyMatricNum(String matricNum ) {
+      ArrayList<Student> studentList = DeserializeStudentList();
+
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentList.get(i).getMatricNum() == matricNum) {
+				return studentList.get(i);
 			}
 		}
 		return null;
    }
    
-   private int getIndexbyMatricNum(String matricNum, ArrayList<Student> StudentList) {
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
+   private int getIndexbyMatricNum(String matricNum) {
+      ArrayList<Student> studentList = DeserializeStudentList();
+
+		for (int i = 0; i < studentList.size(); i++) {
+			if (studentList.get(i).getMatricNum() == matricNum) {
 				return i;
 			}
 		}
@@ -301,5 +305,53 @@ public class DatabaseManager {
       ArrayList<User> userList = DeserializeUserList();
       userList.add(userObj);
       SerializeUserList(userList);
+   }
+
+   public boolean checkClashforStudent(String matricNum, String courseCode, String Cindex){
+      ArrayList<Student> studentList = DeserializeStudentList();
+
+      Student stud = getStudentbyMatricNum(matricNum);
+
+      Cindex courseIndex = searchCindex(courseCode, Cindex);
+
+      return stud.checkClash(courseIndex);
+   }
+
+   public int getIndexByCourseCode(String courseCode){
+      ArrayList<Course> courseList = DeserializeCourseList();
+
+		for (int i = 0; i < courseList.size(); i++) {
+			if (courseList.get(i).getCourseCode().equals(courseCode)) {
+				return i;
+			}
+		}
+		return -1;
+   }
+
+   public void updateDatabase(Object obj){
+      if (obj instanceof Student){
+         Student stud = (Student) obj;
+
+         // search student in array list and replace
+         ArrayList studentList  = DeserializeStudentList();
+         studentList.set(getIndexbyMatricNum(stud.getMatricNum()),stud);
+         SerializeStudentList(studentList);
+      }
+      else if (obj instanceof Course){
+         Course c = (Course) obj;
+
+         // search student in array list and replace
+         ArrayList clist  = DeserializeCourseList();
+         clist.set(getIndexByCourseCode(c.getCourseCode()),c);
+         SerializeStudentList(clist);
+         
+      }
+      else if (obj instanceof Admin){
+         
+         
+      }else{
+         //no object
+      }
+      
    }
 }

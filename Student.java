@@ -63,13 +63,13 @@ public class Student extends User implements Serializable {
 		return numAU;
 	}
 
-	// public static void minusAU() { // minus after adding course
-	// 	numAU -= Course.getAU();
-	// }
+	public void minusAU(Course course) { // minus after adding course
+		numAU -= course.getAU();
+	}
 
-	// public static void plusAU() { // plus after dropping course
-	// 	numAU += Course.getAU();
-	// }
+	public void plusAU(Course course) { // plus after dropping course
+		numAU += course.getAU();
+	}
 
 	public Boolean verifyPassword(String enPwd) {
 		if (enPwd == password)
@@ -105,6 +105,11 @@ public class Student extends User implements Serializable {
 	public void addCourse(StudentCourse registeredCourse) {
 		this.registeredCourse.add(registeredCourse);
 	}
+
+	public void addWaitlist(StudentCourse registeredCourse) {
+		this.waitlist.add(registeredCourse);
+	}
+	
 
 	public ArrayList<StudentCourse> getRegisteredCourse() {
 		return registeredCourse;
