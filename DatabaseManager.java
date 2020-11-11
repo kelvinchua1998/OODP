@@ -222,12 +222,8 @@ public class DatabaseManager {
       DatabaseManager databaseManager = new DatabaseManager();
       courseList = databaseManager.DeserializeCourseList();
 
-      for (int i = 0; i < courseList.size(); i++) {
-      //   System.out.println(courseList.get(i).getCourseCode());
          return courseList;
-      }
-
-      return null;
+      
    }
 
 //=======

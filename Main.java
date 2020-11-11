@@ -39,17 +39,17 @@ public class Main {
             case "admin":
                 while (runnning) {
                     System.out.println("Welcome Admin!");
-                    System.out.println("Select your option(1-7)");
+                    System.out.println("Select your option(1-6)");
                     System.out.println("1. Edit student access period");
                     System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
-                    System.out.println("3. Add a course (course code, school, its index numbers and vacancy).");
-                    System.out.println("4. Update a course (course code, school, its index numbers and vacancy).");
-                    System.out.println("5. Check available slot for an index number (vacancy in a class)");
-                    System.out.println("6. Print student list by index number.");
+                    System.out.println("3. Add/Update a course (course code, school, its index numbers and vacancy).");
+                    System.out.println("4. Check available slot for an index number (vacancy in a class)");
+                    System.out.println("5. Print student list by index number.");
                     System.out.println(
-                            "7. Print student list by course (all students registered for the selected course).");
+                            "6. Print student list by course (a2ll students registered for the selected course).");
                     System.out.println("[ print only student’s name, gender and nationality ]");
-                    System.out.println("8. Logout");
+                    System.out.println("7. Logout");
+                    System.out.println("8. Print available courses");
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -82,6 +82,11 @@ public class Main {
                             runnning = false;
                             break;
                         }
+
+                        case 8: {
+                            getAvailCourse();
+                            break;
+                        }
                         default: {
 
                         }
@@ -101,6 +106,7 @@ public class Main {
                     System.out.println(
                             "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                     System.out.println("7. Logout");
+                    
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -152,7 +158,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Add new Course ");
-        System.out.println("Course Code: ");
+        System.out.println("Course Code: ");          //check for duplicates
         String CourseCode = sc.next();
         sc.nextLine();
 
@@ -168,6 +174,8 @@ public class Main {
         Course courseObj = new Course(CourseCode, CourseName, CourseDescription, AU, studentList, CindexList);
 
         int choice = -1;
+
+        ArrayList<Cindex> cindexArrayList = new ArrayList<>();
 
         while (choice != 0) {
             System.out.println("Add new index: ");
@@ -302,9 +310,10 @@ public class Main {
                         }
                     }
                     CindexObj.setSchedule(schedule);
+                    cindexArrayList.add(CindexObj);
             }
         }
-
+        courseObj.setListCindex(cindexArrayList);
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
         courseList.add(courseObj);
@@ -356,15 +365,47 @@ public class Main {
 
         studentList = databaseManager.getStudentList(coursecode);
 
-        if (studentList != null) {
-            System.out.printf("student in %s\n", coursecode);
+        if (studentList != null) {           
+            System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s ", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
         } else {
             System.out.println("course not found! please try again!");
         }
+        System.out.println();
+    }
+
+    private static void getAvailCourse(){
+        ArrayList<Course> courseList = null;
+        DatabaseManager databaseManager = new DatabaseManager();
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Press any key to proceed");
+        String coursecode = sc.next();
+        if (coursecode.equals("#"))
+            return;
+        
+        courseList = databaseManager.getCourseList();
+
+        if(courseList != null){
+            System.out.println("courses: ");
+
+            for(int i = 0; i<courseList.size(); i++){
+                System.out.printf("%d. %s : \n", i+1, courseList.get(i).getCourseCode());
+
+                //for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
+                    System.out.printf("\t %s \n", courseList.get(i).getListCindex());
+                //}
+            }
+        }else{
+            System.out.println("no courses added yet");
+        }
+
+        System.out.println();
+        
     }
 
     private static void checkVacancy() {
