@@ -33,11 +33,11 @@ public class Cindex implements Serializable{
         this.index = index;
     }
 
-    public int getTotalVacancy() {
+    public int getCapacity() {
         return Capacity;
     }
 
-    public void setTotalVacancy(int Capacity) {
+    public void setCapacity(int Capacity) {
         this.Capacity = Capacity;
     }
 

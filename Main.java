@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
+import java.util.function.IntPredicate;
 
 public class Main {
 
@@ -83,53 +84,68 @@ public class Main {
                         }
                         default: {
 
-        case 2:
-            while (runnning) {
-                System.out.println("Welcome Student Name Matric Number!");
-                System.out.println("Select your option(1-6)");
-                System.out.println("1. *Add Course");
-                System.out.println("2. Drop Course");
-                System.out.println("3. Check/Print Courses Registered");
-                System.out.println("4. Check Vacancies Available ");
-                System.out.println("5. Change Index Number of Course");
-                System.out.println(
-                        "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
-                System.out.println("7. Logout");
-
-                int choice = sc.nextInt();
-                switch (choice) {
-                    case 1: {
-                        // addCourse(matricNum);
-                        break;
-                    }
-                    case 2: {
-                        // dropCourse(matricNum);
-                        break;
-                    }
-                    case 3: {
-                        checkPrintCourse(matricNum);
-                        break;
-                    }
-                    case 4: {
-                        //vacancyAvailable
-                        break;
-                    }
-                    case 5: {
-                        break;
-                    }
-                    case 6: {
-                        break;
-                    }
-                    case 7: {
-                        runnning = false;
-                        break;
-                    }
-                    default: {
+                        }
 
                     }
                 }
 
-           
+            case "student": {
+                while (runnning) {
+                    System.out.println("Welcome Student Name Matric Number!");
+                    System.out.println("Select your option(1-6)");
+                    System.out.println("1. *Add Course");
+                    System.out.println("2. Drop Course");
+                    System.out.println("3. Check/Print Courses Registered");
+                    System.out.println("4. Check Vacancies Available ");
+                    System.out.println("5. Change Index Number of Course");
+                    System.out.println(
+                            "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
+                    System.out.println("7. Logout");
+
+                    int choice = sc.nextInt();
+                    switch (choice) {
+                        case 1: {
+                            // addCourse(matricNum);
+                            break;
+                        }
+                        case 2: {
+                            // dropCourse(matricNum);
+                            break;
+                        }
+                        case 3: {
+                            checkPrintCourse(matricNum);
+                            break;
+                        }
+                        case 4: {
+                            vacancyAvailable();
+                            break;
+                        }
+                        case 5: {
+                            changeIndex(matricNum);
+                            break;
+                        }
+                        case 6: {
+                            break;
+                        }
+                        case 7: {
+                            runnning = false;
+                            break;
+                        }
+                        default: {
+
+                        }
+
+                    }
+
+                }
+            }
+            default: {
+
+            }
+        }
+
+    }
+
     private static void adminAddCourse() {
         ArrayList<Student> studentList = new ArrayList<Student>();
         ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
@@ -353,26 +369,7 @@ public class Main {
         }
     }
 
-private void vacancyAvailable() {
-    Scanner sc = new Scanner(System.in);
-
-    int vacancy;
-    String coursecode;
-    String cindex;
-
-    System.out.println("Please enter coursecode: ");
-    coursecode = sc.next();
-    vacancy = Course.searchSingleCourse.size() - Course.getStudentList(coursecode).size();
-
-    if (vacancy > 0){
-        System.out.printf("Vacancy for course code: %s" + "%d", coursecode, vacancy);
-    }
-    else{
-        System.out.printf("No vacancy for course code");
-    }
-}
-
-private static void checkVacancy() {
+    private static void checkVacancy() {
         String coursecode;
         String cindex;
 
@@ -591,4 +588,70 @@ private static void addCourse( String matricNum){
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.addStudentintoStudentDB(studentObj);
     }
+
+    private static void vacancyAvailable() {
+        Scanner sc = new Scanner(System.in);
+    
+        int vacancy;
+        String coursecode;
+        String cindex;
+        Course courseobj;
+    
+        System.out.println("Please enter coursecode: ");
+        coursecode = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        courseobj = databaseManager.searchCourse(coursecode);
+        ArrayList<Cindex> CindexList = courseobj.getListCindex();
+
+        for(int i=0; i<CindexList.size(); i++){
+            System.out.println("index: " + CindexList.get(i).getIndex() + "Vacancy: " +  CindexList.get(i).getCurrentVacancy());
+        }
+    
+    }
+
+    private static void changeIndex(String matricnumber){
+        Scanner sc = new Scanner(System.in);
+        StudentCourse studentCourse = null;
+        int indexOfRegisteredCourse = 0;
+        String input;
+
+        System.out.println("Please enter coursecode that you want to change index: ");
+        input = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+
+        for(int i=0; i < registeredcourse.size(); i++){
+            if(registeredcourse.get(i).getCourseCode().equals(input)){
+                studentCourse = registeredcourse.get(i);
+                indexOfRegisteredCourse = i;
+            }
+            break;
+        }
+
+        System.out.println("Your Current index: " + studentCourse.getIndex().getIndex());
+        System.out.println("New index: ");
+        input = sc.next();
+
+        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
+        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
+        if(newindex.getCurrentVacancy() == 0){
+            
+            newindex.getWaitList().add(studentobj);
+            registeredcourse.remove(indexOfRegisteredCourse);
+            System.out.println("index is removed from your registered course, you are placed in waitlist");
+        }else{
+            newindex.getRegisteredStudents().add(studentobj);
+            oldindex.getRegisteredStudents().remove(studentobj);
+
+            studentCourse.setIndex(newindex);
+            System.out.println("you have changed your index successfully");
+        }
+
+    }
+
 }
