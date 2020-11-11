@@ -104,11 +104,11 @@ public class Main {
                     int choice = sc.nextInt();
                     switch (choice) {
                         case 1: {
-                            // addCourse(matricNum);
+                            addCourse(username);
                             break;
                         }
                         case 2: {
-                            // dropCourse(matricNum);
+                            dropCourse(username);
                             break;
                         }
                         case 3: {
@@ -466,7 +466,7 @@ private static void addCourse( String username){
                 // minus student s available aus
 
                 stud.minusAU(singleCourse);
-                singleCourse.addStudent(stud);
+                singleIndex.addRegisteredStudent(stud);
 
                 // create a new studentCourse
                 StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
@@ -481,8 +481,13 @@ private static void addCourse( String username){
             else{
                 //add stud to waitlist
                 // add Cindex to student waitlist
-                singleCourse.
-                
+                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
+                stud.addWaitlist(newlyregisteredCourse);
+
+                singleIndex.addWaitlistStudent(stud);
+
+                databaseManager.updateDatabase(stud);
+                databaseManager.updateDatabase(singleCourse);
 
                 System.out.println("Course index full! Adding to waitlist.");
             }
