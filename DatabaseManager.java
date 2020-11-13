@@ -213,8 +213,6 @@ public class DatabaseManager {
          return courseList;
       
    }
-
-//=======
    public void addStudentintoStudentDB(Student studentObj){
       ArrayList<Student> studentList = DeserializeStudentList();
       studentList.add(studentObj);

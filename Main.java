@@ -128,7 +128,7 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            changeIndex(matricNum);
+                            changeIndex(username);
                             break;
                         }
                         case 6: {
