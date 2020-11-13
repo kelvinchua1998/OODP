@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
-import java.util.function.IntPredicate;
 
 public class Main {
 
@@ -43,14 +42,15 @@ public class Main {
                     System.out.println("Select your option(1-6)");
                     System.out.println("1. Edit student access period");
                     System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
-                    System.out.println("3. Add/Update a course (course code, school, its index numbers and vacancy).");
-                    System.out.println("4. Check available slot for an index number (vacancy in a class)");
-                    System.out.println("5. Print student list by index number.");
+                    System.out.println("3. Add a course.");
+                    System.out.println("4. update a course (course code, school, its index numbers and vacancy).");
+                    System.out.println("5. Check available slot for an index number (vacancy in a class)");
+                    System.out.println("6. Print student list by index number.");
                     System.out.println(
-                            "6. Print student list by course (a2ll students registered for the selected course).");
+                            "7. Print student list by course (a2ll students registered for the selected course).");
                     System.out.println("[ print only student’s name, gender and nationality ]");
-                    System.out.println("7. Logout");
-                    System.out.println("8. Print available courses");
+                    System.out.println("8. Logout");
+                    System.out.println("9. Print available courses");
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -67,24 +67,28 @@ public class Main {
                             break;
                         }
                         case 4: {
+                            updateCourse();
+                            break;
+                        }
+                        case 5: {
                             // checked can
                             checkVacancy();
                             break;
                         }
-                        case 5: {
+                        case 6: {
                             printStudentListByCIndex();
                             break;
                         }
-                        case 6: {
+                        case 7: {
                             printStudentListByCourse();
                             break;
                         }
-                        case 7: {
+                        case 8: {
                             runnning = false;
                             break;
                         }
 
-                        case 8: {
+                        case 9: {
                             getAvailCourse();
                             break;
                         }
@@ -107,7 +111,6 @@ public class Main {
                     System.out.println(
                             "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                     System.out.println("7. Logout");
-                    
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -128,11 +131,11 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            changeIndex(/*username*/);
+                            changeIndex(username);
                             break;
                         }
                         case 6: {
-                            swapIndexWithAnotherStudent();
+                            swapIndexWithAnotherStudent(username);
                             break;
                         }
                         case 7: {
@@ -154,6 +157,101 @@ public class Main {
 
     }
 
+    private static void updateCourse() {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter Course Code which you want to update: ");
+        String courseCode = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        Course courseObj = databaseManager.searchCourse(courseCode);
+
+        if(courseObj != null){
+            System.out.println("Course Code: " + courseObj.getCourseCode());
+            System.out.println("Course Name: " + courseObj.getCourseName());
+            System.out.println("Course Description: " + courseObj.getCourseDescription());
+            System.out.println("Number of AUs: " + courseObj.getAU());
+            
+            ArrayList<Cindex> CindexList = courseObj.getListCindex();
+            for(int i=0; i<CindexList.size(); i++){
+                System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i);
+                System.out.println("Index Capacity: " + CindexList.get(i).getCapacity());
+            }
+
+            System.out.println("update options:");
+            System.out.println("0. exit");
+            System.out.println("1. Update Course Code");
+            System.out.println("2. Update School");
+            System.out.println("3. Update Capacity");
+            System.out.println("4. Update Index");
+
+            int choice = sc.nextInt();
+            ArrayList<Cindex> cindexList = courseObj.getListCindex(); 
+            while(choice != 0){
+                switch(choice){
+                    case 0:{
+                        break;
+                    }
+                    case 1:{
+                        System.out.println("Enter new Course Code:");
+                        String newCourseCode = sc.next();
+
+                        if(databaseManager.verifyUniqueCourseCode(newCourseCode)){
+                            courseObj.setCourseCode(newCourseCode);
+                        }else{
+                            System.out.println("Course Code not unique");
+                        }
+                        break;
+                    }
+                    case 2:{
+                        System.out.println("Enter new School:");
+                        String newSchool = sc.next();
+                        
+                        courseObj.setSchool(newSchool);
+                        break;
+                    }
+                    case 3:{
+                        for(int i=0; i<cindexList.size(); i++){
+                            System.out.printf("%d." + cindexList.get(i).getIndex(),i);
+                        }
+
+                        System.out.println("Enter the index to change Capacity:");
+                        String index = sc.next();
+
+                        System.out.println("Enter new Capacity:");
+                        int newCapacity = sc.nextInt();
+
+                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
+                        cindexobj.setCapacity(newCapacity);
+                    }
+                    case 4:{
+                        for(int i=0; i<cindexList.size(); i++){
+                            System.out.printf("%d." + cindexList.get(i).getIndex(),i);
+                        }
+
+                        System.out.println("Enter the Index to change new Index Number:");
+                        String index = sc.next();
+
+                        System.out.println("Enter new Index:");
+                        String newIndex = sc.next();
+
+                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
+                        cindexobj.setIndex(newIndex);
+                    }
+                }
+            }
+            
+            databaseManager.updateDatabase(courseObj);
+
+        }else{
+            System.out.println("Course Code does not exists in DataBase");
+        }
+        
+
+
+
+    }
+
     private static void adminAddCourse() {
         ArrayList<Student> studentList = new ArrayList<Student>();
         ArrayList<Cindex> CindexList = new ArrayList<Cindex>();
@@ -162,7 +260,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Add new Course ");
-        System.out.println("Course Code: ");          //check for duplicates
+        System.out.println("Course Code: "); // check for duplicates
         String CourseCode = sc.next();
         sc.nextLine();
 
@@ -172,10 +270,13 @@ public class Main {
         System.out.println("Course Description: ");
         String CourseDescription = sc.nextLine();
 
+        System.out.println("Course School: ");
+        String school = sc.nextLine();
+
         System.out.println("Course AUs: ");
         int AU = sc.nextInt();
 
-        Course courseObj = new Course(CourseCode, CourseName, CourseDescription, AU, studentList, CindexList);
+        Course courseObj = new Course(CourseCode, CourseName, CourseDescription, school, AU, studentList, CindexList);
 
         int choice = -1;
 
@@ -186,135 +287,138 @@ public class Main {
             System.out.println("0.Quit");
             System.out.println("1.Add new index");
             choice = sc.nextInt();
-            switch (choice) {
-                case 0:
-                    break;
-                case 1:
-                    System.out.println("Index: ");
-                    String index = sc.next();
+            while (choice != 0) {
+                switch (choice) {
+                    case 0:
+                        break;
+                    case 1:
+                        System.out.println("Index: ");
+                        String index = sc.next();
 
-                    System.out.println("Capacity: ");
-                    int Capacity = sc.nextInt();
+                        System.out.println("Capacity: ");
+                        int Capacity = sc.nextInt();
 
-                    Cindex CindexObj = new Cindex(index, Capacity);
+                        Cindex CindexObj = new Cindex(index, Capacity);
 
-                    ArrayList<Lesson> schedule = new ArrayList<Lesson>();
-                    while (choice != 0) {
-                        System.out.println("Add new lesson: ");
-                        System.out.println("0.Stop adding lesson ");
-                        System.out.println("1.Add new Lecture ");
-                        System.out.println("2.Add new Tutorial ");
-                        System.out.println("3.Add new Lab ");
+                        ArrayList<Lesson> schedule = new ArrayList<Lesson>();
+                        int choice2 = -1;
+                        while (choice2 != 0) {
+                            System.out.println("Add new lesson: ");
+                            System.out.println("0.Stop adding lesson ");
+                            System.out.println("1.Add new Lecture ");
+                            System.out.println("2.Add new Tutorial ");
+                            System.out.println("3.Add new Lab ");
 
-                        choice = sc.nextInt();
+                            choice2 = sc.nextInt();
 
-                        switch (choice) {
-                            case 0:
-                                break;
-                            case 1:
-                                System.out.println("Start Time: ");
-                                String startTimeLect = sc.next();
-                                Date startTimeParsedLect = null;
-                                try {
-                                    startTimeParsedLect = timeformat.parse(startTimeLect);
-                                } catch (ParseException e) {
+                            switch (choice2) {
+                                case 0:
+                                    break;
+                                case 1:
+                                    System.out.println("Start Time: ");
+                                    String startTimeLect = sc.next();
+                                    Date startTimeParsedLect = null;
+                                    try {
+                                        startTimeParsedLect = timeformat.parse(startTimeLect);
+                                    } catch (ParseException e) {
 
-                                    e.printStackTrace();
-                                }
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("End Time: ");
-                                String endTimeLect = sc.next();
-                                Date endTimeParsedLect = null;
-                                try {
-                                    endTimeParsedLect = timeformat.parse(endTimeLect);
-                                } catch (ParseException e) {
+                                    System.out.println("End Time: ");
+                                    String endTimeLect = sc.next();
+                                    Date endTimeParsedLect = null;
+                                    try {
+                                        endTimeParsedLect = timeformat.parse(endTimeLect);
+                                    } catch (ParseException e) {
 
-                                    e.printStackTrace();
-                                }
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("Venue: ");
-                                String venueLect = sc.next();
+                                    System.out.println("Venue: ");
+                                    String venueLect = sc.next();
 
-                                System.out.println("Day Of Week: ");
-                                String dayOfweekLect = sc.next();
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekLect = sc.next();
 
-                                Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
-                                        dayOfweekLect);
+                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
+                                            dayOfweekLect);
 
-                                schedule.add(lecture);
-                                break;
-                            case 2:
-                                System.out.println("Start Time: ");
-                                String startTimeTut = sc.next();
-                                Date startTimeParsedTut = null;
-                                try {
-                                    startTimeParsedTut = timeformat.parse(startTimeTut);
-                                } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
+                                    schedule.add(lecture);
+                                    break;
+                                case 2:
+                                    System.out.println("Start Time: ");
+                                    String startTimeTut = sc.next();
+                                    Date startTimeParsedTut = null;
+                                    try {
+                                        startTimeParsedTut = timeformat.parse(startTimeTut);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("End Time: ");
-                                String endTimeTut = sc.next();
-                                Date endTimeParsedTut = null;
-                                try {
-                                    endTimeParsedTut = timeformat.parse(endTimeTut);
-                                } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
+                                    System.out.println("End Time: ");
+                                    String endTimeTut = sc.next();
+                                    Date endTimeParsedTut = null;
+                                    try {
+                                        endTimeParsedTut = timeformat.parse(endTimeTut);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("Venue: ");
-                                String venueTut = sc.next();
+                                    System.out.println("Venue: ");
+                                    String venueTut = sc.next();
 
-                                System.out.println("Day Of Week: ");
-                                String dayOfweekTut = sc.next();
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekTut = sc.next();
 
-                                Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
-                                        dayOfweekTut);
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
+                                            dayOfweekTut);
 
-                                schedule.add(tutorial);
-                                break;
-                            case 3:
-                                System.out.println("Start Time: ");
-                                String startTimeLab = sc.next();
-                                Date startTimeParsedLab = null;
-                                try {
-                                    startTimeParsedLab = timeformat.parse(startTimeLab);
-                                } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
+                                    schedule.add(tutorial);
+                                    break;
+                                case 3:
+                                    System.out.println("Start Time: ");
+                                    String startTimeLab = sc.next();
+                                    Date startTimeParsedLab = null;
+                                    try {
+                                        startTimeParsedLab = timeformat.parse(startTimeLab);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("End Time: ");
-                                String endTimeLab = sc.next();
-                                Date endTimeParsedLab = null;
-                                try {
-                                    endTimeParsedLab = timeformat.parse(endTimeLab);
-                                } catch (ParseException e) {
-                                    // TODO Auto-generated catch block
-                                    e.printStackTrace();
-                                }
+                                    System.out.println("End Time: ");
+                                    String endTimeLab = sc.next();
+                                    Date endTimeParsedLab = null;
+                                    try {
+                                        endTimeParsedLab = timeformat.parse(endTimeLab);
+                                    } catch (ParseException e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                    }
 
-                                System.out.println("Venue: ");
-                                String venueLab = sc.next();
+                                    System.out.println("Venue: ");
+                                    String venueLab = sc.next();
 
-                                System.out.println("Day Of Week: ");
-                                String dayOfweekLab = sc.next();
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekLab = sc.next();
 
-                                System.out.println("Odd or Even: ");
-                                String oddOrEvenLab = sc.next();
+                                    System.out.println("Odd or Even: ");
+                                    String oddOrEvenLab = sc.next();
 
-                                Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
-                                        oddOrEvenLab);
+                                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
+                                            oddOrEvenLab);
 
-                                schedule.add(lab);
-                                break;
+                                    schedule.add(lab);
+                                    break;
 
+                            }
                         }
-                    }
-                    CindexObj.setSchedule(schedule);
-                    cindexArrayList.add(CindexObj);
+                        CindexObj.setSchedule(schedule);
+                        cindexArrayList.add(CindexObj);
+                }
             }
         }
         courseObj.setListCindex(cindexArrayList);
@@ -367,14 +471,15 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        //studentList = databaseManager.getStudentListbyCourse(coursecode);
+        // studentList = databaseManager.getStudentListbyCourse(coursecode);
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
-        if (studentList != null) {           
+        if (studentList != null) {
             System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s ", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
+                        studentList.get(i).getLastName());
             }
         } else {
             System.out.println("course not found! please try again!");
@@ -382,7 +487,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void getAvailCourse(){
+    private static void getAvailCourse() {
         ArrayList<Course> courseList = null;
         DatabaseManager databaseManager = new DatabaseManager();
 
@@ -390,29 +495,29 @@ public class Main {
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Press any key to proceed");
         String coursecode = sc.next();
-        //if (coursecode.equals("#"))
-        //    return;
-        
+        // if (coursecode.equals("#"))
+        // return;
+
         courseList = databaseManager.getCourseList();
-        while(coursecode != "#"){
-        if(courseList != null){
-            System.out.println("courses: ");
+        while (coursecode != "#") {
+            if (courseList != null) {
+                System.out.println("courses: ");
 
-            for(int i = 0; i<courseList.size(); i++){
-                System.out.printf("%d. %s : \n", i+1, courseList.get(i).getCourseCode());
+                for (int i = 0; i < courseList.size(); i++) {
+                    System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
-                //for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
+                    // for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
                     System.out.printf("\t %s \n", courseList.get(i).getListCindex());
-                //}
+                    // }
+                }
+            } else {
+                System.out.println("no courses added yet");
             }
-        }else{
-            System.out.println("no courses added yet");
-        }
-        coursecode = sc.next();
+            coursecode = sc.next();
         }
 
         System.out.println();
-        
+
     }
 
     private static void checkVacancy() {
@@ -439,118 +544,119 @@ public class Main {
         }
     }
 
-private static void addCourse( String username){
-    //add course
-    //chekc timetable clash
-    // check vacancy of Cindex
-    // if full go waiting list
-    //if have vacancy register for C index
+    private static void addCourse(String username) {
+        // add course
+        // chekc timetable clash
+        // check vacancy of Cindex
+        // if full go waiting list
+        // if have vacancy register for C index
 
-    Scanner sc = new Scanner(System.in);
-    DatabaseManager databaseManager = new DatabaseManager();
-    int choice ;
-    Course singleCourse;
-    Cindex singleIndex;
-    Student stud;
+        Scanner sc = new Scanner(System.in);
+        DatabaseManager databaseManager = new DatabaseManager();
+        int choice;
+        Course singleCourse;
+        Cindex singleIndex;
+        Student stud;
 
-    //get student
+        // get student
 
-    stud = databaseManager.getStudentbyMatricNum(username);
+        stud = databaseManager.getStudentbyMatricNum(username);
 
-    System.out.println("Enter 0 to return to main menu ");  //use 0 or #? 
-    choice = sc.nextInt();                         //is it suppose to put like this? i not sure
+        System.out.println("Enter 0 to return to main menu "); // use 0 or #?
+        choice = sc.nextInt(); // is it suppose to put like this? i not sure
 
-    while(choice != 0){
-        //System.out.println("Enter 0 to return to main menu ");  //didnt initialize choice. had error
-        System.out.println("Please enter coursecode: ");
-        String coursecode = sc.next();
-    
-        if (coursecode.equals("#"))
-            return;
+        while (choice != 0) {
+            // System.out.println("Enter 0 to return to main menu "); //didnt initialize
+            // choice. had error
+            System.out.println("Please enter coursecode: ");
+            String coursecode = sc.next();
 
-        singleCourse = databaseManager.searchCourse(coursecode);
-        if (singleCourse != null){
-            System.out.println(singleCourse.getCourseDescription());
+            if (coursecode.equals("#"))
+                return;
 
-            // print list of indexes and vacancies in the course 
-            // shud show timetable clash for each index
-            //show index lesson timings
+            singleCourse = databaseManager.searchCourse(coursecode);
+            if (singleCourse != null) {
+                System.out.println(singleCourse.getCourseDescription());
 
-            System.out.printf("%s %s", singleCourse.getCourseCode(),singleCourse.getCourseName());
-            System.out.println("-------------------------------------");
-            System.out.println("index   /   vacacy   /    waitlist");
-            for (int i = 0; i < singleCourse.getListCindex().size();i++){
-                Cindex singleindex = singleCourse.getListCindex().get(i);
-                System.out.printf("%d.  %s  /  %d  /  %d",i+1, singleindex.getIndex(),singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                // print list of indexes and vacancies in the course
+                // shud show timetable clash for each index
+                // show index lesson timings
+
+                System.out.printf("%s %s", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.println("-------------------------------------");
+                System.out.println("index   /   vacacy   /    waitlist");
+                for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
+                    Cindex singleindex = singleCourse.getListCindex().get(i);
+                    System.out.printf("%d.  %s  /  %d  /  %d", i + 1, singleindex.getIndex(),
+                            singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                }
+
+            } else {
+                System.out.println("course not found! please enter course code again ");
+                continue;
             }
-            
-        }else{
-            System.out.println("course not found! please enter course code again ");
-            continue;
-        }
-        
-        System.out.println("Please enter choice: ");
-        System.out.println("Enter \' # \'to go back to main menu");
-        String choiceIndex = sc.next();
 
-        if (coursecode.equals("#"))
-            return;
-        else{
-            singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
-        }
-        
-        // check timetable clash
-        
-        if(databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())){ 
-            //CLASH
-            System.out.println("Unable to add because of timetable clash!");
-            //go back to index selection screen
-        }else if(stud.getNumAuAvail() < singleCourse.getAU()){
-            //inssufficient AUs
-            System.out.println("Unable to add due to insuffiecient AUs!");
-            //go back to index selection screen
-        }else{
-            //no clash found
-            //if got vacancy add stud
-            //if no vacancy add into waitlist
-            if(singleIndex.getCurrentVacancy() > 0){
-                //add course into student reg courses
-                // add studnet into courses reg stud list
-                // minus student s available aus
+            System.out.println("Please enter choice: ");
+            System.out.println("Enter \' # \'to go back to main menu");
+            String choiceIndex = sc.next();
 
-                stud.minusAU(singleCourse);
-                singleIndex.addRegisteredStudent(stud);
-
-                // create a new studentCourse
-                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
-                stud.addCourse(newlyregisteredCourse);
-
-                //update database
-                databaseManager.updateDatabase(stud);
-                databaseManager.updateDatabase(singleCourse);
-
-                System.out.println("Course added!");
+            if (coursecode.equals("#"))
+                return;
+            else {
+                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
             }
-            else{
-                //add stud to waitlist
-                // add Cindex to student waitlist
-                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
-                stud.addWaitlist(newlyregisteredCourse);
 
-                singleIndex.addWaitlistStudent(stud);
+            // check timetable clash
 
-                databaseManager.updateDatabase(stud);
-                databaseManager.updateDatabase(singleCourse);
+            if (databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())) {
+                // CLASH
+                System.out.println("Unable to add because of timetable clash!");
+                // go back to index selection screen
+            } else if (stud.getNumAuAvail() < singleCourse.getAU()) {
+                // inssufficient AUs
+                System.out.println("Unable to add due to insuffiecient AUs!");
+                // go back to index selection screen
+            } else {
+                // no clash found
+                // if got vacancy add stud
+                // if no vacancy add into waitlist
+                if (singleIndex.getCurrentVacancy() > 0) {
+                    // add course into student reg courses
+                    // add studnet into courses reg stud list
+                    // minus student s available aus
 
-                System.out.println("Course index full! Adding to waitlist.");
+                    stud.minusAU(singleCourse);
+                    singleIndex.addRegisteredStudent(stud);
+
+                    // create a new studentCourse
+                    StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                            singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
+                    stud.addCourse(newlyregisteredCourse);
+
+                    // update database
+                    databaseManager.updateDatabase(stud);
+                    databaseManager.updateDatabase(singleCourse);
+
+                    System.out.println("Course added!");
+                } else {
+                    // add stud to waitlist
+                    // add Cindex to student waitlist
+                    StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                            singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
+                    stud.addWaitlist(newlyregisteredCourse);
+
+                    singleIndex.addWaitlistStudent(stud);
+
+                    databaseManager.updateDatabase(stud);
+                    databaseManager.updateDatabase(singleCourse);
+
+                    System.out.println("Course index full! Adding to waitlist.");
+                }
             }
+
         }
-        
-       
 
     }
-    
-}
 
     private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);
@@ -599,7 +705,7 @@ private static void addCourse( String username){
         System.out.printf("Access time for %s changed!\n", matricNum);
     }
 
-    private static void dropCourse(String matricNum) {
+    private static void dropCourse(String username) {
         // have to show the student reg courses
         // remove the student from the courses registered students
         Scanner sc = new Scanner(System.in);
@@ -610,31 +716,31 @@ private static void addCourse( String username){
             return;
         // else ... error checking
 
-        System.out.println("Are you sure?");
-        System.out.println("1-yes 0-no");
-        int choice = sc.nextInt();
+        System.out.println("Are you sure? [y/n]");
+        String choice = sc.next();
 
-        while (choice != 1 || choice != 0) {
-            if (choice == 1) {
-                // drop course stuff
-                ArrayList<Student> studentList;
+        DatabaseManager databaseManager = new DatabaseManager();
 
-                Student.removeCourseMain(matricNum, coursecode);
-                Student.plusAU(coursecode); // add back amt of au to student
-                System.out.println("Course dropped!");
-            } else if (choice == 0) {
-                return;
-            } else {
-                System.out.println("invalid choice!");
-            }
+        if (choice.equals("y")) {
+            Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
+            databaseManager.removeCourseMain(studentObj.getMatricNum(), coursecode);
+
+            Course courseObj = databaseManager.searchCourse(coursecode);
+            studentObj.minusAU(courseObj);
+
+            System.out.println("Course dropped!");
+        } else if (choice.equals("n")) {
+            return;
+        } else {
+            System.out.println("invalid choice!");
         }
 
     }
 
     private static void checkPrintCourse(String matricNum) {
         Scanner sc = new Scanner(System.in);
-
-        Student.printCourseMain(matricNum);
+        DatabaseManager databaseManager = new DatabaseManager();
+        databaseManager.printCourseMain(matricNum);
         System.out.println("press enter to return to main menu ");
 
         String code = sc.next();
@@ -643,6 +749,8 @@ private static void addCourse( String username){
     private static void AddStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter User ID: ");
+        int userID = sc.nextInt();
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
@@ -659,32 +767,33 @@ private static void addCourse( String username){
         String nationality = sc.next();
         System.out.println("Please enter Username: ");
         String username = sc.next();
-        int numAUs = 0;
+        int numAU = 0;
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                numAUs, accessStartDateTime, accessEndDateTime);
+        Student studentObj = new Student(firstname, lastname, gender, nationality, userID, matricNum, username,
+                password, numAU, accessStartDateTime, accessEndDateTime);
 
-        boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
+        DatabaseManager databaseManager = new DatabaseManager();
+        boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);
 
         while (unique != true) {
             System.out.println("MatricNum not Unique! Please enter MatricNum: ");
             matricNum = sc.next();
             studentObj.setMatricNum(matricNum);
         }
-        DatabaseManager databaseManager = new DatabaseManager();
+        
         databaseManager.addStudentintoStudentDB(studentObj);
     }
 
     private static void vacancyAvailable() {
         Scanner sc = new Scanner(System.in);
-    
+
         int vacancy;
         String coursecode;
         String cindex;
         Course courseobj;
-    
+
         System.out.println("Please enter coursecode: ");
         coursecode = sc.next();
 
@@ -692,13 +801,14 @@ private static void addCourse( String username){
         courseobj = databaseManager.searchCourse(coursecode);
         ArrayList<Cindex> CindexList = courseobj.getListCindex();
 
-        for(int i=0; i<CindexList.size(); i++){
-            System.out.println("index: " + CindexList.get(i).getIndex() + "Vacancy: " +  CindexList.get(i).getCurrentVacancy());
+        for (int i = 0; i < CindexList.size(); i++) {
+            System.out.println(
+                    "index: " + CindexList.get(i).getIndex() + "Vacancy: " + CindexList.get(i).getCurrentVacancy());
         }
-    
+
     }
 
-    private static void changeIndex(/*String matricnumber*/){ //in switch case didnt obtain matricnumber so got error
+    private static void changeIndex(String username) { // in switch case didnt obtain matricnumber so got error
         Scanner sc = new Scanner(System.in);
         StudentCourse studentCourse = null;
         int indexOfRegisteredCourse = 0;
@@ -708,13 +818,11 @@ private static void addCourse( String username){
         input = sc.next();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        String matricnumber;   //add within code. not sure whr
-        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
-        for(int i=0; i < registeredcourse.size(); i++){
-            if(registeredcourse.get(i).getCourseCode().equals(input)){
+        for (int i = 0; i < registeredcourse.size(); i++) {
+            if (registeredcourse.get(i).getCourseCode().equals(input)) {
                 studentCourse = registeredcourse.get(i);
                 indexOfRegisteredCourse = i;
             }
@@ -727,12 +835,13 @@ private static void addCourse( String username){
 
         Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
         Cindex oldindex = studentCourse.getIndex();
-        if(newindex.getCurrentVacancy() == 0){
-            
+        if (newindex.getCurrentVacancy() == 0) {
+
             newindex.getWaitList().add(studentobj);
             registeredcourse.remove(indexOfRegisteredCourse);
-            System.out.println("index is removed from your registered course, you are placed in waitlist for your new index");
-        }else{
+            System.out.println(
+                    "index is removed from your registered course, you are placed in waitlist for your new index");
+        } else {
             newindex.getRegisteredStudents().add(studentobj);
             oldindex.getRegisteredStudents().remove(studentobj);
 
@@ -742,63 +851,79 @@ private static void addCourse( String username){
 
     }
 
-    private static void swapIndexWithAnotherStudent(){
+    private static void swapIndexWithAnotherStudent(String username) {
         Scanner sc = new Scanner(System.in);
-        int indexOfRegisteredCourse, indexOfRegisteredCoursePeer = 0;
-        String input1, input2;
         StudentCourse studentCourse = null;
         StudentCourse studentCoursePeer = null;
 
         System.out.println("Enter coursecode that you want to swap index: ");
-        input1 = sc.next();
+        String courseCode = sc.next();
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        //String matricnumber;   //u forgot to add this. but idk put whr
-        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
-        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
-        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+        System.out.println("Enter peer's username: ");
+        String peerUsername = sc.next();
 
-        for(int i=0; i < registeredcourse.size(); i++){
-            if(registeredcourse.get(i).getCourseCode().equals(input1)){
-                studentCourse = registeredcourse.get(i);
-                indexOfRegisteredCourse = i;
+        System.out.println("Enter peer's password: ");
+        String peerPassword = sc.next();
+
+        Login login = new Login();
+
+        if (login.verifyUser(peerUsername, peerPassword) == null) {
+            System.out.println("peer's username and password incorrect");
+
+            System.out.println("Enter peer's username: ");
+            peerUsername = sc.next();
+
+            System.out.println("Enter peer's password: ");
+            peerPassword = sc.next();
+        } else {
+            System.out.println("peer's username and password verified");
+
+            DatabaseManager databaseManager = new DatabaseManager();
+
+            Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
+            ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+
+            for (int i = 0; i < registeredcourse.size(); i++) {
+                if (registeredcourse.get(i).getCourseCode().equals(courseCode)) {
+                    studentCourse = registeredcourse.get(i);
+                    break;
+                }
             }
-            break;
-        }    
 
-        // verifyuser?
-        System.out.println("Input peer index that needs to be swapped: ");
-        input2 = sc.next();
-        Student studentobjPeer = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
-        ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
-        ArrayList<Course> courseListPeer = databaseManager.DeserializeCourseList();
+            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
+            ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
 
-        for(int i=0; i < registeredcoursePeer.size(); i++){
-            if(registeredcoursePeer.get(i).getCourseCode().equals(input2)){
-                studentCoursePeer = registeredcoursePeer.get(i);
-                indexOfRegisteredCoursePeer = i;
+            for (int i = 0; i < registeredcoursePeer.size(); i++) {
+                if (registeredcoursePeer.get(i).getCourseCode().equals(courseCode)) {
+                    studentCoursePeer = registeredcoursePeer.get(i);
+                    break;
+                }
             }
-            break;
+
+            System.out.println("ur index: " + studentCourse.getIndex().getIndex());
+            System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndex());
+            System.out.println("confirm swap?[y/n]");
+            String confirm = sc.next();
+
+            if (confirm.equals("y")) {
+                Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
+                        studentCoursePeer.getIndex().getIndex());
+                Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
+                        studentCourse.getIndex().getIndex());
+
+                newindex.getRegisteredStudents().add(studentobj);
+                oldindex.getRegisteredStudents().remove(studentobj);
+
+                newindex.getRegisteredStudents().remove(studentobjPeer);
+                oldindex.getRegisteredStudents().add(studentobjPeer);
+
+                studentCourse.setIndex(newindex);
+                studentCoursePeer.setIndex(oldindex);
+
+                System.out.println("you have swapped index successfully");
+            }
         }
 
-        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input1);
-        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
-
-        newindex.getRegisteredStudents().add(studentobj);
-        oldindex.getRegisteredStudents().remove(studentobj);
-
-        Cindex newindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), input2);
-        Cindex oldindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), studentCoursePeer.getIndex().getIndex());
-
-        newindexPeer.getRegisteredStudents().add(studentobjPeer);
-        oldindexPeer.getRegisteredStudents().remove(studentobjPeer);
-
-        studentCourse.setIndex(newindex);
-        studentCoursePeer.setIndex(newindexPeer);
-
-        System.out.println("you have swapped index successfully");
-               
     }
 
 }

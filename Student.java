@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
-public class Student extends User {
-
+public class Student extends User implements Serializable{
+	private static final long serialVersionUID = 1L;
+	
+	private int userID;
 	private String matricNum;
 	private String gender;
 	private String firstName;
@@ -15,13 +16,14 @@ public class Student extends User {
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, int numAU, long accessStartDateTime, long accessEndDateTime) {
-		super(username,password,"student");
+	public Student(String firstName, String lastName, String gender, String nationality,int userID, String matricNum, String username, String password, int numAU, long accessStartDateTime, long accessEndDateTime) {
+		super(username,password,"student",userID);
 
-		User userObj = new User(username, password, "student");
+		User userObj = new User(username, password, "student",userID);
 		DatabaseManager databaseManager = new DatabaseManager();
 		databaseManager.adduser(userObj);
 
+		this.userID = userID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -134,19 +136,6 @@ public class Student extends User {
 		}
 	}
 
-
-	public boolean verifyUniqueMatricNum(String matricNum) {
-		DatabaseManager databaseManager = new DatabaseManager();
-		List<Student> StudentList = databaseManager.DeserializeStudentList();
-
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return false;
-			}
-		}
-		return true;
-	}
-
 	
 
 	public boolean checkClash(Cindex index){
@@ -178,12 +167,20 @@ public class Student extends User {
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G","student","student", 0,  0, 0);
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", 2,"U1234567G","student","student", 0,  0, 0);
 		DatabaseManager databaseManager = new DatabaseManager();
-		ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+		ArrayList<Student> studentList = new ArrayList<Student>();
 		
         studentList.add(studentObj);
 
         databaseManager.SerializeStudentList(studentList);
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 }

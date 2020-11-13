@@ -229,8 +229,8 @@ public class DatabaseManager {
 		Calendar newAccessEndDateTime) {
 
 		ArrayList<Student> StudentList = DeserializeStudentList();
-		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
-		int index = getIndexbyMatricNum(matricNum, StudentList);
+		Student StudentObj = getStudentbyMatricNum(matricNum);
+		int index = getIndexbyMatricNum(matricNum);
 
 		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
 		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
@@ -269,7 +269,7 @@ public class DatabaseManager {
 
 		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
 
-		int index = getIndexbyMatricNum(matricNum, studentList);
+		int index = getIndexbyMatricNum(matricNum);
 
       Student studentObj = studentList.get(index);
       studentObj.removeCourse(CourseCode);
@@ -280,7 +280,7 @@ public class DatabaseManager {
    public void printCourseMain(String matricNum) {
 		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
 
-		int index = getIndexbyMatricNum(matricNum, studentList);
+		int index = getIndexbyMatricNum(matricNum);
 
 		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
 
@@ -291,14 +291,14 @@ public class DatabaseManager {
 		}
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality, int userID,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
       int numAU = 0;
 
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
+		Student newStudent = new Student(firstName, lastName, gender, nationality,userID, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
@@ -312,7 +312,6 @@ public class DatabaseManager {
    }
 
    public boolean checkClashforStudent(String matricNum, String courseCode, String Cindex){
-      ArrayList<Student> studentList = DeserializeStudentList();
 
       Student stud = getStudentbyMatricNum(matricNum);
 
@@ -332,12 +331,23 @@ public class DatabaseManager {
 		return -1;
    }
 
+   public int getIndexByUsername(String username){
+      ArrayList<User> userList = DeserializeUserList();
+
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i).getUsername().equals(username)) {
+				return i;
+			}
+		}
+		return -1;
+   }
+
    public void updateDatabase(Object obj){
       if (obj instanceof Student){
          Student stud = (Student) obj;
 
          // search student in array list and replace
-         ArrayList studentList  = DeserializeStudentList();
+         ArrayList<Student> studentList  = DeserializeStudentList();
          studentList.set(getIndexbyMatricNum(stud.getMatricNum()),stud);
          SerializeStudentList(studentList);
       }
@@ -345,17 +355,84 @@ public class DatabaseManager {
          Course c = (Course) obj;
 
          // search student in array list and replace
-         ArrayList clist  = DeserializeCourseList();
+         ArrayList<Course> clist  = DeserializeCourseList();
          clist.set(getIndexByCourseCode(c.getCourseCode()),c);
-         SerializeStudentList(clist);
+         SerializeCourseList(clist);
          
       }
       else if (obj instanceof Admin){
+         // no other attribute to change other than primary key AdminID
          
-         
-      }else{
+      }else if (obj instanceof User){
+         User userobj = (User) obj;
+
+         // search student in array list and replace
+         ArrayList<User> adminList  = DeserializeUserList();
+         adminList.set(getIndexByUsername(userobj.getUsername()),userobj);
+         SerializeUserList(adminList);
+      }
+      else{
          //no object
       }
       
    }
+
+   public Object getObjectbyUsername(String username){
+      DatabaseManager databaseManager = new DatabaseManager();
+      ArrayList<User> userList = databaseManager.DeserializeUserList();
+      String usertype = "";
+      int userID=0;
+      for(int i=0; i<userList.size(); i++){
+         if(userList.get(i).getUsername().equals(username)){
+            usertype = userList.get(i).getUserType();
+            userID = userList.get(i).getUserID();
+         }
+      }
+
+      switch(usertype){
+         case "admin":{
+            ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
+            for(int j=0; j<adminList.size();j++){
+               if(adminList.get(j).getUserID() == userID){
+                  return adminList.get(j);
+               }
+            }
+         }
+         case "student":{
+            ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+            for(int j=0; j<studentList.size();j++){
+               if(studentList.get(j).getUserID() == userID){
+                  return studentList.get(j);
+               }
+            }
+         }
+         default:{
+            System.out.println("Object does not exist with the userID");
+            return null;
+         }
+      }
+
+   }
+
+   public boolean verifyUniqueCourseCode(String courseCode) {
+		ArrayList<Course> courseList = DeserializeCourseList();
+
+		for (int i = 0; i < courseList.size(); i++) {
+			if(courseList.get(i).getCourseCode() == courseCode) {
+				return false;
+			}
+		}
+		return true;
+   }
+   
+   public boolean verifyUniqueMatricNum(String matricNum) {
+		ArrayList<Student> StudentList = DeserializeStudentList();
+
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return false;
+			}
+		}
+		return true;
+	}
 }
