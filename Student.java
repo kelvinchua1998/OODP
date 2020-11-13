@@ -2,8 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student extends User implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class Student extends User {
 
 	private String matricNum;
 	private String gender;
