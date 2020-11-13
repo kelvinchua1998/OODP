@@ -128,11 +128,7 @@ public class Main {
                             break;
                         }
                         case 5: {
-<<<<<<< HEAD
-                            changeIndex(/*matricNum*/);  //got error
-=======
-                            changeIndex(username);
->>>>>>> 7337e9e66814d0866942ea66f9141c28d1615c9d
+                            changeIndex(/*username*/);
                             break;
                         }
                         case 6: {
