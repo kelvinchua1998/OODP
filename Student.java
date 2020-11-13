@@ -68,7 +68,7 @@ public class Student extends User implements Serializable {
 	}
 
 	public void plusAU(Course course) { // plus after dropping course
-		numAU += course.getAU();
+		numAU += course.getAU();           //use Course or String?
 	}
 
 	public Boolean verifyPassword(String enPwd) {

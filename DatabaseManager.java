@@ -198,8 +198,14 @@ public class DatabaseManager {
 
    public ArrayList<Student> getStudentListbyCourse(String coursecode){
       Course singleCourse = searchCourse(coursecode);
+      ArrayList<Student> temp = new ArrayList<Student>();
 
-      return singleCourse.getRegisteredStudents();
+      for(int i=0; i<singleCourse.getListCindex().size(); i++)
+      {
+         if(singleCourse.getListCindex().get(i) != null)
+            temp.addAll(singleCourse.getListCindex().get(i).getRegisteredStudents());
+      }
+      return temp;
    }
    
 
