@@ -16,18 +16,18 @@ public class Main {
 
         Login login = new Login();
         Scanner sc = new Scanner(System.in);
-        String matricNum = null;
+        String username = null;
         String password = null;
 
         while (userType == null) {
             System.out.println("Please Enter Username:");
 
-            matricNum = sc.next();
+            username = sc.next();
 
             System.out.println("Please Enter Password");
             password = sc.next();
 
-            userType = login.verifyUser(matricNum, password);
+            userType = login.verifyUser(username, password);
 
             if (userType == null) {
                 System.out.println("Please Login Again!");
@@ -112,15 +112,15 @@ public class Main {
                     int choice = sc.nextInt();
                     switch (choice) {
                         case 1: {
-                            // addCourse(matricNum);
+                            addCourse(username);
                             break;
                         }
                         case 2: {
-                            // dropCourse(matricNum);
+                            dropCourse(username);
                             break;
                         }
                         case 3: {
-                            checkPrintCourse(matricNum);
+                            checkPrintCourse(username);
                             break;
                         }
                         case 4: {
@@ -128,10 +128,11 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            changeIndex(matricNum);
+                            changeIndex(username);
                             break;
                         }
                         case 6: {
+                            swapIndexWithAnotherStudent()
                             break;
                         }
                         case 7: {
@@ -366,7 +367,7 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        studentList = databaseManager.getStudentList(coursecode);
+        studentList = databaseManager.getStudentListbyCourse(coursecode);
 
         if (studentList != null) {           
             System.out.printf("student in %s \n", coursecode);
@@ -435,7 +436,7 @@ public class Main {
         }
     }
 
-private static void addCourse( String matricNum){
+private static void addCourse( String username){
     //add course
     //chekc timetable clash
     // check vacancy of Cindex
@@ -445,6 +446,14 @@ private static void addCourse( String matricNum){
     Scanner sc = new Scanner(System.in);
     DatabaseManager databaseManager = new DatabaseManager();
     int choice ;
+    Course singleCourse;
+    Cindex singleIndex;
+    Student stud;
+
+    //get student
+
+    stud = databaseManager.getStudentbyMatricNum(username);
+
     while(choice != 0){
         System.out.println("Enter 0 to return to main menu ");
         System.out.println("Please enter coursecode: ");
@@ -453,7 +462,7 @@ private static void addCourse( String matricNum){
         if (coursecode.equals("#"))
             return;
 
-        Course singleCourse = databaseManager.searchSingleCourse(coursecode);
+        singleCourse = databaseManager.searchSingleCourse(coursecode);
         if (singleCourse != null){
             System.out.println(singleCourse.getCourseDescription());
 
@@ -477,30 +486,61 @@ private static void addCourse( String matricNum){
         System.out.println("Please enter choice: ");
         System.out.println("Enter \' # \'to go back to main menu");
         String choiceIndex = sc.next();
+
         if (coursecode.equals("#"))
             return;
         else{
-            Cindex singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
-            
+            singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
         }
         
+        // check timetable clash
         
-        if(){  //how to check timetable clash?
-            
+        if(databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex());){ 
+            //CLASH
             System.out.println("Unable to add because of timetable clash!");
+            //go back to index selection screen
+        }else if(stud.getNumAuAvail() < singleCourse.getAU()){
+            //inssufficient AUs
+            System.out.println("Unable to add due to insuffiecient AUs!");
+            //go back to index selection screen
+        }else{
+            //no clash found
+            //if got vacancy add stud
+            //if no vacancy add into waitlist
+            if(singleIndex.getCurrentVacancy() > 0){
+                //add course into student reg courses
+                // add studnet into courses reg stud list
+                // minus student s available aus
+
+                stud.minusAU(singleCourse);
+                singleIndex.addRegisteredStudent(stud);
+
+                // create a new studentCourse
+                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
+                stud.addCourse(newlyregisteredCourse);
+
+                //update database
+                databaseManager.updateDatabase(stud);
+                databaseManager.updateDatabase(singleCourse);
+
+                System.out.println("Course added!");
+            }
+            else{
+                //add stud to waitlist
+                // add Cindex to student waitlist
+                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
+                stud.addWaitlist(newlyregisteredCourse);
+
+                singleIndex.addWaitlistStudent(stud);
+
+                databaseManager.updateDatabase(stud);
+                databaseManager.updateDatabase(singleCourse);
+
+                System.out.println("Course index full! Adding to waitlist.");
+            }
         }
-        // else if(Course.getAU() > Student.getNumAuAvail() || Student.getNumAuAvail() == 0){
-        //     System.out.println("Not enough AUs");
-        // }
-        else if(vacancy != -1){
-            //add course stuff
-            Student.minusAU();// minus amt of au of student left
-            System.out.println("Course added!");
-        }
-        else{
-            System.out.println("Course index full! Adding to waitlist.");
-            //add to waitlist stuff and 2 courses cant clash
-        }
+        
+       
 
     }
     
@@ -693,6 +733,64 @@ private static void addCourse( String matricNum){
             System.out.println("you have changed your index successfully");
         }
 
+    }
+
+    private static void swapIndexWithAnotherStudent(){
+        Scanner sc = new Scanner(System.in);
+        int indexOfRegisteredCourse, indexOfRegisteredCoursePeer = 0;
+        String input1, input2;
+        StudentCourse studentCourse = null;
+        StudentCourse studentCoursePeer = null;
+
+        System.out.println("Enter coursecode that you want to swap index: ");
+        input1 = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+
+        for(int i=0; i < registeredcourse.size(); i++){
+            if(registeredcourse.get(i).getCourseCode().equals(input1)){
+                studentCourse = registeredcourse.get(i);
+                indexOfRegisteredCourse = i;
+            }
+            break;
+        }    
+
+        // verifyuser?
+        System.out.println("Input peer index that needs to be swapped: ");
+        input2 = sc.next();
+        Student studentobjPeer = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
+        ArrayList<Course> courseListPeer = databaseManager.DeserializeCourseList();
+
+        for(int i=0; i < registeredcoursePeer.size(); i++){
+            if(registeredcoursePeer.get(i).getCourseCode().equals(input2)){
+                studentCoursePeer = registeredcoursePeer.get(i);
+                indexOfRegisteredCoursePeer = i;
+            }
+            break;
+        }
+
+        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input1);
+        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
+
+        newindex.getRegisteredStudents().add(studentobj);
+        oldindex.getRegisteredStudents().remove(studentobj);
+
+        Cindex newindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), input2);
+        Cindex oldindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), studentCoursePeer.getIndex().getIndex());
+
+        newindexPeer.getRegisteredStudents().add(studentobjPeer);
+        oldindexPeer.getRegisteredStudents().remove(studentobjPeer);
+
+        studentCourse.setIndex(newindex);
+        studentCoursePeer.setIndex(newindexPeer);
+
+        System.out.println("you have swapped index successfully");
+               
     }
 
 }

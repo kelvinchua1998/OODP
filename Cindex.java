@@ -57,6 +57,13 @@ public class Cindex implements Serializable{
         this.registeredStudents = registeredStudents;
     }
 
+    public void addRegisteredStudent(Student student){
+        this.registeredStudents.add(student);
+    }
+    public void addWaitlistStudent(Student student){
+        this.registeredStudents.add(student);
+    }
+
     public ArrayList<Lesson> getSchedule() {
         return this.schedule;
     }

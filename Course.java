@@ -7,14 +7,12 @@ public class Course implements Serializable {
     private String CourseDescription;
     private int AU;
     private ArrayList<Cindex> listCindex;
-    private ArrayList<Student> registeredStudents;
 
     public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents, ArrayList<Cindex> ListCindex) {
         this.CourseCode = cc;
         this.CourseName = cn;
         this.CourseDescription = d;
         this.AU = AU;
-        this.registeredStudents = registeredStudents;
     }
 
 
@@ -59,21 +57,7 @@ public class Course implements Serializable {
     }
 
     
-
-    public ArrayList<Student> getRegisteredStudents() {
-        return registeredStudents;
-    }
-
-    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
-        this.registeredStudents = registeredStudents;
-    }
-
-    public static ArrayList<Student> getStudentList(String coursecode) {
-        Course singleIndex = searchSingleCourse(coursecode);
-
-        return singleIndex.getRegisteredStudents();
-    }
-
+    
     public static void main(String[] args) {
         ArrayList<Course> courseList;
         ArrayList<Student> studentList;
