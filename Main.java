@@ -132,6 +132,7 @@ public class Main {
                             break;
                         }
                         case 6: {
+                            swapIndexWithAnotherStudent()
                             break;
                         }
                         case 7: {
@@ -732,6 +733,64 @@ private static void addCourse( String username){
             System.out.println("you have changed your index successfully");
         }
 
+    }
+
+    private static void swapIndexWithAnotherStudent(){
+        Scanner sc = new Scanner(System.in);
+        int indexOfRegisteredCourse, indexOfRegisteredCoursePeer = 0;
+        String input1, input2;
+        StudentCourse studentCourse = null;
+        StudentCourse studentCoursePeer = null;
+
+        System.out.println("Enter coursecode that you want to swap index: ");
+        input1 = sc.next();
+
+        DatabaseManager databaseManager = new DatabaseManager();
+        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+
+        for(int i=0; i < registeredcourse.size(); i++){
+            if(registeredcourse.get(i).getCourseCode().equals(input1)){
+                studentCourse = registeredcourse.get(i);
+                indexOfRegisteredCourse = i;
+            }
+            break;
+        }    
+
+        // verifyuser?
+        System.out.println("Input peer index that needs to be swapped: ");
+        input2 = sc.next();
+        Student studentobjPeer = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
+        ArrayList<Course> courseListPeer = databaseManager.DeserializeCourseList();
+
+        for(int i=0; i < registeredcoursePeer.size(); i++){
+            if(registeredcoursePeer.get(i).getCourseCode().equals(input2)){
+                studentCoursePeer = registeredcoursePeer.get(i);
+                indexOfRegisteredCoursePeer = i;
+            }
+            break;
+        }
+
+        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input1);
+        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
+
+        newindex.getRegisteredStudents().add(studentobj);
+        oldindex.getRegisteredStudents().remove(studentobj);
+
+        Cindex newindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), input2);
+        Cindex oldindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), studentCoursePeer.getIndex().getIndex());
+
+        newindexPeer.getRegisteredStudents().add(studentobjPeer);
+        oldindexPeer.getRegisteredStudents().remove(studentobjPeer);
+
+        studentCourse.setIndex(newindex);
+        studentCoursePeer.setIndex(newindexPeer);
+
+        System.out.println("you have swapped index successfully");
+               
     }
 
 }
