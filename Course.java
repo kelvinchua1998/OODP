@@ -2,6 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Course implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
@@ -64,21 +65,20 @@ public class Course implements Serializable {
         ArrayList<Cindex> CindexList;
         DatabaseManager databaseManager = new DatabaseManager();
 
-        courseList = databaseManager.DeserializeCourseList();
-        for(int i = 0; i<courseList.size(); i++){
-            System.out.println(courseList.get(i).getCourseCode());   
-            System.out.println(courseList.get(i).getCourseDescription());  
-            System.out.println(courseList.get(i).getCourseName());  
-        }
-        CindexList = courseList.get(0).getListCindex();
-        System.out.println(CindexList.get(0).getIndex());
-
+        courseList = new ArrayList<Course>();
+        // for(int i = 0; i<courseList.size(); i++){
+        //     System.out.println(courseList.get(i).getCourseCode());   
+        //     System.out.println(courseList.get(i).getCourseDescription());  
+        //     System.out.println(courseList.get(i).getCourseName());  
+        // }
+        // CindexList = courseList.get(0).getListCindex();
+        // System.out.println(CindexList.get(0).getIndex());
 
         // studentList = databaseManager.DeserializeStudentList();
         // Student studentobj = studentList.get(0);
         // courseList.get(0).getRegisteredStudents().add(studentobj);
 
-        // databaseManager.SerializeCourseList(courseList);
+        databaseManager.SerializeCourseList(courseList);
         
 
     }

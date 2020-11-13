@@ -2,9 +2,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class User implements Serializable{
+    private static final long serialVersionUID = 1L;
     String username;
     String password;
     String userType;
+    int userID;
 
     public String getUsername() {
         return username;
@@ -22,10 +24,11 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public User(String username, String password,String userType) {
+    public User(String username, String password,String userType, int userID) {
         this.username = username;
         this.password = password;
         this.userType = userType;
+        this.userID = userID;
     }
 
     public String getUserType() {
@@ -36,6 +39,13 @@ public class User implements Serializable{
         this.userType = userType;
     }
 
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
     public static void main(String[] args) {
         
         ArrayList<User> userList = new ArrayList<User>();
@@ -43,4 +53,6 @@ public class User implements Serializable{
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.SerializeUserList(userList);
     }
+
+
 }

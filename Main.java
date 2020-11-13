@@ -132,7 +132,7 @@ public class Main {
                             break;
                         }
                         case 6: {
-                            swapIndexWithAnotherStudent()
+                            swapIndexWithAnotherStudent();
                             break;
                         }
                         case 7: {
@@ -367,6 +367,7 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
+        //studentList = databaseManager.getStudentListbyCourse(coursecode);
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
         if (studentList != null) {           
@@ -389,11 +390,11 @@ public class Main {
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Press any key to proceed");
         String coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
+        //if (coursecode.equals("#"))
+        //    return;
         
         courseList = databaseManager.getCourseList();
-
+        while(coursecode != "#"){
         if(courseList != null){
             System.out.println("courses: ");
 
@@ -406,6 +407,8 @@ public class Main {
             }
         }else{
             System.out.println("no courses added yet");
+        }
+        coursecode = sc.next();
         }
 
         System.out.println();
@@ -454,15 +457,18 @@ private static void addCourse( String username){
 
     stud = databaseManager.getStudentbyMatricNum(username);
 
+    System.out.println("Enter 0 to return to main menu ");  //use 0 or #? 
+    choice = sc.nextInt();                         //is it suppose to put like this? i not sure
+
     while(choice != 0){
-        System.out.println("Enter 0 to return to main menu ");
+        //System.out.println("Enter 0 to return to main menu ");  //didnt initialize choice. had error
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
     
         if (coursecode.equals("#"))
             return;
 
-        singleCourse = databaseManager.searchSingleCourse(coursecode);
+        singleCourse = databaseManager.searchCourse(coursecode);
         if (singleCourse != null){
             System.out.println(singleCourse.getCourseDescription());
 
@@ -495,7 +501,7 @@ private static void addCourse( String username){
         
         // check timetable clash
         
-        if(databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex());){ 
+        if(databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())){ 
             //CLASH
             System.out.println("Unable to add because of timetable clash!");
             //go back to index selection screen
@@ -614,7 +620,7 @@ private static void addCourse( String username){
                 ArrayList<Student> studentList;
 
                 Student.removeCourseMain(matricNum, coursecode);
-                Student.plusAU(); // add back amt of au to student
+                Student.plusAU(coursecode); // add back amt of au to student
                 System.out.println("Course dropped!");
             } else if (choice == 0) {
                 return;
@@ -692,7 +698,7 @@ private static void addCourse( String username){
     
     }
 
-    private static void changeIndex(String matricnumber){
+    private static void changeIndex(String username){ //in switch case didnt obtain matricnumber so got error
         Scanner sc = new Scanner(System.in);
         StudentCourse studentCourse = null;
         int indexOfRegisteredCourse = 0;
@@ -703,7 +709,7 @@ private static void addCourse( String username){
 
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        Student studentobj = databaseManager.getStudentby(matricnumber);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
         for(int i=0; i < registeredcourse.size(); i++){
@@ -747,6 +753,7 @@ private static void addCourse( String username){
 
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        //String matricnumber;   //u forgot to add this. but idk put whr
         Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
         ArrayList<Course> courseList = databaseManager.DeserializeCourseList();

@@ -197,17 +197,15 @@ public class DatabaseManager {
    }
 
    public ArrayList<Student> getStudentListbyCourse(String coursecode){
-      ArrayList<Student> studentList = new ArrayList<Student>();
-      Course courseObj = searchCourse(coursecode);
+      Course singleCourse = searchCourse(coursecode);
+      ArrayList<Student> temp = new ArrayList<Student>();
 
-      for(int i=0; i<courseObj.getListCindex().size(); i++){
-         Cindex cindexObj = courseObj.getListCindex().get(i);
-         for(int j=0; j<cindexObj.getRegisteredStudents().size(); j++){
-            studentList.add(cindexObj.getRegisteredStudents().get(j));
-         }
+      for(int i=0; i<singleCourse.getListCindex().size(); i++)
+      {
+         if(singleCourse.getListCindex().get(i) != null)
+            temp.addAll(singleCourse.getListCindex().get(i).getRegisteredStudents());
       }
-
-      return studentList;
+      return temp;
    }
    
 
@@ -293,14 +291,14 @@ public class DatabaseManager {
 		}
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality, int userID,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
       int numAU = 0;
 
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
+		Student newStudent = new Student(firstName, lastName, gender, nationality,userID, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
