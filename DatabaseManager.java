@@ -197,9 +197,17 @@ public class DatabaseManager {
    }
 
    public ArrayList<Student> getStudentListbyCourse(String coursecode){
-      Course singleCourse = searchCourse(coursecode);
+      ArrayList<Student> studentList = new ArrayList<Student>();
+      Course courseObj = searchCourse(coursecode);
 
-      return singleCourse.getRegisteredStudents();
+      for(int i=0; i<courseObj.getListCindex().size(); i++){
+         Cindex cindexObj = courseObj.getListCindex().get(i);
+         for(int j=0; j<cindexObj.getRegisteredStudents().size(); j++){
+            studentList.add(cindexObj.getRegisteredStudents().get(j));
+         }
+      }
+
+      return studentList;
    }
    
 
@@ -223,8 +231,8 @@ public class DatabaseManager {
 		Calendar newAccessEndDateTime) {
 
 		ArrayList<Student> StudentList = DeserializeStudentList();
-		Student StudentObj = getStudentbyMatricNum(matricNum, StudentList);
-		int index = getIndexbyMatricNum(matricNum, StudentList);
+		Student StudentObj = getStudentbyMatricNum(matricNum);
+		int index = getIndexbyMatricNum(matricNum);
 
 		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
 		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
@@ -263,7 +271,7 @@ public class DatabaseManager {
 
 		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
 
-		int index = getIndexbyMatricNum(matricNum, studentList);
+		int index = getIndexbyMatricNum(matricNum);
 
       Student studentObj = studentList.get(index);
       studentObj.removeCourse(CourseCode);
@@ -274,7 +282,7 @@ public class DatabaseManager {
    public void printCourseMain(String matricNum) {
 		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
 
-		int index = getIndexbyMatricNum(matricNum, studentList);
+		int index = getIndexbyMatricNum(matricNum);
 
 		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
 
@@ -306,7 +314,6 @@ public class DatabaseManager {
    }
 
    public boolean checkClashforStudent(String matricNum, String courseCode, String Cindex){
-      ArrayList<Student> studentList = DeserializeStudentList();
 
       Student stud = getStudentbyMatricNum(matricNum);
 
@@ -326,12 +333,23 @@ public class DatabaseManager {
 		return -1;
    }
 
+   public int getIndexByUsername(String username){
+      ArrayList<User> adminList = DeserializeUserList();
+
+		for (int i = 0; i < adminList.size(); i++) {
+			if (adminList.get(i).getUsername().equals(username)) {
+				return i;
+			}
+		}
+		return -1;
+   }
+
    public void updateDatabase(Object obj){
       if (obj instanceof Student){
          Student stud = (Student) obj;
 
          // search student in array list and replace
-         ArrayList studentList  = DeserializeStudentList();
+         ArrayList<Student> studentList  = DeserializeStudentList();
          studentList.set(getIndexbyMatricNum(stud.getMatricNum()),stud);
          SerializeStudentList(studentList);
       }
@@ -339,15 +357,23 @@ public class DatabaseManager {
          Course c = (Course) obj;
 
          // search student in array list and replace
-         ArrayList clist  = DeserializeCourseList();
+         ArrayList<Course> clist  = DeserializeCourseList();
          clist.set(getIndexByCourseCode(c.getCourseCode()),c);
-         SerializeStudentList(clist);
+         SerializeCourseList(clist);
          
       }
       else if (obj instanceof Admin){
+         // no other attribute to change other than primary key AdminID
          
-         
-      }else{
+      }else if (obj instanceof User){
+         User userobj = (User) obj;
+
+         // search student in array list and replace
+         ArrayList<User> adminList  = DeserializeUserList();
+         adminList.set(getIndexByUsername(userobj.getUsername()),userobj);
+         SerializeUserList(adminList);
+      }
+      else{
          //no object
       }
       

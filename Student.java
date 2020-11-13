@@ -2,8 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student extends User {
-
+public class Student extends User implements Serializable{
 	private String matricNum;
 	private String gender;
 	private String firstName;
