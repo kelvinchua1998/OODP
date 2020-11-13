@@ -132,7 +132,7 @@ public class Main {
                             break;
                         }
                         case 6: {
-                            swapIndexWithAnotherStudent();
+                            swapIndexWithAnotherStudent(username);
                             break;
                         }
                         case 7: {
@@ -643,6 +643,8 @@ private static void addCourse( String username){
     private static void AddStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Please enter User ID: ");
+        int userID = sc.nextInt();
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
@@ -659,12 +661,11 @@ private static void addCourse( String username){
         String nationality = sc.next();
         System.out.println("Please enter Username: ");
         String username = sc.next();
-        int numAUs = 0;
+        int numAU = 0;
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                numAUs, accessStartDateTime, accessEndDateTime);
+        Student studentObj = new Student(firstname, lastname, gender, nationality, userID, matricNum, username, password, numAU, accessStartDateTime, accessEndDateTime);
 
         boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
 
@@ -708,8 +709,7 @@ private static void addCourse( String username){
         input = sc.next();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        Student studentobj = databaseManager.getStudentby(matricnumber);
+        Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
         for(int i=0; i < registeredcourse.size(); i++){
@@ -741,7 +741,7 @@ private static void addCourse( String username){
 
     }
 
-    private static void swapIndexWithAnotherStudent(){
+    private static void swapIndexWithAnotherStudent(String username){
         Scanner sc = new Scanner(System.in);
         int indexOfRegisteredCourse, indexOfRegisteredCoursePeer = 0;
         String input1, input2;
@@ -752,11 +752,11 @@ private static void addCourse( String username){
         input1 = sc.next();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+        // ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
         //String matricnumber;   //u forgot to add this. but idk put whr
-        Student studentobj = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
-        ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+        // ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
 
         for(int i=0; i < registeredcourse.size(); i++){
             if(registeredcourse.get(i).getCourseCode().equals(input1)){
@@ -769,7 +769,7 @@ private static void addCourse( String username){
         // verifyuser?
         System.out.println("Input peer index that needs to be swapped: ");
         input2 = sc.next();
-        Student studentobjPeer = databaseManager.getStudentbyMatricNum(matricnumber, studentList);
+        Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
         ArrayList<Course> courseListPeer = databaseManager.DeserializeCourseList();
 

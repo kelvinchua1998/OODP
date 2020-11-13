@@ -39,11 +39,11 @@ public class User implements Serializable{
         this.userType = userType;
     }
 
-    public String getUserID() {
+    public int getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID = userID;
     }
     public static void main(String[] args) {

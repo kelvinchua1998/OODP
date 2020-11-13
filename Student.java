@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	private int userID;
 	private String matricNum;
 	private String gender;
@@ -187,5 +188,13 @@ public class Student extends User implements Serializable{
         studentList.add(studentObj);
 
         databaseManager.SerializeStudentList(studentList);
+	}
+
+	public int getUserID() {
+		return userID;
+	}
+
+	public void setUserID(int userID) {
+		this.userID = userID;
 	}
 }

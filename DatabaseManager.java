@@ -332,10 +332,10 @@ public class DatabaseManager {
    }
 
    public int getIndexByUsername(String username){
-      ArrayList<User> adminList = DeserializeUserList();
+      ArrayList<User> userList = DeserializeUserList();
 
-		for (int i = 0; i < adminList.size(); i++) {
-			if (adminList.get(i).getUsername().equals(username)) {
+		for (int i = 0; i < userList.size(); i++) {
+			if (userList.get(i).getUsername().equals(username)) {
 				return i;
 			}
 		}
@@ -375,5 +375,42 @@ public class DatabaseManager {
          //no object
       }
       
+   }
+
+   public Object getObjectbyUsername(String username){
+      DatabaseManager databaseManager = new DatabaseManager();
+      ArrayList<User> userList = databaseManager.DeserializeUserList();
+      String usertype = "";
+      int userID=0;
+      for(int i=0; i<userList.size(); i++){
+         if(userList.get(i).getUsername().equals(username)){
+            usertype = userList.get(i).getUserType();
+            userID = userList.get(i).getUserID();
+         }
+      }
+
+      switch(usertype){
+         case "admin":{
+            ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
+            for(int j=0; j<adminList.size();j++){
+               if(adminList.get(j).getUserID() == userID){
+                  return adminList.get(j);
+               }
+            }
+         }
+         case "student":{
+            ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
+            for(int j=0; j<studentList.size();j++){
+               if(studentList.get(j).getUserID() == userID){
+                  return studentList.get(j);
+               }
+            }
+         }
+         default:{
+            System.out.println("Object does not exist with the userID");
+            return null;
+         }
+      }
+
    }
 }
