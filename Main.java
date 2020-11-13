@@ -107,7 +107,6 @@ public class Main {
                     System.out.println(
                             "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                     System.out.println("7. Logout");
-                    
 
                     int choice = sc.nextInt();
                     switch (choice) {
@@ -162,7 +161,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Add new Course ");
-        System.out.println("Course Code: ");          //check for duplicates
+        System.out.println("Course Code: "); // check for duplicates
         String CourseCode = sc.next();
         sc.nextLine();
 
@@ -367,14 +366,15 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        //studentList = databaseManager.getStudentListbyCourse(coursecode);
+        // studentList = databaseManager.getStudentListbyCourse(coursecode);
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
-        if (studentList != null) {           
+        if (studentList != null) {
             System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s ", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
+                        studentList.get(i).getLastName());
             }
         } else {
             System.out.println("course not found! please try again!");
@@ -382,7 +382,7 @@ public class Main {
         System.out.println();
     }
 
-    private static void getAvailCourse(){
+    private static void getAvailCourse() {
         ArrayList<Course> courseList = null;
         DatabaseManager databaseManager = new DatabaseManager();
 
@@ -390,29 +390,29 @@ public class Main {
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Press any key to proceed");
         String coursecode = sc.next();
-        //if (coursecode.equals("#"))
-        //    return;
-        
+        // if (coursecode.equals("#"))
+        // return;
+
         courseList = databaseManager.getCourseList();
-        while(coursecode != "#"){
-        if(courseList != null){
-            System.out.println("courses: ");
+        while (coursecode != "#") {
+            if (courseList != null) {
+                System.out.println("courses: ");
 
-            for(int i = 0; i<courseList.size(); i++){
-                System.out.printf("%d. %s : \n", i+1, courseList.get(i).getCourseCode());
+                for (int i = 0; i < courseList.size(); i++) {
+                    System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
-                //for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
+                    // for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
                     System.out.printf("\t %s \n", courseList.get(i).getListCindex());
-                //}
+                    // }
+                }
+            } else {
+                System.out.println("no courses added yet");
             }
-        }else{
-            System.out.println("no courses added yet");
-        }
-        coursecode = sc.next();
+            coursecode = sc.next();
         }
 
         System.out.println();
-        
+
     }
 
     private static void checkVacancy() {
@@ -439,118 +439,119 @@ public class Main {
         }
     }
 
-private static void addCourse( String username){
-    //add course
-    //chekc timetable clash
-    // check vacancy of Cindex
-    // if full go waiting list
-    //if have vacancy register for C index
+    private static void addCourse(String username) {
+        // add course
+        // chekc timetable clash
+        // check vacancy of Cindex
+        // if full go waiting list
+        // if have vacancy register for C index
 
-    Scanner sc = new Scanner(System.in);
-    DatabaseManager databaseManager = new DatabaseManager();
-    int choice ;
-    Course singleCourse;
-    Cindex singleIndex;
-    Student stud;
+        Scanner sc = new Scanner(System.in);
+        DatabaseManager databaseManager = new DatabaseManager();
+        int choice;
+        Course singleCourse;
+        Cindex singleIndex;
+        Student stud;
 
-    //get student
+        // get student
 
-    stud = databaseManager.getStudentbyMatricNum(username);
+        stud = databaseManager.getStudentbyMatricNum(username);
 
-    System.out.println("Enter 0 to return to main menu ");  //use 0 or #? 
-    choice = sc.nextInt();                         //is it suppose to put like this? i not sure
+        System.out.println("Enter 0 to return to main menu "); // use 0 or #?
+        choice = sc.nextInt(); // is it suppose to put like this? i not sure
 
-    while(choice != 0){
-        //System.out.println("Enter 0 to return to main menu ");  //didnt initialize choice. had error
-        System.out.println("Please enter coursecode: ");
-        String coursecode = sc.next();
-    
-        if (coursecode.equals("#"))
-            return;
+        while (choice != 0) {
+            // System.out.println("Enter 0 to return to main menu "); //didnt initialize
+            // choice. had error
+            System.out.println("Please enter coursecode: ");
+            String coursecode = sc.next();
 
-        singleCourse = databaseManager.searchCourse(coursecode);
-        if (singleCourse != null){
-            System.out.println(singleCourse.getCourseDescription());
+            if (coursecode.equals("#"))
+                return;
 
-            // print list of indexes and vacancies in the course 
-            // shud show timetable clash for each index
-            //show index lesson timings
+            singleCourse = databaseManager.searchCourse(coursecode);
+            if (singleCourse != null) {
+                System.out.println(singleCourse.getCourseDescription());
 
-            System.out.printf("%s %s", singleCourse.getCourseCode(),singleCourse.getCourseName());
-            System.out.println("-------------------------------------");
-            System.out.println("index   /   vacacy   /    waitlist");
-            for (int i = 0; i < singleCourse.getListCindex().size();i++){
-                Cindex singleindex = singleCourse.getListCindex().get(i);
-                System.out.printf("%d.  %s  /  %d  /  %d",i+1, singleindex.getIndex(),singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                // print list of indexes and vacancies in the course
+                // shud show timetable clash for each index
+                // show index lesson timings
+
+                System.out.printf("%s %s", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.println("-------------------------------------");
+                System.out.println("index   /   vacacy   /    waitlist");
+                for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
+                    Cindex singleindex = singleCourse.getListCindex().get(i);
+                    System.out.printf("%d.  %s  /  %d  /  %d", i + 1, singleindex.getIndex(),
+                            singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                }
+
+            } else {
+                System.out.println("course not found! please enter course code again ");
+                continue;
             }
-            
-        }else{
-            System.out.println("course not found! please enter course code again ");
-            continue;
-        }
-        
-        System.out.println("Please enter choice: ");
-        System.out.println("Enter \' # \'to go back to main menu");
-        String choiceIndex = sc.next();
 
-        if (coursecode.equals("#"))
-            return;
-        else{
-            singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
-        }
-        
-        // check timetable clash
-        
-        if(databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())){ 
-            //CLASH
-            System.out.println("Unable to add because of timetable clash!");
-            //go back to index selection screen
-        }else if(stud.getNumAuAvail() < singleCourse.getAU()){
-            //inssufficient AUs
-            System.out.println("Unable to add due to insuffiecient AUs!");
-            //go back to index selection screen
-        }else{
-            //no clash found
-            //if got vacancy add stud
-            //if no vacancy add into waitlist
-            if(singleIndex.getCurrentVacancy() > 0){
-                //add course into student reg courses
-                // add studnet into courses reg stud list
-                // minus student s available aus
+            System.out.println("Please enter choice: ");
+            System.out.println("Enter \' # \'to go back to main menu");
+            String choiceIndex = sc.next();
 
-                stud.minusAU(singleCourse);
-                singleIndex.addRegisteredStudent(stud);
-
-                // create a new studentCourse
-                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
-                stud.addCourse(newlyregisteredCourse);
-
-                //update database
-                databaseManager.updateDatabase(stud);
-                databaseManager.updateDatabase(singleCourse);
-
-                System.out.println("Course added!");
+            if (coursecode.equals("#"))
+                return;
+            else {
+                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
             }
-            else{
-                //add stud to waitlist
-                // add Cindex to student waitlist
-                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getCourseDescription(), singleIndex);
-                stud.addWaitlist(newlyregisteredCourse);
 
-                singleIndex.addWaitlistStudent(stud);
+            // check timetable clash
 
-                databaseManager.updateDatabase(stud);
-                databaseManager.updateDatabase(singleCourse);
+            if (databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())) {
+                // CLASH
+                System.out.println("Unable to add because of timetable clash!");
+                // go back to index selection screen
+            } else if (stud.getNumAuAvail() < singleCourse.getAU()) {
+                // inssufficient AUs
+                System.out.println("Unable to add due to insuffiecient AUs!");
+                // go back to index selection screen
+            } else {
+                // no clash found
+                // if got vacancy add stud
+                // if no vacancy add into waitlist
+                if (singleIndex.getCurrentVacancy() > 0) {
+                    // add course into student reg courses
+                    // add studnet into courses reg stud list
+                    // minus student s available aus
 
-                System.out.println("Course index full! Adding to waitlist.");
+                    stud.minusAU(singleCourse);
+                    singleIndex.addRegisteredStudent(stud);
+
+                    // create a new studentCourse
+                    StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                            singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
+                    stud.addCourse(newlyregisteredCourse);
+
+                    // update database
+                    databaseManager.updateDatabase(stud);
+                    databaseManager.updateDatabase(singleCourse);
+
+                    System.out.println("Course added!");
+                } else {
+                    // add stud to waitlist
+                    // add Cindex to student waitlist
+                    StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                            singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
+                    stud.addWaitlist(newlyregisteredCourse);
+
+                    singleIndex.addWaitlistStudent(stud);
+
+                    databaseManager.updateDatabase(stud);
+                    databaseManager.updateDatabase(singleCourse);
+
+                    System.out.println("Course index full! Adding to waitlist.");
+                }
             }
+
         }
-        
-       
 
     }
-    
-}
 
     private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);
@@ -665,7 +666,8 @@ private static void addCourse( String username){
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, userID, matricNum, username, password, numAU, accessStartDateTime, accessEndDateTime);
+        Student studentObj = new Student(firstname, lastname, gender, nationality, userID, matricNum, username,
+                password, numAU, accessStartDateTime, accessEndDateTime);
 
         boolean unique = studentObj.verifyUniqueMatricNum(matricNum);
 
@@ -680,12 +682,12 @@ private static void addCourse( String username){
 
     private static void vacancyAvailable() {
         Scanner sc = new Scanner(System.in);
-    
+
         int vacancy;
         String coursecode;
         String cindex;
         Course courseobj;
-    
+
         System.out.println("Please enter coursecode: ");
         coursecode = sc.next();
 
@@ -693,13 +695,14 @@ private static void addCourse( String username){
         courseobj = databaseManager.searchCourse(coursecode);
         ArrayList<Cindex> CindexList = courseobj.getListCindex();
 
-        for(int i=0; i<CindexList.size(); i++){
-            System.out.println("index: " + CindexList.get(i).getIndex() + "Vacancy: " +  CindexList.get(i).getCurrentVacancy());
+        for (int i = 0; i < CindexList.size(); i++) {
+            System.out.println(
+                    "index: " + CindexList.get(i).getIndex() + "Vacancy: " + CindexList.get(i).getCurrentVacancy());
         }
-    
+
     }
 
-    private static void changeIndex(String username){ //in switch case didnt obtain matricnumber so got error
+    private static void changeIndex(String username) { // in switch case didnt obtain matricnumber so got error
         Scanner sc = new Scanner(System.in);
         StudentCourse studentCourse = null;
         int indexOfRegisteredCourse = 0;
@@ -712,8 +715,8 @@ private static void addCourse( String username){
         Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
-        for(int i=0; i < registeredcourse.size(); i++){
-            if(registeredcourse.get(i).getCourseCode().equals(input)){
+        for (int i = 0; i < registeredcourse.size(); i++) {
+            if (registeredcourse.get(i).getCourseCode().equals(input)) {
                 studentCourse = registeredcourse.get(i);
                 indexOfRegisteredCourse = i;
             }
@@ -726,12 +729,13 @@ private static void addCourse( String username){
 
         Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
         Cindex oldindex = studentCourse.getIndex();
-        if(newindex.getCurrentVacancy() == 0){
-            
+        if (newindex.getCurrentVacancy() == 0) {
+
             newindex.getWaitList().add(studentobj);
             registeredcourse.remove(indexOfRegisteredCourse);
-            System.out.println("index is removed from your registered course, you are placed in waitlist for your new index");
-        }else{
+            System.out.println(
+                    "index is removed from your registered course, you are placed in waitlist for your new index");
+        } else {
             newindex.getRegisteredStudents().add(studentobj);
             oldindex.getRegisteredStudents().remove(studentobj);
 
@@ -741,63 +745,77 @@ private static void addCourse( String username){
 
     }
 
-    private static void swapIndexWithAnotherStudent(String username){
+    private static void swapIndexWithAnotherStudent(String username) {
         Scanner sc = new Scanner(System.in);
-        int indexOfRegisteredCourse, indexOfRegisteredCoursePeer = 0;
-        String input1, input2;
         StudentCourse studentCourse = null;
         StudentCourse studentCoursePeer = null;
 
         System.out.println("Enter coursecode that you want to swap index: ");
-        input1 = sc.next();
+        String courseCode = sc.next();
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        // ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-        //String matricnumber;   //u forgot to add this. but idk put whr
-        Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
-        ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
-        // ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
+        System.out.println("Enter peer's username: ");
+        String peerUsername = sc.next();
 
-        for(int i=0; i < registeredcourse.size(); i++){
-            if(registeredcourse.get(i).getCourseCode().equals(input1)){
-                studentCourse = registeredcourse.get(i);
-                indexOfRegisteredCourse = i;
+        System.out.println("Enter peer's password: ");
+        String peerPassword = sc.next();
+
+        Login login = new Login();
+
+        if (login.verifyUser(peerUsername, peerPassword) == null) {
+            System.out.println("peer's username and password incorrect");
+
+            System.out.println("Enter peer's username: ");
+            peerUsername = sc.next();
+
+            System.out.println("Enter peer's password: ");
+            peerPassword = sc.next();
+        } else {
+            System.out.println("peer's username and password verified");
+
+            DatabaseManager databaseManager = new DatabaseManager();
+
+            Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
+            ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+
+            for (int i = 0; i < registeredcourse.size(); i++) {
+                if (registeredcourse.get(i).getCourseCode().equals(courseCode)) {
+                    studentCourse = registeredcourse.get(i);
+                    break;
+                }
             }
-            break;
-        }    
 
-        // verifyuser?
-        System.out.println("Input peer index that needs to be swapped: ");
-        input2 = sc.next();
-        Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
-        ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
-        ArrayList<Course> courseListPeer = databaseManager.DeserializeCourseList();
+            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
+            ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
 
-        for(int i=0; i < registeredcoursePeer.size(); i++){
-            if(registeredcoursePeer.get(i).getCourseCode().equals(input2)){
-                studentCoursePeer = registeredcoursePeer.get(i);
-                indexOfRegisteredCoursePeer = i;
+            for (int i = 0; i < registeredcoursePeer.size(); i++) {
+                if (registeredcoursePeer.get(i).getCourseCode().equals(courseCode)) {
+                    studentCoursePeer = registeredcoursePeer.get(i);
+                    break;
+                }
             }
-            break;
+
+            System.out.println("ur index: " + studentCourse.getIndex().getIndex());
+            System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndex());
+            System.out.println("confirm swap?[y/n]");
+            String confirm = sc.next();
+
+            if(confirm.equals("y")){
+                Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),studentCoursePeer.getIndex().getIndex());
+                Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),studentCourse.getIndex().getIndex());
+
+                newindex.getRegisteredStudents().add(studentobj);
+                oldindex.getRegisteredStudents().remove(studentobj);
+
+                newindex.getRegisteredStudents().remove(studentobjPeer);
+                oldindex.getRegisteredStudents().add(studentobjPeer);
+
+                studentCourse.setIndex(newindex);
+                studentCoursePeer.setIndex(oldindex);
+
+                System.out.println("you have swapped index successfully");
+            }
         }
 
-        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input1);
-        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getIndex().getIndex());
-
-        newindex.getRegisteredStudents().add(studentobj);
-        oldindex.getRegisteredStudents().remove(studentobj);
-
-        Cindex newindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), input2);
-        Cindex oldindexPeer = databaseManager.searchCindex(studentCoursePeer.getCourseCode(), studentCoursePeer.getIndex().getIndex());
-
-        newindexPeer.getRegisteredStudents().add(studentobjPeer);
-        oldindexPeer.getRegisteredStudents().remove(studentobjPeer);
-
-        studentCourse.setIndex(newindex);
-        studentCoursePeer.setIndex(newindexPeer);
-
-        System.out.println("you have swapped index successfully");
-               
     }
 
 }
