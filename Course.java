@@ -6,14 +6,16 @@ public class Course implements Serializable {
     private String CourseCode; // changed int to string cuz eg. CE2001
     private String CourseName;
     private String CourseDescription;
+    private String School;
     private int AU;
     private ArrayList<Cindex> listCindex;
 
-    public Course(String cc, String cn, String d, int AU, ArrayList<Student> registeredStudents, ArrayList<Cindex> ListCindex) {
+    public Course(String cc, String cn, String d,String school, int AU, ArrayList<Student> registeredStudents, ArrayList<Cindex> ListCindex) {
         this.CourseCode = cc;
         this.CourseName = cn;
         this.CourseDescription = d;
         this.AU = AU;
+        this.School = school;
     }
 
 
@@ -57,29 +59,19 @@ public class Course implements Serializable {
         listCindex = Cindex;
     }
 
-    
+    public String getSchool() {
+        return School;
+    }
+
+    public void setSchool(String school) {
+        School = school;
+    }
     
     public static void main(String[] args) {
-        ArrayList<Course> courseList;
-        ArrayList<Student> studentList;
-        ArrayList<Cindex> CindexList;
+        ArrayList<Course> courseList = new ArrayList<Course>();
         DatabaseManager databaseManager = new DatabaseManager();
 
-        courseList = new ArrayList<Course>();
-        // for(int i = 0; i<courseList.size(); i++){
-        //     System.out.println(courseList.get(i).getCourseCode());   
-        //     System.out.println(courseList.get(i).getCourseDescription());  
-        //     System.out.println(courseList.get(i).getCourseName());  
-        // }
-        // CindexList = courseList.get(0).getListCindex();
-        // System.out.println(CindexList.get(0).getIndex());
-
-        // studentList = databaseManager.DeserializeStudentList();
-        // Student studentobj = studentList.get(0);
-        // courseList.get(0).getRegisteredStudents().add(studentobj);
-
         databaseManager.SerializeCourseList(courseList);
-        
 
     }
 

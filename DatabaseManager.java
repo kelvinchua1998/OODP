@@ -413,4 +413,26 @@ public class DatabaseManager {
       }
 
    }
+
+   public boolean verifyUniqueCourseCode(String courseCode) {
+		ArrayList<Course> courseList = DeserializeCourseList();
+
+		for (int i = 0; i < courseList.size(); i++) {
+			if(courseList.get(i).getCourseCode() == courseCode) {
+				return false;
+			}
+		}
+		return true;
+   }
+   
+   public boolean verifyUniqueMatricNum(String matricNum) {
+		ArrayList<Student> StudentList = DeserializeStudentList();
+
+		for (int i = 0; i < StudentList.size(); i++) {
+			if (StudentList.get(i).getMatricNum() == matricNum) {
+				return false;
+			}
+		}
+		return true;
+	}
 }

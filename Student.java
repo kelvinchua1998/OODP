@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -135,19 +134,6 @@ public class Student extends User implements Serializable{
 				registeredCourse.remove(i);
 			}
 		}
-	}
-
-
-	public boolean verifyUniqueMatricNum(String matricNum) {
-		DatabaseManager databaseManager = new DatabaseManager();
-		List<Student> StudentList = databaseManager.DeserializeStudentList();
-
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return false;
-			}
-		}
-		return true;
 	}
 
 	
