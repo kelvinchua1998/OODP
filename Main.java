@@ -492,27 +492,36 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
+        System.out.println("Enter \' # \' to return to main menu ");
         System.out.println("Press any key to proceed");
         String coursecode = sc.next();
-        // if (coursecode.equals("#"))
-        // return;
+        if (coursecode.equals("#"))
+            return;
 
-        courseList = databaseManager.getCourseList();
-        while (coursecode != "#") {
-            if (courseList != null) {
-                System.out.println("courses: ");
+        courseList = databaseManager.getCourseList(); //maybe got error in this idk :(
+
+        while (coursecode != "#") {         
+            if (coursecode.equals("#"))
+                return;
+
+            else if (courseList != null) {
+                System.out.println("courses: ");    // for loop dsnt work :(
 
                 for (int i = 0; i < courseList.size(); i++) {
                     System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
-                    // for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
-                    System.out.printf("\t %s \n", courseList.get(i).getListCindex());
-                    // }
+                    System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
+                    
+                    for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
+                        System.out.printf("\t %s %s\n", courseList.get(i).getListCindex(), 
+                                            courseList.get(i).getListCindex().get(j).getSchedule());
+                    }
                 }
-            } else {
+            } 
+            else {
                 System.out.println("no courses added yet");
             }
+            System.out.println("Enter \' # \' to return to main menu ");
             coursecode = sc.next();
         }
 
