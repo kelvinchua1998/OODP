@@ -166,14 +166,14 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
         Course courseObj = databaseManager.searchCourse(courseCode);
 
-        if(courseObj != null){
+        if (courseObj != null) {
             System.out.println("Course Code: " + courseObj.getCourseCode());
             System.out.println("Course Name: " + courseObj.getCourseName());
             System.out.println("Course Description: " + courseObj.getCourseDescription());
             System.out.println("Number of AUs: " + courseObj.getAU());
-            
+
             ArrayList<Cindex> CindexList = courseObj.getListCindex();
-            for(int i=0; i<CindexList.size(); i++){
+            for (int i = 0; i < CindexList.size(); i++) {
                 System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i);
                 System.out.println("Index Capacity: " + CindexList.get(i).getCapacity());
             }
@@ -186,33 +186,33 @@ public class Main {
             System.out.println("4. Update Index");
 
             int choice = sc.nextInt();
-            ArrayList<Cindex> cindexList = courseObj.getListCindex(); 
-            while(choice != 0){
-                switch(choice){
-                    case 0:{
+            ArrayList<Cindex> cindexList = courseObj.getListCindex();
+            while (choice != 0) {
+                switch (choice) {
+                    case 0: {
                         break;
                     }
-                    case 1:{
+                    case 1: {
                         System.out.println("Enter new Course Code:");
                         String newCourseCode = sc.next();
 
-                        if(databaseManager.verifyUniqueCourseCode(newCourseCode)){
+                        if (databaseManager.verifyUniqueCourseCode(newCourseCode)) {
                             courseObj.setCourseCode(newCourseCode);
-                        }else{
+                        } else {
                             System.out.println("Course Code not unique");
                         }
                         break;
                     }
-                    case 2:{
+                    case 2: {
                         System.out.println("Enter new School:");
                         String newSchool = sc.next();
-                        
+
                         courseObj.setSchool(newSchool);
                         break;
                     }
-                    case 3:{
-                        for(int i=0; i<cindexList.size(); i++){
-                            System.out.printf("%d." + cindexList.get(i).getIndex(),i);
+                    case 3: {
+                        for (int i = 0; i < cindexList.size(); i++) {
+                            System.out.printf("%d." + cindexList.get(i).getIndex(), i);
                         }
 
                         System.out.println("Enter the index to change Capacity:");
@@ -224,9 +224,9 @@ public class Main {
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
                         cindexobj.setCapacity(newCapacity);
                     }
-                    case 4:{
-                        for(int i=0; i<cindexList.size(); i++){
-                            System.out.printf("%d." + cindexList.get(i).getIndex(),i);
+                    case 4: {
+                        for (int i = 0; i < cindexList.size(); i++) {
+                            System.out.printf("%d." + cindexList.get(i).getIndex(), i);
                         }
 
                         System.out.println("Enter the Index to change new Index Number:");
@@ -240,15 +240,12 @@ public class Main {
                     }
                 }
             }
-            
+
             databaseManager.updateDatabase(courseObj);
 
-        }else{
+        } else {
             System.out.println("Course Code does not exists in DataBase");
         }
-        
-
-
 
     }
 
@@ -287,139 +284,138 @@ public class Main {
             System.out.println("0.Quit");
             System.out.println("1.Add new index");
             choice = sc.nextInt();
-            while (choice != 0) {
-                switch (choice) {
-                    case 0:
-                        break;
-                    case 1:
-                        System.out.println("Index: ");
-                        String index = sc.next();
+            switch (choice) {
+                case 0:
+                    break;
+                case 1:
+                    System.out.println("Index: ");
+                    String index = sc.next();
 
-                        System.out.println("Capacity: ");
-                        int Capacity = sc.nextInt();
+                    System.out.println("Capacity: ");
+                    int Capacity = sc.nextInt();
 
-                        Cindex CindexObj = new Cindex(index, Capacity);
+                    Cindex CindexObj = new Cindex(index, Capacity);
 
-                        ArrayList<Lesson> schedule = new ArrayList<Lesson>();
-                        int choice2 = -1;
-                        while (choice2 != 0) {
-                            System.out.println("Add new lesson: ");
-                            System.out.println("0.Stop adding lesson ");
-                            System.out.println("1.Add new Lecture ");
-                            System.out.println("2.Add new Tutorial ");
-                            System.out.println("3.Add new Lab ");
+                    ArrayList<Lesson> schedule = new ArrayList<Lesson>();
+                    int choice2 = -1;
+                    while (choice2 != 0) {
+                        System.out.println("Add new lesson: ");
+                        System.out.println("0.Stop adding lesson ");
+                        System.out.println("1.Add new Lecture ");
+                        System.out.println("2.Add new Tutorial ");
+                        System.out.println("3.Add new Lab ");
 
-                            choice2 = sc.nextInt();
+                        choice2 = sc.nextInt();
 
-                            switch (choice2) {
-                                case 0:
-                                    break;
-                                case 1:
-                                    System.out.println("Start Time: ");
-                                    String startTimeLect = sc.next();
-                                    Date startTimeParsedLect = null;
-                                    try {
-                                        startTimeParsedLect = timeformat.parse(startTimeLect);
-                                    } catch (ParseException e) {
+                        switch (choice2) {
+                            case 0:
+                                break;
+                            case 1:
+                                System.out.println("Start Time: ");
+                                String startTimeLect = sc.next();
+                                Date startTimeParsedLect = null;
+                                try {
+                                    startTimeParsedLect = timeformat.parse(startTimeLect);
+                                } catch (ParseException e) {
 
-                                        e.printStackTrace();
-                                    }
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("End Time: ");
-                                    String endTimeLect = sc.next();
-                                    Date endTimeParsedLect = null;
-                                    try {
-                                        endTimeParsedLect = timeformat.parse(endTimeLect);
-                                    } catch (ParseException e) {
+                                System.out.println("End Time: ");
+                                String endTimeLect = sc.next();
+                                Date endTimeParsedLect = null;
+                                try {
+                                    endTimeParsedLect = timeformat.parse(endTimeLect);
+                                } catch (ParseException e) {
 
-                                        e.printStackTrace();
-                                    }
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("Venue: ");
-                                    String venueLect = sc.next();
+                                System.out.println("Venue: ");
+                                String venueLect = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekLect = sc.next();
+                                System.out.println("Day Of Week: ");
+                                String dayOfweekLect = sc.next();
 
-                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
-                                            dayOfweekLect);
+                                Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
+                                        dayOfweekLect);
 
-                                    schedule.add(lecture);
-                                    break;
-                                case 2:
-                                    System.out.println("Start Time: ");
-                                    String startTimeTut = sc.next();
-                                    Date startTimeParsedTut = null;
-                                    try {
-                                        startTimeParsedTut = timeformat.parse(startTimeTut);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
+                                schedule.add(lecture);
+                                break;
+                            case 2:
+                                System.out.println("Start Time: ");
+                                String startTimeTut = sc.next();
+                                Date startTimeParsedTut = null;
+                                try {
+                                    startTimeParsedTut = timeformat.parse(startTimeTut);
+                                } catch (ParseException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("End Time: ");
-                                    String endTimeTut = sc.next();
-                                    Date endTimeParsedTut = null;
-                                    try {
-                                        endTimeParsedTut = timeformat.parse(endTimeTut);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
+                                System.out.println("End Time: ");
+                                String endTimeTut = sc.next();
+                                Date endTimeParsedTut = null;
+                                try {
+                                    endTimeParsedTut = timeformat.parse(endTimeTut);
+                                } catch (ParseException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("Venue: ");
-                                    String venueTut = sc.next();
+                                System.out.println("Venue: ");
+                                String venueTut = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekTut = sc.next();
+                                System.out.println("Day Of Week: ");
+                                String dayOfweekTut = sc.next();
 
-                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
-                                            dayOfweekTut);
+                                Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
+                                        dayOfweekTut);
 
-                                    schedule.add(tutorial);
-                                    break;
-                                case 3:
-                                    System.out.println("Start Time: ");
-                                    String startTimeLab = sc.next();
-                                    Date startTimeParsedLab = null;
-                                    try {
-                                        startTimeParsedLab = timeformat.parse(startTimeLab);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
+                                schedule.add(tutorial);
+                                break;
+                            case 3:
+                                System.out.println("Start Time: ");
+                                String startTimeLab = sc.next();
+                                Date startTimeParsedLab = null;
+                                try {
+                                    startTimeParsedLab = timeformat.parse(startTimeLab);
+                                } catch (ParseException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("End Time: ");
-                                    String endTimeLab = sc.next();
-                                    Date endTimeParsedLab = null;
-                                    try {
-                                        endTimeParsedLab = timeformat.parse(endTimeLab);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
-                                    }
+                                System.out.println("End Time: ");
+                                String endTimeLab = sc.next();
+                                Date endTimeParsedLab = null;
+                                try {
+                                    endTimeParsedLab = timeformat.parse(endTimeLab);
+                                } catch (ParseException e) {
+                                    // TODO Auto-generated catch block
+                                    e.printStackTrace();
+                                }
 
-                                    System.out.println("Venue: ");
-                                    String venueLab = sc.next();
+                                System.out.println("Venue: ");
+                                String venueLab = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekLab = sc.next();
+                                System.out.println("Day Of Week: ");
+                                String dayOfweekLab = sc.next();
 
-                                    System.out.println("Odd or Even: ");
-                                    String oddOrEvenLab = sc.next();
+                                System.out.println("Odd or Even: ");
+                                String oddOrEvenLab = sc.next();
 
-                                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
-                                            oddOrEvenLab);
+                                Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
+                                        oddOrEvenLab);
 
-                                    schedule.add(lab);
-                                    break;
+                                schedule.add(lab);
+                                break;
 
-                            }
                         }
-                        CindexObj.setSchedule(schedule);
-                        cindexArrayList.add(CindexObj);
-                }
+                    }
+                    CindexObj.setSchedule(schedule);
+                    cindexArrayList.add(CindexObj);
             }
+
         }
         courseObj.setListCindex(cindexArrayList);
         DatabaseManager databaseManager = new DatabaseManager();
@@ -498,27 +494,26 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        courseList = databaseManager.getCourseList(); //maybe got error in this idk :(
+        courseList = databaseManager.getCourseList(); // maybe got error in this idk :(
 
-        while (coursecode != "#") {         
+        while (coursecode != "#") {
             if (coursecode.equals("#"))
                 return;
 
             else if (courseList != null) {
-                System.out.println("courses: ");    // for loop dsnt work :(
+                System.out.println("courses: "); // for loop dsnt work :(
 
                 for (int i = 0; i < courseList.size(); i++) {
                     System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
                     System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
-                    
-                    for(int j=0; j<courseList.get(i).getListCindex().size(); j++){
-                        System.out.printf("\t %s %s\n", courseList.get(i).getListCindex(), 
-                                            courseList.get(i).getListCindex().get(j).getSchedule());
+
+                    for (int j = 0; j < courseList.get(i).getListCindex().size(); j++) {
+                        System.out.printf("\t %s %s\n", courseList.get(i).getListCindex(),
+                                courseList.get(i).getListCindex().get(j).getSchedule());
                     }
                 }
-            } 
-            else {
+            } else {
                 System.out.println("no courses added yet");
             }
             System.out.println("Enter \' # \' to return to main menu ");
@@ -791,7 +786,7 @@ public class Main {
             matricNum = sc.next();
             studentObj.setMatricNum(matricNum);
         }
-        
+
         databaseManager.addStudentintoStudentDB(studentObj);
     }
 
