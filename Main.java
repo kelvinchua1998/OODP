@@ -101,7 +101,7 @@ public class Main {
 
             case "student": {
                 while (runnning) {
-                    System.out.println("Welcome Student Name Matric Number!");
+                    System.out.println("Welcome Student!");
                     System.out.println("Select your option(1-6)");
                     System.out.println("1. *Add Course");
                     System.out.println("2. Drop Course");
@@ -557,17 +557,14 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
-        int choice;
+        int choice=-1;
         Course singleCourse;
         Cindex singleIndex;
         Student stud;
 
         // get student
 
-        stud = databaseManager.getStudentbyMatricNum(username);
-
-        System.out.println("Enter 0 to return to main menu "); // use 0 or #?
-        choice = sc.nextInt(); // is it suppose to put like this? i not sure
+        stud = (Student) databaseManager.getObjectbyUsername(username);
 
         while (choice != 0) {
             // System.out.println("Enter 0 to return to main menu "); //didnt initialize
@@ -575,7 +572,7 @@ public class Main {
             System.out.println("Please enter coursecode: ");
             String coursecode = sc.next();
 
-            if (coursecode.equals("#"))
+            if (coursecode.equals("0"))
                 return;
 
             singleCourse = databaseManager.searchCourse(coursecode);
@@ -591,7 +588,7 @@ public class Main {
                 System.out.println("index   /   vacacy   /    waitlist");
                 for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
                     Cindex singleindex = singleCourse.getListCindex().get(i);
-                    System.out.printf("%d.  %s  /  %d  /  %d", i + 1, singleindex.getIndex(),
+                    System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndex(),
                             singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                 }
 
@@ -601,13 +598,13 @@ public class Main {
             }
 
             System.out.println("Please enter choice: ");
-            System.out.println("Enter \' # \'to go back to main menu");
+            System.out.println("Enter \'0\'to go back to main menu");
             String choiceIndex = sc.next();
 
-            if (coursecode.equals("#"))
+            if (coursecode.equals("0"))
                 return;
             else {
-                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex));
+                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex)-1);
             }
 
             // check timetable clash
