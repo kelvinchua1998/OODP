@@ -567,12 +567,12 @@ public class Main {
         stud = (Student) databaseManager.getObjectbyUsername(username);
 
         while (choice != 0) {
-            // System.out.println("Enter 0 to return to main menu "); //didnt initialize
+            System.out.println("Enter \'#\' to return to main menu "); //didnt initialize
             // choice. had error
             System.out.println("Please enter coursecode: ");
             String coursecode = sc.next();
 
-            if (coursecode.equals("0"))
+            if (coursecode.equals("#"))
                 return;
 
             singleCourse = databaseManager.searchCourse(coursecode);
@@ -598,10 +598,10 @@ public class Main {
             }
 
             System.out.println("Please enter choice: ");
-            System.out.println("Enter \'0\'to go back to main menu");
+            System.out.println("Enter \'#\'to go back to main menu");
             String choiceIndex = sc.next();
 
-            if (coursecode.equals("0"))
+            if (coursecode.equals("#"))
                 return;
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex)-1);
