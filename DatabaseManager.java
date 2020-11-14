@@ -149,7 +149,7 @@ public class DatabaseManager {
   }
 
   public Cindex searchCindex(String coursecode, String Cindex) {
-   ArrayList<Course> courseList = new ArrayList<Course>();
+   ArrayList<Course> courseList;
 
    DatabaseManager databaseManager = new DatabaseManager();
    courseList = databaseManager.DeserializeCourseList();
@@ -159,7 +159,7 @@ public class DatabaseManager {
            Course courseObj = courseList.get(i);
            ArrayList<Cindex> CindexObj = courseObj.getListCindex();
            for (int j = 0; j < CindexObj.size(); j++) {
-               if (CindexObj.get(j).equals(Cindex)) {
+               if (CindexObj.get(j).getIndex().equals(Cindex)) {
                    return CindexObj.get(j);
                }
            }

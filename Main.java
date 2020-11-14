@@ -71,15 +71,17 @@ public class Main {
                             break;
                         }
                         case 5: {
-                            // checked can
+                            // WORKING
                             checkVacancy();
                             break;
                         }
                         case 6: {
+                            //WORKING
                             printStudentListByCIndex();
                             break;
                         }
                         case 7: {
+                            //WORKING
                             printStudentListByCourse();
                             break;
                         }
@@ -106,7 +108,7 @@ public class Main {
                     System.out.println("1. *Add Course");
                     System.out.println("2. Drop Course");
                     System.out.println("3. Check/Print Courses Registered");
-                    System.out.println("4. Check Vacancies Available ");
+                    System.out.println("4. Check Vacancies Available");
                     System.out.println("5. Change Index Number of Course");
                     System.out.println(
                             "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
@@ -443,21 +445,23 @@ public class Main {
 
         studentList = databaseManager.getStudentList(coursecode, cindex);
 
-        if (studentList != null) {
+        if (studentList.size() != 0) {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
                 System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
 
-        } else {
+        }else if(studentList.size() == 0){
+            System.out.printf("There is no registered students in %s\n", coursecode);
+        } else if(studentList == null){
             System.out.println("course index not found! please try again!");
         }
     }
 
     private static void printStudentListByCourse() {
         String coursecode;
-        ArrayList<Student> studentList = null;
+        ArrayList<Student> studentList;
         DatabaseManager databaseManager = new DatabaseManager();
 
         Scanner sc = new Scanner(System.in);
@@ -467,17 +471,18 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        // studentList = databaseManager.getStudentListbyCourse(coursecode);
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
-        if (studentList != null) {
+        if (studentList.size() != 0) {
             System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
                 System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
-        } else {
+        } else if(studentList.size() ==0){
+            System.out.printf("There is no registered students in %s \n", coursecode);
+        }else if(studentList == null){
             System.out.println("course not found! please try again!");
         }
         System.out.println();
