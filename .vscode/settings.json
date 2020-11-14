@@ -1,1 +1,7 @@
-123,125
+{
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "javax.mail.jar",
+        "activation.jar"
+    ]
+}
