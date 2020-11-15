@@ -198,7 +198,7 @@ public class Main {
                 System.out.println("3. Update Capacity");
                 System.out.println("4. Update Index");
                 choice = sc.nextInt();
-                
+
                 switch (choice) {
                     case 0: {
                         break;
@@ -207,11 +207,18 @@ public class Main {
                         System.out.println("Enter new Course Code:");
                         String newCourseCode = sc.next();
 
+                        ArrayList<Course> courselist = databaseManager.DeserializeCourseList();
+                        courselist.remove(courseObj);
+
                         if (databaseManager.verifyUniqueCourseCode(newCourseCode)) {
                             courseObj.setCourseCode(newCourseCode);
                         } else {
                             System.out.println("Course Code not unique");
                         }
+
+                        courselist.add(courseObj);
+                        databaseManager.SerializeCourseList(courselist);
+
                         choice = -1;
                         break;
                     }
@@ -471,7 +478,7 @@ public class Main {
             }
 
         }else if(studentList.size() == 0){
-            System.out.printf("There is no registered students in %s\n", coursecode);
+            System.out.printf("There are no registered students in %s\n", coursecode);
         } else if(studentList == null){
             System.out.println("course index not found! please try again!");
         }
@@ -490,8 +497,10 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
+         
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
+       
         if (studentList.size() != 0) {
             System.out.printf("student in %s \n", coursecode);
 
@@ -499,11 +508,11 @@ public class Main {
                 System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
-        } else if(studentList.size() ==0){
-            System.out.printf("There is no registered students in %s \n", coursecode);
-        }else if(studentList == null){
-            System.out.println("course not found! please try again!");
-        }
+        } else if(studentList.size() == 0){
+            System.out.printf("There are no registered students in %s \n", coursecode);
+        }//else if(studentList == null){
+          //  System.out.println("course not found! please try again!");
+        //}
         System.out.println();
     }
 
@@ -644,7 +653,7 @@ public class Main {
                 // go back to index selection screen
             } else if (21 - stud.getNumAuRegistered() < singleCourse.getAU()) {
                 // inssufficient AUs
-                System.out.println("Unable to add due to insuffiecient AUs!");
+                System.out.println("Unable to add due to insufficient AUs!");
                 // go back to index selection screen
             } else {
                 // no clash found

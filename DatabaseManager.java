@@ -174,6 +174,11 @@ public class DatabaseManager {
    public ArrayList<Student> getStudentList(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
 
+      if(singleIndex == null){  //error checking for invalid course index
+         ArrayList<Student> temp = new ArrayList<Student>();
+         System.out.println("Course/index not found!");
+         return temp;
+      }
       return singleIndex.getRegisteredStudents();
    }
 
@@ -198,7 +203,13 @@ public class DatabaseManager {
 
    public ArrayList<Student> getStudentListbyCourse(String coursecode){
       Course singleCourse = searchCourse(coursecode);
+
       ArrayList<Student> temp = new ArrayList<Student>();
+
+      if(singleCourse == null){
+         System.out.println("Course not found!");
+         return temp;
+      }
 
       for(int i=0; i<singleCourse.getListCindex().size(); i++)
       {
@@ -302,14 +313,13 @@ public class DatabaseManager {
 		
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
-      int numAU = 0;
 
-		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
+		Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms);
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
