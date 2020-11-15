@@ -284,18 +284,22 @@ public class DatabaseManager {
 		databaseManager.SerializeStudentList(studentList);
    }
    
-   public void printCourseMain(String matricNum) {
+   public void printCourseRegistered(String username) {
 		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
 
-		int index = getIndexbyMatricNum(matricNum);
+		int index = getIndexByUsername(username);
 
 		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
 
-		System.out.println("registered Courses: ");
-		for (int i = 0; i < registercourses.size(); i++) {
-			System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(),
-					registercourses.get(i).getCourseName());
-		}
+      if(registercourses.size() != 0){
+         System.out.println("registered Courses: ");
+         for (int i = 0; i < registercourses.size(); i++) {
+            System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
+         }
+      }else{
+         System.out.println("you do not hav any course registered!");
+      }
+		
 	}
    
    public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
@@ -318,9 +322,9 @@ public class DatabaseManager {
       SerializeUserList(userList);
    }
 
-   public boolean checkClashforStudent(String matricNum, String courseCode, String Cindex){
+   public boolean checkClashforStudent(String username, String courseCode, String Cindex){
 
-      Student stud = getStudentbyMatricNum(matricNum);
+      Student stud = (Student) getObjectbyUsername(username);
 
       Cindex courseIndex = searchCindex(courseCode, Cindex);
 
