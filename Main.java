@@ -172,6 +172,7 @@ public class Main {
         if (courseObj != null) {
             System.out.println("Course Code: " + courseObj.getCourseCode());
             System.out.println("Course Name: " + courseObj.getCourseName());
+            System.out.println("school: " + courseObj.getSchool());
             System.out.println("Course Description: " + courseObj.getCourseDescription());
             System.out.println("Number of AUs: " + courseObj.getAU());
 
@@ -180,17 +181,17 @@ public class Main {
                 System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i);
                 System.out.println("Index Capacity: " + CindexList.get(i).getCapacity());
             }
-
-            System.out.println("update options:");
-            System.out.println("0. exit");
-            System.out.println("1. Update Course Code");
-            System.out.println("2. Update School");
-            System.out.println("3. Update Capacity");
-            System.out.println("4. Update Index");
-
-            int choice = sc.nextInt();
+            int choice = -1;
             ArrayList<Cindex> cindexList = courseObj.getListCindex();
             while (choice != 0) {
+                System.out.println("update options:");
+                System.out.println("0. exit");
+                System.out.println("1. Update Course Code");
+                System.out.println("2. Update School");
+                System.out.println("3. Update Capacity");
+                System.out.println("4. Update Index");
+                choice = sc.nextInt();
+                
                 switch (choice) {
                     case 0: {
                         break;
@@ -204,6 +205,7 @@ public class Main {
                         } else {
                             System.out.println("Course Code not unique");
                         }
+                        choice = -1;
                         break;
                     }
                     case 2: {
@@ -211,11 +213,13 @@ public class Main {
                         String newSchool = sc.next();
 
                         courseObj.setSchool(newSchool);
+                        choice = -1;
                         break;
                     }
                     case 3: {
+                        System.out.println("index:");
                         for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d." + cindexList.get(i).getIndex(), i);
+                            System.out.printf("%d" + cindexList.get(i).getIndex() +"\n", i);
                         }
 
                         System.out.println("Enter the index to change Capacity:");
@@ -226,6 +230,8 @@ public class Main {
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
                         cindexobj.setCapacity(newCapacity);
+                        choice = -1;
+                        break;
                     }
                     case 4: {
                         for (int i = 0; i < cindexList.size(); i++) {
@@ -240,8 +246,11 @@ public class Main {
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
                         cindexobj.setIndex(newIndex);
+                        choice = -1;
+                        break;
                     }
                 }
+                
             }
 
             databaseManager.updateDatabase(courseObj);

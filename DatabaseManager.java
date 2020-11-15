@@ -386,7 +386,12 @@ public class DatabaseManager {
          
       }
       else if (obj instanceof Admin){
-         // no other attribute to change other than primary key AdminID
+         Admin adminobj = (Admin) obj;
+
+         // search student in array list and replace
+         ArrayList<Admin> adminlist  = DeserializeAdminList();
+         adminlist.set(getIndexByUsername(adminobj.getUsername()),adminobj);
+         SerializeAdminList(adminlist);
          
       }else if (obj instanceof User){
          User userobj = (User) obj;
