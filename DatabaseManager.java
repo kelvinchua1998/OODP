@@ -264,7 +264,7 @@ public class DatabaseManager {
       ArrayList<Student> studentList = DeserializeStudentList();
 
 		for (int i = 0; i < studentList.size(); i++) {
-			if (studentList.get(i).getMatricNum() == matricNum) {
+			if (studentList.get(i).getMatricNum().equals(matricNum) ) {
 				return i;
 			}
 		}
