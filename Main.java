@@ -248,7 +248,7 @@ public class Main {
         } else {
             System.out.println("Course Code does not exists in DataBase");
         }
-
+        System.out.println();  //space btwn current func & main menu
     }
 
     private static void adminAddCourse() {
@@ -425,6 +425,7 @@ public class Main {
         courseList.add(courseObj);
         databaseManager.SerializeCourseList(courseList);
         System.out.println("Course added");
+        System.out.println();
     }
 
     private static void printStudentListByCIndex() {
@@ -457,6 +458,7 @@ public class Main {
         } else if(studentList == null){
             System.out.println("course index not found! please try again!");
         }
+        System.out.println();
     }
 
     private static void printStudentListByCourse() {
@@ -499,14 +501,14 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        courseList = databaseManager.getCourseList(); // maybe got error in this idk :(
+        courseList = databaseManager.getCourseList(); 
 
         while (coursecode != "#") {
             if (coursecode.equals("#"))
                 return;
 
             else if (courseList != null) {
-                System.out.println("courses: "); // for loop dsnt work :(
+                System.out.println("courses: "); 
 
                 for (int i = 0; i < courseList.size(); i++) {
                     System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
@@ -514,7 +516,7 @@ public class Main {
                     System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
 
                     for (int j = 0; j < courseList.get(i).getListCindex().size(); j++) {
-                        System.out.printf("\t %s %s\n", courseList.get(i).getListCindex(),
+                        System.out.printf("\t %s: %s\n", courseList.get(i).getListCindex(),
                                 courseList.get(i).getListCindex().get(j).getSchedule());
                     }
                 }
@@ -526,7 +528,6 @@ public class Main {
         }
 
         System.out.println();
-
     }
 
     private static void checkVacancy() {
