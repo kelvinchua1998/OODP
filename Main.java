@@ -467,7 +467,7 @@ public class Main {
             }
 
         }else if(studentList.size() == 0){
-            System.out.printf("There is no registered students in %s\n", coursecode);
+            System.out.printf("There are no registered students in %s\n", coursecode);
         } else if(studentList == null){
             System.out.println("course index not found! please try again!");
         }
@@ -489,6 +489,7 @@ public class Main {
          
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
+       
         if (studentList.size() != 0) {
             System.out.printf("student in %s \n", coursecode);
 
@@ -496,10 +497,10 @@ public class Main {
                 System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
-        } else if(studentList.size() ==0){
-            System.out.printf("There is no registered students in %s \n", coursecode);
+        } else if(studentList.size() == 0){
+            System.out.printf("There are no registered students in %s \n", coursecode);
         }//else if(studentList == null){
-           // System.out.println("course not found! please try again!");
+          //  System.out.println("course not found! please try again!");
         //}
         System.out.println();
     }
