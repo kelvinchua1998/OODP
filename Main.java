@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        boolean mainRunning = true;
+        while(mainRunning){
+
         boolean runnning = true;
         String userType = null;
 
@@ -133,6 +136,7 @@ public class Main {
                             break;
                         }
                         case 4: {
+                            //working
                             vacancyAvailable();
                             break;
                         }
@@ -160,7 +164,7 @@ public class Main {
 
             }
         }
-
+    }
     }
 
     private static void updateCourse() {
@@ -463,7 +467,7 @@ public class Main {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
 
         }else if(studentList.size() == 0){
@@ -595,6 +599,13 @@ public class Main {
 
             singleCourse = databaseManager.searchCourse(coursecode);
             if (singleCourse != null) {
+
+                // check whether the course is already registered
+                if(databaseManager.checkStudentRegisteredCourses(stud,singleCourse)){
+                    //true => the course is already registered
+                    System.out.println("Course already registered!");
+                    continue;
+                }
                 System.out.println(singleCourse.getCourseDescription());
 
                 // print list of indexes and vacancies in the course
@@ -619,7 +630,7 @@ public class Main {
             System.out.println("Enter \'#\'to go back to main menu");
             String choiceIndex = sc.next();
 
-            if (coursecode.equals("#"))
+            if (choiceIndex.equals("#"))
                 return;
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex)-1);
@@ -691,15 +702,15 @@ public class Main {
         int hour;
         int minute;
         System.out.println("AccessStartDateTime: ");
-        System.out.println("Please enter year: ");
+        System.out.println("Please enter year (yyyy): ");
         year = sc.nextInt();
-        System.out.println("Please enter month: ");
+        System.out.println("Please enter month (mm): ");
         month = sc.nextInt();
-        System.out.println("Please enter day: ");
+        System.out.println("Please enter day(dd): ");
         day = sc.nextInt();
-        System.out.println("Please enter hour: ");
+        System.out.println("Please enter hour(hh): ");
         hour = sc.nextInt();
-        System.out.println("Please enter minute: ");
+        System.out.println("Please enter minute(mm): ");
         minute = sc.nextInt();
 
         Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
