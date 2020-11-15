@@ -297,7 +297,7 @@ public class DatabaseManager {
             System.out.printf("%d. %s %s", i, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
          }
       }else{
-         System.out.println("you do not hav any course registered!");
+         System.out.println("You do not have any course registered!");
       }
 		
 	}
