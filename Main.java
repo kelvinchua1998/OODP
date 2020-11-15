@@ -250,6 +250,7 @@ public class Main {
                         break;
                     }
                     case 4: {
+
                         System.out.println("Enter the Index to change new Index Number:");
                         String index = sc.next();
                         
@@ -487,10 +488,10 @@ public class Main {
             }
 
         }else if(studentList.size() == 0){
-            System.out.printf("There is no registered students in %s\n", coursecode);
-        } else if(studentList == null){
-            System.out.println("course index not found! please try again!");
-        }
+            System.out.printf("There are no registered students in %s\n", coursecode);
+        } //else if(studentList == null){    //dsnt even print this
+            //System.out.println("course index not found! please try again!");
+        //}
         System.out.println();
     }
 
@@ -509,6 +510,7 @@ public class Main {
          
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
+       
         if (studentList.size() != 0) {
             System.out.printf("student in %s \n", coursecode);
 
@@ -516,10 +518,10 @@ public class Main {
                 System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
-        } else if(studentList.size() ==0){
-            System.out.printf("There is no registered students in %s \n", coursecode);
+        } else if(studentList.size() == 0){
+            System.out.printf("There are no registered students in %s \n", coursecode);
         }//else if(studentList == null){
-           // System.out.println("course not found! please try again!");
+          //  System.out.println("course not found! please try again!");
         //}
         System.out.println();
     }
@@ -810,7 +812,7 @@ public class Main {
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
         Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username,
-                password, numAU, accessStartDateTime, accessEndDateTime);
+                password, accessStartDateTime, accessEndDateTime);
 
         DatabaseManager databaseManager = new DatabaseManager();
         boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);

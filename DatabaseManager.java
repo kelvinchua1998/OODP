@@ -174,6 +174,11 @@ public class DatabaseManager {
    public ArrayList<Student> getStudentList(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
 
+      if(singleIndex == null){  //error checking for invalid course index
+         ArrayList<Student> temp = new ArrayList<Student>();
+         System.out.println("Course/index not found!");
+         return temp;
+      }
       return singleIndex.getRegisteredStudents();
    }
 
@@ -198,7 +203,13 @@ public class DatabaseManager {
 
    public ArrayList<Student> getStudentListbyCourse(String coursecode){
       Course singleCourse = searchCourse(coursecode);
+
       ArrayList<Student> temp = new ArrayList<Student>();
+
+      if(singleCourse == null){
+         System.out.println("Course not found!");
+         return temp;
+      }
 
       for(int i=0; i<singleCourse.getListCindex().size(); i++)
       {
