@@ -6,7 +6,6 @@ public class User implements Serializable{
     String username;
     String password;
     String userType;
-    int userID;
 
     public String getUsername() {
         return username;
@@ -24,11 +23,10 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public User(String username, String password,String userType, int userID) {
+    public User(String username, String password,String userType) {
         this.username = username;
         this.password = password;
         this.userType = userType;
-        this.userID = userID;
     }
 
     public String getUserType() {
@@ -39,13 +37,6 @@ public class User implements Serializable{
         this.userType = userType;
     }
 
-    public int getUserID() {
-        return userID;
-    }
-
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
     public static void main(String[] args) {
         
         ArrayList<User> userList = new ArrayList<User>();
@@ -53,6 +44,5 @@ public class User implements Serializable{
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.SerializeUserList(userList);
     }
-
 
 }

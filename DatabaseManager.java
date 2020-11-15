@@ -298,14 +298,14 @@ public class DatabaseManager {
 		}
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality, int userID,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String pwd, Calendar AccessStartTime, Calendar AccessEndTime) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
       int numAU = 0;
 
-		Student newStudent = new Student(firstName, lastName, gender, nationality,userID, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
+		Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username,pwd, numAU,  AccessStartTimeInms, AccessEndTimeInms);
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
@@ -388,11 +388,10 @@ public class DatabaseManager {
       DatabaseManager databaseManager = new DatabaseManager();
       ArrayList<User> userList = databaseManager.DeserializeUserList();
       String usertype = "";
-      int userID=0;
+      
       for(int i=0; i<userList.size(); i++){
          if(userList.get(i).getUsername().equals(username)){
             usertype = userList.get(i).getUserType();
-            userID = userList.get(i).getUserID();
          }
       }
 
@@ -400,7 +399,7 @@ public class DatabaseManager {
          case "admin":{
             ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
             for(int j=0; j<adminList.size();j++){
-               if(adminList.get(j).getUserID() == userID){
+               if(adminList.get(j).getUsername().equals(username)){
                   return adminList.get(j);
                }
             }
@@ -408,13 +407,13 @@ public class DatabaseManager {
          case "student":{
             ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
             for(int j=0; j<studentList.size();j++){
-               if(studentList.get(j).getUserID() == userID){
+               if(studentList.get(j).getUsername().equals(username)){
                   return studentList.get(j);
                }
             }
          }
          default:{
-            System.out.println("Object does not exist with the userID");
+            System.out.println("Object does not exist with the username");
             return null;
          }
       }

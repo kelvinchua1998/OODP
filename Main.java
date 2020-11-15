@@ -756,8 +756,7 @@ public class Main {
     private static void AddStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \'to return to main menu ");
-        System.out.println("Please enter User ID: ");
-        int userID = sc.nextInt();
+        
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
@@ -778,7 +777,7 @@ public class Main {
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, userID, matricNum, username,
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username,
                 password, numAU, accessStartDateTime, accessEndDateTime);
 
         DatabaseManager databaseManager = new DatabaseManager();
