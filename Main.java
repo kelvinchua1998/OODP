@@ -196,6 +196,7 @@ public class Main {
                 System.out.println("2. Update School");
                 System.out.println("3. Update Capacity");
                 System.out.println("4. Update Index");
+                System.out.println("5. Delete Index");
                 choice = sc.nextInt();
 
                 switch (choice) {
@@ -273,6 +274,21 @@ public class Main {
                         cindexobj.setIndex(newIndex);
                         cindexList.add(cindexobj);
                         
+                        courseObj.setListCindex(cindexList);
+                        choice = -1;
+                        break;
+                    }
+                    case 5:{
+                        System.out.println("Enter the Index that you want to delete:");
+                        String index = sc.next();
+
+                        for(int i=0;i<cindexList.size(); i++){
+                            if(cindexList.get(i).getIndex().equals(index)){
+                                cindexList.remove(i);
+                                break;
+                            }
+                        }
+
                         courseObj.setListCindex(cindexList);
                         choice = -1;
                         break;
