@@ -117,15 +117,18 @@ public class Main {
                     int choice = sc.nextInt();
                     switch (choice) {
                         case 1: {
+                            //working for student
                             addCourse(username);
                             break;
                         }
                         case 2: {
+                            // working
                             dropCourse(username);
                             break;
                         }
                         case 3: {
                             //working for no course registered
+                            //working for course registered
                             checkPrintCourseRegistered(username);
                             break;
                         }
@@ -467,7 +470,7 @@ public class Main {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
 
         }else if(studentList.size() == 0){
@@ -490,6 +493,7 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
+         
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
         if (studentList.size() != 0) {
@@ -501,9 +505,9 @@ public class Main {
             }
         } else if(studentList.size() ==0){
             System.out.printf("There is no registered students in %s \n", coursecode);
-        }else if(studentList == null){
-            System.out.println("course not found! please try again!");
-        }
+        }//else if(studentList == null){
+           // System.out.println("course not found! please try again!");
+        //}
         System.out.println();
     }
 
@@ -637,7 +641,7 @@ public class Main {
                 // go back to index selection screen
             } else if (21 - stud.getNumAuRegistered() < singleCourse.getAU()) {
                 // inssufficient AUs
-                System.out.println("Unable to add due to insuffiecient AUs!");
+                System.out.println("Unable to add due to insufficient AUs!");
                 // go back to index selection screen
             } else {
                 // no clash found
@@ -808,24 +812,63 @@ public class Main {
     }
 
     private static void vacancyAvailable() {
+        // Scanner sc = new Scanner(System.in);
+
+        // int vacancy;
+        // String coursecode;
+        // String cindex;
+        // Course courseobj;
+
+        // System.out.println("Please enter coursecode: ");
+        // coursecode = sc.next();
+
+        // DatabaseManager databaseManager = new DatabaseManager();
+        // courseobj = databaseManager.searchCourse(coursecode);
+        // ArrayList<Cindex> CindexList = courseobj.getListCindex();
+
+        // for (int i = 0; i < CindexList.size(); i++) {
+        //     System.out.println(
+        //             "index: " + CindexList.get(i).getIndex() + "Vacancy: " + CindexList.get(i).getCurrentVacancy());
+        // }
+
         Scanner sc = new Scanner(System.in);
-
-        int vacancy;
-        String coursecode;
-        String cindex;
-        Course courseobj;
-
-        System.out.println("Please enter coursecode: ");
-        coursecode = sc.next();
-
         DatabaseManager databaseManager = new DatabaseManager();
-        courseobj = databaseManager.searchCourse(coursecode);
-        ArrayList<Cindex> CindexList = courseobj.getListCindex();
+        int choice=-1;
+        Course singleCourse;
+        Cindex singleIndex;
+        Student stud;
 
-        for (int i = 0; i < CindexList.size(); i++) {
-            System.out.println(
-                    "index: " + CindexList.get(i).getIndex() + "Vacancy: " + CindexList.get(i).getCurrentVacancy());
+        while(true){
+            System.out.println("Enter \'#\' to return to main menu "); //didnt initialize
+            // choice. had error
+            System.out.println("Please enter coursecode: ");
+            String coursecode = sc.next();
+            if (coursecode.equals("#"))
+                return;
+
+            singleCourse = databaseManager.searchCourse(coursecode);
+            if (singleCourse != null) {
+                System.out.println("Course description:");
+                System.out.println(singleCourse.getCourseDescription());
+
+                // print list of indexes and vacancies in the course
+                // shud show timetable clash for each index
+                // show index lesson timings
+
+                System.out.printf("%s %s\n", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.println("-------------------------------------");
+                System.out.println("index   /   vacacy   /    waitlist");
+                for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
+                    Cindex singleindex = singleCourse.getListCindex().get(i);
+                    System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndex(),
+                            singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                }
+
+            } else {
+                System.out.println("course not found! please enter course code again ");
+            }
         }
+        
 
     }
 
