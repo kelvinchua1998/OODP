@@ -171,6 +171,7 @@ public class Main {
         if (courseObj != null) {
             System.out.println("Course Code: " + courseObj.getCourseCode());
             System.out.println("Course Name: " + courseObj.getCourseName());
+            System.out.println("school: " + courseObj.getSchool());
             System.out.println("Course Description: " + courseObj.getCourseDescription());
             System.out.println("Number of AUs: " + courseObj.getAU());
 
@@ -213,8 +214,9 @@ public class Main {
                         break;
                     }
                     case 3: {
+                        System.out.println("index:");
                         for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d." + cindexList.get(i).getIndex(), i);
+                            System.out.printf("%d" + cindexList.get(i).getIndex() +"\n", i);
                         }
 
                         System.out.println("Enter the index to change Capacity:");
@@ -241,6 +243,7 @@ public class Main {
                         cindexobj.setIndex(newIndex);
                     }
                 }
+                choice = -1;
             }
 
             databaseManager.updateDatabase(courseObj);
