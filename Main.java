@@ -10,6 +10,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
+        boolean mainRunning = true;
+        while(mainRunning){
+
         boolean runnning = true;
         String userType = null;
 
@@ -133,6 +136,7 @@ public class Main {
                             break;
                         }
                         case 4: {
+                            //working
                             vacancyAvailable();
                             break;
                         }
@@ -160,7 +164,7 @@ public class Main {
 
             }
         }
-
+    }
     }
 
     private static void updateCourse() {
@@ -192,6 +196,7 @@ public class Main {
                 System.out.println("2. Update School");
                 System.out.println("3. Update Capacity");
                 System.out.println("4. Update Index");
+                System.out.println("5. Delete Index");
                 choice = sc.nextInt();
 
                 switch (choice) {
@@ -269,6 +274,21 @@ public class Main {
                         cindexobj.setIndex(newIndex);
                         cindexList.add(cindexobj);
                         
+                        courseObj.setListCindex(cindexList);
+                        choice = -1;
+                        break;
+                    }
+                    case 5:{
+                        System.out.println("Enter the Index that you want to delete:");
+                        String index = sc.next();
+
+                        for(int i=0;i<cindexList.size(); i++){
+                            if(cindexList.get(i).getIndex().equals(index)){
+                                cindexList.remove(i);
+                                break;
+                            }
+                        }
+
                         courseObj.setListCindex(cindexList);
                         choice = -1;
                         break;
@@ -618,6 +638,13 @@ public class Main {
 
             singleCourse = databaseManager.searchCourse(coursecode);
             if (singleCourse != null) {
+
+                // check whether the course is already registered
+                if(databaseManager.checkStudentRegisteredCourses(stud,singleCourse)){
+                    //true => the course is already registered
+                    System.out.println("Course already registered!");
+                    continue;
+                }
                 System.out.println(singleCourse.getCourseDescription());
 
                 // print list of indexes and vacancies in the course
@@ -642,7 +669,7 @@ public class Main {
             System.out.println("Enter \'#\'to go back to main menu");
             String choiceIndex = sc.next();
 
-            if (coursecode.equals("#"))
+            if (choiceIndex.equals("#"))
                 return;
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex)-1);
@@ -714,15 +741,15 @@ public class Main {
         int hour;
         int minute;
         System.out.println("AccessStartDateTime: ");
-        System.out.println("Please enter year: ");
+        System.out.println("Please enter year (yyyy): ");
         year = sc.nextInt();
-        System.out.println("Please enter month: ");
+        System.out.println("Please enter month (mm): ");
         month = sc.nextInt();
-        System.out.println("Please enter day: ");
+        System.out.println("Please enter day(dd): ");
         day = sc.nextInt();
-        System.out.println("Please enter hour: ");
+        System.out.println("Please enter hour(hh): ");
         hour = sc.nextInt();
-        System.out.println("Please enter minute: ");
+        System.out.println("Please enter minute(mm): ");
         minute = sc.nextInt();
 
         Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);

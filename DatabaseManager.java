@@ -474,4 +474,14 @@ public class DatabaseManager {
 		}
 		return true;
 	}
+
+public boolean checkStudentRegisteredCourses(Student stud, Course singleCourse) {
+   //returns true if the course is already registered
+   for(int i =0; i < stud.getRegisteredCourse().size(); i++){
+      if (stud.getRegisteredCourse().get(i).equals(singleCourse)){
+         return true;
+      }
+   }
+   return false;
+}
 }
