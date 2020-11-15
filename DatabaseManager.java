@@ -305,7 +305,7 @@ public class DatabaseManager {
       if(registercourses.size() != 0){
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
-            System.out.printf("%d. %s %s\n", i, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
+            System.out.printf("%d. %s %s\n", i+1, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
          }
       }else{
          System.out.println("You do not have any course registered!");

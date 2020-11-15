@@ -484,7 +484,7 @@ public class Main {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s \n", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
 
         }else if(studentList.size() == 0){
@@ -515,7 +515,7 @@ public class Main {
             System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s ", i + 1, studentList.get(i).getFirstName(),
+                System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
         } else if(studentList.size() == 0){
