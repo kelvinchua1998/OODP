@@ -185,8 +185,7 @@ public class Main {
 
             ArrayList<Cindex> CindexList = courseObj.getListCindex();
             for (int i = 0; i < CindexList.size(); i++) {
-                System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i+1);
-                System.out.println("Index Capacity: " + CindexList.get(i).getCapacity());
+                System.out.println("Index "+ CindexList.get(i).getIndex() + " Capacity: " + CindexList.get(i).getCapacity());
             }
             int choice = -1;
             ArrayList<Cindex> cindexList = courseObj.getListCindex();
@@ -231,10 +230,6 @@ public class Main {
                         break;
                     }
                     case 3: {
-                        System.out.println("index:");
-                        for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d. " + cindexList.get(i).getIndex() +"\n", i+1);
-                        }
 
                         System.out.println("Enter the index to change Capacity:");
                         String index = sc.next();
@@ -243,24 +238,42 @@ public class Main {
                         int newCapacity = sc.nextInt();
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
+
+                        for(int i=0;i<cindexList.size(); i++){
+                            if(cindexList.get(i).getIndex().equals(index)){
+                                cindexList.remove(i);
+                                break;
+                            }
+                        }
+                        
                         cindexobj.setCapacity(newCapacity);
+                        cindexList.add(cindexobj);
+
+                        courseObj.setListCindex(cindexList);
                         choice = -1;
                         break;
                     }
                     case 4: {
-                        for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d." + cindexList.get(i).getIndex(), i+1);
-                            System.out.println();
-                        }
 
                         System.out.println("Enter the Index to change new Index Number:");
                         String index = sc.next();
-
+                        
                         System.out.println("Enter new Index:");
                         String newIndex = sc.next();
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
+
+                        for(int i=0;i<cindexList.size(); i++){
+                            if(cindexList.get(i).getIndex().equals(index)){
+                                cindexList.remove(i);
+                                break;
+                            }
+                        }
+                        
                         cindexobj.setIndex(newIndex);
+                        cindexList.add(cindexobj);
+                        
+                        courseObj.setListCindex(cindexList);
                         choice = -1;
                         break;
                     }
@@ -810,7 +823,7 @@ public class Main {
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
         Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username,
-                password, numAU, accessStartDateTime, accessEndDateTime);
+                password, accessStartDateTime, accessEndDateTime);
 
         DatabaseManager databaseManager = new DatabaseManager();
         boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);
