@@ -194,7 +194,7 @@ public class Main {
                 System.out.println("3. Update Capacity");
                 System.out.println("4. Update Index");
                 choice = sc.nextInt();
-                
+
                 switch (choice) {
                     case 0: {
                         break;
@@ -203,11 +203,18 @@ public class Main {
                         System.out.println("Enter new Course Code:");
                         String newCourseCode = sc.next();
 
+                        ArrayList<Course> courselist = databaseManager.DeserializeCourseList();
+                        courselist.remove(courseObj);
+
                         if (databaseManager.verifyUniqueCourseCode(newCourseCode)) {
                             courseObj.setCourseCode(newCourseCode);
                         } else {
                             System.out.println("Course Code not unique");
                         }
+
+                        courselist.add(courseObj);
+                        databaseManager.SerializeCourseList(courselist);
+
                         choice = -1;
                         break;
                     }

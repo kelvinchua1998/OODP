@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -15,10 +16,9 @@ public class Student extends User implements Serializable{
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartDateTime, long accessEndDateTime, long accessEndDateTime2) {
+	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime) {
 		super(username,password,"student");
 	
-
 		User userObj = new User(username, password, "student");
 		DatabaseManager databaseManager = new DatabaseManager();
 		databaseManager.adduser(userObj);
@@ -29,8 +29,8 @@ public class Student extends User implements Serializable{
 		this.nationality = nationality;
 		this.matricNum = matricNum;
 		this.numAUsRegistered = 0;
-		this.AccessStartDateTime = accessEndDateTime;
-		this.AccessEndDateTime = accessEndDateTime;
+		this.AccessStartDateTime = accessStartTime;
+		this.AccessEndDateTime = accessEndTime;
 		registeredCourse = new ArrayList<StudentCourse>();
 		waitlist = new ArrayList<StudentCourse>();
 	}
@@ -166,7 +166,8 @@ public class Student extends User implements Serializable{
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", 2,"U1234567G","student","student", 0,  0, 0);
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G", "student", "student", 0,
+				0);
 		DatabaseManager databaseManager = new DatabaseManager();
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		
