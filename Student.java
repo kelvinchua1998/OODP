@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -15,7 +16,7 @@ public class Student extends User implements Serializable{
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartDateTime, long accessEndDateTime) {
+	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime) {
 		super(username,password,"student");
 	
 
@@ -29,8 +30,8 @@ public class Student extends User implements Serializable{
 		this.nationality = nationality;
 		this.matricNum = matricNum;
 		this.numAUsRegistered = 0;
-		this.AccessStartDateTime = accessEndDateTime;
-		this.AccessEndDateTime = accessEndDateTime;
+		this.AccessStartDateTime = accessStartTime;
+		this.AccessEndDateTime = accessEndTime;
 		registeredCourse = new ArrayList<StudentCourse>();
 		waitlist = new ArrayList<StudentCourse>();
 	}
