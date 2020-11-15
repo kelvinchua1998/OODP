@@ -59,7 +59,7 @@ public class Student extends User implements Serializable{
 		return matricNum;
 	}
 
-	public int getNumAuAvail() {
+	public int getNumAuRegistered() {
 		return numAUsRegistered;
 	}
 

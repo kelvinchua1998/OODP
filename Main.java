@@ -619,7 +619,7 @@ public class Main {
                 // CLASH
                 System.out.println("Unable to add because of timetable clash!");
                 // go back to index selection screen
-            } else if (stud.getNumAuAvail() < singleCourse.getAU()) {
+            } else if (21 - stud.getNumAuRegistered() < singleCourse.getAU()) {
                 // inssufficient AUs
                 System.out.println("Unable to add due to insuffiecient AUs!");
                 // go back to index selection screen
