@@ -460,7 +460,7 @@ public class Main {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s", i, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
             }
 
         }else if(studentList.size() == 0){
@@ -483,6 +483,7 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
+         
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
         if (studentList.size() != 0) {
@@ -494,9 +495,9 @@ public class Main {
             }
         } else if(studentList.size() ==0){
             System.out.printf("There is no registered students in %s \n", coursecode);
-        }else if(studentList == null){
-            System.out.println("course not found! please try again!");
-        }
+        }//else if(studentList == null){
+           // System.out.println("course not found! please try again!");
+        //}
         System.out.println();
     }
 
@@ -630,7 +631,7 @@ public class Main {
                 // go back to index selection screen
             } else if (21 - stud.getNumAuRegistered() < singleCourse.getAU()) {
                 // inssufficient AUs
-                System.out.println("Unable to add due to insuffiecient AUs!");
+                System.out.println("Unable to add due to insufficient AUs!");
                 // go back to index selection screen
             } else {
                 // no clash found
