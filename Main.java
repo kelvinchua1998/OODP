@@ -191,7 +191,7 @@ public class Main {
                 System.out.println("3. Update Capacity");
                 System.out.println("4. Update Index");
                 choice = sc.nextInt();
-                
+
                 switch (choice) {
                     case 0: {
                         break;
@@ -200,11 +200,18 @@ public class Main {
                         System.out.println("Enter new Course Code:");
                         String newCourseCode = sc.next();
 
+                        ArrayList<Course> courselist = databaseManager.DeserializeCourseList();
+                        courselist.remove(courseObj);
+
                         if (databaseManager.verifyUniqueCourseCode(newCourseCode)) {
                             courseObj.setCourseCode(newCourseCode);
                         } else {
                             System.out.println("Course Code not unique");
                         }
+
+                        courselist.add(courseObj);
+                        databaseManager.SerializeCourseList(courselist);
+
                         choice = -1;
                         break;
                     }
@@ -628,7 +635,7 @@ public class Main {
                 // CLASH
                 System.out.println("Unable to add because of timetable clash!");
                 // go back to index selection screen
-            } else if (stud.getNumAuAvail() < singleCourse.getAU()) {
+            } else if (21 - stud.getNumAuRegistered() < singleCourse.getAU()) {
                 // inssufficient AUs
                 System.out.println("Unable to add due to insuffiecient AUs!");
                 // go back to index selection screen

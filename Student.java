@@ -19,7 +19,6 @@ public class Student extends User implements Serializable{
 	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime) {
 		super(username,password,"student");
 	
-
 		User userObj = new User(username, password, "student");
 		DatabaseManager databaseManager = new DatabaseManager();
 		databaseManager.adduser(userObj);
@@ -60,7 +59,7 @@ public class Student extends User implements Serializable{
 		return matricNum;
 	}
 
-	public int getNumAuAvail() {
+	public int getNumAuRegistered() {
 		return numAUsRegistered;
 	}
 
@@ -167,7 +166,8 @@ public class Student extends User implements Serializable{
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", 2,"U1234567G","student","student", 0,  0, 0);
+		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G", "student", "student", 0,
+				0);
 		DatabaseManager databaseManager = new DatabaseManager();
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		
