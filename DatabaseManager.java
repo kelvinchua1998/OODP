@@ -347,7 +347,21 @@ public class DatabaseManager {
 
 		for (int i = 0; i < userList.size(); i++) {
 			if (userList.get(i).getUsername().equals(username)) {
-				return i;
+            if(userList.get(i).userType.equals("student")){
+               ArrayList<Student> studentList = DeserializeStudentList();
+               for (int j =0; j < studentList.size();j++){
+                  if (studentList.get(j).getUsername().equals(username)){
+                     return j;
+                  }
+               }
+            }else{
+               ArrayList<Admin> adminList = DeserializeAdminList();
+               for (int j =0; j < adminList.size();j++){
+                  if (adminList.get(j).getUsername().equals(username)){
+                     return j;
+                  }
+               }
+            }
 			}
 		}
 		return -1;

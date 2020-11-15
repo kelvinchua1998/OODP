@@ -15,7 +15,7 @@ public class Student extends User implements Serializable{
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartDateTime, long accessEndDateTime) {
+	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartDateTime, long accessEndDateTime, long accessEndDateTime2) {
 		super(username,password,"student");
 	
 
