@@ -10,13 +10,13 @@ public class Student extends User implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String nationality;
-	private int numAU;
+	private int numAUsRegistered;
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality,int userID, String matricNum, String username, String password, int numAU, long accessStartDateTime, long accessEndDateTime) {
+	public Student(String firstName, String lastName, String gender, String nationality,int userID, String matricNum, String username, String password, long accessStartDateTime, long accessEndDateTime) {
 		super(username,password,"student",userID);
 
 		User userObj = new User(username, password, "student",userID);
@@ -29,7 +29,7 @@ public class Student extends User implements Serializable{
 		this.gender = gender;
 		this.nationality = nationality;
 		this.matricNum = matricNum;
-		this.numAU = numAU;
+		this.numAUsRegistered = 0;
 		this.AccessStartDateTime = accessEndDateTime;
 		this.AccessEndDateTime = accessEndDateTime;
 		registeredCourse = new ArrayList<StudentCourse>();
@@ -61,15 +61,15 @@ public class Student extends User implements Serializable{
 	}
 
 	public int getNumAuAvail() {
-		return numAU;
+		return numAUsRegistered;
 	}
 
 	public void minusAU(Course course) { // minus after adding course
-		numAU -= course.getAU();
+		numAUsRegistered -= course.getAU();
 	}
 
 	public void plusAU(Course course) { // plus after dropping course
-		numAU += course.getAU();           //use Course or String?
+		numAUsRegistered += course.getAU();           //use Course or String?
 	}
 
 	public Boolean verifyPassword(String enPwd) {

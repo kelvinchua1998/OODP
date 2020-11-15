@@ -95,7 +95,7 @@ public class Main {
                             break;
                         }
                         default: {
-
+                            System.out.println("invalid input! please try again!");
                         }
 
                     }
@@ -125,7 +125,8 @@ public class Main {
                             break;
                         }
                         case 3: {
-                            checkPrintCourse(username);
+                            //working for no course registered
+                            checkPrintCourseRegistered(username);
                             break;
                         }
                         case 4: {
@@ -145,7 +146,7 @@ public class Main {
                             break;
                         }
                         default: {
-
+                            System.out.println("invalid input! please try again!");
                         }
 
                     }
@@ -577,7 +578,6 @@ public class Main {
             // choice. had error
             System.out.println("Please enter coursecode: ");
             String coursecode = sc.next();
-
             if (coursecode.equals("#"))
                 return;
 
@@ -744,13 +744,12 @@ public class Main {
 
     }
 
-    private static void checkPrintCourse(String matricNum) {
+    private static void checkPrintCourseRegistered(String username) {
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.printCourseMain(matricNum);
-        System.out.println("press enter to return to main menu ");
-
-        String code = sc.next();
+        databaseManager.printCourseRegistered(username);
+        System.out.println("enter any key to return to main menu ");
+        sc.next();
     }
 
     private static void AddStudent() {
