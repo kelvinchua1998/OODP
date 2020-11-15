@@ -181,7 +181,7 @@ public class Main {
 
             ArrayList<Cindex> CindexList = courseObj.getListCindex();
             for (int i = 0; i < CindexList.size(); i++) {
-                System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i);
+                System.out.printf("%d) " + CindexList.get(i).getIndex() + "\n", i+1);
                 System.out.println("Index Capacity: " + CindexList.get(i).getCapacity());
             }
             int choice = -1;
@@ -229,7 +229,7 @@ public class Main {
                     case 3: {
                         System.out.println("index:");
                         for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d" + cindexList.get(i).getIndex() +"\n", i);
+                            System.out.printf("%d. " + cindexList.get(i).getIndex() +"\n", i+1);
                         }
 
                         System.out.println("Enter the index to change Capacity:");
@@ -245,7 +245,8 @@ public class Main {
                     }
                     case 4: {
                         for (int i = 0; i < cindexList.size(); i++) {
-                            System.out.printf("%d." + cindexList.get(i).getIndex(), i);
+                            System.out.printf("%d." + cindexList.get(i).getIndex(), i+1);
+                            System.out.println();
                         }
 
                         System.out.println("Enter the Index to change new Index Number:");
@@ -475,9 +476,9 @@ public class Main {
 
         }else if(studentList.size() == 0){
             System.out.printf("There are no registered students in %s\n", coursecode);
-        } else if(studentList == null){
-            System.out.println("course index not found! please try again!");
-        }
+        } //else if(studentList == null){    //dsnt even print this
+            //System.out.println("course index not found! please try again!");
+        //}
         System.out.println();
     }
 
