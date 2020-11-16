@@ -12,7 +12,7 @@ public class Login {
                 if(UserList.get(i).password.equals(Password)){
                     return UserList.get(i).userType;
                 }else{
-                    System.out.println("Password is wrg");
+                    System.out.println("Password is wrong");
                     return null;
                 }
             }

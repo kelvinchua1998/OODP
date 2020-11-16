@@ -246,25 +246,26 @@ public class DatabaseManager {
    public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
 		Calendar newAccessEndDateTime) {
 
-		ArrayList<Student> StudentList = DeserializeStudentList();
-		Student StudentObj = getStudentbyMatricNum(matricNum);
-		int index = getIndexbyMatricNum(matricNum);
+         ArrayList<Student> StudentList = DeserializeStudentList();
+         int index = getIndexbyMatricNum(matricNum);
 
-		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
-		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-		StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
-		StudentObj.setAccessStartTime(newAccessEndDateTimeInms);
+         Student StudentObj = getStudentbyMatricNum(matricNum);
+         long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
+         long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
+         StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+         StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
 
-		StudentList.set(index, StudentObj);
+         StudentList.set(index, StudentObj);
 
-		SerializeStudentList(StudentList);
+         SerializeStudentList(StudentList);
+         System.out.printf("Access time for %s changed!\n", matricNum);
    }
    
    public Student getStudentbyMatricNum(String matricNum ) {
       ArrayList<Student> studentList = DeserializeStudentList();
 
 		for (int i = 0; i < studentList.size(); i++) {
-			if (studentList.get(i).getMatricNum() == matricNum) {
+			if (studentList.get(i).getMatricNum().equals(matricNum)) {
 				return studentList.get(i);
 			}
 		}
@@ -316,7 +317,7 @@ public class DatabaseManager {
       if(registercourses.size() != 0){
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
-            System.out.printf("%d. %s %s\n", i, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
+            System.out.printf("%d. %s %s\n", i+1, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
          }
       }else{
          System.out.println("You do not have any course registered!");
@@ -324,17 +325,17 @@ public class DatabaseManager {
 		
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
 
-		Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms);
+      Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms, email);
+      
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
-
    }
    
    public void adduser(User userObj){

@@ -10,13 +10,14 @@ public class Student extends User implements Serializable{
 	private String firstName;
 	private String lastName;
 	private String nationality;
+	private String email;
 	private int numAUsRegistered;
 	private long AccessStartDateTime;
 	private long AccessEndDateTime;
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime) {
+	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime, String email) {
 		super(username,password,"student");
 	
 		User userObj = new User(username, password, "student");
@@ -31,6 +32,7 @@ public class Student extends User implements Serializable{
 		this.numAUsRegistered = 0;
 		this.AccessStartDateTime = accessStartTime;
 		this.AccessEndDateTime = accessEndTime;
+		this.email = email;
 		registeredCourse = new ArrayList<StudentCourse>();
 		waitlist = new ArrayList<StudentCourse>();
 	}
@@ -165,15 +167,28 @@ public class Student extends User implements Serializable{
 		this.matricNum = matricNum;
 	}
 
-	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G", "student", "student", 0,
-				0);
-		DatabaseManager databaseManager = new DatabaseManager();
-		ArrayList<Student> studentList = new ArrayList<Student>();
-		
-        studentList.add(studentObj);
-
-        databaseManager.SerializeStudentList(studentList);
+	public String getEmail() {
+		return email;
 	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public static void main(String[] args) {
+		DatabaseManager databaseManager = new DatabaseManager();
+		Student studentObj = (Student) databaseManager.getObjectbyUsername("student");
+		
+		System.out.println(studentObj.getMatricNum()); 
+		System.out.println(studentObj.getAccessStartTime()); 
+		System.out.println(studentObj.getAccessEndTime()); 
+		System.out.println(studentObj.getRegisteredCourse().get(0).getCourseCode());
+		
+
+        // studentList.add(studentObj);
+
+        // databaseManager.SerializeStudentList(studentList);
+	}
+
+
 
 }

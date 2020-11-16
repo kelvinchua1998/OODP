@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 
-	public void sendgmail(String senderGMail,String senderGMailUsername, String senderGMailPassword, String RecipientEmail){
+	public void sendgmail(String senderGMail,String senderGMailUsername, String senderGMailPassword, String RecipientEmail, String EmailSubject, String EmailContent){
 		final String username = senderGMailUsername;
 		final String password = senderGMailPassword; // to be added
 
@@ -31,8 +31,8 @@ public class SendMail {
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress(senderGMail));
 			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(RecipientEmail)); // to be added an email addr
-			message.setSubject("Testing Subject");
-			message.setText("Dear Mail Crawler,"+ "\n\n No spam to my email, please!");
+			message.setSubject(EmailSubject);
+			message.setText(EmailContent);
 
 			Transport.send(message);
 
