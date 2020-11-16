@@ -1070,7 +1070,7 @@ public class Main {
                 }
             }
 
-            System.out.println("ur index: " + studentCourse.getIndex().getIndex());
+            System.out.println("your index: " + studentCourse.getIndex().getIndex());
             System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndex());
             System.out.println("confirm swap?[y/n]");
             String confirm = sc.next();
