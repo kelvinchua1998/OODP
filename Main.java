@@ -108,9 +108,9 @@ public class Main {
                     }
                     break;
                 }
-                case "student": {
+                case "student":{
                     // verify access Time
-                    if(verifyAccessTime(username)){
+                    if (verifyAccessTime(username)) {
                         while (runnning) {
                             System.out.println("==================================================");
                             System.out.println("Welcome Student!");
@@ -123,7 +123,7 @@ public class Main {
                             System.out.println(
                                     "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                             System.out.println("7. Logout");
-    
+
                             int choice = sc.nextInt();
                             switch (choice) {
                                 case 1: {
@@ -162,11 +162,11 @@ public class Main {
                                 default: {
                                     System.out.println("invalid input! please try again!");
                                 }
-    
+
                             }
-    
+
                         }
-                    }else{
+                    } else {
                         System.out.println("your access time is not valid now!");
                     }
                     break;
@@ -183,13 +183,15 @@ public class Main {
         Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
 
         // Using Calendar class
-	    Calendar cal = Calendar.getInstance();
-	      // get Date from calendar
+        Calendar cal = Calendar.getInstance();
+        // get Date from calendar
         Date dateNow = cal.getTime();
-        
-        if(dateNow.getTime() >= studentObj.getAccessStartTime() && dateNow.getTime() <= studentObj.getAccessEndTime()){
+
+        if (dateNow.getTime() >= studentObj.getAccessStartTime()
+                && dateNow.getTime() <= studentObj.getAccessEndTime()) {
             return true;
-        }return false;
+        }
+        return false;
     }
 
     private static void updateCourse() {
@@ -670,13 +672,13 @@ public class Main {
                     System.out.println("Course already registered!");
                     continue;
                 }
-                System.out.println(singleCourse.getCourseDescription());
+                System.out.printf("%s %s \n", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.println("Description: " + singleCourse.getCourseDescription());
 
                 // print list of indexes and vacancies in the course
                 // shud show timetable clash for each index
                 // show index lesson timings
 
-                System.out.printf("%s %s", singleCourse.getCourseCode(), singleCourse.getCourseName());
                 System.out.println("-------------------------------------");
                 System.out.println("index   /   vacacy   /    waitlist");
                 for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
@@ -733,7 +735,8 @@ public class Main {
 
                     SendMail sendMail = new SendMail();
                     String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course have been successfully added\n Thank You\n NTU STARS";
-                    sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i", stud.getEmail(), "Course Added", EmailContent);
+                    sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
+                            stud.getEmail(), "Course Added", EmailContent);
 
                     System.out.println("Course added!");
                 } else {
@@ -767,9 +770,9 @@ public class Main {
             return;
 
         Student StudentObj = databaseManager.getStudentbyMatricNum(matricNum);
-        if(StudentObj == null){
+        if (StudentObj == null) {
             System.out.println("Student does not exist with that Matric Number!");
-        }else{
+        } else {
             int year;
             int month;
             int day;
@@ -833,7 +836,8 @@ public class Main {
 
             SendMail sendMail = new SendMail();
             String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course have been successfully dropped\n Thank You\n NTU STARS";
-            sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i", studentObj.getEmail(), "Course Added", EmailContent);
+            sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
+                    studentObj.getEmail(), "Course dropped", EmailContent);
 
             System.out.println("Course dropped!");
         } else if (choice.equals("n")) {
@@ -879,7 +883,7 @@ public class Main {
 
         System.out.println("Please enter email: ");
         String email = sc.next();
-        
+
         int numAU = 0;
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
