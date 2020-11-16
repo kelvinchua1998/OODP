@@ -167,7 +167,18 @@ public class Main {
 
                         }
                     } else {
-                        System.out.println("your access time is not valid now!");
+                        // Using Calendar class
+                        Calendar cal = Calendar.getInstance();
+                        // get Date from calendar
+                    
+                        int year = cal.get(Calendar.YEAR);
+                        int month = cal.get(Calendar.MONTH);      // NOTE!!! : Month from 0 to 11
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+                        int hour = cal.get(Calendar.HOUR_OF_DAY);
+                        int minute = cal.get(Calendar.MINUTE);
+                        int second = cal.get(Calendar.SECOND);
+
+                        System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! ",year, month+1, day, hour, minute, second);
                     }
                     break;
                 }
@@ -857,14 +868,27 @@ public class Main {
     }
 
     private static void AddStudent() {
+        DatabaseManager databaseManager = new DatabaseManager();
         Scanner sc = new Scanner(System.in);
+        
         System.out.println("Enter \' # \'to return to main menu ");
-
         System.out.println("Please enter MatricNum: ");
+
         String matricNum = sc.next();
+        boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum);
+        if(!uniqueMatric){
+            System.out.println("Matric number not unique!");
+            return;
+        }
 
         System.out.println("Please enter Username: ");
         String username = sc.next();
+
+        boolean uniqueUsername = databaseManager.verifyUniqueMatricNum(matricNum);
+        if(!uniqueUsername){
+            System.out.println("Username not unique!");
+            return;
+        }
 
         System.out.println("Please enter Password: ");
         String password = sc.next();
@@ -884,21 +908,11 @@ public class Main {
         System.out.println("Please enter email: ");
         String email = sc.next();
 
-        int numAU = 0;
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
-        long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+        long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 
         Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
                 accessStartDateTime, accessEndDateTime, email);
-
-        DatabaseManager databaseManager = new DatabaseManager();
-        boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);
-
-        while (unique != true) {
-            System.out.println("MatricNum not Unique! Please enter MatricNum: ");
-            matricNum = sc.next();
-            studentObj.setMatricNum(matricNum);
-        }
 
         databaseManager.addStudentintoStudentDB(studentObj);
     }
