@@ -282,17 +282,28 @@ public class DatabaseManager {
 		return -1;
    }
    
-   public void removeCourseMain(String matricNum, String CourseCode) {
+   public void removeCourseMain(String username, String courseCode) {
 		DatabaseManager databaseManager = new DatabaseManager();
 
-		ArrayList<Student> studentList = (ArrayList<Student>) databaseManager.DeserializeStudentList();
-
-		int index = getIndexbyMatricNum(matricNum);
-
-      Student studentObj = studentList.get(index);
-      studentObj.removeCourse(CourseCode);
+		Student studentObj = (Student) getObjectbyUsername(username);
       
-		databaseManager.SerializeStudentList(studentList);
+      Course courseObj = searchCourse(courseCode);
+
+      //checks if the sutdent is in the reg course
+      if(courseObj.removeStudentFromReg(username)){
+         // true means that the student is registered in the course
+         // student is removed from the course as well
+         studentObj.removeCourse(courseCode);
+         studentObj.minusAU(courseObj);
+         //check if the course index has any vacancies
+         
+         updateDatabase(studentObj);
+      }else{
+         ///false means that the student is not reg
+         System.out.println("you are not registered in the course!");
+      }
+
+      
    }
    
    public void printCourseRegistered(String username) {

@@ -66,7 +66,22 @@ public class Course implements Serializable {
     public void setSchool(String school) {
         School = school;
     }
-    
+
+    public boolean removeStudentFromReg(String username) {
+        // search student throughout the Cindex and remove
+        for(int i =0 ;i <listCindex.size(); i++){
+            for (int j=0; j < listCindex.get(i).getRegisteredStudents().size(); j++){
+                if(listCindex.get(i).getRegisteredStudents().get(j).getUsername().equals(username)){
+                    //removing student from reg
+                    listCindex.get(i).getRegisteredStudents().remove(j);
+                    return true;
+                }
+            }
+            
+        }
+        return false;
+	}
+
     public static void main(String[] args) {
         ArrayList<Course> courseList = new ArrayList<Course>();
         DatabaseManager databaseManager = new DatabaseManager();
@@ -75,4 +90,6 @@ public class Course implements Serializable {
 
     }
 
+
+	
 }

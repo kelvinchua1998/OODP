@@ -775,11 +775,8 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
 
         if (choice.equals("y")) {
-            Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
-            databaseManager.removeCourseMain(studentObj.getMatricNum(), coursecode);
-
-            Course courseObj = databaseManager.searchCourse(coursecode);
-            studentObj.minusAU(courseObj);
+            
+            databaseManager.removeCourseMain(username, coursecode);
 
             System.out.println("Course dropped!");
         } else if (choice.equals("n")) {

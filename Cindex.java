@@ -76,4 +76,16 @@ public class Cindex implements Serializable{
         return this.Capacity - registeredStudents.size();
     }
 
+    public boolean pushWaitlist(){
+        //check if num of reg stud is less than cpacity
+        if(registeredStudents.size()<Capacity){
+            if (waitList.size() != 0){
+                addRegisteredStudent(waitList.get(0));
+                waitList.remove(0);
+                SendMail sendMail = new SendMail();
+                
+            }
+            
+        }
+    }
 }
