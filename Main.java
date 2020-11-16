@@ -734,7 +734,7 @@ public class Main {
                     databaseManager.updateDatabase(singleCourse);
 
                     SendMail sendMail = new SendMail();
-                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course have been successfully added\n Thank You\n NTU STARS";
+                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "+singleCourse.getCourseCode()+" "+singleCourse.getCourseName() + " index "+ singleIndex.getIndex() +" have been successfully added\n Thank You\n NTU STARS";
                     sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                             stud.getEmail(), "Course Added", EmailContent);
 
@@ -835,7 +835,7 @@ public class Main {
             studentObj.minusAU(courseObj);
 
             SendMail sendMail = new SendMail();
-            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course have been successfully dropped\n Thank You\n NTU STARS";
+            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getListCindex().get(0).getIndex()+"been successfully dropped\n Thank You\n NTU STARS";
             sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                     studentObj.getEmail(), "Course dropped", EmailContent);
 
