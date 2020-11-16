@@ -288,7 +288,15 @@ public class DatabaseManager {
          // true means that the student is registered in the course
          // student is removed from the course as well
          studentObj.removeCourse(courseCode);
-         studentObj.minusAU(courseObj);
+         studentObj.plusAU(courseObj);
+         
+         // send email to stud that he has droppe dthe course
+
+         SendMail sendMail = new SendMail();
+            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getListCindex().get(0).getIndex()+"been successfully dropped\n Thank You\n NTU STARS";
+            sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
+                    studentObj.getEmail(), "Course dropped", EmailContent);
+
          //check for the whole course has any vacancies
 
          courseObj.pushWaitlist();
