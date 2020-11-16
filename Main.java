@@ -839,11 +839,8 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
 
         if (choice.equals("y")) {
-            Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
-            databaseManager.removeCourseMain(studentObj.getMatricNum(), coursecode);
-
-            Course courseObj = databaseManager.searchCourse(coursecode);
-            studentObj.minusAU(courseObj);
+            
+            databaseManager.removeCourseMain(username, coursecode);
 
             SendMail sendMail = new SendMail();
             String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getListCindex().get(0).getIndex()+"been successfully dropped\n Thank You\n NTU STARS";

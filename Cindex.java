@@ -76,4 +76,5 @@ public class Cindex implements Serializable{
         return this.Capacity - registeredStudents.size();
     }
 
+
 }
