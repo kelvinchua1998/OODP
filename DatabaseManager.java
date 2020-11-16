@@ -314,17 +314,17 @@ public class DatabaseManager {
 		
 	}
    
-   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime) {
+   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
 		ArrayList<Student> StudentList = DeserializeStudentList();
 
 		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
 
-		Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms);
+      Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms, email);
+      
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
-
    }
    
    public void adduser(User userObj){

@@ -726,6 +726,9 @@ public class Main {
                     databaseManager.updateDatabase(stud);
                     databaseManager.updateDatabase(singleCourse);
 
+                    SendMail sendMail = new SendMail();
+                    String EmailContent = "Dear Sir/Mdm,\n Your course have been successfully added\n Thank You\n NTU STARS";
+                    sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i", stud.getEmail(), "Course Added", EmailContent);
                     System.out.println("Course added!");
                 } else {
                     // add stud to waitlist
@@ -766,7 +769,7 @@ public class Main {
             int day;
             int hour;
             int minute;
-            
+
             System.out.println("AccessStartDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
@@ -846,25 +849,33 @@ public class Main {
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
+        System.out.println("Please enter Username: ");
+        String username = sc.next();
+
         System.out.println("Please enter Password: ");
         String password = sc.next();
 
         System.out.println("Please enter First Name: ");
         String firstname = sc.next();
+
         System.out.println("Please enter Last Name: ");
         String lastname = sc.next();
+
         System.out.println("Please enter Gender: ");
         String gender = sc.next();
+
         System.out.println("Please enter Nationality: ");
         String nationality = sc.next();
-        System.out.println("Please enter Username: ");
-        String username = sc.next();
+
+        System.out.println("Please enter email: ");
+        String email = sc.next();
+        
         int numAU = 0;
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
         Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                accessStartDateTime, accessEndDateTime);
+                accessStartDateTime, accessEndDateTime, email);
 
         DatabaseManager databaseManager = new DatabaseManager();
         boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);
