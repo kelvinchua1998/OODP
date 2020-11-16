@@ -284,8 +284,6 @@ public class DatabaseManager {
    }
    
    public void removeCourseMain(String username, String courseCode) {
-		DatabaseManager databaseManager = new DatabaseManager();
-
 		Student studentObj = (Student) getObjectbyUsername(username);
       
       Course courseObj = searchCourse(courseCode);
@@ -296,8 +294,11 @@ public class DatabaseManager {
          // student is removed from the course as well
          studentObj.removeCourse(courseCode);
          studentObj.minusAU(courseObj);
-         //check if the course index has any vacancies
+         //check for the whole course has any vacancies
+
+         courseObj.pushWaitlist();
          
+         updateDatabase(courseObj);
          updateDatabase(studentObj);
       }else{
          ///false means that the student is not reg

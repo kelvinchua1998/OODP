@@ -735,8 +735,7 @@ public class Main {
 
                     SendMail sendMail = new SendMail();
                     String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course have been successfully added\n Thank You\n NTU STARS";
-                    sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
-                            stud.getEmail(), "Course Added", EmailContent);
+                    sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",stud.getEmail(), "Course Added", EmailContent);
 
                     System.out.println("Course added!");
                 } else {
