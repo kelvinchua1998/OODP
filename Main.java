@@ -11,160 +11,180 @@ public class Main {
 
     public static void main(String[] args) {
         boolean mainRunning = true;
-        while(mainRunning){
+        while (mainRunning) {
 
-        boolean runnning = true;
-        String userType = null;
+            boolean runnning = true;
+            String userType = null;
 
-        Login login = new Login();
-        Scanner sc = new Scanner(System.in);
-        String username = null;
-        String password = null;
+            Login login = new Login();
+            Scanner sc = new Scanner(System.in);
+            String username = null;
+            String password = null;
 
-        while (userType == null) {
-            System.out.println("Please Enter Username:");
+            while (userType == null) {
+                System.out.println("Please Enter Username:");
 
-            username = sc.next();
+                username = sc.next();
 
-            System.out.println("Please Enter Password");
-            password = sc.next();
+                System.out.println("Please Enter Password");
+                password = sc.next();
 
-            userType = login.verifyUser(username, password);
+                userType = login.verifyUser(username, password);
 
-            if (userType == null) {
-                System.out.println("Please Login Again!");
-            } else {
-                System.out.println("login success!");
-            }
-        }
-
-        switch (userType) {
-            case "admin":
-                while (runnning) {
-                    System.out.println("Welcome Admin!");
-                    System.out.println("Select your option(1-6)");
-                    System.out.println("1. Edit student access period");
-                    System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
-                    System.out.println("3. Add a course.");
-                    System.out.println("4. update a course (course code, school, its index numbers and vacancy).");
-                    System.out.println("5. Check available slot for an index number (vacancy in a class)");
-                    System.out.println("6. Print student list by index number.");
-                    System.out.println(
-                            "7. Print student list by course (a2ll students registered for the selected course).");
-                    System.out.println("[ print only student’s name, gender and nationality ]");
-                    System.out.println("8. Logout");
-                    System.out.println("9. Print available courses");
-
-                    int choice = sc.nextInt();
-                    switch (choice) {
-                        case 1: {
-                            EditStudentAccessPeriod();
-                            break;
-                        }
-                        case 2: {
-                            AddStudent();
-                            break;
-                        }
-                        case 3: {
-                            adminAddCourse();
-                            break;
-                        }
-                        case 4: {
-                            updateCourse();
-                            break;
-                        }
-                        case 5: {
-                            // WORKING
-                            checkVacancy();
-                            break;
-                        }
-                        case 6: {
-                            //WORKING
-                            printStudentListByCIndex();
-                            break;
-                        }
-                        case 7: {
-                            //WORKING
-                            printStudentListByCourse();
-                            break;
-                        }
-                        case 8: {
-                            runnning = false;
-                            break;
-                        }
-
-                        case 9: {
-                            getAvailCourse();
-                            break;
-                        }
-                        default: {
-                            System.out.println("invalid input! please try again!");
-                        }
-
-                    }
-                }
-
-            case "student": {
-                while (runnning) {
-                    System.out.println("Welcome Student!");
-                    System.out.println("Select your option(1-6)");
-                    System.out.println("1. *Add Course");
-                    System.out.println("2. Drop Course");
-                    System.out.println("3. Check/Print Courses Registered");
-                    System.out.println("4. Check Vacancies Available");
-                    System.out.println("5. Change Index Number of Course");
-                    System.out.println(
-                            "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
-                    System.out.println("7. Logout");
-
-                    int choice = sc.nextInt();
-                    switch (choice) {
-                        case 1: {
-                            //working for student
-                            addCourse(username);
-                            break;
-                        }
-                        case 2: {
-                            // working
-                            dropCourse(username);
-                            break;
-                        }
-                        case 3: {
-                            //working for no course registered
-                            //working for course registered
-                            checkPrintCourseRegistered(username);
-                            break;
-                        }
-                        case 4: {
-                            //working
-                            vacancyAvailable();
-                            break;
-                        }
-                        case 5: {
-                            changeIndex(username);
-                            break;
-                        }
-                        case 6: {
-                            swapIndexWithAnotherStudent(username);
-                            break;
-                        }
-                        case 7: {
-                            runnning = false;
-                            break;
-                        }
-                        default: {
-                            System.out.println("invalid input! please try again!");
-                        }
-
-                    }
-
+                if (userType == null) {
+                    System.out.println("Wrong Username and Password!");
+                } else {
+                    System.out.println("User Verified!");
                 }
             }
-            default: {
 
+            switch (userType) {
+                case "admin":
+                    while (runnning) {
+                        System.out.println("Welcome Admin!");
+                        System.out.println("Select your option(1-6)");
+                        System.out.println("1. Edit student access period");
+                        System.out.println("2. Add a student (name, matric number, gender, nationality, etc)");
+                        System.out.println("3. Add a course.");
+                        System.out.println("4. update a course (course code, school, its index numbers and vacancy).");
+                        System.out.println("5. Check available slot for an index number (vacancy in a class)");
+                        System.out.println("6. Print student list by index number.");
+                        System.out.println(
+                                "7. Print student list by course (a2ll students registered for the selected course).");
+                        System.out.println("[ print only student’s name, gender and nationality ]");
+                        System.out.println("8. Logout");
+                        System.out.println("9. Print available courses");
+
+                        int choice = sc.nextInt();
+                        switch (choice) {
+                            case 1: {
+                                EditStudentAccessPeriod();
+                                break;
+                            }
+                            case 2: {
+                                AddStudent();
+                                break;
+                            }
+                            case 3: {
+                                adminAddCourse();
+                                break;
+                            }
+                            case 4: {
+                                updateCourse();
+                                break;
+                            }
+                            case 5: {
+                                // WORKING
+                                checkVacancy();
+                                break;
+                            }
+                            case 6: {
+                                // WORKING
+                                printStudentListByCIndex();
+                                break;
+                            }
+                            case 7: {
+                                // WORKING
+                                printStudentListByCourse();
+                                break;
+                            }
+                            case 8: {
+                                runnning = false;
+                                break;
+                            }
+
+                            case 9: {
+                                getAvailCourse();
+                                break;
+                            }
+                            default: {
+                                System.out.println("invalid input! please try again!");
+                            }
+
+                        }
+                    }
+
+                case "student": {
+                    // verify access Time
+                    if(verifyAccessTime(username)){
+                        while (runnning) {
+                            System.out.println("Welcome Student!");
+                            System.out.println("Select your option(1-6)");
+                            System.out.println("1. *Add Course");
+                            System.out.println("2. Drop Course");
+                            System.out.println("3. Check/Print Courses Registered");
+                            System.out.println("4. Check Vacancies Available");
+                            System.out.println("5. Change Index Number of Course");
+                            System.out.println(
+                                    "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
+                            System.out.println("7. Logout");
+    
+                            int choice = sc.nextInt();
+                            switch (choice) {
+                                case 1: {
+                                    // working for student
+                                    addCourse(username);
+                                    break;
+                                }
+                                case 2: {
+                                    // working
+                                    dropCourse(username);
+                                    break;
+                                }
+                                case 3: {
+                                    // working for no course registered
+                                    // working for course registered
+                                    checkPrintCourseRegistered(username);
+                                    break;
+                                }
+                                case 4: {
+                                    // working
+                                    vacancyAvailable();
+                                    break;
+                                }
+                                case 5: {
+                                    changeIndex(username);
+                                    break;
+                                }
+                                case 6: {
+                                    swapIndexWithAnotherStudent(username);
+                                    break;
+                                }
+                                case 7: {
+                                    runnning = false;
+                                    break;
+                                }
+                                default: {
+                                    System.out.println("invalid input! please try again!");
+                                }
+    
+                            }
+    
+                        }
+                    }else{
+                        System.out.println("your access time is not valid now!");
+                    }
+                    
+                }
+                default: {
+
+                }
             }
         }
     }
+
+    private static boolean verifyAccessTime(String username) {
+        DatabaseManager databaseManager = new DatabaseManager();
+        Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
+
+        // Using Calendar class
+	    Calendar cal = Calendar.getInstance();
+	      // get Date from calendar
+        Date dateNow = cal.getTime();
+        
+        if(dateNow.getTime() >= studentObj.getAccessStartTime() && dateNow.getTime() <= studentObj.getAccessEndTime()){
+            return true;
+        }return false;
     }
 
     private static void updateCourse() {
@@ -185,7 +205,8 @@ public class Main {
 
             ArrayList<Cindex> CindexList = courseObj.getListCindex();
             for (int i = 0; i < CindexList.size(); i++) {
-                System.out.println("Index "+ CindexList.get(i).getIndex() + " Capacity: " + CindexList.get(i).getCapacity());
+                System.out.println(
+                        "Index " + CindexList.get(i).getIndex() + " Capacity: " + CindexList.get(i).getCapacity());
             }
             int choice = -1;
             ArrayList<Cindex> cindexList = courseObj.getListCindex();
@@ -240,13 +261,13 @@ public class Main {
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
 
-                        for(int i=0;i<cindexList.size(); i++){
-                            if(cindexList.get(i).getIndex().equals(index)){
+                        for (int i = 0; i < cindexList.size(); i++) {
+                            if (cindexList.get(i).getIndex().equals(index)) {
                                 cindexList.remove(i);
                                 break;
                             }
                         }
-                        
+
                         cindexobj.setCapacity(newCapacity);
                         cindexList.add(cindexobj);
 
@@ -258,32 +279,32 @@ public class Main {
 
                         System.out.println("Enter the Index to change new Index Number:");
                         String index = sc.next();
-                        
+
                         System.out.println("Enter new Index:");
                         String newIndex = sc.next();
 
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
 
-                        for(int i=0;i<cindexList.size(); i++){
-                            if(cindexList.get(i).getIndex().equals(index)){
+                        for (int i = 0; i < cindexList.size(); i++) {
+                            if (cindexList.get(i).getIndex().equals(index)) {
                                 cindexList.remove(i);
                                 break;
                             }
                         }
-                        
+
                         cindexobj.setIndex(newIndex);
                         cindexList.add(cindexobj);
-                        
+
                         courseObj.setListCindex(cindexList);
                         choice = -1;
                         break;
                     }
-                    case 5:{
+                    case 5: {
                         System.out.println("Enter the Index that you want to delete:");
                         String index = sc.next();
 
-                        for(int i=0;i<cindexList.size(); i++){
-                            if(cindexList.get(i).getIndex().equals(index)){
+                        for (int i = 0; i < cindexList.size(); i++) {
+                            if (cindexList.get(i).getIndex().equals(index)) {
                                 cindexList.remove(i);
                                 break;
                             }
@@ -294,7 +315,7 @@ public class Main {
                         break;
                     }
                 }
-                
+
             }
 
             databaseManager.updateDatabase(courseObj);
@@ -302,7 +323,7 @@ public class Main {
         } else {
             System.out.println("Course Code does not exists in DataBase");
         }
-        System.out.println();  //space btwn current func & main menu
+        System.out.println(); // space btwn current func & main menu
     }
 
     private static void adminAddCourse() {
@@ -504,14 +525,15 @@ public class Main {
             System.out.printf("student in %s\n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s \n", i+1, studentList.get(i).getFirstName(), studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
+                        studentList.get(i).getLastName());
             }
 
-        }else if(studentList.size() == 0){
+        } else if (studentList.size() == 0) {
             System.out.printf("There are no registered students in %s\n", coursecode);
-        } //else if(studentList == null){    //dsnt even print this
-            //System.out.println("course index not found! please try again!");
-        //}
+        } // else if(studentList == null){ //dsnt even print this
+          // System.out.println("course index not found! please try again!");
+          // }
         System.out.println();
     }
 
@@ -527,10 +549,8 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-         
         studentList = databaseManager.getStudentListbyCourse(coursecode);
 
-       
         if (studentList.size() != 0) {
             System.out.printf("student in %s \n", coursecode);
 
@@ -538,11 +558,11 @@ public class Main {
                 System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
                         studentList.get(i).getLastName());
             }
-        } else if(studentList.size() == 0){
+        } else if (studentList.size() == 0) {
             System.out.printf("There are no registered students in %s \n", coursecode);
-        }//else if(studentList == null){
-          //  System.out.println("course not found! please try again!");
-        //}
+        } // else if(studentList == null){
+          // System.out.println("course not found! please try again!");
+          // }
         System.out.println();
     }
 
@@ -557,14 +577,14 @@ public class Main {
         if (coursecode.equals("#"))
             return;
 
-        courseList = databaseManager.getCourseList(); 
+        courseList = databaseManager.getCourseList();
 
         while (coursecode != "#") {
             if (coursecode.equals("#"))
                 return;
 
             else if (courseList != null) {
-                System.out.println("courses: "); 
+                System.out.println("courses: ");
 
                 for (int i = 0; i < courseList.size(); i++) {
                     System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
@@ -619,7 +639,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
-        int choice=-1;
+        int choice = -1;
         Course singleCourse;
         Cindex singleIndex;
         Student stud;
@@ -629,7 +649,7 @@ public class Main {
         stud = (Student) databaseManager.getObjectbyUsername(username);
 
         while (choice != 0) {
-            System.out.println("Enter \'#\' to return to main menu "); //didnt initialize
+            System.out.println("Enter \'#\' to return to main menu "); // didnt initialize
             // choice. had error
             System.out.println("Please enter coursecode: ");
             String coursecode = sc.next();
@@ -640,8 +660,8 @@ public class Main {
             if (singleCourse != null) {
 
                 // check whether the course is already registered
-                if(databaseManager.checkStudentRegisteredCourses(stud,singleCourse)){
-                    //true => the course is already registered
+                if (databaseManager.checkStudentRegisteredCourses(stud, singleCourse)) {
+                    // true => the course is already registered
                     System.out.println("Course already registered!");
                     continue;
                 }
@@ -672,7 +692,7 @@ public class Main {
             if (choiceIndex.equals("#"))
                 return;
             else {
-                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex)-1);
+                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
             }
 
             // check timetable clash
@@ -729,49 +749,54 @@ public class Main {
 
     private static void EditStudentAccessPeriod() {
         Scanner sc = new Scanner(System.in);
+        DatabaseManager databaseManager = new DatabaseManager();
+
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
         if (matricNum.equals("#"))
             return;
 
-        int year;
-        int month;
-        int day;
-        int hour;
-        int minute;
-        System.out.println("AccessStartDateTime: ");
-        System.out.println("Please enter year (yyyy): ");
-        year = sc.nextInt();
-        System.out.println("Please enter month (mm): ");
-        month = sc.nextInt();
-        System.out.println("Please enter day(dd): ");
-        day = sc.nextInt();
-        System.out.println("Please enter hour(hh): ");
-        hour = sc.nextInt();
-        System.out.println("Please enter minute(mm): ");
-        minute = sc.nextInt();
+        Student StudentObj = databaseManager.getStudentbyMatricNum(matricNum);
+        if(StudentObj == null){
+            System.out.println("Student does not exist with that Matric Number!");
+        }else{
+            int year;
+            int month;
+            int day;
+            int hour;
+            int minute;
+            
+            System.out.println("AccessStartDateTime: ");
+            System.out.println("Please enter year (YYYY): ");
+            year = sc.nextInt();
+            System.out.println("Please enter month (MM): ");
+            month = sc.nextInt();
+            System.out.println("Please enter day (DD): ");
+            day = sc.nextInt();
+            System.out.println("Please enter hour (hh): ");
+            hour = sc.nextInt();
+            System.out.println("Please enter minute (mm): ");
+            minute = sc.nextInt();
 
-        Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
 
-        System.out.println("AccessEndDateTime: ");
-        System.out.println("Please enter year: ");
-        year = sc.nextInt();
-        System.out.println("Please enter month: ");
-        month = sc.nextInt();
-        System.out.println("Please enter day: ");
-        day = sc.nextInt();
-        System.out.println("Please enter hour: ");
-        hour = sc.nextInt();
-        System.out.println("Please enter minute: ");
-        minute = sc.nextInt();
+            System.out.println("AccessEndDateTime: ");
+            System.out.println("Please enter year (YYYY): ");
+            year = sc.nextInt();
+            System.out.println("Please enter month (MM): ");
+            month = sc.nextInt();
+            System.out.println("Please enter day (DD): ");
+            day = sc.nextInt();
+            System.out.println("Please enter hour (hh): ");
+            hour = sc.nextInt();
+            System.out.println("Please enter minute (mm): ");
+            minute = sc.nextInt();
 
-        Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
 
-        DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
-
-        System.out.printf("Access time for %s changed!\n", matricNum);
+            databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
+        }
     }
 
     private static void dropCourse(String username) {
@@ -817,7 +842,7 @@ public class Main {
     private static void AddStudent() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \'to return to main menu ");
-        
+
         System.out.println("Please enter MatricNum: ");
         String matricNum = sc.next();
 
@@ -838,8 +863,8 @@ public class Main {
         long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
         long accessEndDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username,
-                password, accessStartDateTime, accessEndDateTime);
+        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
+                accessStartDateTime, accessEndDateTime);
 
         DatabaseManager databaseManager = new DatabaseManager();
         boolean unique = databaseManager.verifyUniqueMatricNum(matricNum);
@@ -869,19 +894,20 @@ public class Main {
         // ArrayList<Cindex> CindexList = courseobj.getListCindex();
 
         // for (int i = 0; i < CindexList.size(); i++) {
-        //     System.out.println(
-        //             "index: " + CindexList.get(i).getIndex() + "Vacancy: " + CindexList.get(i).getCurrentVacancy());
+        // System.out.println(
+        // "index: " + CindexList.get(i).getIndex() + "Vacancy: " +
+        // CindexList.get(i).getCurrentVacancy());
         // }
 
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
-        int choice=-1;
+        int choice = -1;
         Course singleCourse;
         Cindex singleIndex;
         Student stud;
 
-        while(true){
-            System.out.println("Enter \'#\' to return to main menu "); //didnt initialize
+        while (true) {
+            System.out.println("Enter \'#\' to return to main menu "); // didnt initialize
             // choice. had error
             System.out.println("Please enter coursecode: ");
             String coursecode = sc.next();
@@ -910,7 +936,6 @@ public class Main {
                 System.out.println("course not found! please enter course code again ");
             }
         }
-        
 
     }
 

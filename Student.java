@@ -166,14 +166,17 @@ public class Student extends User implements Serializable{
 	}
 
 	public static void main(String[] args) {
-		Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G", "student", "student", 0,
-				0);
+		// Student studentObj = new Student("melvin", "Chua", "male",  "singapore", "U1234567G", "student", "student", 0,0);
 		DatabaseManager databaseManager = new DatabaseManager();
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		
-        studentList.add(studentObj);
+		Student studentObj = (Student) databaseManager.getObjectbyUsername("student");
+		System.out.println(studentObj.getMatricNum()); 
+		System.out.println(studentObj.getAccessStartTime()); 
+		System.out.println(studentObj.getAccessEndTime()); 
+        // studentList.add(studentObj);
 
-        databaseManager.SerializeStudentList(studentList);
+        // databaseManager.SerializeStudentList(studentList);
 	}
 
 }

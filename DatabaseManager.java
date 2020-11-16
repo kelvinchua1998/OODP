@@ -246,25 +246,26 @@ public class DatabaseManager {
    public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
 		Calendar newAccessEndDateTime) {
 
-		ArrayList<Student> StudentList = DeserializeStudentList();
-		Student StudentObj = getStudentbyMatricNum(matricNum);
-		int index = getIndexbyMatricNum(matricNum);
+         ArrayList<Student> StudentList = DeserializeStudentList();
+         int index = getIndexbyMatricNum(matricNum);
 
-		long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
-		long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-		StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
-		StudentObj.setAccessStartTime(newAccessEndDateTimeInms);
+         Student StudentObj = getStudentbyMatricNum(matricNum);
+         long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
+         long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
+         StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+         StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
 
-		StudentList.set(index, StudentObj);
+         StudentList.set(index, StudentObj);
 
-		SerializeStudentList(StudentList);
+         SerializeStudentList(StudentList);
+         System.out.printf("Access time for %s changed!\n", matricNum);
    }
    
    public Student getStudentbyMatricNum(String matricNum ) {
       ArrayList<Student> studentList = DeserializeStudentList();
 
 		for (int i = 0; i < studentList.size(); i++) {
-			if (studentList.get(i).getMatricNum() == matricNum) {
+			if (studentList.get(i).getMatricNum().equals(matricNum)) {
 				return studentList.get(i);
 			}
 		}
