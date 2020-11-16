@@ -18,6 +18,14 @@ public class Course implements Serializable {
         this.School = school;
     }
 
+    public int getIndexOfCindex(String cindexName){
+        for(int i=0; i<this.listCindex.size(); i++){
+            if(this.listCindex.get(i).getIndex().equals(cindexName)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public String getCourseCode() {
         return CourseCode;

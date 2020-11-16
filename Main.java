@@ -1048,21 +1048,25 @@ public class Main {
             DatabaseManager databaseManager = new DatabaseManager();
 
             Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
-            ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+            ArrayList<StudentCourse> registeredcourseList = studentobj.getRegisteredCourse();
 
-            for (int i = 0; i < registeredcourse.size(); i++) {
-                if (registeredcourse.get(i).getCourseCode().equals(courseCode)) {
-                    studentCourse = registeredcourse.get(i);
+            int indexRegisterCourseList = 0;
+            for (int i = 0; i < registeredcourseList.size(); i++) {
+                if (registeredcourseList.get(i).getCourseCode().equals(courseCode)) {
+                    studentCourse = registeredcourseList.get(i);
+                    indexRegisterCourseList = i;
                     break;
                 }
             }
 
             Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
-            ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
+            ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
 
-            for (int i = 0; i < registeredcoursePeer.size(); i++) {
-                if (registeredcoursePeer.get(i).getCourseCode().equals(courseCode)) {
-                    studentCoursePeer = registeredcoursePeer.get(i);
+            int indexRegisterCourseListpeer = 0;
+            for (int i = 0; i < registeredcoursePeerList.size(); i++) {
+                if (registeredcoursePeerList.get(i).getCourseCode().equals(courseCode)) {
+                    studentCoursePeer = registeredcoursePeerList.get(i);
+                    indexRegisterCourseListpeer = i;
                     break;
                 }
             }
@@ -1079,13 +1083,37 @@ public class Main {
                         studentCourse.getIndex().getIndex());
 
                 newindex.getRegisteredStudents().add(studentobj);
-                oldindex.getRegisteredStudents().remove(studentobj);
 
-                newindex.getRegisteredStudents().remove(studentobjPeer);
+                int index = oldindex.getIndexofStudent(username);
+                oldindex.getRegisteredStudents().remove(index);
+
+                int peerindex = newindex.getIndexofStudent(peerUsername);
+                newindex.getRegisteredStudents().remove(peerindex);
                 oldindex.getRegisteredStudents().add(studentobjPeer);
 
                 studentCourse.setIndex(newindex);
                 studentCoursePeer.setIndex(oldindex);
+
+                registeredcourseList.set(indexRegisterCourseList,studentCourse );
+                registeredcoursePeerList.set(indexRegisterCourseListpeer, studentCoursePeer);
+
+                studentobj.setRegisteredCourse(registeredcourseList);
+                studentobjPeer.setRegisteredCourse(registeredcoursePeerList);
+
+                databaseManager.updateDatabase(studentobj);
+                databaseManager.updateDatabase(studentobjPeer);
+
+                Course courseObj = databaseManager.searchCourse(courseCode);
+                ArrayList<Cindex> CourseCindexList = courseObj.getListCindex();
+                
+                int indexCindex = courseObj.getIndexOfCindex(newindex.getIndex());
+                CourseCindexList.set(indexCindex, newindex);
+
+                int indexCindexPeer = courseObj.getIndexOfCindex(oldindex.getIndex());
+                CourseCindexList.set(indexCindexPeer, oldindex);
+
+                courseObj.setListCindex(CourseCindexList);
+                databaseManager.updateDatabase(courseObj);
 
                 System.out.println("you have swapped index successfully");
             }
