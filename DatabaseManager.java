@@ -28,7 +28,7 @@ public class DatabaseManager {
 
    public ArrayList<Course> DeserializeCourseList() {
       try {
-        ArrayList<Course> courseList2;
+         ArrayList<Course> courseList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "course.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          courseList2 = (ArrayList<Course>) in.readObject();
@@ -61,7 +61,7 @@ public class DatabaseManager {
 
    public ArrayList<User> DeserializeUserList() {
       try {
-        ArrayList<User> userList;
+         ArrayList<User> userList;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "user.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          userList = (ArrayList<User>) in.readObject();
@@ -84,14 +84,14 @@ public class DatabaseManager {
          out.close();
          fileOut.close();
          System.out.println("Serialized data is saved");
-          } catch (IOException i) {
+      } catch (IOException i) {
          i.printStackTrace();
       }
    }
 
    public ArrayList<Admin> DeserializeAdminList() {
       try {
-        ArrayList<Admin> adminList2;
+         ArrayList<Admin> adminList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "admin.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          adminList2 = (ArrayList<Admin>) in.readObject();
@@ -105,7 +105,6 @@ public class DatabaseManager {
       }
       return null;
    }
-
 
    public void SerializeStudentList(ArrayList<Student> studentList) {
       try {
@@ -122,7 +121,7 @@ public class DatabaseManager {
 
    public ArrayList<Student> DeserializeStudentList() {
       try {
-        ArrayList<Student> studentsList2;
+         ArrayList<Student> studentsList2;
          FileInputStream fileIn = new FileInputStream(FILEPATH + "student.ser");
          ObjectInputStream in = new ObjectInputStream(fileIn);
          studentsList2 = (ArrayList<Student>) in.readObject();
@@ -137,44 +136,43 @@ public class DatabaseManager {
       return null;
    }
 
-
    public int getVacancyCindex(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
 
       if (singleIndex != null) {
-          return singleIndex.getCurrentVacancy();
+         return singleIndex.getCurrentVacancy();
       } else {
-          return -1;
+         return -1;
       }
-  }
-
-  public Cindex searchCindex(String coursecode, String Cindex) {
-   ArrayList<Course> courseList;
-
-   DatabaseManager databaseManager = new DatabaseManager();
-   courseList = databaseManager.DeserializeCourseList();
-
-   for (int i = 0; i < courseList.size(); i++) {
-       if (courseList.get(i).getCourseCode().equals(coursecode)) {
-           Course courseObj = courseList.get(i);
-           ArrayList<Cindex> CindexObj = courseObj.getListCindex();
-           for (int j = 0; j < CindexObj.size(); j++) {
-               if (CindexObj.get(j).getIndex().equals(Cindex)) {
-                   return CindexObj.get(j);
-               }
-           }
-
-       }
    }
 
-   return null;
+   public Cindex searchCindex(String coursecode, String Cindex) {
+      ArrayList<Course> courseList;
 
-}
+      DatabaseManager databaseManager = new DatabaseManager();
+      courseList = databaseManager.DeserializeCourseList();
+
+      for (int i = 0; i < courseList.size(); i++) {
+         if (courseList.get(i).getCourseCode().equals(coursecode)) {
+            Course courseObj = courseList.get(i);
+            ArrayList<Cindex> CindexObj = courseObj.getListCindex();
+            for (int j = 0; j < CindexObj.size(); j++) {
+               if (CindexObj.get(j).getIndex().equals(Cindex)) {
+                  return CindexObj.get(j);
+               }
+            }
+
+         }
+      }
+
+      return null;
+
+   }
 
    public ArrayList<Student> getStudentList(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
 
-      if(singleIndex == null){  //error checking for invalid course index
+      if (singleIndex == null) { // error checking for invalid course index
          ArrayList<Student> temp = new ArrayList<Student>();
          System.out.println("Course/index not found!");
          return temp;
@@ -182,105 +180,102 @@ public class DatabaseManager {
       return singleIndex.getRegisteredStudents();
    }
 
-
-   //for print student list by course
+   // for print student list by course
    public Course searchCourse(String coursecode) {
       ArrayList<Course> courseList = new ArrayList<Course>();
-   
+
       DatabaseManager databaseManager = new DatabaseManager();
       courseList = databaseManager.DeserializeCourseList();
-   
+
       for (int i = 0; i < courseList.size(); i++) {
-          if (courseList.get(i).getCourseCode().equals(coursecode)) {
-              Course courseObj = courseList.get(i);
-              return courseObj;
-          }
+         if (courseList.get(i).getCourseCode().equals(coursecode)) {
+            Course courseObj = courseList.get(i);
+            return courseObj;
+         }
       }
-   
+
       return null;
-   
+
    }
 
-   public ArrayList<Student> getStudentListbyCourse(String coursecode){
+   public ArrayList<Student> getStudentListbyCourse(String coursecode) {
       Course singleCourse = searchCourse(coursecode);
 
       ArrayList<Student> temp = new ArrayList<Student>();
 
-      if(singleCourse == null){
+      if (singleCourse == null) {
          System.out.println("Course not found!");
          return temp;
       }
 
-      for(int i=0; i<singleCourse.getListCindex().size(); i++)
-      {
-         if(singleCourse.getListCindex().get(i) != null)
+      for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
+         if (singleCourse.getListCindex().get(i) != null)
             temp.addAll(singleCourse.getListCindex().get(i).getRegisteredStudents());
       }
       return temp;
    }
-   
 
-   //print courses in database
-   public ArrayList<Course> getCourseList(){
+   // print courses in database
+   public ArrayList<Course> getCourseList() {
       ArrayList<Course> courseList = new ArrayList<Course>();
       ArrayList<Course> temp = new ArrayList<Course>();
 
       DatabaseManager databaseManager = new DatabaseManager();
       courseList = databaseManager.DeserializeCourseList();
 
-        // return courseList;
-        for (int i = 0; i < courseList.size(); i++) {
-             temp.add(courseList.get(i));
-        }    
-             
-         return temp;
-         
-      
+      // return courseList;
+      for (int i = 0; i < courseList.size(); i++) {
+         temp.add(courseList.get(i));
+      }
+
+      return temp;
+
    }
-   public void addStudentintoStudentDB(Student studentObj){
+
+   public void addStudentintoStudentDB(Student studentObj) {
       ArrayList<Student> studentList = DeserializeStudentList();
       studentList.add(studentObj);
       SerializeStudentList(studentList);
    }
 
    public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
-		Calendar newAccessEndDateTime) {
+         Calendar newAccessEndDateTime) {
 
-         ArrayList<Student> StudentList = DeserializeStudentList();
-         int index = getIndexbyMatricNum(matricNum);
+      ArrayList<Student> StudentList = DeserializeStudentList();
+      int index = getIndexbyMatricNum(matricNum);
 
-         Student StudentObj = getStudentbyMatricNum(matricNum);
-         long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
-         long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-         StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
-         StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
+      Student StudentObj = getStudentbyMatricNum(matricNum);
+      long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
+      long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
+      StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+      StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
 
-         StudentList.set(index, StudentObj);
+      StudentList.set(index, StudentObj);
 
-         SerializeStudentList(StudentList);
-         System.out.printf("Access time for %s changed!\n", matricNum);
+      SerializeStudentList(StudentList);
+      System.out.printf("Access time for %s changed!\n", matricNum);
    }
-   
-   public Student getStudentbyMatricNum(String matricNum ) {
+
+   public Student getStudentbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
 
-		for (int i = 0; i < studentList.size(); i++) {
-			if (studentList.get(i).getMatricNum().equals(matricNum)) {
-				return studentList.get(i);
-			}
-		}
-		return null;
+      for (int i = 0; i < studentList.size(); i++) {
+         if (studentList.get(i).getMatricNum().equals(matricNum)) {
+            return studentList.get(i);
+         }
+      }
+      return null;
    }
-   
+
    private int getIndexbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
 
-		for (int i = 0; i < studentList.size(); i++) {
-			if (studentList.get(i).getMatricNum().equals(matricNum) ) {
-				return i;
-			}
-		}
-		return -1;
+      for (int i = 0; i < studentList.size(); i++) {
+         if (studentList.get(i).getMatricNum().equals(matricNum)) {
+            return i;
+         }
+      }
+      return -1;
    }
    
    public void removeCourseMain(String username, String courseCode) {
@@ -307,45 +302,48 @@ public class DatabaseManager {
 
       
    }
-   
+
    public void printCourseRegistered(String username) {
-		ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+      ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
 
-		int index = getIndexByUsername(username);
+      int index = getIndexByUsername(username);
 
-		ArrayList<StudentCourse> registercourses =studentList.get(index).getRegisteredCourse();
+      ArrayList<StudentCourse> registercourses = studentList.get(index).getRegisteredCourse();
 
-      if(registercourses.size() != 0){
+      if (registercourses.size() != 0) {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
-            System.out.printf("%d. %s %s\n", i+1, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName());
+            System.out.printf("%d. %s %s\n", i + 1, registercourses.get(i).getCourseCode(),
+                  registercourses.get(i).getCourseName());
          }
-      }else{
+      } else {
          System.out.println("You do not have any course registered!");
       }
-		
-	}
-   
-   public void addStudent(String firstName, String lastName, String gender, String nationality,String matricNum, String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
-		ArrayList<Student> StudentList = DeserializeStudentList();
 
-		long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
+   }
+
+   public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
+         String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
+      ArrayList<Student> StudentList = DeserializeStudentList();
+
+      long AccessStartTimeInms = AccessStartTime.getTimeInMillis();
       long AccessEndTimeInms = AccessEndTime.getTimeInMillis();
 
-      Student newStudent = new Student( firstName,  lastName,  gender,  nationality,  matricNum,  username,  password,  AccessStartTimeInms,  AccessEndTimeInms, email);
-      
+      Student newStudent = new Student(firstName, lastName, gender, nationality, matricNum, username, password,
+            AccessStartTimeInms, AccessEndTimeInms, email);
+
       StudentList.add(newStudent);
 
       SerializeStudentList(StudentList);
    }
-   
-   public void adduser(User userObj){
+
+   public void adduser(User userObj) {
       ArrayList<User> userList = DeserializeUserList();
       userList.add(userObj);
       SerializeUserList(userList);
    }
 
-   public boolean checkClashforStudent(String username, String courseCode, String Cindex){
+   public boolean checkClashforStudent(String username, String courseCode, String Cindex) {
 
       Student stud = (Student) getObjectbyUsername(username);
 
@@ -354,111 +352,108 @@ public class DatabaseManager {
       return stud.checkClash(courseIndex);
    }
 
-   public int getIndexByCourseCode(String courseCode){
+   public int getIndexByCourseCode(String courseCode) {
       ArrayList<Course> courseList = DeserializeCourseList();
 
-		for (int i = 0; i < courseList.size(); i++) {
-			if (courseList.get(i).getCourseCode().equals(courseCode)) {
-				return i;
-			}
-		}
-		return -1;
+      for (int i = 0; i < courseList.size(); i++) {
+         if (courseList.get(i).getCourseCode().equals(courseCode)) {
+            return i;
+         }
+      }
+      return -1;
    }
 
-   public int getIndexByUsername(String username){
+   public int getIndexByUsername(String username) {
       ArrayList<User> userList = DeserializeUserList();
 
-		for (int i = 0; i < userList.size(); i++) {
-			if (userList.get(i).getUsername().equals(username)) {
-            if(userList.get(i).userType.equals("student")){
+      for (int i = 0; i < userList.size(); i++) {
+         if (userList.get(i).getUsername().equals(username)) {
+            if (userList.get(i).userType.equals("student")) {
                ArrayList<Student> studentList = DeserializeStudentList();
-               for (int j =0; j < studentList.size();j++){
-                  if (studentList.get(j).getUsername().equals(username)){
+               for (int j = 0; j < studentList.size(); j++) {
+                  if (studentList.get(j).getUsername().equals(username)) {
                      return j;
                   }
                }
-            }else{
+            } else {
                ArrayList<Admin> adminList = DeserializeAdminList();
-               for (int j =0; j < adminList.size();j++){
-                  if (adminList.get(j).getUsername().equals(username)){
+               for (int j = 0; j < adminList.size(); j++) {
+                  if (adminList.get(j).getUsername().equals(username)) {
                      return j;
                   }
                }
             }
-			}
-		}
-		return -1;
+         }
+      }
+      return -1;
    }
 
-   public void updateDatabase(Object obj){
-      if (obj instanceof Student){
+   public void updateDatabase(Object obj) {
+      if (obj instanceof Student) {
          Student stud = (Student) obj;
 
          // search student in array list and replace
-         ArrayList<Student> studentList  = DeserializeStudentList();
-         studentList.set(getIndexbyMatricNum(stud.getMatricNum()),stud);
+         ArrayList<Student> studentList = DeserializeStudentList();
+         studentList.set(getIndexbyMatricNum(stud.getMatricNum()), stud);
          SerializeStudentList(studentList);
-      }
-      else if (obj instanceof Course){
+      } else if (obj instanceof Course) {
          Course c = (Course) obj;
 
          // search student in array list and replace
-         ArrayList<Course> clist  = DeserializeCourseList();
-         clist.set(getIndexByCourseCode(c.getCourseCode()),c);
+         ArrayList<Course> clist = DeserializeCourseList();
+         clist.set(getIndexByCourseCode(c.getCourseCode()), c);
          SerializeCourseList(clist);
-         
-      }
-      else if (obj instanceof Admin){
+
+      } else if (obj instanceof Admin) {
          Admin adminobj = (Admin) obj;
 
          // search student in array list and replace
-         ArrayList<Admin> adminlist  = DeserializeAdminList();
-         adminlist.set(getIndexByUsername(adminobj.getUsername()),adminobj);
+         ArrayList<Admin> adminlist = DeserializeAdminList();
+         adminlist.set(getIndexByUsername(adminobj.getUsername()), adminobj);
          SerializeAdminList(adminlist);
-         
-      }else if (obj instanceof User){
+
+      } else if (obj instanceof User) {
          User userobj = (User) obj;
 
          // search student in array list and replace
-         ArrayList<User> adminList  = DeserializeUserList();
-         adminList.set(getIndexByUsername(userobj.getUsername()),userobj);
+         ArrayList<User> adminList = DeserializeUserList();
+         adminList.set(getIndexByUsername(userobj.getUsername()), userobj);
          SerializeUserList(adminList);
+      } else {
+         // no object
       }
-      else{
-         //no object
-      }
-      
+
    }
 
-   public Object getObjectbyUsername(String username){
+   public Object getObjectbyUsername(String username) {
       DatabaseManager databaseManager = new DatabaseManager();
       ArrayList<User> userList = databaseManager.DeserializeUserList();
       String usertype = "";
-      
-      for(int i=0; i<userList.size(); i++){
-         if(userList.get(i).getUsername().equals(username)){
+
+      for (int i = 0; i < userList.size(); i++) {
+         if (userList.get(i).getUsername().equals(username)) {
             usertype = userList.get(i).getUserType();
          }
       }
 
-      switch(usertype){
-         case "admin":{
+      switch (usertype) {
+         case "admin": {
             ArrayList<Admin> adminList = databaseManager.DeserializeAdminList();
-            for(int j=0; j<adminList.size();j++){
-               if(adminList.get(j).getUsername().equals(username)){
+            for (int j = 0; j < adminList.size(); j++) {
+               if (adminList.get(j).getUsername().equals(username)) {
                   return adminList.get(j);
                }
             }
          }
-         case "student":{
+         case "student": {
             ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
-            for(int j=0; j<studentList.size();j++){
-               if(studentList.get(j).getUsername().equals(username)){
+            for (int j = 0; j < studentList.size(); j++) {
+               if (studentList.get(j).getUsername().equals(username)) {
                   return studentList.get(j);
                }
             }
          }
-         default:{
+         default: {
             System.out.println("Object does not exist with the username");
             return null;
          }
@@ -467,34 +462,45 @@ public class DatabaseManager {
    }
 
    public boolean verifyUniqueCourseCode(String courseCode) {
-		ArrayList<Course> courseList = DeserializeCourseList();
+      ArrayList<Course> courseList = DeserializeCourseList();
 
-		for (int i = 0; i < courseList.size(); i++) {
-			if(courseList.get(i).getCourseCode() == courseCode) {
-				return false;
-			}
-		}
-		return true;
-   }
-   
-   public boolean verifyUniqueMatricNum(String matricNum) {
-		ArrayList<Student> StudentList = DeserializeStudentList();
-
-		for (int i = 0; i < StudentList.size(); i++) {
-			if (StudentList.get(i).getMatricNum() == matricNum) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-public boolean checkStudentRegisteredCourses(Student stud, Course singleCourse) {
-   //returns true if the course is already registered
-   for(int i =0; i < stud.getRegisteredCourse().size(); i++){
-      if (stud.getRegisteredCourse().get(i).equals(singleCourse)){
-         return true;
+      for (int i = 0; i < courseList.size(); i++) {
+         if (courseList.get(i).getCourseCode().equals(courseCode)) {
+            return false;
+         }
       }
+      return true;
    }
-   return false;
-}
+
+   public boolean verifyUniqueMatricNum(String matricNum) {
+      ArrayList<Student> StudentList = DeserializeStudentList();
+
+      for (int i = 0; i < StudentList.size(); i++) {
+         if (StudentList.get(i).getMatricNum().equals(matricNum)) {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   public boolean verifyUniqueUsername(String username) {
+      ArrayList<Student> StudentList = DeserializeStudentList();
+
+      for (int i = 0; i < StudentList.size(); i++) {
+         if (StudentList.get(i).getMatricNum().equals(username)) {
+            return false;
+         }
+      }
+      return true;
+   }
+
+   public boolean checkStudentRegisteredCourses(Student stud, Course singleCourse) {
+      // returns true if the course is already registered
+      for (int i = 0; i < stud.getRegisteredCourse().size(); i++) {
+         if (stud.getRegisteredCourse().get(i).equals(singleCourse)) {
+            return true;
+         }
+      }
+      return false;
+   }
 }
