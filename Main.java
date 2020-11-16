@@ -22,6 +22,8 @@ public class Main {
             String password = null;
 
             while (userType == null) {
+                System.out.println("==================================================");
+                System.out.println("Welcome to NTU STARS Planner");
                 System.out.println("Please Enter Username:");
 
                 username = sc.next();
@@ -39,8 +41,9 @@ public class Main {
             }
 
             switch (userType) {
-                case "admin":
+                case "admin":{
                     while (runnning) {
+                        System.out.println("==================================================");
                         System.out.println("Welcome Admin!");
                         System.out.println("Select your option(1-6)");
                         System.out.println("1. Edit student access period");
@@ -50,7 +53,7 @@ public class Main {
                         System.out.println("5. Check available slot for an index number (vacancy in a class)");
                         System.out.println("6. Print student list by index number.");
                         System.out.println(
-                                "7. Print student list by course (a2ll students registered for the selected course).");
+                                "7. Print student list by course (all students registered for the selected course).");
                         System.out.println("[ print only student’s name, gender and nationality ]");
                         System.out.println("8. Logout");
                         System.out.println("9. Print available courses");
@@ -103,11 +106,13 @@ public class Main {
 
                         }
                     }
-
+                    break;
+                }
                 case "student": {
                     // verify access Time
                     if(verifyAccessTime(username)){
                         while (runnning) {
+                            System.out.println("==================================================");
                             System.out.println("Welcome Student!");
                             System.out.println("Select your option(1-6)");
                             System.out.println("1. *Add Course");
@@ -164,7 +169,7 @@ public class Main {
                     }else{
                         System.out.println("your access time is not valid now!");
                     }
-                    
+                    break;
                 }
                 default: {
 
@@ -727,8 +732,9 @@ public class Main {
                     databaseManager.updateDatabase(singleCourse);
 
                     SendMail sendMail = new SendMail();
-                    String EmailContent = "Dear Sir/Mdm,\n Your course have been successfully added\n Thank You\n NTU STARS";
+                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course have been successfully added\n Thank You\n NTU STARS";
                     sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i", stud.getEmail(), "Course Added", EmailContent);
+
                     System.out.println("Course added!");
                 } else {
                     // add stud to waitlist
@@ -824,6 +830,10 @@ public class Main {
 
             Course courseObj = databaseManager.searchCourse(coursecode);
             studentObj.minusAU(courseObj);
+
+            SendMail sendMail = new SendMail();
+            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course have been successfully dropped\n Thank You\n NTU STARS";
+            sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i", studentObj.getEmail(), "Course Added", EmailContent);
 
             System.out.println("Course dropped!");
         } else if (choice.equals("n")) {
