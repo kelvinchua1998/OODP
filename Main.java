@@ -793,7 +793,7 @@ public class Main {
             System.out.println("AccessStartDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            System.out.println("Please enter month (MM): ");
+            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
@@ -802,12 +802,12 @@ public class Main {
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
 
-            Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessStartTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             System.out.println("AccessEndDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            System.out.println("Please enter month (MM): ");
+            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
@@ -816,7 +816,7 @@ public class Main {
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
 
-            Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessEndTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
         }
@@ -1091,7 +1091,7 @@ public class Main {
 
                 int peerindex = newindex.getIndexofStudent(peerUsername);
                 newindex.getRegisteredStudents().remove(peerindex);
-                
+
                 oldindex.getRegisteredStudents().add(studentobjPeer);
 
                 studentCourse.setIndex(newindex);
