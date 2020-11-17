@@ -811,7 +811,7 @@ public class Main {
             System.out.println("AccessStartDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            System.out.println("Please enter month (MM): ");
+            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
@@ -820,12 +820,12 @@ public class Main {
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
 
-            Calendar accessStartTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessStartTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             System.out.println("AccessEndDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            System.out.println("Please enter month (MM): ");
+            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
@@ -834,7 +834,7 @@ public class Main {
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
 
-            Calendar accessEndTime = new GregorianCalendar(year, month, day, hour, minute);
+            Calendar accessEndTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
         }
@@ -844,29 +844,36 @@ public class Main {
         // have to show the student reg courses
         // remove the student from the courses registered students
         Scanner sc = new Scanner(System.in);
+        DatabaseManager databaseManager = new DatabaseManager();
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
-        // else ... error checking
+        boolean running = true;
+        while(running){
+            if (coursecode.equals("#"))
+                return;
+            // else ... error checking
+            if(databaseManager.checkStudentReg(username, coursecode)){
+                System.out.println("Are you sure? [y/n]");
+                String choice = sc.next();
 
-        System.out.println("Are you sure? [y/n]");
-        String choice = sc.next();
+                
 
-        DatabaseManager databaseManager = new DatabaseManager();
+                if (choice.equals("y")) {
+                    
+                    databaseManager.removeCourseMain(username, coursecode);
 
-        if (choice.equals("y")) {
-            
-            databaseManager.removeCourseMain(username, coursecode);
-
-            System.out.println("Course dropped!");
-        } else if (choice.equals("n")) {
-            return;
-        } else {
-            System.out.println("invalid choice!");
+                    System.out.println("Course dropped!");
+                } else if (choice.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("invalid choice!");
+                }
+            }else{
+                System.out.println("cant find course in your registered courses! pls try agaain");
+            }
         }
-
+        
     }
 
     private static void checkPrintCourseRegistered(String username) {
@@ -1061,44 +1068,73 @@ public class Main {
             DatabaseManager databaseManager = new DatabaseManager();
 
             Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
-            ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
+            ArrayList<StudentCourse> registeredcourseList = studentobj.getRegisteredCourse();
 
-            for (int i = 0; i < registeredcourse.size(); i++) {
-                if (registeredcourse.get(i).getCourseCode().equals(courseCode)) {
-                    studentCourse = registeredcourse.get(i);
+            int indexRegisterCourseList = 0;
+            for (int i = 0; i < registeredcourseList.size(); i++) {
+                if (registeredcourseList.get(i).getCourseCode().equals(courseCode)) {
+                    studentCourse = registeredcourseList.get(i);
+                    indexRegisterCourseList = i;
                     break;
                 }
             }
 
             Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
-            ArrayList<StudentCourse> registeredcoursePeer = studentobjPeer.getRegisteredCourse();
+            ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
 
-            for (int i = 0; i < registeredcoursePeer.size(); i++) {
-                if (registeredcoursePeer.get(i).getCourseCode().equals(courseCode)) {
-                    studentCoursePeer = registeredcoursePeer.get(i);
+            int indexRegisterCourseListpeer = 0;
+            for (int i = 0; i < registeredcoursePeerList.size(); i++) {
+                if (registeredcoursePeerList.get(i).getCourseCode().equals(courseCode)) {
+                    studentCoursePeer = registeredcoursePeerList.get(i);
+                    indexRegisterCourseListpeer = i;
                     break;
                 }
             }
 
-            System.out.println("ur index: " + studentCourse.getIndex().getIndex());
+            System.out.println("your index: " + studentCourse.getIndex().getIndex());
             System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndex());
             System.out.println("confirm swap?[y/n]");
             String confirm = sc.next();
 
             if (confirm.equals("y")) {
                 Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCoursePeer.getIndex().getIndex());
+                studentCoursePeer.getIndex().getIndex());
                 Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCourse.getIndex().getIndex());
+                studentCourse.getIndex().getIndex());
 
                 newindex.getRegisteredStudents().add(studentobj);
-                oldindex.getRegisteredStudents().remove(studentobj);
 
-                newindex.getRegisteredStudents().remove(studentobjPeer);
+                int index = oldindex.getIndexofStudent(username);
+                oldindex.getRegisteredStudents().remove(index);
+
+                int peerindex = newindex.getIndexofStudent(peerUsername);
+                newindex.getRegisteredStudents().remove(peerindex);
+
                 oldindex.getRegisteredStudents().add(studentobjPeer);
 
                 studentCourse.setIndex(newindex);
                 studentCoursePeer.setIndex(oldindex);
+
+                registeredcourseList.set(indexRegisterCourseList,studentCourse );
+                registeredcoursePeerList.set(indexRegisterCourseListpeer, studentCoursePeer);
+
+                studentobj.setRegisteredCourse(registeredcourseList);
+                studentobjPeer.setRegisteredCourse(registeredcoursePeerList);
+
+                databaseManager.updateDatabase(studentobj);
+                databaseManager.updateDatabase(studentobjPeer);
+
+                Course courseObj = databaseManager.searchCourse(courseCode);
+                ArrayList<Cindex> CourseCindexList = courseObj.getListCindex();
+                
+                int indexCindex = courseObj.getIndexOfCindex(newindex.getIndex());
+                CourseCindexList.set(indexCindex, newindex);
+
+                int indexCindexPeer = courseObj.getIndexOfCindex(oldindex.getIndex());
+                CourseCindexList.set(indexCindexPeer, oldindex);
+
+                courseObj.setListCindex(CourseCindexList);
+                databaseManager.updateDatabase(courseObj);
 
                 System.out.println("you have swapped index successfully");
             }

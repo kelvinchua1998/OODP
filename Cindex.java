@@ -76,5 +76,13 @@ public class Cindex implements Serializable{
         return this.Capacity - registeredStudents.size();
     }
 
+    public int getIndexofStudent(String username){
+        for(int i=0; i<this.registeredStudents.size(); i++){
+            if(this.registeredStudents.get(i).getUsername().equals(username)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
 }

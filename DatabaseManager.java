@@ -511,4 +511,15 @@ public class DatabaseManager {
       }
       return false;
    }
+
+public boolean checkStudentReg(String username,String courseCode) {
+   Student studentObj = (Student) getObjectbyUsername(username);
+   ArrayList regC = studentObj.getRegisteredCourse();
+   for (int i = 0 ; i < regC.size();i++){
+      if (studentObj.getRegisteredCourse().get(i).getCourseCode().equals(courseCode)){
+         return true;
+      }
+   }
+	return false;
+}
 }

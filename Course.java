@@ -18,6 +18,14 @@ public class Course implements Serializable {
         this.School = school;
     }
 
+    public int getIndexOfCindex(String cindexName){
+        for(int i=0; i<this.listCindex.size(); i++){
+            if(this.listCindex.get(i).getIndex().equals(cindexName)){
+                return i;
+            }
+        }
+        return -1;
+    }
 
     public String getCourseCode() {
         return CourseCode;
@@ -69,11 +77,11 @@ public class Course implements Serializable {
 
     public boolean removeStudentFromReg(String username) {
         // search student throughout the Cindex and remove
-        for(int i =0 ;i <listCindex.size(); i++){
-            for (int j=0; j < listCindex.get(i).getRegisteredStudents().size(); j++){
-                if(listCindex.get(i).getRegisteredStudents().get(j).getUsername().equals(username)){
+        for(int i =0 ;i <this.listCindex.size(); i++){
+            for (int j=0; j < this.listCindex.get(i).getRegisteredStudents().size(); j++){
+                if(this.listCindex.get(i).getRegisteredStudents().get(j).getUsername().equals(username)){
                     //removing student from reg
-                    listCindex.get(i).getRegisteredStudents().remove(j);
+                    this.listCindex.get(i).getRegisteredStudents().remove(j);
                     
                     return true;
                 }

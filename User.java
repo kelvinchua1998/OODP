@@ -39,10 +39,20 @@ public class User implements Serializable{
 
     public static void main(String[] args) {
         
-        ArrayList<User> userList = new ArrayList<User>();
-
         DatabaseManager databaseManager = new DatabaseManager();
-        databaseManager.SerializeUserList(userList);
+        ArrayList<User> userList = databaseManager.DeserializeUserList();
+
+        for(int i=0; i<userList.size(); i++){
+            System.out.println(userList.get(i).getUsername()); 
+            System.out.println(userList.get(i).getPassword()); 
+        }
+
+        // userList.remove(1);
+        // userList.remove(1);
+        // userList.remove(1);
+        // userList.remove(1);
+
+        // databaseManager.SerializeUserList(userList);
     }
 
 }
