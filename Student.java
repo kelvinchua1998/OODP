@@ -178,13 +178,16 @@ public class Student extends User implements Serializable{
 		DatabaseManager databaseManager = new DatabaseManager();
 		Student studentObj = (Student) databaseManager.getObjectbyUsername("student");
 		
-		System.out.println(studentObj.getMatricNum()); 
-		System.out.println(studentObj.getAccessStartTime()); 
+		// Student studentObj = new Student("melvin", "chua", "male", "Singapore", "U1234567G", "student", "student", 0, 0, "chua0946@e.ntu.edu.sg");
+		// Student studentObj2 = new Student("kelvin", "chua", "male", "Singapore", "U2345678G", "student2", "student2", 0, 0, "chua0946@e.ntu.edu.sg");
+		System.out.println(studentObj.getPassword()); 
+		System.out.println(studentObj.getUsername()); 
 		System.out.println(studentObj.getAccessEndTime()); 
-		System.out.println(studentObj.getRegisteredCourse().get(0).getCourseCode());
 		
 
-        // studentList.add(studentObj);
+		// ArrayList<Student> studentList = new ArrayList<>();
+		// studentList.add(studentObj);
+		// studentList.add(studentObj2);
 
         // databaseManager.SerializeStudentList(studentList);
 	}

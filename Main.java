@@ -1073,9 +1073,9 @@ public class Main {
 
             if (confirm.equals("y")) {
                 Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCoursePeer.getIndex().getIndex());
+                studentCoursePeer.getIndex().getIndex());
                 Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCourse.getIndex().getIndex());
+                studentCourse.getIndex().getIndex());
 
                 newindex.getRegisteredStudents().add(studentobj);
 
@@ -1084,6 +1084,7 @@ public class Main {
 
                 int peerindex = newindex.getIndexofStudent(peerUsername);
                 newindex.getRegisteredStudents().remove(peerindex);
+                
                 oldindex.getRegisteredStudents().add(studentobjPeer);
 
                 studentCourse.setIndex(newindex);
