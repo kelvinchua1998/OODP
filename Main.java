@@ -274,47 +274,62 @@ public class Main {
                         System.out.println("Enter the index to change Capacity:");
                         String index = sc.next();
 
-                        System.out.println("Enter new Capacity:");
-                        int newCapacity = sc.nextInt();
+                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);   
 
-                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
-
-                        for (int i = 0; i < cindexList.size(); i++) {
-                            if (cindexList.get(i).getIndex().equals(index)) {
-                                cindexList.remove(i);
-                                break;
-                            }
+                        if(cindexobj == null){
+                            System.out.println("Index does not exist!");
+                            System.out.println();
+                            break;
                         }
+                        else{
+                            System.out.println("Enter new Capacity:");
+                            int newCapacity = sc.nextInt();
 
-                        cindexobj.setCapacity(newCapacity);
-                        cindexList.add(cindexobj);
+                            for (int i = 0; i < cindexList.size(); i++) {
+                                 if (cindexList.get(i).getIndex().equals(index)) {
+                                    cindexList.remove(i);
+                                    break;
+                                }
+                            }
 
-                        courseObj.setListCindex(cindexList);
-                        choice = -1;
+                            cindexobj.setCapacity(newCapacity);
+                            cindexList.add(cindexobj);
+
+                            courseObj.setListCindex(cindexList);
+                            choice = -1;
+                        }   
                         break;
                     }
                     case 4: {
 
                         System.out.println("Enter the Index to change new Index Number:");
                         String index = sc.next();
-
-                        System.out.println("Enter new Index:");
-                        String newIndex = sc.next();
-
+                        
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
 
-                        for (int i = 0; i < cindexList.size(); i++) {
-                            if (cindexList.get(i).getIndex().equals(index)) {
-                                cindexList.remove(i);
-                                break;
-                            }
+                        if(cindexobj == null){
+                            System.out.println("Index does not exist!");
+                            System.out.println();
+                            break;
                         }
+                        else{
+                            System.out.println("Enter new Index:");
+                            String newIndex = sc.next();
+                        
 
-                        cindexobj.setIndex(newIndex);
-                        cindexList.add(cindexobj);
+                            for (int i = 0; i < cindexList.size(); i++) {
+                                if (cindexList.get(i).getIndex().equals(index)) {
+                                    cindexList.remove(i);
+                                    break;
+                                }
+                            }
 
-                        courseObj.setListCindex(cindexList);
-                        choice = -1;
+                            cindexobj.setIndex(newIndex);
+                            cindexList.add(cindexobj);
+
+                            courseObj.setListCindex(cindexList);
+                            choice = -1;
+                        }
                         break;
                     }
                     case 5: {
@@ -587,6 +602,7 @@ public class Main {
     private static void getAvailCourse() {
         ArrayList<Course> courseList = null;
         DatabaseManager databaseManager = new DatabaseManager();
+        Course singleCourse;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter \' # \' to return to main menu ");
@@ -608,10 +624,12 @@ public class Main {
                     System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
                     System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
+                    
+                    singleCourse = databaseManager.searchCourse(courseList.get(i).getCourseCode());
 
-                    for (int j = 0; j < courseList.get(i).getListCindex().size(); j++) {
-                        System.out.printf("\t %s: %s\n", courseList.get(i).getListCindex(),
-                                courseList.get(i).getListCindex().get(j).getSchedule());
+                    for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
+                        System.out.printf("\t %s: %s\n", singleCourse.getListCindex().get(j),
+                                singleCourse.getListCindex().get(j).getSchedule());
                     }
                 }
             } else {

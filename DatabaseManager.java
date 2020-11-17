@@ -152,6 +152,7 @@ public class DatabaseManager {
       DatabaseManager databaseManager = new DatabaseManager();
       courseList = databaseManager.DeserializeCourseList();
 
+      if(courseList != null){
       for (int i = 0; i < courseList.size(); i++) {
          if (courseList.get(i).getCourseCode().equals(coursecode)) {
             Course courseObj = courseList.get(i);
@@ -164,7 +165,8 @@ public class DatabaseManager {
 
          }
       }
-
+      }  
+      
       return null;
 
    }
@@ -207,12 +209,13 @@ public class DatabaseManager {
          System.out.println("Course not found!");
          return temp;
       }
-
+      
       for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
          if (singleCourse.getListCindex().get(i) != null)
             temp.addAll(singleCourse.getListCindex().get(i).getRegisteredStudents());
       }
       return temp;
+      
    }
 
    // print courses in database
