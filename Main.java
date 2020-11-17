@@ -826,29 +826,36 @@ public class Main {
         // have to show the student reg courses
         // remove the student from the courses registered students
         Scanner sc = new Scanner(System.in);
+        DatabaseManager databaseManager = new DatabaseManager();
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
-        // else ... error checking
+        boolean running = true;
+        while(running){
+            if (coursecode.equals("#"))
+                return;
+            // else ... error checking
+            if(databaseManager.checkStudentReg(username, coursecode)){
+                System.out.println("Are you sure? [y/n]");
+                String choice = sc.next();
 
-        System.out.println("Are you sure? [y/n]");
-        String choice = sc.next();
+                
 
-        DatabaseManager databaseManager = new DatabaseManager();
+                if (choice.equals("y")) {
+                    
+                    databaseManager.removeCourseMain(username, coursecode);
 
-        if (choice.equals("y")) {
-            
-            databaseManager.removeCourseMain(username, coursecode);
-
-            System.out.println("Course dropped!");
-        } else if (choice.equals("n")) {
-            return;
-        } else {
-            System.out.println("invalid choice!");
+                    System.out.println("Course dropped!");
+                } else if (choice.equals("n")) {
+                    return;
+                } else {
+                    System.out.println("invalid choice!");
+                }
+            }else{
+                System.out.println("cant find course in your registered courses! pls try agaain");
+            }
         }
-
+        
     }
 
     private static void checkPrintCourseRegistered(String username) {
