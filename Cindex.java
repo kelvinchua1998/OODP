@@ -2,6 +2,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Cindex implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private String index;
     private int Capacity;
     private ArrayList<Student> waitList;
