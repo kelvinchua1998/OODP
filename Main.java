@@ -732,6 +732,9 @@ public class Main {
 
             if (choiceIndex.equals("#"))
                 return;
+            //else if(choiceIndex < singleCourse.getListCindex().size()
+
+            //}
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
             }
@@ -893,7 +896,7 @@ public class Main {
                 System.out.println("Invalid minutes!");
                 return;
             }
-            
+
             Calendar accessEndTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
@@ -924,13 +927,15 @@ public class Main {
                     databaseManager.removeCourseMain(username, coursecode);
 
                     System.out.println("Course dropped!");
+                    running = false;
                 } else if (choice.equals("n")) {
                     return;
                 } else {
                     System.out.println("invalid choice!");
                 }
             }else{
-                System.out.println("cant find course in your registered courses! pls try agaain");
+                System.out.println("cant find course in your registered courses! pls try again");
+                running = false;
             }
         }
         
