@@ -250,13 +250,18 @@ public class DatabaseManager {
       Student StudentObj = getStudentbyMatricNum(matricNum);
       long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
       long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-      StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
-      StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
+      if(newAccessEndDateTimeInms > newAccessStartDateTimeInms){
+         StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
+         StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
 
-      StudentList.set(index, StudentObj);
+         StudentList.set(index, StudentObj);
 
-      SerializeStudentList(StudentList);
-      System.out.printf("Access time for %s changed!\n", matricNum);
+         SerializeStudentList(StudentList);
+         System.out.printf("Access time for %s changed!\n", matricNum);
+      }
+      else{
+         System.out.println("End Time must be later than Start Time!");
+      }
    }
 
    public Student getStudentbyMatricNum(String matricNum) {

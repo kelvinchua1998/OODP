@@ -188,7 +188,7 @@ public class Main {
                     break;
                 }
                 default: {
-
+                    
                 }
             }
         }
@@ -813,37 +813,87 @@ public class Main {
             int hour;
             int minute;
 
+            Calendar cal = Calendar.getInstance();
+            int thisYear = cal.get(Calendar.YEAR);
+            int thisMonth = cal.get(Calendar.MONTH);
+            int today = cal.get(Calendar.DAY_OF_MONTH); 
+            
+            //StartDateTime
             System.out.println("AccessDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            //if(year < )
+            if(year < thisYear || year > thisYear + 1){
+                System.out.println("Please enter an appropriate year!");
+                return;
+            }
+
             System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
-            if(month < 1 || month > 12){
+            if((year == thisYear && month < thisMonth+1) || month < 1 || month > 12){
                 System.out.println("Invalid month!");
                 return;
             }
+
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
+            if((year == thisYear && month == thisMonth+1 && day < today) || day < 1 || day > 31){
+                System.out.println("Invalid day!");
+                return;
+            }
+
             System.out.println("Please enter hour (hh): ");
             hour = sc.nextInt();
+            if(hour < 0 || hour > 24){
+                System.out.println("Invalid hour!");
+                return;
+            }
+
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
+            if(minute < 0 || minute > 59){
+                System.out.println("Invalid minutes!");
+                return;
+            }
 
             Calendar accessStartTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
+            //EndDateTime
             System.out.println("AccessEndDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
+            if(year < thisYear || year > thisYear + 1){
+                System.out.println("Please enter an appropriate year!");
+                return;
+            }
+
             System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
+            if((year == thisYear && month < thisMonth+1) || month < 1 || month > 12){
+                System.out.println("Invalid month!");
+                return;
+            }
+
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
+            if((year == thisYear && month == thisMonth+1 && day < today) || day < 1 || day > 31){
+                System.out.println("Invalid day!");
+                return;
+            }
+
             System.out.println("Please enter hour (hh): ");
             hour = sc.nextInt();
+            if(hour < 0 || hour > 24){
+                System.out.println("Invalid hour!");
+                return;
+            }
+
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
-
+            if(minute < 0 || minute > 59){
+                System.out.println("Invalid minutes!");
+                return;
+            }
+            
             Calendar accessEndTime = new GregorianCalendar(year, month-1, day, hour, minute);
 
             databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
