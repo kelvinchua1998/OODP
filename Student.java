@@ -1,6 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -176,20 +177,22 @@ public class Student extends User implements Serializable{
 	}
 	public static void main(String[] args) {
 		DatabaseManager databaseManager = new DatabaseManager();
-		Student studentObj = (Student) databaseManager.getObjectbyUsername("student");
+		// Student studentObj = (Student) databaseManager.getObjectbyUsername("student");
+		long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+		long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 		
-		// Student studentObj = new Student("melvin", "chua", "male", "Singapore", "U1234567G", "student", "student", 0, 0, "chua0946@e.ntu.edu.sg");
-		// Student studentObj2 = new Student("kelvin", "chua", "male", "Singapore", "U2345678G", "student2", "student2", 0, 0, "chua0946@e.ntu.edu.sg");
-		System.out.println(studentObj.getPassword()); 
-		System.out.println(studentObj.getUsername()); 
-		System.out.println(studentObj.getAccessEndTime()); 
+		Student studentObj = new Student("melvin", "chua", "male", "Singapore", "U1234567G", "student", "student", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
+		Student studentObj2 = new Student("kelvin", "chua", "male", "Singapore", "U2345678G", "student2", "student2", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
+		// System.out.println(studentObj.getPassword()); 
+		// System.out.println(studentObj.getUsername()); 
+		// System.out.println(studentObj.getAccessEndTime()); 
 		
 
-		// ArrayList<Student> studentList = new ArrayList<>();
-		// studentList.add(studentObj);
-		// studentList.add(studentObj2);
+		ArrayList<Student> studentList = new ArrayList<Student>();
+		studentList.add(studentObj);
+		studentList.add(studentObj2);
 
-        // databaseManager.SerializeStudentList(studentList);
+        databaseManager.SerializeStudentList(studentList);
 	}
 
 
