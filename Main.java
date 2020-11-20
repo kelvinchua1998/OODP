@@ -170,6 +170,7 @@ public class Main {
                         // Using Calendar class
                         Calendar cal = Calendar.getInstance();
                         // get Date from calendar
+                        knn
                     
                         int year = cal.get(Calendar.YEAR);
                         int month = cal.get(Calendar.MONTH);      // NOTE!!! : Month from 0 to 11
@@ -178,7 +179,12 @@ public class Main {
                         int minute = cal.get(Calendar.MINUTE);
                         int second = cal.get(Calendar.SECOND);
 
-                        System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! ",year, month+1, day, hour, minute, second);
+                        DatabaseManager databaseManager = new DatabaseManager();
+                        Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
+
+                        System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! \n",year, month+1, day, hour, minute, second);
+                        //System.out.printf("Your access Time period: %4d/%02d/%02d %02d:%02d:%02d to %4d/%02d/%02d %02d:%02d:%02d", );
+                        System.out.println("Your access Time period: " + studentObj.getAccessStartTime() + " to " + studentObj.getAccessEndTime());
                     }
                     break;
                 }
@@ -808,11 +814,16 @@ public class Main {
             int hour;
             int minute;
 
-            System.out.println("AccessStartDateTime: ");
+            System.out.println("AccessDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
+            //if(year < )
             System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
+            if(month < 1 || month > 12){
+                System.out.println("Invalid month!");
+                return;
+            }
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
             System.out.println("Please enter hour (hh): ");
