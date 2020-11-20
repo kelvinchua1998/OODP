@@ -159,8 +159,8 @@ public class Course implements Serializable {
         Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
         ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
         Cindex cindexObj2 = new Cindex("2", 1);
-        schedule.add(lessonObj2);
-        cindexObj.setSchedule(schedule2);
+        schedule2.add(lessonObj2);
+        cindexObj2.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
 
         Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
