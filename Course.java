@@ -158,12 +158,14 @@ public class Course implements Serializable {
 
         Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
         ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
-        Cindex cindexObj2 = new Cindex("2", 10);
+        Cindex cindexObj2 = new Cindex("2", 1);
         schedule.add(lessonObj2);
         cindexObj.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
 
         Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
+
+        Course courseObj2 = new Course("c2", "course2", "course description","scse", 3, registeredStudents, ListCindex);
         databaseManager.SerializeCourseList(courseList);
 
     }
