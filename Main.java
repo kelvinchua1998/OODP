@@ -170,7 +170,6 @@ public class Main {
                         // Using Calendar class
                         Calendar cal = Calendar.getInstance();
                         // get Date from calendar
-                        knn
                     
                         int year = cal.get(Calendar.YEAR);
                         int month = cal.get(Calendar.MONTH);      // NOTE!!! : Month from 0 to 11
