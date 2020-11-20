@@ -166,6 +166,9 @@ public class Course implements Serializable {
         Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
 
         Course courseObj2 = new Course("c2", "course2", "course description","scse", 3, registeredStudents, ListCindex);
+
+        courseList.add(courseObj);
+        courseList.add(courseObj2);
         databaseManager.SerializeCourseList(courseList);
 
     }
