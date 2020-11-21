@@ -292,7 +292,7 @@ public class Main {
                         String newSchool = sc.next();
 
                         courseObj.setSchool(newSchool);
-                        databaseManager.updateDatabase(courseObj);
+                        
                         choice = -1;
                         break;
                     }
@@ -322,7 +322,7 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            databaseManager.updateDatabase(courseObj);
+                            
                         }
                         choice = -1;
                         break;
@@ -353,7 +353,7 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            databaseManager.updateDatabase(courseObj);
+                            
                         }
                         choice = -1;
                         break;
@@ -370,12 +370,12 @@ public class Main {
                         }
 
                         courseObj.setListCindex(cindexList);
-                        databaseManager.updateDatabase(courseObj);
+                        
                         choice = -1;
                         break;
                     }
                 }
-
+                databaseManager.updateDatabase(courseObj);
             }
 
         } else {
@@ -592,7 +592,7 @@ public class Main {
         studentList = databaseManager.getStudentList(coursecode, cindex);
 
         if (studentList.size() != 0) {
-            System.out.printf("student in %s\n", coursecode);
+            System.out.printf("student in %s %s\n", coursecode,cindex);
 
             for (int i = 0; i < studentList.size(); i++) {
                 System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
