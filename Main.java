@@ -625,14 +625,15 @@ public class Main {
 
                     //print all the student in the index
                     studentList = singleIndex.getRegisteredStudents();
+            
 
                     if (studentList.size() != 0) {
                         System.out.printf("student in %s %s\n", coursecode,singleIndex.getIndexName());
 
                         for (int i = 0; i < studentList.size(); i++) {
                             Student singleStudent = (Student) databaseManager.getObjectbyUsername(studentList.get(i));
-                            System.out.printf("%d. %s %s \n", i + 1, singleStudent.getFirstName(),
-                            singleStudent.getLastName());
+                            System.out.printf("%d. %s %s, %s, %s \n", i + 1, singleStudent.getFirstName(),
+                            singleStudent.getLastName(), singleStudent.getGender(), singleStudent.getNationality());
                         }
 
                     } else if (studentList.size() == 0) {
@@ -669,8 +670,9 @@ public class Main {
 
             for (int i = 0; i < studentList.size(); i++) {
                 Student stud = (Student) databaseManager.getObjectbyUsername(studentList.get(i));
-                System.out.printf("%d. %s %s \n", i + 1, stud.getFirstName(),
-                stud.getLastName());
+                
+                System.out.printf("%d. %s %s, %s, %s \n", i + 1, stud.getFirstName(),
+                stud.getLastName(), stud.getGender(), stud.getNationality());
             }
         } else if (studentList.size() == 0) {
             System.out.printf("There are no registered students in %s \n", coursecode);
