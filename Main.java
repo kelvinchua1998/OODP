@@ -41,7 +41,7 @@ public class Main {
             }
 
             switch (userType) {
-                case "admin":{
+                case "admin": {
                     while (runnning) {
                         System.out.println("==================================================");
                         System.out.println("Welcome Admin!");
@@ -108,7 +108,7 @@ public class Main {
                     }
                     break;
                 }
-                case "student":{
+                case "student": {
                     // verify access Time
                     if (verifyAccessTime(username)) {
                         while (runnning) {
@@ -170,9 +170,9 @@ public class Main {
                         // Using Calendar class
                         Calendar cal = Calendar.getInstance();
                         // get Date from calendar
-                    
+
                         int year = cal.get(Calendar.YEAR);
-                        int month = cal.get(Calendar.MONTH);      // NOTE!!! : Month from 0 to 11
+                        int month = cal.get(Calendar.MONTH); // NOTE!!! : Month from 0 to 11
                         int day = cal.get(Calendar.DAY_OF_MONTH);
                         int hour = cal.get(Calendar.HOUR_OF_DAY);
                         int minute = cal.get(Calendar.MINUTE);
@@ -181,8 +181,10 @@ public class Main {
                         DatabaseManager databaseManager = new DatabaseManager();
                         Student studentObj = (Student) databaseManager.getObjectbyUsername(username);
 
-                        System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! \n",year, month+1, day, hour, minute, second);
-                        //System.out.printf("Your access Time period: %4d/%02d/%02d %02d:%02d:%02d to %4d/%02d/%02d %02d:%02d:%02d", );
+                        System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! \n",
+                                year, month + 1, day, hour, minute, second);
+                        // System.out.printf("Your access Time period: %4d/%02d/%02d %02d:%02d:%02d to
+                        // %4d/%02d/%02d %02d:%02d:%02d", );
                         long accessStartTimems = studentObj.getAccessStartTime();
                         long accessEndTimems = studentObj.getAccessEndTime();
 
@@ -190,12 +192,17 @@ public class Main {
                         calendar.setTimeInMillis(accessStartTimems);
                         Calendar calendar2 = Calendar.getInstance();
                         calendar2.setTimeInMillis(accessEndTimems);
-                        System.out.printf("Your access Time period: %d-%d-%d %d:%d to %d-%d-%d %d:%d \n",calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),calendar2.get(Calendar.DAY_OF_MONTH), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.YEAR), calendar2.get(Calendar.HOUR_OF_DAY), calendar2.get(Calendar.MINUTE));
+                        System.out.printf("Your access Time period: %d-%d-%d %d:%d to %d-%d-%d %d:%d \n",
+                                calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH),
+                                calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY),
+                                calendar.get(Calendar.MINUTE), calendar2.get(Calendar.DAY_OF_MONTH),
+                                calendar2.get(Calendar.MONTH), calendar2.get(Calendar.YEAR),
+                                calendar2.get(Calendar.HOUR_OF_DAY), calendar2.get(Calendar.MINUTE));
                     }
                     break;
                 }
                 default: {
-                    
+
                 }
             }
         }
@@ -259,16 +266,23 @@ public class Main {
                         String newCourseCode = sc.next();
 
                         ArrayList<Course> courselist = databaseManager.DeserializeCourseList();
-                        courselist.remove(courseObj);
 
                         if (databaseManager.verifyUniqueCourseCode(newCourseCode)) {
+                            for (int i = 0; i < courselist.size(); i++) {
+                                if (courselist.get(i).getCourseCode().equals(courseObj.getCourseCode())) {
+                                    courselist.remove(i);
+                                    break;
+                                }
+                            }
+
                             courseObj.setCourseCode(newCourseCode);
+
+                            courselist.add(courseObj);
+                            databaseManager.SerializeCourseList(courselist);
+
                         } else {
                             System.out.println("Course Code not unique");
                         }
-
-                        courselist.add(courseObj);
-                        databaseManager.SerializeCourseList(courselist);
 
                         choice = -1;
                         break;
@@ -278,6 +292,7 @@ public class Main {
                         String newSchool = sc.next();
 
                         courseObj.setSchool(newSchool);
+                        databaseManager.updateDatabase(courseObj);
                         choice = -1;
                         break;
                     }
@@ -286,19 +301,18 @@ public class Main {
                         System.out.println("Enter the index to change Capacity:");
                         String index = sc.next();
 
-                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);   
+                        Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
 
-                        if(cindexobj == null){
+                        if (cindexobj == null) {
                             System.out.println("Index does not exist!");
                             System.out.println();
                             break;
-                        }
-                        else{
+                        } else {
                             System.out.println("Enter new Capacity:");
                             int newCapacity = sc.nextInt();
 
                             for (int i = 0; i < cindexList.size(); i++) {
-                                 if (cindexList.get(i).getIndex().equals(index)) {
+                                if (cindexList.get(i).getIndex().equals(index)) {
                                     cindexList.remove(i);
                                     break;
                                 }
@@ -308,26 +322,25 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            choice = -1;
-                        }   
+                            databaseManager.updateDatabase(courseObj);
+                        }
+                        choice = -1;
                         break;
                     }
                     case 4: {
 
                         System.out.println("Enter the Index to change new Index Number:");
                         String index = sc.next();
-                        
+
                         Cindex cindexobj = databaseManager.searchCindex(courseCode, index);
 
-                        if(cindexobj == null){
+                        if (cindexobj == null) {
                             System.out.println("Index does not exist!");
                             System.out.println();
                             break;
-                        }
-                        else{
+                        } else {
                             System.out.println("Enter new Index:");
                             String newIndex = sc.next();
-                        
 
                             for (int i = 0; i < cindexList.size(); i++) {
                                 if (cindexList.get(i).getIndex().equals(index)) {
@@ -340,8 +353,9 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            choice = -1;
+                            databaseManager.updateDatabase(courseObj);
                         }
+                        choice = -1;
                         break;
                     }
                     case 5: {
@@ -356,14 +370,13 @@ public class Main {
                         }
 
                         courseObj.setListCindex(cindexList);
+                        databaseManager.updateDatabase(courseObj);
                         choice = -1;
                         break;
                     }
                 }
 
             }
-
-            databaseManager.updateDatabase(courseObj);
 
         } else {
             System.out.println("Course Code does not exists in DataBase");
@@ -614,37 +627,36 @@ public class Main {
     private static void getAvailCourse() {
         ArrayList<Course> courseList = null;
         DatabaseManager databaseManager = new DatabaseManager();
-        
 
         courseList = databaseManager.DeserializeCourseList();
 
         if (courseList.size() != 0) {
-                System.out.println("courses: ");
+            System.out.println("courses: ");
 
-                for (int i = 0; i < courseList.size(); i++) {
-                    System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
+            for (int i = 0; i < courseList.size(); i++) {
+                System.out.printf("%d. %s : \n", i + 1, courseList.get(i).getCourseCode());
 
-                    System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
-                    
-                    Course singleCourse = courseList.get(i);
+                System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
 
-                    System.out.println("-------------------------------------");
-                    System.out.println("index   /   vacacy   /    waitlist");
+                Course singleCourse = courseList.get(i);
 
-                    if(singleCourse.getListCindex() != null){
-                        for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
+                System.out.println("-------------------------------------");
+                System.out.println("index   /   vacacy   /    waitlist");
+
+                if (singleCourse.getListCindex() != null) {
+                    for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
                         Cindex singleindex = singleCourse.getListCindex().get(j);
                         System.out.printf("%d.  %s  /  %d  /  %d\n", j + 1, singleindex.getIndex(),
                                 singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
-                        }
-                    }else{
-                        System.out.println("no Cindex");
                     }
-                   
+                } else {
+                    System.out.println("no Cindex");
                 }
-            } else {
-                System.out.println("no courses added yet");
+
             }
+        } else {
+            System.out.println("no courses added yet");
+        }
     }
 
     private static void checkVacancy() {
@@ -732,9 +744,9 @@ public class Main {
 
             if (choiceIndex.equals("#"))
                 return;
-            //else if(choiceIndex < singleCourse.getListCindex().size()
+            // else if(choiceIndex < singleCourse.getListCindex().size()
 
-            //}
+            // }
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
             }
@@ -771,7 +783,9 @@ public class Main {
                     databaseManager.updateDatabase(singleCourse);
 
                     SendMail sendMail = new SendMail();
-                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "+singleCourse.getCourseCode()+" "+singleCourse.getCourseName() + " index "+ singleIndex.getIndex() +" have been successfully added\n Thank You\n NTU STARS";
+                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "
+                            + singleCourse.getCourseCode() + " " + singleCourse.getCourseName() + " index "
+                            + singleIndex.getIndex() + " have been successfully added\n Thank You\n NTU STARS";
                     sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                             stud.getEmail(), "Course Added", EmailContent);
 
@@ -819,85 +833,85 @@ public class Main {
             Calendar cal = Calendar.getInstance();
             int thisYear = cal.get(Calendar.YEAR);
             int thisMonth = cal.get(Calendar.MONTH);
-            int today = cal.get(Calendar.DAY_OF_MONTH); 
-            
-            //StartDateTime
+            int today = cal.get(Calendar.DAY_OF_MONTH);
+
+            // StartDateTime
             System.out.println("AccessDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            if(year < thisYear || year > thisYear + 1){
+            if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
             System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
-            if((year == thisYear && month < thisMonth+1) || month < 1 || month > 12){
+            if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
-            if((year == thisYear && month == thisMonth+1 && day < today) || day < 1 || day > 31){
+            if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
             hour = sc.nextInt();
-            if(hour < 0 || hour > 24){
+            if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
-            if(minute < 0 || minute > 59){
+            if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
             }
 
-            Calendar accessStartTime = new GregorianCalendar(year, month-1, day, hour, minute);
+            Calendar accessStartTime = new GregorianCalendar(year, month - 1, day, hour, minute);
 
-            //EndDateTime
+            // EndDateTime
             System.out.println("AccessEndDateTime: ");
             System.out.println("Please enter year (YYYY): ");
             year = sc.nextInt();
-            if(year < thisYear || year > thisYear + 1){
+            if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
             System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
             month = sc.nextInt();
-            if((year == thisYear && month < thisMonth+1) || month < 1 || month > 12){
+            if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
             day = sc.nextInt();
-            if((year == thisYear && month == thisMonth+1 && day < today) || day < 1 || day > 31){
+            if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
             hour = sc.nextInt();
-            if(hour < 0 || hour > 24){
+            if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
             minute = sc.nextInt();
-            if(minute < 0 || minute > 59){
+            if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
             }
 
-            Calendar accessEndTime = new GregorianCalendar(year, month-1, day, hour, minute);
+            Calendar accessEndTime = new GregorianCalendar(year, month - 1, day, hour, minute);
 
             databaseManager.EditStudentAccessPeriod(matricNum, accessStartTime, accessEndTime);
         }
@@ -912,18 +926,16 @@ public class Main {
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
         boolean running = true;
-    
+
         if (coursecode.equals("#"))
             return;
         // else ... error checking
-        if(databaseManager.checkStudentReg(username, coursecode)){
+        if (databaseManager.checkStudentReg(username, coursecode)) {
             System.out.println("Are you sure? [y/n]");
             String choice = sc.next();
 
-            
-
             if (choice.equals("y")) {
-                
+
                 databaseManager.removeCourseMain(username, coursecode);
 
                 System.out.println("Course dropped!");
@@ -932,11 +944,10 @@ public class Main {
             } else {
                 System.out.println("invalid choice!");
             }
-        }else{
+        } else {
             System.out.println("cant find course in your registered courses! pls try agaain");
         }
-    
-        
+
     }
 
     private static void checkPrintCourseRegistered(String username) {
@@ -948,13 +959,13 @@ public class Main {
     private static void AddStudent() {
         DatabaseManager databaseManager = new DatabaseManager();
         Scanner sc = new Scanner(System.in);
-        
+
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter MatricNum: ");
 
         String matricNum = sc.next();
         boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum);
-        if(!uniqueMatric){
+        if (!uniqueMatric) {
             System.out.println("Matric number not unique!");
             return;
         }
@@ -963,7 +974,7 @@ public class Main {
         String username = sc.next();
 
         boolean uniqueUsername = databaseManager.verifyUniqueMatricNum(matricNum);
-        if(!uniqueUsername){
+        if (!uniqueUsername) {
             System.out.println("Username not unique!");
             return;
         }
@@ -1159,9 +1170,9 @@ public class Main {
 
             if (confirm.equals("y")) {
                 Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                studentCoursePeer.getIndex().getIndex());
+                        studentCoursePeer.getIndex().getIndex());
                 Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                studentCourse.getIndex().getIndex());
+                        studentCourse.getIndex().getIndex());
 
                 newindex.getRegisteredStudents().add(studentobj);
 
@@ -1176,7 +1187,7 @@ public class Main {
                 studentCourse.setIndex(newindex);
                 studentCoursePeer.setIndex(oldindex);
 
-                registeredcourseList.set(indexRegisterCourseList,studentCourse );
+                registeredcourseList.set(indexRegisterCourseList, studentCourse);
                 registeredcoursePeerList.set(indexRegisterCourseListpeer, studentCoursePeer);
 
                 studentobj.setRegisteredCourse(registeredcourseList);
@@ -1187,7 +1198,7 @@ public class Main {
 
                 Course courseObj = databaseManager.searchCourse(courseCode);
                 ArrayList<Cindex> CourseCindexList = courseObj.getListCindex();
-                
+
                 int indexCindex = courseObj.getIndexOfCindex(newindex.getIndex());
                 CourseCindexList.set(indexCindex, newindex);
 
