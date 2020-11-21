@@ -115,7 +115,7 @@ public class Main {
                             System.out.println("==================================================");
                             System.out.println("Welcome Student!");
                             System.out.println("Select your option(1-6)");
-                            System.out.println("1. *Add Course");
+                            System.out.println("1. Add Course");
                             System.out.println("2. Drop Course");
                             System.out.println("3. Check/Print Courses Registered");
                             System.out.println("4. Check Vacancies Available");
@@ -183,7 +183,14 @@ public class Main {
 
                         System.out.printf("Now is %4d/%02d/%02d %02d:%02d:%02d, Login at your access Time period! \n",year, month+1, day, hour, minute, second);
                         //System.out.printf("Your access Time period: %4d/%02d/%02d %02d:%02d:%02d to %4d/%02d/%02d %02d:%02d:%02d", );
-                        System.out.println("Your access Time period: " + studentObj.getAccessStartTime() + " to " + studentObj.getAccessEndTime());
+                        long accessStartTimems = studentObj.getAccessStartTime();
+                        long accessEndTimems = studentObj.getAccessEndTime();
+
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(accessStartTimems);
+                        Calendar calendar2 = Calendar.getInstance();
+                        calendar2.setTimeInMillis(accessEndTimems);
+                        System.out.printf("Your access Time period: %d-%d-%d %d:%d to %d-%d-%d %d:%d \n",calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR), calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),calendar2.get(Calendar.DAY_OF_MONTH), calendar2.get(Calendar.MONTH), calendar2.get(Calendar.YEAR), calendar2.get(Calendar.HOUR_OF_DAY), calendar2.get(Calendar.MINUTE));
                     }
                     break;
                 }
