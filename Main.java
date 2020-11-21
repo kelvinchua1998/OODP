@@ -756,13 +756,9 @@ public class Main {
 
             if (choiceIndex.equals("#"))
                 return;
-<<<<<<< HEAD
-            
-=======
             // else if(choiceIndex < singleCourse.getListCindex().size()
 
             // }
->>>>>>> c6b29635ad5663f7ea03afc65b3cc396c411e541
             else {
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
             }
