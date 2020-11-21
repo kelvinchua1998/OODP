@@ -595,8 +595,8 @@ public class Main {
             System.out.printf("student in %s %s\n", coursecode,cindex);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
-                        studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s, %s, %s \n", i + 1, studentList.get(i).getFirstName(),
+                        studentList.get(i).getLastName(), studentList.get(i).getGender(), studentList.get(i).getNationality());
             }
 
         } else if (studentList.size() == 0) {
@@ -625,8 +625,8 @@ public class Main {
             System.out.printf("student in %s \n", coursecode);
 
             for (int i = 0; i < studentList.size(); i++) {
-                System.out.printf("%d. %s %s \n", i + 1, studentList.get(i).getFirstName(),
-                        studentList.get(i).getLastName());
+                System.out.printf("%d. %s %s, %s, %s \n", i + 1, studentList.get(i).getFirstName(),
+                        studentList.get(i).getLastName(), studentList.get(i).getGender(), studentList.get(i).getNationality());
             }
         } else if (studentList.size() == 0) {
             System.out.printf("There are no registered students in %s \n", coursecode);
