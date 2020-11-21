@@ -27,7 +27,7 @@ public class Cindex implements Serializable{
         this.schedule = new ArrayList<Lesson>();
     }
 
-    public String getIndex() {
+    public String getIndexName() {
         return index;
     }
 

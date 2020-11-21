@@ -110,6 +110,12 @@ public class Student extends User implements Serializable{
 	}
 
 	public void addWaitlist(StudentCourse registeredCourse) {
+		//remove any exiting waitlist for indexes of the same course
+		for (int i=0; i <waitlist.size();i++){
+			if( waitlist.get(i).getCourseCode().equals(registeredCourse.getCourseCode())){
+				waitlist.remove(i);
+			}
+		}
 		this.waitlist.add(registeredCourse);
 	}
 	
@@ -193,6 +199,15 @@ public class Student extends User implements Serializable{
 		studentList.add(studentObj2);
 
         databaseManager.SerializeStudentList(studentList);
+	}
+
+	public StudentCourse checkWaitlist(String courseCode) {
+		for (int i =0 ; i <waitlist.size(); i++){
+			if (waitlist.get(i).getCourseCode().equals(courseCode)){
+				return waitlist.get(i);
+			}
+		}
+		return null;
 	}
 
 

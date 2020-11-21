@@ -229,7 +229,7 @@ public class Main {
             ArrayList<Cindex> CindexList = courseObj.getListCindex();
             for (int i = 0; i < CindexList.size(); i++) {
                 System.out.println(
-                        "Index " + CindexList.get(i).getIndex() + " Capacity: " + CindexList.get(i).getCapacity());
+                        "Index " + CindexList.get(i).getIndexName() + " Capacity: " + CindexList.get(i).getCapacity());
             }
             int choice = -1;
             ArrayList<Cindex> cindexList = courseObj.getListCindex();
@@ -291,7 +291,7 @@ public class Main {
                             int newCapacity = sc.nextInt();
 
                             for (int i = 0; i < cindexList.size(); i++) {
-                                 if (cindexList.get(i).getIndex().equals(index)) {
+                                 if (cindexList.get(i).getIndexName().equals(index)) {
                                     cindexList.remove(i);
                                     break;
                                 }
@@ -323,7 +323,7 @@ public class Main {
                         
 
                             for (int i = 0; i < cindexList.size(); i++) {
-                                if (cindexList.get(i).getIndex().equals(index)) {
+                                if (cindexList.get(i).getIndexName().equals(index)) {
                                     cindexList.remove(i);
                                     break;
                                 }
@@ -342,7 +342,7 @@ public class Main {
                         String index = sc.next();
 
                         for (int i = 0; i < cindexList.size(); i++) {
-                            if (cindexList.get(i).getIndex().equals(index)) {
+                            if (cindexList.get(i).getIndexName().equals(index)) {
                                 cindexList.remove(i);
                                 break;
                             }
@@ -627,7 +627,7 @@ public class Main {
                     if(singleCourse.getListCindex() != null){
                         for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
                         Cindex singleindex = singleCourse.getListCindex().get(j);
-                        System.out.printf("%d.  %s  /  %d  /  %d\n", j + 1, singleindex.getIndex(),
+                        System.out.printf("%d.  %s  /  %d  /  %d\n", j + 1, singleindex.getIndexName(),
                                 singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                         }
                     }else{
@@ -675,7 +675,7 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
         int choice = -1;
         Course singleCourse;
-        Cindex singleIndex;
+        Cindex singleIndex = null;
         Student stud;
 
         // get student
@@ -705,15 +705,18 @@ public class Main {
                 // print list of indexes and vacancies in the course
                 // shud show timetable clash for each index
                 // show index lesson timings
-
-                System.out.println("-------------------------------------");
-                System.out.println("index   /   vacacy   /    waitlist");
-                for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
-                    Cindex singleindex = singleCourse.getListCindex().get(i);
-                    System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndex(),
-                            singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                if(singleCourse.getListCindex().size() != 0){
+                    System.out.println("-------------------------------------");
+                    System.out.println("index   /   vacacy   /    waitlist");
+                    for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
+                        Cindex singleindex = singleCourse.getListCindex().get(i);
+                        System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndexName(),
+                                singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                    }
+                }else{
+                    System.out.println("no Cindex Available!");;
                 }
-
+                
             } else {
                 System.out.println("course not found! please enter course code again ");
                 continue;
@@ -728,13 +731,16 @@ public class Main {
             //else if(choiceIndex < singleCourse.getListCindex().size()
 
             //}
-            else {
+            else if(Integer.parseInt(choiceIndex) - 1>= 0 && Integer.parseInt(choiceIndex) - 1< singleCourse.getListCindex().size()){
                 singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
+            }else{
+                System.out.println("invalid choice!");
+                continue;
             }
 
             // check timetable clash
 
-            if (databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndex())) {
+            if (databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndexName())) {
                 // CLASH
                 System.out.println("Unable to add because of timetable clash!");
                 // go back to index selection screen
@@ -764,24 +770,56 @@ public class Main {
                     databaseManager.updateDatabase(singleCourse);
 
                     SendMail sendMail = new SendMail();
-                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "+singleCourse.getCourseCode()+" "+singleCourse.getCourseName() + " index "+ singleIndex.getIndex() +" have been successfully added\n Thank You\n NTU STARS";
+                    String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "+singleCourse.getCourseCode()+" "+singleCourse.getCourseName() + " index "+ singleIndex.getIndexName() +" have been successfully added\n Thank You\n NTU STARS";
                     sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                             stud.getEmail(), "Course Added", EmailContent);
 
                     System.out.println("Course added!");
                 } else {
+                    // check whether student already have the course on waitlist
+                    // remove prev waitlist on the course if student want diff index
                     // add stud to waitlist
                     // add Cindex to student waitlist
-                    StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                    StudentCourse studPrevWaitlistIndex = stud.checkWaitlist(singleCourse.getCourseCode());
+                    if(studPrevWaitlistIndex != null){
+                        
+                        //course already in stud waitlist
+                        //check if stud wan to be on a waitlist for a diff index
+                        if(studPrevWaitlistIndex.getIndex().getIndexName().equals(singleIndex.getIndexName())){
+                            System.out.println("you already have this index on waitlist!");
+                        }else{
+                            System.out.println("Are you sure u want to change waitlist to this index? [y/n]");
+                            String confirmation = sc.next();
+                            if(confirmation.equals("y")){
+                                StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
+                                singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
+                                //addwaitlist method will remove the prev index 
+                                stud.addWaitlist(newlyregisteredCourse);
+                                singleCourse.removeStudentfromWailist(stud.getUsername());
+                                singleIndex.addWaitlistStudent(stud);
+                                
+        
+                                databaseManager.updateDatabase(stud);
+                                databaseManager.updateDatabase(singleCourse);
+        
+                                System.out.println("Course index full! Adding to waitlist.");
+                            }
+                        }
+                    }else{
+                        // course is not in stud waitlist
+                        StudentCourse newlyregisteredCourse = new StudentCourse(singleCourse.getCourseCode(),
                             singleCourse.getCourseName(), singleCourse.getCourseDescription(), singleIndex);
-                    stud.addWaitlist(newlyregisteredCourse);
+                        stud.addWaitlist(newlyregisteredCourse);
 
-                    singleIndex.addWaitlistStudent(stud);
+                        singleIndex.addWaitlistStudent(stud);
 
-                    databaseManager.updateDatabase(stud);
-                    databaseManager.updateDatabase(singleCourse);
+                        databaseManager.updateDatabase(stud);
+                        databaseManager.updateDatabase(singleCourse);
 
-                    System.out.println("Course index full! Adding to waitlist.");
+                        System.out.println("Course index full! Adding to waitlist.");
+                    }
+
+                    
                 }
             }
 
@@ -1038,7 +1076,7 @@ public class Main {
                 System.out.println("index   /   vacacy   /    waitlist");
                 for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
                     Cindex singleindex = singleCourse.getListCindex().get(i);
-                    System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndex(),
+                    System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndexName(),
                             singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                 }
 
@@ -1070,7 +1108,7 @@ public class Main {
             break;
         }
 
-        System.out.println("Your Current index: " + studentCourse.getIndex().getIndex());
+        System.out.println("Your Current index: " + studentCourse.getIndex().getIndexName());
         System.out.println("New index: ");
         input = sc.next();
 
@@ -1145,16 +1183,16 @@ public class Main {
                 }
             }
 
-            System.out.println("your index: " + studentCourse.getIndex().getIndex());
-            System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndex());
+            System.out.println("your index: " + studentCourse.getIndex().getIndexName());
+            System.out.println("peer's index: " + studentCoursePeer.getIndex().getIndexName());
             System.out.println("confirm swap?[y/n]");
             String confirm = sc.next();
 
             if (confirm.equals("y")) {
                 Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                studentCoursePeer.getIndex().getIndex());
+                studentCoursePeer.getIndex().getIndexName());
                 Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                studentCourse.getIndex().getIndex());
+                studentCourse.getIndex().getIndexName());
 
                 newindex.getRegisteredStudents().add(studentobj);
 
@@ -1181,10 +1219,10 @@ public class Main {
                 Course courseObj = databaseManager.searchCourse(courseCode);
                 ArrayList<Cindex> CourseCindexList = courseObj.getListCindex();
                 
-                int indexCindex = courseObj.getIndexOfCindex(newindex.getIndex());
+                int indexCindex = courseObj.getIndexOfCindex(newindex.getIndexName());
                 CourseCindexList.set(indexCindex, newindex);
 
-                int indexCindexPeer = courseObj.getIndexOfCindex(oldindex.getIndex());
+                int indexCindexPeer = courseObj.getIndexOfCindex(oldindex.getIndexName());
                 CourseCindexList.set(indexCindexPeer, oldindex);
 
                 courseObj.setListCindex(CourseCindexList);

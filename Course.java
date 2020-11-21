@@ -26,7 +26,7 @@ public class Course implements Serializable {
 
     public int getIndexOfCindex(String cindexName) {
         for (int i = 0; i < this.listCindex.size(); i++) {
-            if (this.listCindex.get(i).getIndex().equals(cindexName)) {
+            if (this.listCindex.get(i).getIndexName().equals(cindexName)) {
                 return i;
             }
         }
@@ -105,22 +105,22 @@ public class Course implements Serializable {
             Cindex singleIndex = listCindex.get(i);
             if (singleIndex.getRegisteredStudents().size() < singleIndex.getCapacity()
                     && singleIndex.getWaitList().size() != 0) {
-
-                singleIndex.addRegisteredStudent(singleIndex.getWaitList().get(0));
+                Student studFromWaitlist = singleIndex.getWaitList().get(0);
+                singleIndex.addRegisteredStudent(studFromWaitlist);
                 singleIndex.getWaitList().remove(0);
 
                 // create a new studentCourse
-                StudentCourse newlyregisteredCourse = new StudentCourse(CourseCode, CourseName, CourseDescription,
-                        singleIndex);
+
                 Student stud = singleIndex.getRegisteredStudents().get(singleIndex.getCapacity() - 1);
                 stud.addCourse(newlyregisteredCourse);
+                stud.removeWaitlistCourse();
 
                 databaseManager.updateDatabase(stud);
 
                 SendMail sendMail = new SendMail();
 
                 String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course " + CourseCode + " "
-                        + CourseName + "for index " + singleIndex.getIndex()
+                        + CourseName + "for index " + singleIndex.getIndexName()
                         + " have been successfully added\n Thank You\n NTU STARS";
                 sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                         singleIndex.getRegisteredStudents().get(singleIndex.getCapacity() - 1).getEmail(),
@@ -165,6 +165,19 @@ public class Course implements Serializable {
         databaseManager.SerializeCourseList(courseList);
 
     }
+
+	public void removeStudentfromWailist(String username) {
+        DatabaseManager databaseManager = new DatabaseManager();
+        for (int i = 0; i<listCindex.size();i++){
+            Cindex singleCindex = listCindex.get(i);
+            for (int j =0; j < singleCindex.getWaitList().size();j++){
+                if (singleCindex.getWaitList().get(j).getUsername().equals(username)){
+                    singleCindex.getWaitList().remove(j);
+                }
+            }   
+        }
+        
+	}
 
 
 	

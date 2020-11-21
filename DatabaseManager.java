@@ -158,7 +158,7 @@ public class DatabaseManager {
             Course courseObj = courseList.get(i);
             ArrayList<Cindex> CindexObj = courseObj.getListCindex();
             for (int j = 0; j < CindexObj.size(); j++) {
-               if (CindexObj.get(j).getIndex().equals(Cindex)) {
+               if (CindexObj.get(j).getIndexName().equals(Cindex)) {
                   return CindexObj.get(j);
                }
             }
@@ -285,7 +285,7 @@ public class DatabaseManager {
          // send email to stud that he has droppe dthe course
 
          SendMail sendMail = new SendMail();
-            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getListCindex().get(0).getIndex()+"been successfully dropped\n Thank You\n NTU STARS";
+            String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getListCindex().get(0).getIndexName()+"been successfully dropped\n Thank You\n NTU STARS";
             sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
                     studentObj.getEmail(), "Course dropped", EmailContent);
 
@@ -309,7 +309,7 @@ public class DatabaseManager {
       int index = getIndexByUsername(username);
 
       ArrayList<StudentCourse> registercourses = studentList.get(index).getRegisteredCourse();
-
+      
       if (registercourses.size() != 0) {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
@@ -318,6 +318,18 @@ public class DatabaseManager {
          }
       } else {
          System.out.println("You do not have any course registered!");
+      }
+
+      ArrayList<StudentCourse> waitlistCourses = studentList.get(index).getWaitlist();
+      
+      if (waitlistCourses.size() != 0) {
+         System.out.println("waitlist Courses: ");
+         for (int i = 0; i < waitlistCourses.size(); i++) {
+            System.out.printf("%d. %s %s\n", i + 1, waitlistCourses.get(i).getCourseCode(),
+            waitlistCourses.get(i).getCourseName());
+         }
+      } else {
+         System.out.println("You do not have any courses in waitlist!");
       }
 
    }
@@ -497,7 +509,7 @@ public class DatabaseManager {
    public boolean checkStudentRegisteredCourses(Student stud, Course singleCourse) {
       // returns true if the course is already registered
       for (int i = 0; i < stud.getRegisteredCourse().size(); i++) {
-         if (stud.getRegisteredCourse().get(i).equals(singleCourse)) {
+         if (stud.getRegisteredCourse().get(i).getCourseCode().equals(singleCourse.getCourseCode())) {
             return true;
          }
       }

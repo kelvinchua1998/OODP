@@ -5,13 +5,13 @@ public class StudentCourse implements Serializable{
     private String CourseName;
     private String CourseDescription;
     private int AU;
-    private Cindex index;
+    private String courseIndex;
 
-    public StudentCourse(String courseCode, String courseName, String courseDescription, Cindex index)  {
+    public StudentCourse(String courseCode, String courseName, String courseDescription, String index)  {
         CourseCode = courseCode;
         CourseName = courseName;
         CourseDescription = courseDescription;
-        this.index = index;
+        courseIndex = index;
     }
 
     public String getCourseCode() {
@@ -46,14 +46,11 @@ public class StudentCourse implements Serializable{
         this.AU = aUawarded;
     }
 
-    public Cindex getIndex() {
-        return index;
+    public String getIndex() {
+        return courseIndex;
     }
 
-    public void setIndex(Cindex index) {
-        this.index = index;
+    public void setIndex(String index) {
+        this.courseIndex = index;
     }
-
-   
-
 }
