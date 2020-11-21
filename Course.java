@@ -14,7 +14,7 @@ public class Course implements Serializable {
     private int AU;
     private ArrayList<Cindex> listCindex;
 
-    public Course(String cc, String cn, String d, String school, int AU, ArrayList<Student> registeredStudents,
+    public Course(String cc, String cn, String d, String school, int AU,
             ArrayList<Cindex> ListCindex) {
         this.CourseCode = cc;
         this.CourseName = cn;
@@ -132,7 +132,7 @@ public class Course implements Serializable {
     public static void main(String[] args) {
         ArrayList<Course> courseList = new ArrayList<Course>();
         DatabaseManager databaseManager = new DatabaseManager();
-        ArrayList<Student> registeredStudents = new ArrayList<Student>();
+        
         ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
         DateFormat timeformat = new SimpleDateFormat("HHmm");
@@ -159,7 +159,7 @@ public class Course implements Serializable {
         cindexObj2.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
 
-        Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
+        Course courseObj = new Course("c1", "course1", "course description","scse", 3, ListCindex);
 
         courseList.add(courseObj);
         databaseManager.SerializeCourseList(courseList);
@@ -177,6 +177,16 @@ public class Course implements Serializable {
             }   
         }
         
+	}
+
+	public Cindex searchCindex(String courseIndex) {
+        for (int i = 0 ; i < listCindex.size();i++){
+            if(listCindex.get(i).getIndexName().equals(courseIndex)){
+                return listCindex.get(i);
+            }
+            
+        }
+		return null;
 	}
 
 

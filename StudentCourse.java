@@ -46,11 +46,11 @@ public class StudentCourse implements Serializable{
         this.AU = aUawarded;
     }
 
-    public String getIndex() {
+    public String getCourseIndex() {
         return courseIndex;
     }
 
-    public void setIndex(String index) {
+    public void setCourseIndex(String index) {
         this.courseIndex = index;
     }
 }

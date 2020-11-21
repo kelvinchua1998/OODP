@@ -1,6 +1,5 @@
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class Student extends User implements Serializable{
@@ -149,6 +148,7 @@ public class Student extends User implements Serializable{
 	public boolean checkClash(Cindex index){
 		//return true if clash
 		// false if no clash
+		DatabaseManager databaseManager = new DatabaseManager();
 
 		for(int i =0; i < index.getSchedule().size();i++){
 			Lesson singleLesson = index.getSchedule().get(i);
@@ -156,8 +156,10 @@ public class Student extends User implements Serializable{
 			// check index start time less then end time in students schedule
 			for (int u=0;u<this.getRegisteredCourse().size();u++){
 				//for each cindex in student schedule
-				for (int w=0 ; w< getRegisteredCourse().get(u).getIndex().getSchedule().size(); w++ ){
-					Lesson singleLessonStudent = getRegisteredCourse().get(u).getIndex().getSchedule().get(w);
+				Course studentRegCourse = databaseManager.searchCourse(getRegisteredCourse().get(u).getCourseCode());
+				Cindex studentRegIndex = studentRegCourse.searchCindex(getRegisteredCourse().get(u).getCourseIndex());
+				for (int w = 0; w< studentRegIndex.getSchedule().size(); w++ ){
+					Lesson singleLessonStudent = studentRegIndex.getSchedule().get(w);
 					if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime()) || singleLesson.getEndTime().after(singleLessonStudent.getStartTime())){
 						// clash when the start time of the index lesson is before the student index lesson end time
 						// vice versa

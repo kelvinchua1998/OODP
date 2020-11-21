@@ -171,11 +171,11 @@ public class DatabaseManager {
 
    }
 
-   public ArrayList<Student> getStudentList(String coursecode, String index) {
+   public ArrayList<String> getStudentList(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
 
       if (singleIndex == null) { // error checking for invalid course index
-         ArrayList<Student> temp = new ArrayList<Student>();
+         ArrayList<String> temp = new ArrayList<String>();
          System.out.println("Course/index not found!");
          return temp;
       }
@@ -200,10 +200,10 @@ public class DatabaseManager {
 
    }
 
-   public ArrayList<Student> getStudentListbyCourse(String coursecode) {
+   public ArrayList<String> getStudentListbyCourse(String coursecode) {
       Course singleCourse = searchCourse(coursecode);
 
-      ArrayList<Student> temp = new ArrayList<Student>();
+      ArrayList<String> temp = new ArrayList<String>();
 
       if (singleCourse == null) {
          System.out.println("Course not found!");
@@ -454,6 +454,7 @@ public class DatabaseManager {
             for (int j = 0; j < adminList.size(); j++) {
                if (adminList.get(j).getUsername().equals(username)) {
                   return adminList.get(j);
+
                }
             }
          }
@@ -525,5 +526,16 @@ public boolean checkStudentReg(String username,String courseCode) {
       }
    }
 	return false;
+}
+public void updatecindex(String courseCode,Cindex cindexObj){
+   Course courseObj = searchCourse(courseCode);
+   ArrayList<Cindex> cindexList = courseObj.getListCindex();
+   for(int i=0; i<cindexList.size();i++){
+      if(cindexList.get(i).getIndexName().equals(cindexObj.getIndexName())){
+         cindexList.set(i, cindexObj);
+      }
+   }
+   courseObj.setListCindex(cindexList);
+   updateDatabase(courseObj);
 }
 }
