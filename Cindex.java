@@ -6,11 +6,11 @@ public class Cindex implements Serializable{
     
     private String index;
     private int Capacity;
-    private ArrayList<Student> waitList;
-    private ArrayList<Student> registeredStudents;
+    private ArrayList<String> waitList;
+    private ArrayList<String> registeredStudents;
     private ArrayList<Lesson> schedule;
 
-    public Cindex(String index, int Capacity, ArrayList<Student> waitList, ArrayList<Student> registeredStudents,
+    public Cindex(String index, int Capacity, ArrayList<String> waitList, ArrayList<String> registeredStudents,
             ArrayList<Lesson> schedule) {
         this.index = index;
         this.Capacity = Capacity;
@@ -22,8 +22,8 @@ public class Cindex implements Serializable{
     public Cindex(String index, int Capacity) {
         this.index = index;
         this.Capacity = Capacity;
-        this.waitList = new ArrayList<Student>();
-        this.registeredStudents = new ArrayList<Student>();
+        this.waitList = new ArrayList<String>();
+        this.registeredStudents = new ArrayList<String>();
         this.schedule = new ArrayList<Lesson>();
     }
 
@@ -43,27 +43,27 @@ public class Cindex implements Serializable{
         this.Capacity = Capacity;
     }
 
-    public ArrayList<Student> getWaitList() {
+    public ArrayList<String> getWaitList() {
         return waitList;
     }
 
-    public void setWaitList(ArrayList<Student> waitList) {
+    public void setWaitList(ArrayList<String> waitList) {
         this.waitList = waitList;
     }
 
-    public ArrayList<Student> getRegisteredStudents() {
+    public ArrayList<String> getRegisteredStudents() {
         return registeredStudents;
     }
 
-    public void setRegisteredStudents(ArrayList<Student> registeredStudents) {
+    public void setRegisteredStudents(ArrayList<String> registeredStudents) {
         this.registeredStudents = registeredStudents;
     }
 
-    public void addRegisteredStudent(Student student){
-        this.registeredStudents.add(student);
+    public void addRegisteredStudent(String studentUsername){
+        this.registeredStudents.add(studentUsername);
     }
-    public void addWaitlistStudent(Student student){
-        this.waitList.add(student);
+    public void addWaitlistStudent(String studentUsername){
+        this.waitList.add(studentUsername);
     }
 
     public ArrayList<Lesson> getSchedule() {
@@ -80,7 +80,7 @@ public class Cindex implements Serializable{
 
     public int getIndexofStudent(String username){
         for(int i=0; i<this.registeredStudents.size(); i++){
-            if(this.registeredStudents.get(i).getUsername().equals(username)){
+            if(this.registeredStudents.get(i).equals(username)){
                 return i;
             }
         }
