@@ -218,22 +218,6 @@ public class DatabaseManager {
       
    }
 
-   // print courses in database
-   public ArrayList<Course> getCourseList() {
-      ArrayList<Course> courseList = new ArrayList<Course>();
-      ArrayList<Course> temp = new ArrayList<Course>();
-
-      DatabaseManager databaseManager = new DatabaseManager();
-      courseList = databaseManager.DeserializeCourseList();
-
-      // return courseList;
-      for (int i = 0; i < courseList.size(); i++) {
-         temp.add(courseList.get(i));
-      }
-
-      return temp;
-
-   }
 
    public void addStudentintoStudentDB(Student studentObj) {
       ArrayList<Student> studentList = DeserializeStudentList();
