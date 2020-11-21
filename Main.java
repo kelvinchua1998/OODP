@@ -292,7 +292,7 @@ public class Main {
                         String newSchool = sc.next();
 
                         courseObj.setSchool(newSchool);
-                        databaseManager.updateDatabase(courseObj);
+                        
                         choice = -1;
                         break;
                     }
@@ -322,7 +322,7 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            databaseManager.updateDatabase(courseObj);
+                            
                         }
                         choice = -1;
                         break;
@@ -353,7 +353,7 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            databaseManager.updateDatabase(courseObj);
+                            
                         }
                         choice = -1;
                         break;
@@ -370,12 +370,12 @@ public class Main {
                         }
 
                         courseObj.setListCindex(cindexList);
-                        databaseManager.updateDatabase(courseObj);
+                        
                         choice = -1;
                         break;
                     }
                 }
-
+                databaseManager.updateDatabase(courseObj);
             }
 
         } else {
