@@ -602,22 +602,11 @@ public class Main {
     private static void getAvailCourse() {
         ArrayList<Course> courseList = null;
         DatabaseManager databaseManager = new DatabaseManager();
-        Course singleCourse;
+        
 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \' to return to main menu ");
-        System.out.println("Press any key to proceed");
-        String coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
+        courseList = databaseManager.DeserializeCourseList();
 
-        courseList = databaseManager.getCourseList();
-
-        while (coursecode != "#") {
-            if (coursecode.equals("#"))
-                return;
-
-            else if (courseList != null) {
+        if (courseList.size() != 0) {
                 System.out.println("courses: ");
 
                 for (int i = 0; i < courseList.size(); i++) {
@@ -625,21 +614,25 @@ public class Main {
 
                     System.out.printf("\t %s \n", courseList.get(i).getCourseDescription());
                     
-                    singleCourse = databaseManager.searchCourse(courseList.get(i).getCourseCode());
+                    Course singleCourse = courseList.get(i);
 
-                    for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
-                        System.out.printf("\t %s: %s\n", singleCourse.getListCindex().get(j),
-                                singleCourse.getListCindex().get(j).getSchedule());
+                    System.out.println("-------------------------------------");
+                    System.out.println("index   /   vacacy   /    waitlist");
+
+                    if(singleCourse.getListCindex() != null){
+                        for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
+                        Cindex singleindex = singleCourse.getListCindex().get(j);
+                        System.out.printf("%d.  %s  /  %d  /  %d\n", j + 1, singleindex.getIndex(),
+                                singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
+                        }
+                    }else{
+                        System.out.println("no Cindex");
                     }
+                   
                 }
             } else {
                 System.out.println("no courses added yet");
             }
-            System.out.println("Enter \' # \' to return to main menu ");
-            coursecode = sc.next();
-        }
-
-        System.out.println();
     }
 
     private static void checkVacancy() {
@@ -849,30 +842,30 @@ public class Main {
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
         boolean running = true;
-        while(running){
-            if (coursecode.equals("#"))
-                return;
-            // else ... error checking
-            if(databaseManager.checkStudentReg(username, coursecode)){
-                System.out.println("Are you sure? [y/n]");
-                String choice = sc.next();
+    
+        if (coursecode.equals("#"))
+            return;
+        // else ... error checking
+        if(databaseManager.checkStudentReg(username, coursecode)){
+            System.out.println("Are you sure? [y/n]");
+            String choice = sc.next();
 
+            
+
+            if (choice.equals("y")) {
                 
+                databaseManager.removeCourseMain(username, coursecode);
 
-                if (choice.equals("y")) {
-                    
-                    databaseManager.removeCourseMain(username, coursecode);
-
-                    System.out.println("Course dropped!");
-                } else if (choice.equals("n")) {
-                    return;
-                } else {
-                    System.out.println("invalid choice!");
-                }
-            }else{
-                System.out.println("cant find course in your registered courses! pls try agaain");
+                System.out.println("Course dropped!");
+            } else if (choice.equals("n")) {
+                return;
+            } else {
+                System.out.println("invalid choice!");
             }
+        }else{
+            System.out.println("cant find course in your registered courses! pls try agaain");
         }
+    
         
     }
 
@@ -880,8 +873,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
         databaseManager.printCourseRegistered(username);
-        System.out.println("enter any key to return to main menu ");
-        sc.next();
     }
 
     private static void AddStudent() {

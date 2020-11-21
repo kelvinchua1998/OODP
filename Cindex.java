@@ -63,7 +63,7 @@ public class Cindex implements Serializable{
         this.registeredStudents.add(student);
     }
     public void addWaitlistStudent(Student student){
-        this.registeredStudents.add(student);
+        this.waitList.add(student);
     }
 
     public ArrayList<Lesson> getSchedule() {

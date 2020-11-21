@@ -131,44 +131,35 @@ public class Course implements Serializable {
     public static void main(String[] args) {
         ArrayList<Course> courseList = new ArrayList<Course>();
         DatabaseManager databaseManager = new DatabaseManager();
-        // ArrayList<Student> registeredStudents = new ArrayList<Student>();
-        // ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
+        ArrayList<Student> registeredStudents = new ArrayList<Student>();
+        ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
-        // DateFormat timeformat = new SimpleDateFormat("HHmm");
-        // Date startTimeParsedLect=null;
-        // try {
-        //     startTimeParsedLect = timeformat.parse("1000");
-        // } catch (ParseException e1) {
-        //     // TODO Auto-generated catch block
-        //     e1.printStackTrace();
-        // }
-        // Date endTimeParsedLect=null;
-        // try {
-        //     endTimeParsedLect = timeformat.parse("1100");
-        // } catch (ParseException e) {
-        //     // TODO Auto-generated catch block
-        //     e.printStackTrace();
-        // }
-        // Lesson lessonObj1 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt1", "monday");
-        // ArrayList<Lesson> schedule = new ArrayList<Lesson>();
-        // Cindex cindexObj = new Cindex("1", 10);
-        // schedule.add(lessonObj1);
-        // cindexObj.setSchedule(schedule);
-        // ListCindex.add(cindexObj);
+        DateFormat timeformat = new SimpleDateFormat("HHmm");
+        Date startTimeParsedLect=null;
+        try {
+            startTimeParsedLect = timeformat.parse("1000");
+        } catch (ParseException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        Date endTimeParsedLect=null;
+        try {
+            endTimeParsedLect = timeformat.parse("1100");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
-        // Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
-        // ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
-        // Cindex cindexObj2 = new Cindex("2", 1);
-        // schedule2.add(lessonObj2);
-        // cindexObj2.setSchedule(schedule2);
-        // ListCindex.add(cindexObj2);
+        Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
+        ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
+        Cindex cindexObj2 = new Cindex("2", 1);
+        schedule2.add(lessonObj2);
+        cindexObj2.setSchedule(schedule2);
+        ListCindex.add(cindexObj2);
 
-        // Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
+        Course courseObj = new Course("c1", "course1", "course description","scse", 3, registeredStudents, ListCindex);
 
-        // Course courseObj2 = new Course("c2", "course2", "course description","scse", 3, registeredStudents, ListCindex);
-
-        // courseList.add(courseObj);
-        // courseList.add(courseObj2);
+        courseList.add(courseObj);
         databaseManager.SerializeCourseList(courseList);
 
     }
