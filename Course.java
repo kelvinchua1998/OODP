@@ -21,6 +21,7 @@ public class Course implements Serializable {
         this.CourseDescription = d;
         this.AU = AU;
         this.School = school;
+        this.listCindex = ListCindex;
     }
 
     public int getIndexOfCindex(String cindexName) {
@@ -69,7 +70,7 @@ public class Course implements Serializable {
     }
 
     public void setListCindex(ArrayList<Cindex> Cindex) {
-        listCindex = Cindex;
+        this.listCindex = Cindex;
     }
 
     public String getSchool() {
@@ -153,6 +154,7 @@ public class Course implements Serializable {
         Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
         ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
         Cindex cindexObj2 = new Cindex("2", 1);
+        
         schedule2.add(lessonObj2);
         cindexObj2.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
