@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -32,12 +33,6 @@ public class Main {
                 password = sc.next();
 
                 userType = login.verifyUser(username, password);
-
-                if (userType == null) {
-                    System.out.println("Wrong Username and Password!");
-                } else {
-                    System.out.println("User Verified!");
-                }
             }
 
             switch (userType) {
@@ -253,8 +248,9 @@ public class Main {
                 System.out.println("1. Update Course Code");
                 System.out.println("2. Update School");
                 System.out.println("3. Update Capacity");
-                System.out.println("4. Update Index");
-                System.out.println("5. Delete Index");
+                System.out.println("4. Update Index Name");
+                System.out.println("5. Add new Index");
+                System.out.println("6. Delete Index");
                 choice = sc.nextInt();
 
                 switch (choice) {
@@ -292,7 +288,7 @@ public class Main {
                         String newSchool = sc.next();
 
                         courseObj.setSchool(newSchool);
-                        
+                        databaseManager.updateDatabase(courseObj);
                         choice = -1;
                         break;
                     }
@@ -322,7 +318,7 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            
+                            databaseManager.updateDatabase(courseObj);
                         }
                         choice = -1;
                         break;
@@ -353,12 +349,146 @@ public class Main {
                             cindexList.add(cindexobj);
 
                             courseObj.setListCindex(cindexList);
-                            
+                            databaseManager.updateDatabase(courseObj);
                         }
                         choice = -1;
                         break;
                     }
-                    case 5: {
+                    case 5:{
+                        System.out.println("Index: ");
+                        String index = sc.next();
+
+                        System.out.println("Capacity: ");
+                        int Capacity = sc.nextInt();
+
+                        Cindex CindexObj = new Cindex(index, Capacity);
+
+                        ArrayList<Lesson> schedule = new ArrayList<Lesson>();
+                        DateFormat timeformat = new SimpleDateFormat("HHmm");
+                        int choice2 = -1;
+                        while (choice2 != 0) {
+                            System.out.println("Add new lesson: ");
+                            System.out.println("0.Stop adding lesson ");
+                            System.out.println("1.Add new Lecture ");
+                            System.out.println("2.Add new Tutorial ");
+                            System.out.println("3.Add new Lab ");
+
+                            choice2 = sc.nextInt();
+
+                            switch (choice2) {
+                                case 0:
+                                    break;
+                                case 1:
+                                    System.out.println("Start Time: ");
+                                    String startTimeLect = sc.next();
+                                    Date startTimeParsedLect = null;
+                                    try {
+                                        startTimeParsedLect = timeformat.parse(startTimeLect);
+                                    } catch (ParseException e) {
+
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("End Time: ");
+                                    String endTimeLect = sc.next();
+                                    Date endTimeParsedLect = null;
+                                    try {
+                                        endTimeParsedLect = timeformat.parse(endTimeLect);
+                                    } catch (ParseException e) {
+
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("Venue: ");
+                                    String venueLect = sc.next();
+
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekLect = sc.next();
+
+                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
+                                            dayOfweekLect);
+
+                                    schedule.add(lecture);
+                                    break;
+                                case 2:
+                                    System.out.println("Start Time: ");
+                                    String startTimeTut = sc.next();
+                                    Date startTimeParsedTut = null;
+                                    try {
+                                        startTimeParsedTut = timeformat.parse(startTimeTut);
+                                    } catch (ParseException e) {
+                                        
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("End Time: ");
+                                    String endTimeTut = sc.next();
+                                    Date endTimeParsedTut = null;
+                                    try {
+                                        endTimeParsedTut = timeformat.parse(endTimeTut);
+                                    } catch (ParseException e) {
+                                        
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("Venue: ");
+                                    String venueTut = sc.next();
+
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekTut = sc.next();
+
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
+                                            dayOfweekTut);
+
+                                    schedule.add(tutorial);
+                                    break;
+                                case 3:
+                                    System.out.println("Start Time: ");
+                                    String startTimeLab = sc.next();
+                                    Date startTimeParsedLab = null;
+                                    try {
+                                        startTimeParsedLab = timeformat.parse(startTimeLab);
+                                    } catch (ParseException e) {
+                                        
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("End Time: ");
+                                    String endTimeLab = sc.next();
+                                    Date endTimeParsedLab = null;
+                                    try {
+                                        endTimeParsedLab = timeformat.parse(endTimeLab);
+                                    } catch (ParseException e) {
+                                        
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("Venue: ");
+                                    String venueLab = sc.next();
+
+                                    System.out.println("Day Of Week: ");
+                                    String dayOfweekLab = sc.next();
+
+                                    System.out.println("Odd or Even: ");
+                                    String oddOrEvenLab = sc.next();
+
+                                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
+                                            oddOrEvenLab);
+
+                                    schedule.add(lab);
+                                    break;
+
+                            }
+                        }
+                        CindexObj.setSchedule(schedule);
+                        databaseManager.addcindex(courseCode, CindexObj);
+
+                        courseObj = databaseManager.searchCourse(courseCode);
+
+                        choice = -1;
+                        break;
+                    }
+                    case 6: {
                         System.out.println("Enter the Index that you want to delete:");
                         String index = sc.next();
 
@@ -370,12 +500,11 @@ public class Main {
                         }
 
                         courseObj.setListCindex(cindexList);
-                        
+                        databaseManager.updateDatabase(courseObj);
                         choice = -1;
                         break;
                     }
                 }
-                databaseManager.updateDatabase(courseObj);
             }
 
         } else {
@@ -920,11 +1049,11 @@ public class Main {
         if (StudentObj == null) {
             System.out.println("Student does not exist with that Matric Number!");
         } else {
-            int year;
-            int month;
-            int day;
-            int hour;
-            int minute;
+            int year=-1;
+            int month=-1;
+            int day=-1;
+            int hour=-1;
+            int minute=-1;
 
             Calendar cal = Calendar.getInstance();
             int thisYear = cal.get(Calendar.YEAR);
@@ -932,37 +1061,81 @@ public class Main {
             int today = cal.get(Calendar.DAY_OF_MONTH);
 
             // StartDateTime
-            System.out.println("AccessDateTime: ");
+            System.out.println("Access Start Date and Time: ");
             System.out.println("Please enter year (YYYY): ");
-            year = sc.nextInt();
+
+            try{
+                year = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
-            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
-            month = sc.nextInt();
+            System.out.println("Please enter month (MM)JAN-1,FEB-2...DEC-12: ");
+            
+            try{
+                month = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+
             if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
-            day = sc.nextInt();
+
+            try{
+                day = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
-            hour = sc.nextInt();
+
+            try{
+                hour = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
-            minute = sc.nextInt();
+            try{
+                minute = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
@@ -971,37 +1144,82 @@ public class Main {
             Calendar accessStartTime = new GregorianCalendar(year, month - 1, day, hour, minute);
 
             // EndDateTime
-            System.out.println("AccessEndDateTime: ");
+            System.out.println("Access End Date and Time: ");
             System.out.println("Please enter year (YYYY): ");
-            year = sc.nextInt();
+
+            try{
+                year = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
-            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
-            month = sc.nextInt();
+            System.out.println("Please enter month (MM)JAN-1,FEB-2...DEC-12: ");
+
+            try{
+                month = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
-            day = sc.nextInt();
+
+            try{
+                day = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
-            hour = sc.nextInt();
+
+            try{
+                hour = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
-            minute = sc.nextInt();
+
+            try{
+                minute = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
@@ -1258,7 +1476,7 @@ public class Main {
                 }
             }
 
-            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
+            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(peerUsername);
             ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
 
             int indexRegisterCourseListpeer = 0;

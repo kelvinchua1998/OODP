@@ -152,21 +152,21 @@ public class DatabaseManager {
       DatabaseManager databaseManager = new DatabaseManager();
       courseList = databaseManager.DeserializeCourseList();
 
-      if(courseList != null){
-      for (int i = 0; i < courseList.size(); i++) {
-         if (courseList.get(i).getCourseCode().equals(coursecode)) {
-            Course courseObj = courseList.get(i);
-            ArrayList<Cindex> CindexObj = courseObj.getListCindex();
-            for (int j = 0; j < CindexObj.size(); j++) {
-               if (CindexObj.get(j).getIndexName().equals(Cindex)) {
-                  return CindexObj.get(j);
+      if (courseList != null) {
+         for (int i = 0; i < courseList.size(); i++) {
+            if (courseList.get(i).getCourseCode().equals(coursecode)) {
+               Course courseObj = courseList.get(i);
+               ArrayList<Cindex> CindexObj = courseObj.getListCindex();
+               for (int j = 0; j < CindexObj.size(); j++) {
+                  if (CindexObj.get(j).getIndexName().equals(Cindex)) {
+                     return CindexObj.get(j);
+                  }
                }
-            }
 
+            }
          }
       }
-      }  
-      
+
       return null;
 
    }
@@ -209,15 +209,14 @@ public class DatabaseManager {
          System.out.println("Course not found!");
          return temp;
       }
-      
+
       for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
          if (singleCourse.getListCindex().get(i) != null)
             temp.addAll(singleCourse.getListCindex().get(i).getRegisteredStudents());
       }
       return temp;
-      
-   }
 
+   }
 
    public void addStudentintoStudentDB(Student studentObj) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -234,7 +233,7 @@ public class DatabaseManager {
       Student StudentObj = getStudentbyMatricNum(matricNum);
       long newAccessStartDateTimeInms = newAccessStartDateTime.getTimeInMillis();
       long newAccessEndDateTimeInms = newAccessEndDateTime.getTimeInMillis();
-      if(newAccessEndDateTimeInms > newAccessStartDateTimeInms){
+      if (newAccessEndDateTimeInms > newAccessStartDateTimeInms) {
          StudentObj.setAccessStartTime(newAccessStartDateTimeInms);
          StudentObj.setAccessEndTime(newAccessEndDateTimeInms);
 
@@ -242,8 +241,7 @@ public class DatabaseManager {
 
          SerializeStudentList(StudentList);
          System.out.printf("Access time for %s changed!\n", matricNum);
-      }
-      else{
+      } else {
          System.out.println("End Time must be later than Start Time!");
       }
    }
@@ -269,10 +267,10 @@ public class DatabaseManager {
       }
       return -1;
    }
-   
+
    public void removeCourseMain(String username, String courseCode) {
-		Student studentObj = (Student) getObjectbyUsername(username);
-      
+      Student studentObj = (Student) getObjectbyUsername(username);
+
       Course courseObj = searchCourse(courseCode);
 
       //checks if the sutdent is in the reg course
@@ -285,35 +283,35 @@ public class DatabaseManager {
 
          updateDatabase(courseObj);
          updateDatabase(studentObj);
-      }else{
-         ///false means that the student is not reg
+      } else {
+         /// false means that the student is not reg
          System.out.println("you are not registered in the course!");
       }
 
-      
    }
 
    public void printCourseRegistered(String username) {
       Student studentObj = (Student) getObjectbyUsername(username);
 
       ArrayList<StudentCourse> registercourses = studentObj.getRegisteredCourse();
-      
+
       if (registercourses.size() != 0) {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
-            System.out.printf("%d. %s %s index %s\n", i + 1, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName(), registercourses.get(i).getCourseIndex());
+            System.out.printf("%d. %s %s index %s\n", i + 1, registercourses.get(i).getCourseCode(),
+                  registercourses.get(i).getCourseName(), registercourses.get(i).getCourseIndex());
          }
       } else {
          System.out.println("You do not have any course registered!");
       }
 
       ArrayList<StudentCourse> waitlistCourses = studentObj.getWaitlist();
-      
+
       if (waitlistCourses.size() != 0) {
          System.out.println("waitlist Courses: ");
          for (int i = 0; i < waitlistCourses.size(); i++) {
             System.out.printf("%d. %s %s index %s\n", i + 1, waitlistCourses.get(i).getCourseCode(),
-            waitlistCourses.get(i).getCourseName(), waitlistCourses.get(i).getCourseIndex());
+                  waitlistCourses.get(i).getCourseName(), waitlistCourses.get(i).getCourseIndex());
          }
       } else {
          System.out.println("You do not have any courses in waitlist!");
@@ -504,23 +502,36 @@ public class DatabaseManager {
       return false;
    }
 
-public boolean checkStudentReg(String username,String courseCode) {
-   Student studentObj = (Student) getObjectbyUsername(username);
-   ArrayList regC = studentObj.getRegisteredCourse();
-   for (int i = 0 ; i < regC.size();i++){
-      if (studentObj.getRegisteredCourse().get(i).getCourseCode().equals(courseCode)){
-         return true;
+   public boolean checkStudentReg(String username, String courseCode) {
+      Student studentObj = (Student) getObjectbyUsername(username);
+      ArrayList regC = studentObj.getRegisteredCourse();
+      for (int i = 0; i < regC.size(); i++) {
+         if (studentObj.getRegisteredCourse().get(i).getCourseCode().equals(courseCode)) {
+            return true;
+         }
       }
+      return false;
    }
-	return false;
-}
-public void updatecindex(String courseCode,Cindex cindexObj){
-   Course courseObj = searchCourse(courseCode);
-   ArrayList<Cindex> cindexList = courseObj.getListCindex();
-   for(int i=0; i<cindexList.size();i++){
-      if(cindexList.get(i).getIndexName().equals(cindexObj.getIndexName())){
-         cindexList.set(i, cindexObj);
+
+   public void updatecindex(String courseCode, Cindex cindexObj) {
+      Course courseObj = searchCourse(courseCode);
+      ArrayList<Cindex> cindexList = courseObj.getListCindex();
+      for (int i = 0; i < cindexList.size(); i++) {
+         if (cindexList.get(i).getIndexName().equals(cindexObj.getIndexName())) {
+            cindexList.set(i, cindexObj);
+         }
       }
+      courseObj.setListCindex(cindexList);
+      updateDatabase(courseObj);
+   }
+
+   public void addcindex(String courseCode, Cindex cindexObj) {
+      Course courseObj = searchCourse(courseCode);
+      ArrayList<Cindex> cindexList = courseObj.getListCindex();
+      cindexList.add(cindexObj);
+
+      courseObj.setListCindex(cindexList);
+      updateDatabase(courseObj);
    }
    courseObj.setListCindex(cindexList);
    updateDatabase(courseObj);
