@@ -294,29 +294,26 @@ public class DatabaseManager {
    }
 
    public void printCourseRegistered(String username) {
-      ArrayList<Student> studentList = (ArrayList<Student>) DeserializeStudentList();
+      Student studentObj = (Student) getObjectbyUsername(username);
 
-      int index = getIndexByUsername(username);
-
-      ArrayList<StudentCourse> registercourses = studentList.get(index).getRegisteredCourse();
+      ArrayList<StudentCourse> registercourses = studentObj.getRegisteredCourse();
       
       if (registercourses.size() != 0) {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
-            System.out.printf("%d. %s %s\n", i + 1, registercourses.get(i).getCourseCode(),
-                  registercourses.get(i).getCourseName());
+            System.out.printf("%d. %s %s index %s\n", i + 1, registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseName(), registercourses.get(i).getCourseIndex());
          }
       } else {
          System.out.println("You do not have any course registered!");
       }
 
-      ArrayList<StudentCourse> waitlistCourses = studentList.get(index).getWaitlist();
+      ArrayList<StudentCourse> waitlistCourses = studentObj.getWaitlist();
       
       if (waitlistCourses.size() != 0) {
          System.out.println("waitlist Courses: ");
          for (int i = 0; i < waitlistCourses.size(); i++) {
-            System.out.printf("%d. %s %s\n", i + 1, waitlistCourses.get(i).getCourseCode(),
-            waitlistCourses.get(i).getCourseName());
+            System.out.printf("%d. %s %s index %s\n", i + 1, waitlistCourses.get(i).getCourseCode(),
+            waitlistCourses.get(i).getCourseName(), waitlistCourses.get(i).getCourseIndex());
          }
       } else {
          System.out.println("You do not have any courses in waitlist!");
