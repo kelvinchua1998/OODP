@@ -138,7 +138,13 @@ public class Student extends User implements Serializable{
 	public void removeCourse(String CourseCode) {
 		for (int i = 0; i < registeredCourse.size(); i++) {
 			if (registeredCourse.get(i).getCourseCode().equals(CourseCode)) {
+
+				SendMail sendMail = new SendMail();
+				sendMail.droppedCourse(registeredCourse.get(i), email);
+				
 				registeredCourse.remove(i);
+				
+
 			}
 		}
 	}
@@ -210,6 +216,21 @@ public class Student extends User implements Serializable{
 			}
 		}
 		return null;
+	}
+
+	public void courseAllocatedFromWaitlist(String courseCode) {
+		DatabaseManager databaseManager = new DatabaseManager();
+		for (int i = o; i <waitlist.size();i++){
+			if (waitlist.get(i).getCourseCode().equals(courseCode)){
+				this.addCourse(waitlist.get(i));
+				// email
+				SendMail sendMail = new SendMail();
+				sendMail.allocatedRegfromWaitlist(waitlist.get(i), email);
+				//remove
+				waitlist.remove(i);
+			}
+		}
+		
 	}
 
 
