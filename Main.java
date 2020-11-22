@@ -962,11 +962,13 @@ public class Main {
                                     singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                         }
                     }else{
-                        System.out.println("no Cindex Available!");;
+                        System.out.println("No Cindex Available!");
+                        System.out.println();
                     }
                     
                 } else {
                     System.out.println("course not found! please enter course code again ");
+                    System.out.println();
                     continue;
                 }
 
@@ -994,11 +996,12 @@ public class Main {
                         }
 
                     } else if (studentList.size() == 0) {
-                        System.out.printf("There are no registered students in %s\n", coursecode);
+                        System.out.printf("There are no registered students in %s %s\n", coursecode, singleIndex.getIndexName());
                     }
                     System.out.println();
                 }else{
                     System.out.println("invalid choice!");
+                    System.out.println();
                     continue;
                 }
 
@@ -1067,7 +1070,7 @@ public class Main {
                 } else {
                     System.out.println("no Cindex");
                 }
-
+                System.out.println();
             }
         } else {
             System.out.println("no courses added yet");
