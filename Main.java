@@ -1388,7 +1388,7 @@ public class Main {
                 }
             }
 
-            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(username);
+            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(peerUsername);
             ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
 
             int indexRegisterCourseListpeer = 0;
