@@ -7,13 +7,18 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
     enum DAY_OF_WEEK{
-        MONDAY, TUESDAY, WEDNESDAY,THURSDAY,FRIDAY
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
     enum GENDER{
         MALE,FEMALE
+    }
+    enum ODD_EVEN{
+        ODD,EVEN
     }
 
     public static void main(String[] args) {
@@ -538,9 +543,7 @@ public class Main {
         if(checkCourse != null){
             System.out.println("Course already exists!");
             return;
-        }
-
-        else{
+        }else{
             System.out.println("Course Name: ");
             String CourseName = sc.nextLine();
 
@@ -560,10 +563,12 @@ public class Main {
             ArrayList<Cindex> cindexArrayList = new ArrayList<>();
 
             while (choice != 0) {
+                System.out.println("--------------------------------------");
                 System.out.println("Add new index: ");
                 System.out.println("0.Quit");
                 System.out.println("1.Add new index");
                 choice = sc.nextInt();
+                System.out.println("--------------------------------------");
                 switch (choice) {
                     case 0:
                         break;
@@ -572,9 +577,22 @@ public class Main {
                         String index = sc.next();
 
                         System.out.println("Capacity: ");
-                        int Capacity = sc.nextInt();
-
-                        Cindex CindexObj = new Cindex(index, Capacity);
+                        int capacity = 0;
+                        boolean validCapacity = false;
+                        while(!validCapacity){
+                            try{
+                                capacity = sc.nextInt();
+                            }catch(InputMismatchException e){
+                                System.out.println("Enter Integers Only!");
+                                continue;
+                            }catch(Exception e){
+                                System.out.println("Exception Error");
+                                continue;
+                            }
+                            validCapacity = true;
+                        }
+                        
+                        Cindex CindexObj = new Cindex(index, capacity);
 
                         ArrayList<Lesson> schedule = new ArrayList<Lesson>();
                         int choice2 = -1;
@@ -591,101 +609,302 @@ public class Main {
                                 case 0:
                                     break;
                                 case 1:
-                                    System.out.println("Start Time: ");
-                                    String startTimeLect = sc.next();
                                     Date startTimeParsedLect = null;
-                                    try {
-                                        startTimeParsedLect = timeformat.parse(startTimeLect);
-                                    } catch (ParseException e) {
-
-                                        e.printStackTrace();
+                                    boolean validStartTime = false;
+                                    while(!validStartTime){
+                                        System.out.println("Start Time: ");
+                                        String startTimeLect = sc.next();
+                                        try {
+                                            if(isValidTime(startTimeLect)){
+                                                startTimeParsedLect = timeformat.parse(startTimeLect);
+                                            }else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }
+                                        validStartTime = true;
                                     }
+                                    
+                                    
 
-                                    System.out.println("End Time: ");
-                                    String endTimeLect = sc.next();
+                                    
                                     Date endTimeParsedLect = null;
-                                    try {
-                                        endTimeParsedLect = timeformat.parse(endTimeLect);
-                                    } catch (ParseException e) {
-
-                                        e.printStackTrace();
+                                    boolean validEndTime = false;
+                                    while(!validEndTime){
+                                        System.out.println("End Time: ");
+                                        String endTimeLect = sc.next();
+                                        try {
+                                            if(isValidTime(endTimeLect)){
+                                                endTimeParsedLect = timeformat.parse(endTimeLect);
+                                            }else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }
+                                        validEndTime = true;
                                     }
 
                                     System.out.println("Venue: ");
                                     String venueLect = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekLect = sc.next();
+                                    boolean validDayOfWeek = false;
+                                    String dayOfweekLect="";
+                                    while(!validDayOfWeek){
+                                        System.out.println("Day Of Week: ");
+                                        dayOfweekLect = sc.next();
 
-                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
-                                            dayOfweekLect);
+                                        switch(dayOfweekLect.toLowerCase()){
+                                            case "monday":{
+                                                dayOfweekLect = DAY_OF_WEEK.MONDAY.toString();
+                                                break;
+                                            }
+                                            case "tuesday":{
+                                                dayOfweekLect = DAY_OF_WEEK.TUESDAY.toString();
+                                                break;
+                                            }
+                                            case "wednesday":{
+                                                dayOfweekLect = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                break;
+                                            }
+                                            case "thursday":{
+                                                dayOfweekLect = DAY_OF_WEEK.THURSDAY.toString();
+                                                break;
+                                            }
+                                            case "friday":{
+                                                dayOfweekLect = DAY_OF_WEEK.FRIDAY.toString();
+                                                break;
+                                            }
+                                            case "saturday":{
+                                                dayOfweekLect = DAY_OF_WEEK.SATURDAY.toString();
+                                                break;
+                                            }
+                                            case "sunday":{
+                                                dayOfweekLect = DAY_OF_WEEK.SUNDAY.toString();
+                                                break;
+                                            }
+                                            default:{
+                                                System.out.println("Enter day of the Week ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY') only!");
+                                                continue;
+                                            }
+                                        }
+                                        validDayOfWeek=true;
+                                    }
+
+                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect, dayOfweekLect);
 
                                     schedule.add(lecture);
                                     break;
                                 case 2:
-                                    System.out.println("Start Time: ");
-                                    String startTimeTut = sc.next();
+                                    
                                     Date startTimeParsedTut = null;
-                                    try {
-                                        startTimeParsedTut = timeformat.parse(startTimeTut);
-                                    } catch (ParseException e) {
-                                        
-                                        e.printStackTrace();
+                                    Boolean ValidStartTime2 = false;
+                                    while(!ValidStartTime2){
+                                        System.out.println("Start Time: ");
+                                        String startTimeTut = sc.next();
+                                        try {
+                                            if(isValidTime(startTimeTut)){
+                                                startTimeParsedTut = timeformat.parse(startTimeTut);
+                                            }else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }
+                                        ValidStartTime2=true;
                                     }
 
-                                    System.out.println("End Time: ");
-                                    String endTimeTut = sc.next();
                                     Date endTimeParsedTut = null;
-                                    try {
-                                        endTimeParsedTut = timeformat.parse(endTimeTut);
-                                    } catch (ParseException e) {
-                                        
-                                        e.printStackTrace();
+                                    Boolean validEndTime2 = false;
+                                    while(!validEndTime2){
+                                        System.out.println("End Time: ");
+                                        String endTimeTut = sc.next();
+                                        try {
+                                            if(isValidTime(endTimeTut))
+                                            endTimeParsedTut = timeformat.parse(endTimeTut);
+                                            else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }
+                                        validEndTime2 = true;
                                     }
+                                        
 
                                     System.out.println("Venue: ");
                                     String venueTut = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekTut = sc.next();
+                                    boolean validDayOfWeek2 = false;
+                                    String dayOfweekTut="";
+                                    while(!validDayOfWeek2){
+                                        System.out.println("Day Of Week: ");
+                                        dayOfweekTut = sc.next();
 
-                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
-                                            dayOfweekTut);
+                                        switch(dayOfweekTut.toLowerCase()){
+                                            case "monday":{
+                                                dayOfweekTut = DAY_OF_WEEK.MONDAY.toString();
+                                                break;
+                                            }
+                                            case "tuesday":{
+                                                dayOfweekTut = DAY_OF_WEEK.TUESDAY.toString();
+                                                break;
+                                            }
+                                            case "wednesday":{
+                                                dayOfweekTut = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                break;
+                                            }
+                                            case "thursday":{
+                                                dayOfweekTut = DAY_OF_WEEK.THURSDAY.toString();
+                                                break;
+                                            }
+                                            case "friday":{
+                                                dayOfweekTut = DAY_OF_WEEK.FRIDAY.toString();
+                                                break;
+                                            }
+                                            case "saturday":{
+                                                dayOfweekTut = DAY_OF_WEEK.SATURDAY.toString();
+                                                break;
+                                            }
+                                            case "sunday":{
+                                                dayOfweekTut = DAY_OF_WEEK.SUNDAY.toString();
+                                                break;
+                                            }
+                                            default:{
+                                                System.out.println("Enter day of the Week ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY') only!");
+                                                continue;
+                                            }
+                                        }
+                                        validDayOfWeek2=true;
+                                    }
+                                    
+
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, dayOfweekTut);
 
                                     schedule.add(tutorial);
                                     break;
                                 case 3:
-                                    System.out.println("Start Time: ");
-                                    String startTimeLab = sc.next();
+                                    
                                     Date startTimeParsedLab = null;
-                                    try {
-                                        startTimeParsedLab = timeformat.parse(startTimeLab);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
+                                    boolean validStartTime3= false;
+                                    while(!validStartTime3){
+                                        System.out.println("Start Time: ");
+                                        String startTimeLab = sc.next();
+                                        try {
+                                            if(isValidTime(startTimeLab)){
+                                                startTimeParsedLab = timeformat.parse(startTimeLab);
+                                            }else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }
+                                        validStartTime3 = true;
                                     }
+                                    
 
-                                    System.out.println("End Time: ");
-                                    String endTimeLab = sc.next();
+                                    
                                     Date endTimeParsedLab = null;
-                                    try {
-                                        endTimeParsedLab = timeformat.parse(endTimeLab);
-                                    } catch (ParseException e) {
-                                        // TODO Auto-generated catch block
-                                        e.printStackTrace();
+                                    boolean validEndTime3 = false;
+                                    while(!validEndTime3){
+                                        System.out.println("End Time: ");
+                                        String endTimeLab = sc.next();
+                                        try {
+                                            if(isValidTime(endTimeLab)){
+                                                endTimeParsedLab = timeformat.parse(endTimeLab);
+                                            }else{
+                                                System.out.println("Enter time in 24hr Format!");
+                                                continue;
+                                            }
+                                        } catch (ParseException e) {
+                                            System.out.println("Enter Integer Only!");
+                                            continue;
+                                        }   
+                                        validEndTime3 = true;
                                     }
+                                    
 
                                     System.out.println("Venue: ");
                                     String venueLab = sc.next();
 
-                                    System.out.println("Day Of Week: ");
-                                    String dayOfweekLab = sc.next();
+                                    boolean validDayOfWeek3 = false;
+                                    String dayOfweekLab = "";
+                                    while(!validDayOfWeek3){
+                                        System.out.println("Day Of Week: ");
+                                        dayOfweekLab = sc.next();
+                                        switch(dayOfweekLab.toLowerCase()){
+                                            case "monday":{
+                                                dayOfweekLab = DAY_OF_WEEK.MONDAY.toString();
+                                                break;
+                                            }
+                                            case "tuesday":{
+                                                dayOfweekLab = DAY_OF_WEEK.TUESDAY.toString();
+                                                break;
+                                            }
+                                            case "wednesday":{
+                                                dayOfweekLab = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                break;
+                                            }
+                                            case "thursday":{
+                                                dayOfweekLab = DAY_OF_WEEK.THURSDAY.toString();
+                                                break;
+                                            }
+                                            case "friday":{
+                                                dayOfweekLab = DAY_OF_WEEK.FRIDAY.toString();
+                                                break;
+                                            }
+                                            case "saturday":{
+                                                dayOfweekLab = DAY_OF_WEEK.SATURDAY.toString();
+                                                break;
+                                            }
+                                            case "sunday":{
+                                                dayOfweekLab = DAY_OF_WEEK.SUNDAY.toString();
+                                                break;
+                                            }
+                                            default:{
+                                                System.out.println("Enter day of the Week ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY', 'SUNDAY') only!");
+                                                continue;
+                                            }
+                                        }
+                                        validDayOfWeek3=true;
+                                    }
 
-                                    System.out.println("Odd or Even: ");
-                                    String oddOrEvenLab = sc.next();
+                                    boolean validOddOrEven = false;
+                                    String oddOrEvenLab = "";
+                                    while(!validOddOrEven){
+                                        System.out.println("Odd or Even: ");
+                                        oddOrEvenLab = sc.next();
 
-                                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab,
-                                            oddOrEvenLab);
+                                        switch(oddOrEvenLab.toLowerCase()){
+                                            case "odd":{
+                                                oddOrEvenLab = ODD_EVEN.ODD.toString();
+                                                break;
+                                            }
+                                            case "even":{
+                                                oddOrEvenLab = ODD_EVEN.EVEN.toString();
+                                                break;
+                                            }
+                                            default:{
+                                                System.out.println("Enter 'ODD' or 'EVEN' only!");
+                                                continue;
+                                            }
+                                        }
+                                        validOddOrEven = true;
+                                    }
+                                    
+
+                                    Labs lab = new Labs(startTimeParsedLab, endTimeParsedLab, venueLab, dayOfweekLab, oddOrEvenLab);
 
                                     schedule.add(lab);
                                     break;
@@ -706,7 +925,6 @@ public class Main {
             System.out.println("Course added");
         }    
         System.out.println();
-
         databaseManager.printAllCourses();
         
     }
@@ -1310,16 +1528,28 @@ public class Main {
         System.out.println("Please enter Last Name: ");
         String lastname = sc.next();
 
-        System.out.println("Please enter Gender (m/f): ");
-        String gender = sc.next();
-        switch(gender.toLowerCase()){
-            case "m":{
-                gender = GENDER.MALE.toString();
+        boolean validgender = false;
+        String gender = "";
+        while(!validgender){
+            System.out.println("Please enter Gender (m/f): ");
+            gender = sc.next();
+            switch(gender.toLowerCase()){
+                case "m":{
+                    gender = GENDER.MALE.toString();
+                    break;
+                }
+                case "f":{
+                    gender = GENDER.MALE.toString();
+                    break;
+                } 
+                default:{
+                    System.out.println("Please enter 'm' or 'f'");
+                    continue;
+                }
             }
-            case "f":{
-                gender = GENDER.MALE.toString();
-            } 
+            validgender=true;
         }
+        
 
         System.out.println("Please enter Nationality (Country name): ");
         String nationality = sc.next();
@@ -1555,5 +1785,29 @@ public class Main {
         }
 
     }
+
+    public static boolean isValidTime(String time) 
+    { 
+        // Regex to check valid time in 24-hour format. 
+        String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]"; 
+  
+        // Compile the ReGex 
+        Pattern p = Pattern.compile(regex); 
+  
+        // If the time is empty 
+        // return false 
+        if (time == null) { 
+            return false; 
+        } 
+  
+        // Pattern class contains matcher() method 
+        // to find matching between given time 
+        // and regular expression. 
+        Matcher m = p.matcher(time); 
+  
+        // Return if the time 
+        // matched the ReGex 
+        return m.matches(); 
+    } 
 
 }
