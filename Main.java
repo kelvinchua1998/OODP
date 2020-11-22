@@ -569,6 +569,8 @@ public class Main {
             System.out.println("Course added");
         }    
         System.out.println();
+
+        databaseManager.printAllCourses();
         
     }
 
@@ -1098,6 +1100,8 @@ public class Main {
                 accessStartDateTime, accessEndDateTime, email);
 
         databaseManager.addStudentintoStudentDB(studentObj);
+
+        databaseManager.printAllStudents();
     }
 
     private static void vacancyAvailable() {

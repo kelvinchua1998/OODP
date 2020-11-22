@@ -525,4 +525,49 @@ public void updatecindex(String courseCode,Cindex cindexObj){
    courseObj.setListCindex(cindexList);
    updateDatabase(courseObj);
 }
+
+public void printAllStudents() {
+   ArrayList<Student> studList = DeserializeStudentList();
+
+   System.out.println("no.     matricNum   /  First name /   Last Name   /   Gender    /    Nationality   /     Email    / num of AUs Registered / AccessStartDateTime / AccessEndDateTime");
+
+   if(studList.size() != 0){
+      for(int i =0; i < studList.size();i++){
+         Student singleStud = studList.get(i);
+         System.out.printf("%d.     %s   /  %s  /   %s   /   %s    /    %s   /     %s    /   %d   /   %s   /   %s  ",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+      }
+   }else{
+      System.out.println("no student in database!");
+   }
+}
+
+public void printAllCourses() {
+   ArrayList<Course> courseList = DeserializeCourseList();
+
+   
+
+   if(courseList.size() != 0){
+      for(int i =0; i < courseList.size();i++){
+         System.out.println("no.     Course Code   /  Course Name /   School   /  num of AUs   /   course description");
+
+         Course singleCourse = courseList.get(i);
+         System.out.printf("%d.   %s   /  %s /   %s   /  %d   /   %s ",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
+        
+         //there shouldnt be any courses with no index
+
+         for(int j =0; j < courseList.size();j++){
+            Cindex singleCindex = singleCourse.getListCindex().get(j);
+
+            System.out.println("no.   index Code   /  capacity  /   vacancies   /  waitlist  ");
+
+            System.out.printf("%d.   %s   /  %d  /   %d   /  %d   ",i+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
+
+         }
+
+         System.out.println("------------------------------------------------------------------------------------------");
+      }
+   }else{
+      System.out.println("no course in database!");
+   }
+}
 }
