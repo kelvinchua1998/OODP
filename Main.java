@@ -573,20 +573,39 @@ public class Main {
                     case 0:
                         break;
                     case 1:
-                        System.out.println("Index: ");
-                        String index = sc.next();
 
-                        System.out.println("Capacity: ");
+                        boolean uniqueIndex = false;
+                        String index = "";
+                        while(!uniqueIndex){
+                            System.out.println("Index: ");
+                            index = sc.next();
+
+                            if(cindexArrayList.size() != 0){
+                                for(int i=0;i<cindexArrayList.size();i++){
+                                    if(cindexArrayList.get(i).getIndexName().equals(index)){
+                                        System.out.println("index not unique! ");
+                                        continue;
+                                    };
+                                }
+                            }else{
+                                uniqueIndex = true;
+                            }
+                        }
+                        
+                        
                         int capacity = 0;
                         boolean validCapacity = false;
                         while(!validCapacity){
+                            System.out.println("Capacity: ");
                             try{
                                 capacity = sc.nextInt();
                             }catch(InputMismatchException e){
                                 System.out.println("Enter Integers Only!");
+                                sc.nextLine();
                                 continue;
                             }catch(Exception e){
                                 System.out.println("Exception Error");
+                                sc.nextLine();
                                 continue;
                             }
                             validCapacity = true;
@@ -1570,6 +1589,7 @@ public class Main {
         System.out.println("Gender: " + gender);
         System.out.println("Nationality: " + nationality);
         System.out.println("Email: " + email);
+        System.out.println("----------------------------------");
         System.out.println("Add new Student? [y/n]: ");
         String confirmation = sc.next();
 
@@ -1792,7 +1812,7 @@ public class Main {
     public static boolean isValidTime(String time) 
     { 
         // Regex to check valid time in 24-hour format. 
-        String regex = "([01]?[0-9]|2[0-3]):[0-5][0-9]"; 
+        String regex = "([01]?[0-9]|2[0-3])[0-5][0-9]"; 
   
         // Compile the ReGex 
         Pattern p = Pattern.compile(regex); 
