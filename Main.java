@@ -67,7 +67,28 @@ public class Main {
                         System.out.println("9. Print available courses");
                         System.out.println("==================================================");
 
-                        int choice = sc.nextInt();
+
+
+                        boolean validchoice = false;
+                        int choice = -1;
+                        while(!validchoice){
+                            System.out.println("Enter choice: ");
+                            try{
+                                choice = sc.nextInt();
+                            }catch (InputMismatchException e){
+                                System.out.println("Enter Integer only!");
+                                sc.nextLine();
+                                continue;
+                            }catch(Exception e){
+                                System.out.println("invalid input! please try again!");
+                                sc.nextLine();
+                                continue;
+                            }
+                            validchoice = true;
+                        }
+
+
+
                         switch (choice) {
                             case 1: {
                                 EditStudentAccessPeriod();
@@ -134,7 +155,25 @@ public class Main {
                             System.out.println("7. Logout");
                             System.out.println("==================================================");
 
-                            int choice = sc.nextInt();
+
+                            boolean validchoice = false;
+                            int choice = -1;
+                            while(!validchoice){
+                                System.out.println("Enter choice: ");
+                                try{
+                                    choice = sc.nextInt();
+                                }catch (InputMismatchException e){
+                                    System.out.println("Enter Integer only!");
+                                    sc.nextLine();
+                                    continue;
+                                }catch(Exception e){
+                                    System.out.println("invalid input! please try again!");
+                                    sc.nextLine();
+                                    continue;
+                                }
+                                validchoice = true;
+                            }
+
                             switch (choice) {
                                 case 1: {
                                     // working for student
@@ -1464,26 +1503,43 @@ public class Main {
                 continue;
             }
 
-            System.out.println("Please enter choice: ");
-            System.out.println("Enter \'#\'to go back to main menu");
-            String choiceIndex = sc.next();
 
-            if (choiceIndex.equals("#"))
-                return;
-            // else if(choiceIndex < singleCourse.getListCindex().size()
+            String choiceIndex;
 
-            // }
-            else if (Integer.parseInt(choiceIndex) - 1 >= 0
-                    && Integer.parseInt(choiceIndex) - 1 < singleCourse.getListCindex().size()) {
-                singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
-            } else {
-                System.out.println("invalid choice!");
-                continue;
+            boolean validchoice = false;
+
+            while(!validchoice){
+                System.out.println("Enter choice: ");
+                System.out.println("Enter \'#\'to go back to main menu");
+                choiceIndex = sc.next();
+                try{
+                    if (choiceIndex.equals("#"))
+                        return;
+
+                    else if(Integer.parseInt(choiceIndex) - 1>= 0 && Integer.parseInt(choiceIndex) - 1< singleCourse.getListCindex().size()){
+                        singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
+                    }else{
+                        System.out.println("invalid input! please try again!");
+                        continue;
+                    }
+                }catch (InputMismatchException e){
+                    System.out.println("Enter Integer only!");
+                    sc.nextLine();
+                    continue;
+                }catch(Exception e){
+                    System.out.println("invalid input! please try again!");
+                    sc.nextLine();
+                    continue;
+                }
+                validchoice = true;
             }
+
 
             // check timetable clash
 
-            if (databaseManager.checkClashforStudent(username, coursecode, singleIndex.getIndexName())) {
+            Cindex courseIndex = databaseManager.searchCindex(coursecode,  singleIndex.getIndexName());
+
+            if (stud.checkClash(courseIndex)) {
                 // CLASH
                 System.out.println("Unable to add because of timetable clash!");
                 // go back to index selection screen
@@ -1495,6 +1551,23 @@ public class Main {
                 // no clash found
                 // if got vacancy add stud
                 // if no vacancy add into waitlist
+
+                //ask for confirmation
+                boolean validConfirmation = false;
+                while(!validConfirmation){
+                    System.out.println("Are you sure? [y/n]");
+                    String confirmation1 = sc.next();
+                    confirmation1.toUpperCase();
+                    if(confirmation1.toUpperCase().equals("N")){
+                        return;
+                    }else if (confirmation1.toUpperCase().equals("Y")){
+                        validConfirmation = true;
+                    }else{
+                        System.out.println("invalid input! Please Enter again!");
+                    }
+                }
+
+
                 if (singleIndex.getCurrentVacancy() > 0) {
                     // add course into student reg courses
                     // add studnet into courses reg stud list
