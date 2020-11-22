@@ -533,9 +533,6 @@ public class DatabaseManager {
       courseObj.setListCindex(cindexList);
       updateDatabase(courseObj);
    }
-   courseObj.setListCindex(cindexList);
-   updateDatabase(courseObj);
-}
 
 public void printAllStudents() {
    ArrayList<Student> studList = DeserializeStudentList();
