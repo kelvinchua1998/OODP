@@ -9,6 +9,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
+    enum DAY_OF_WEEK{
+        MONDAY, TUESDAY, WEDNESDAY,THURSDAY,FRIDAY
+    }
+    enum GENDER{
+        MALE,FEMALE
+    }
 
     public static void main(String[] args) {
         boolean mainRunning = true;
@@ -52,6 +58,7 @@ public class Main {
                         System.out.println("[ print only student’s name, gender and nationality ]");
                         System.out.println("8. Logout");
                         System.out.println("9. Print available courses");
+                        System.out.println("==================================================");
 
                         int choice = sc.nextInt();
                         switch (choice) {
@@ -118,6 +125,7 @@ public class Main {
                             System.out.println(
                                     "6. Swop Index Number with Another Student[refer to STARSPlanner STARSUserGuidev1_extracted.pdf for details of functions - ignore the Graphical display]");
                             System.out.println("7. Logout");
+                            System.out.println("==================================================");
 
                             int choice = sc.nextInt();
                             switch (choice) {
@@ -912,7 +920,6 @@ public class Main {
                 // shud show timetable clash for each index
                 // show index lesson timings
                 if(singleCourse.getListCindex().size() != 0){
-                    System.out.println("-------------------------------------");
                     System.out.println("index   /   vacacy   /    waitlist");
                     for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
                         Cindex singleindex = singleCourse.getListCindex().get(i);
@@ -1059,7 +1066,8 @@ public class Main {
             int today = cal.get(Calendar.DAY_OF_MONTH);
 
             // StartDateTime
-            System.out.println("Access Start Date and Time: ");
+            System.out.println("-----------------------------------------");
+            System.out.println("Access Start Date and Time (MUST BE LATER THAN CURRENT DATE): ");
             System.out.println("Please enter year (YYYY): ");
 
             try{
@@ -1142,7 +1150,8 @@ public class Main {
             Calendar accessStartTime = new GregorianCalendar(year, month - 1, day, hour, minute);
 
             // EndDateTime
-            System.out.println("Access End Date and Time: ");
+            System.out.println("-----------------------------------------");
+            System.out.println("Access End Date and Time (MUST BE LATER THAN CURRENT DATE): ");
             System.out.println("Please enter year (YYYY): ");
 
             try{
@@ -1272,7 +1281,6 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter MatricNum: ");
 
         String matricNum = sc.next();
@@ -1300,22 +1308,45 @@ public class Main {
         System.out.println("Please enter Last Name: ");
         String lastname = sc.next();
 
-        System.out.println("Please enter Gender: ");
+        System.out.println("Please enter Gender (m/f): ");
         String gender = sc.next();
+        switch(gender.toLowerCase()){
+            case "m":{
+                gender = GENDER.MALE.toString();
+            }
+            case "f":{
+                gender = GENDER.MALE.toString();
+            } 
+        }
 
-        System.out.println("Please enter Nationality: ");
+        System.out.println("Please enter Nationality (Country name): ");
         String nationality = sc.next();
 
         System.out.println("Please enter email: ");
         String email = sc.next();
 
-        long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
-        long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
+        System.out.println("----------------------------------");
+        System.out.println("New Student Details Summary");
+        System.out.println("Matric Number: " + matricNum);
+        System.out.println("Username: " + username);
+        System.out.println("Password: " + password);
+        System.out.println("First Name: " + firstname);
+        System.out.println("Last Name: " + lastname);
+        System.out.println("Gender: " + gender);
+        System.out.println("Nationality: " + nationality);
+        System.out.println("Email: " + email);
+        System.out.println("Add new Student? [y/n]: ");
+        String confirmation = sc.next();
 
-        Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                accessStartDateTime, accessEndDateTime, email);
+        if(confirmation.equals("y")){
+            long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
+            long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 
-        databaseManager.addStudentintoStudentDB(studentObj);
+            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password, accessStartDateTime, accessEndDateTime, email);
+
+            databaseManager.addStudentintoStudentDB(studentObj);
+        }
+        
     }
 
     private static void vacancyAvailable() {
