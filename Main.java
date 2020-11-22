@@ -960,6 +960,15 @@ public class Main {
                 // no clash found
                 // if got vacancy add stud
                 // if no vacancy add into waitlist
+
+                //ask for confirmation
+                System.out.println("Are you sure? [y/n]");
+                String confirmation1 = sc.next();
+
+                if(confirmation1.equals("n")){
+                    return;
+                }
+
                 if (singleIndex.getCurrentVacancy() > 0) {
                     // add course into student reg courses
                     // add studnet into courses reg stud list

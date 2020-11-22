@@ -542,7 +542,8 @@ public void printAllStudents() {
    if(studList.size() != 0){
       for(int i =0; i < studList.size();i++){
          Student singleStud = studList.get(i);
-         System.out.printf("%d.     %s   /  %s  /   %s   /   %s    /    %s   /     %s    /   %d   /   %s   /   %s  ",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+         System.out.printf("%d.     %s   /  %s  /   %s   /   %s    /    %s   /     %s    /   %d   /   %s   /   %s  \n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+
       }
    }else{
       System.out.println("no student in database!");
@@ -559,16 +560,16 @@ public void printAllCourses() {
          System.out.println("no.     Course Code   /  Course Name /   School   /  num of AUs   /   course description");
 
          Course singleCourse = courseList.get(i);
-         System.out.printf("%d.   %s   /  %s /   %s   /  %d   /   %s ",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
+         System.out.printf("%d.   %s   /  %s /   %s   /  %d   /   %s \n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
         
          //there shouldnt be any courses with no index
 
-         for(int j =0; j < courseList.size();j++){
+         for(int j =0; j < singleCourse.getListCindex().size();j++){
             Cindex singleCindex = singleCourse.getListCindex().get(j);
 
-            System.out.println("no.   index Code   /  capacity  /   vacancies   /  waitlist  ");
+            System.out.println("\tno.   index Code   /  capacity  /   vacancies   /  waitlist  ");
 
-            System.out.printf("%d.   %s   /  %d  /   %d   /  %d   ",i+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
+            System.out.printf("\t%d.   %s   /  %d  /   %d   /  %d   \n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
 
          }
 
