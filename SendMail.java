@@ -43,6 +43,17 @@ public class SendMail {
 		}
 	}
 
+	public void droppedCourse(StudentCourse courseObj, String StudentEmail){
+		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+"been successfully dropped\n Thank You\n NTU STARS";
+
+            sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",StudentEmail, "Course dropped", EmailContent);
+	}
+
+	public void allocatedRegfromWaitlist(StudentCourse courseObj, String StudentEmail){
+		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+"been successfully added from wailist\n Thank You\n NTU STARS";
+
+            sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",StudentEmail, "Course Allocated from Waitlist", EmailContent);
+	}
 	public static void main(String[] args) {
 
 		final String username = "melvinchuaqwerty@gmail.com"; // to be added

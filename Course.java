@@ -81,52 +81,17 @@ public class Course implements Serializable {
         School = school;
     }
 
-    public boolean removeStudentFromReg(String username) {
+    public boolean checkIfStudentFromReg(String username) {
         // search student throughout the Cindex and remove
         for (int i = 0; i < this.listCindex.size(); i++) {
             for (int j = 0; j < this.listCindex.get(i).getRegisteredStudents().size(); j++) {
-                if (this.listCindex.get(i).getRegisteredStudents().get(j).getUsername().equals(username)) {
-                    // removing student from reg
-                    this.listCindex.get(i).getRegisteredStudents().remove(j);
-
+                if (this.listCindex.get(i).getRegisteredStudents().get(j).equals(username)) {
                     return true;
                 }
             }
 
         }
         return false;
-    }
-
-    // push waitlist for every indexif any
-    public void pushWaitlist() {
-        DatabaseManager databaseManager = new DatabaseManager();
-        // check if num of reg stud is less than cpacity
-        for (int i = 0; i < listCindex.size(); i++) {
-            Cindex singleIndex = listCindex.get(i);
-            if (singleIndex.getRegisteredStudents().size() < singleIndex.getCapacity()
-                    && singleIndex.getWaitList().size() != 0) {
-                Student studFromWaitlist = singleIndex.getWaitList().get(0);
-                singleIndex.addRegisteredStudent(studFromWaitlist);
-                singleIndex.getWaitList().remove(0);
-
-                // create a new studentCourse
-
-                Student stud = singleIndex.getRegisteredStudents().get(singleIndex.getCapacity() - 1);
-                stud.addCourse(newlyregisteredCourse);
-                stud.removeWaitlistCourse();
-
-                databaseManager.updateDatabase(stud);
-
-                SendMail sendMail = new SendMail();
-
-                String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course " + CourseCode + " "
-                        + CourseName + "for index " + singleIndex.getIndexName()
-                        + " have been successfully added\n Thank You\n NTU STARS";
-                sendMail.sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
-                        singleIndex.getRegisteredStudents().get(singleIndex.getCapacity() - 1).getEmail(),
-                        "Course Added", EmailContent);
-            }
-        }
     }
 
     public static void main(String[] args) {
@@ -187,6 +152,34 @@ public class Course implements Serializable {
             
         }
 		return null;
+	}
+
+	public void removeStudentFromIndex(String username) {
+        DatabaseManager databaseManager= new DatabaseManager();
+
+        for (int i = 0; i < listCindex.size(); i++) {
+            for (int j = 0; j < listCindex.get(i).getRegisteredStudents().size(); j++) {
+                if (listCindex.get(i).getRegisteredStudents().get(j).equals(username)) {
+                    //remove student
+                    listCindex.get(i).getRegisteredStudents().remove(j);
+                    
+                    if (listCindex.get(i).getWaitList().size() != 0){
+                        //move student from waitlist 
+                        listCindex.get(i).addRegisteredStudent(listCindex.get(i).getWaitList().get(0));
+                        Student studAllocated = (Student) databaseManager
+                                .getObjectbyUsername(listCindex.get(i).getWaitList().get(0));
+
+                        studAllocated.courseAllocatedFromWaitlist(CourseCode);
+                        listCindex.get(i).getWaitList().remove(0);
+                        // update database for student allocated
+                        databaseManager.updateDatabase(studAllocated);
+                    }
+                    
+                   
+                }
+            }
+
+        }
 	}
 
 
