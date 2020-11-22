@@ -706,6 +706,8 @@ public class Main {
             System.out.println("Course added");
         }    
         System.out.println();
+
+        databaseManager.printAllCourses();
         
     }
 

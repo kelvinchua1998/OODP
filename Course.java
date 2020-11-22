@@ -136,7 +136,7 @@ public class Course implements Serializable {
         for (int i = 0; i<listCindex.size();i++){
             Cindex singleCindex = listCindex.get(i);
             for (int j =0; j < singleCindex.getWaitList().size();j++){
-                if (singleCindex.getWaitList().get(j).getUsername().equals(username)){
+                if (singleCindex.getWaitList().get(j).equals(username)){
                     singleCindex.getWaitList().remove(j);
                 }
             }   

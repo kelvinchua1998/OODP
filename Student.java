@@ -220,7 +220,7 @@ public class Student extends User implements Serializable{
 
 	public void courseAllocatedFromWaitlist(String courseCode) {
 		DatabaseManager databaseManager = new DatabaseManager();
-		for (int i = o; i <waitlist.size();i++){
+		for (int i = 0; i <waitlist.size();i++){
 			if (waitlist.get(i).getCourseCode().equals(courseCode)){
 				this.addCourse(waitlist.get(i));
 				// email
