@@ -52,8 +52,26 @@ public class Main {
                         System.out.println("[ print only student’s name, gender and nationality ]");
                         System.out.println("8. Logout");
                         System.out.println("9. Print available courses");
+                        boolean validchoice = false;
+                        int choice = -1;
+                        while(!validchoice){
 
-                        int choice = sc.nextInt();
+                            try{
+                                choice = sc.nextInt();
+                            }catch (InputMismatchException e){
+                                System.out.println("Enter Integer only!");
+                                sc.nextLine();
+                                continue;
+                            }catch(Exception e){
+                                System.out.println("invalid input! please try again!");
+                                sc.nextLine();
+                                continue;
+                            }
+
+                            validchoice = true;
+                        }
+
+
                         switch (choice) {
                             case 1: {
                                 EditStudentAccessPeriod();
