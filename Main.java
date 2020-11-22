@@ -1271,9 +1271,9 @@ public class Main {
                     System.out.println("Are you sure? [y/n]");
                     String confirmation1 = sc.next();
                     confirmation1.toUpperCase();
-                    if(confirmation1.equals("N")){
+                    if(confirmation1.toUpperCase().equals("N")){
                         return;
-                    }else if (confirmation1.equals("Y")){
+                    }else if (confirmation1.toUpperCase().equals("Y")){
                         validConfirmation = true;
                     }else{
                         System.out.println("invalid input! Please Enter again!");

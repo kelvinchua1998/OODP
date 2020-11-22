@@ -166,10 +166,21 @@ public class Student extends User implements Serializable{
 				Cindex studentRegIndex = studentRegCourse.searchCindex(getRegisteredCourse().get(u).getCourseIndex());
 				for (int w = 0; w< studentRegIndex.getSchedule().size(); w++ ){
 					Lesson singleLessonStudent = studentRegIndex.getSchedule().get(w);
-					if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime()) || singleLesson.getEndTime().after(singleLessonStudent.getStartTime())){
-						// clash when the start time of the index lesson is before the student index lesson end time
-						// vice versa
-						return true;
+					if(singleLesson.getStartTime().before(singleLessonStudent.getStartTime())){
+
+						if(singleLesson.getEndTime().before(singleLessonStudent.getStartTime())){
+							//no clash
+							return false;
+						}else{
+							return true;
+						}
+					}else{
+						if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
+							//no clash
+							return true;
+						}else{
+							return false;
+						}
 					}
 				}
 				
