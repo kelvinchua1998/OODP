@@ -10,6 +10,7 @@ public class Login {
         for(int i=0; i < UserList.size(); i++){
             if(UserList.get(i).username.equals(Username)){
                 if(UserList.get(i).password.equals(Password)){
+                    System.out.println("User Verified!");
                     return UserList.get(i).userType;
                 }else{
                     System.out.println("Password is wrong");

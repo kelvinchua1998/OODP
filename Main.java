@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -32,12 +33,6 @@ public class Main {
                 password = sc.next();
 
                 userType = login.verifyUser(username, password);
-
-                if (userType == null) {
-                    System.out.println("Wrong Username and Password!");
-                } else {
-                    System.out.println("User Verified!");
-                }
             }
 
             switch (userType) {
@@ -1052,11 +1047,11 @@ public class Main {
         if (StudentObj == null) {
             System.out.println("Student does not exist with that Matric Number!");
         } else {
-            int year;
-            int month;
-            int day;
-            int hour;
-            int minute;
+            int year=-1;
+            int month=-1;
+            int day=-1;
+            int hour=-1;
+            int minute=-1;
 
             Calendar cal = Calendar.getInstance();
             int thisYear = cal.get(Calendar.YEAR);
@@ -1064,37 +1059,81 @@ public class Main {
             int today = cal.get(Calendar.DAY_OF_MONTH);
 
             // StartDateTime
-            System.out.println("AccessDateTime: ");
+            System.out.println("Access Start Date and Time: ");
             System.out.println("Please enter year (YYYY): ");
-            year = sc.nextInt();
+
+            try{
+                year = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
-            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
-            month = sc.nextInt();
+            System.out.println("Please enter month (MM)JAN-1,FEB-2...DEC-12: ");
+            
+            try{
+                month = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+
             if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
-            day = sc.nextInt();
+
+            try{
+                day = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
-            hour = sc.nextInt();
+
+            try{
+                hour = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
-            minute = sc.nextInt();
+            try{
+                minute = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
@@ -1103,37 +1142,82 @@ public class Main {
             Calendar accessStartTime = new GregorianCalendar(year, month - 1, day, hour, minute);
 
             // EndDateTime
-            System.out.println("AccessEndDateTime: ");
+            System.out.println("Access End Date and Time: ");
             System.out.println("Please enter year (YYYY): ");
-            year = sc.nextInt();
+
+            try{
+                year = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (year < thisYear || year > thisYear + 1) {
                 System.out.println("Please enter an appropriate year!");
                 return;
             }
 
-            System.out.println("Please enter month (MM)JAN-1,FEB-2.....DEC-12: ");
-            month = sc.nextInt();
+            System.out.println("Please enter month (MM)JAN-1,FEB-2...DEC-12: ");
+
+            try{
+                month = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month < thisMonth + 1) || month < 1 || month > 12) {
                 System.out.println("Invalid month!");
                 return;
             }
 
             System.out.println("Please enter day (DD): ");
-            day = sc.nextInt();
+
+            try{
+                day = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if ((year == thisYear && month == thisMonth + 1 && day < today) || day < 1 || day > 31) {
                 System.out.println("Invalid day!");
                 return;
             }
 
             System.out.println("Please enter hour (hh): ");
-            hour = sc.nextInt();
+
+            try{
+                hour = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (hour < 0 || hour > 24) {
                 System.out.println("Invalid hour!");
                 return;
             }
 
             System.out.println("Please enter minute (mm): ");
-            minute = sc.nextInt();
+
+            try{
+                minute = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Enter Integers Only!");
+                return;
+            }catch(Exception e){
+                System.out.println("Exception Error");
+            }
+            
             if (minute < 0 || minute > 59) {
                 System.out.println("Invalid minutes!");
                 return;
