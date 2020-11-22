@@ -206,8 +206,8 @@ public class DatabaseManager {
       ArrayList<String> temp = new ArrayList<String>();
 
       if (singleCourse == null) {
-         System.out.println("Course not found!");
-         return temp;
+         System.out.println("Course does not exists in Database!");
+         return null;
       }
 
       for (int i = 0; i < singleCourse.getListCindex().size(); i++) {

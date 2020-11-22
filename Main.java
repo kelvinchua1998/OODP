@@ -1276,7 +1276,6 @@ public class Main {
     private static void printStudentListByCIndex() {
         String coursecode;
         Course singleCourse;
-        String cindex;
         ArrayList<String> studentList;
         DatabaseManager databaseManager = new DatabaseManager();
         boolean running = true;
@@ -1361,29 +1360,26 @@ public class Main {
         DatabaseManager databaseManager = new DatabaseManager();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter coursecode: ");
         coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
 
         studentList = databaseManager.getStudentListbyCourse(coursecode);
+        if(studentList != null){
+            if (studentList.size() != 0) {
+                System.out.println("--------------------------------------");
+                System.out.printf("student in %s \n", coursecode);
 
-        if (studentList.size() != 0) {
-            System.out.printf("student in %s \n", coursecode);
+                for (int i = 0; i < studentList.size(); i++) {
+                    Student stud = (Student) databaseManager.getObjectbyUsername(studentList.get(i));
 
-            for (int i = 0; i < studentList.size(); i++) {
-                Student stud = (Student) databaseManager.getObjectbyUsername(studentList.get(i));
-
-                System.out.printf("%d. %s %s, %s, %s \n", i + 1, stud.getFirstName(), stud.getLastName(),
-                        stud.getGender(), stud.getNationality());
-            }
-        } else if (studentList.size() == 0) {
-            System.out.printf("There are no registered students in %s \n", coursecode);
-        } // else if(studentList == null){
-          // System.out.println("course not found! please try again!");
-          // }
-        System.out.println();
+                    System.out.printf("%d. %s %s, %s, %s \n", i + 1, stud.getFirstName(), stud.getLastName(),
+                            stud.getGender(), stud.getNationality());
+                }
+                System.out.println("--------------------------------------");
+            } else if (studentList.size() == 0) {
+                System.out.printf("There are no registered students in %s \n", coursecode);
+            } 
+        }
     }
 
     private static void getAvailCourse() {
@@ -1427,11 +1423,9 @@ public class Main {
 
         DatabaseManager databaseManager = new DatabaseManager();
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter \' # \'to return to main menu ");
+
         System.out.println("Please enter coursecode: ");
         coursecode = sc.next();
-        if (coursecode.equals("#"))
-            return;
 
         System.out.println("Please enter index: ");
         cindex = sc.next();
@@ -1439,7 +1433,9 @@ public class Main {
         int vacancy = databaseManager.getVacancyCindex(coursecode, cindex);
 
         if (vacancy != -1) {
-            System.out.printf("course code: %s \n index: %s \n vacancy: %d\n", coursecode, cindex, vacancy);
+            System.out.println("--------------------------------");
+            System.out.printf("course code: %s \nindex: %s \nvacancy: %d\n", coursecode, cindex, vacancy);
+            System.out.println("--------------------------------");
         } else {
             System.out.println("course index not found! please try again!");
         }
