@@ -336,7 +336,7 @@ public class Main {
                     }
                     case 1: {
                         System.out.println("Enter new Course Code:");
-                        String newCourseCode = sc.next();
+                        String newCourseCode = sc.next().toUpperCase();
 
                         ArrayList<Course> courselist = databaseManager.DeserializeCourseList();
 
