@@ -1378,6 +1378,7 @@ public class Main {
 
                             }
                         }
+                        
                         CindexObj.setSchedule(schedule);
                         cindexArrayList.add(CindexObj);
                 }
