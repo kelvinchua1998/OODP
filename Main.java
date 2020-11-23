@@ -12,7 +12,12 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+/**
+ *
+ * Main class for running the program
+ * @author kelvin Melvin
+ * 
+ */
 public class Main {
     enum DAY_OF_WEEK {
         MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
@@ -2089,7 +2094,7 @@ public class Main {
                     break;
                 }
                 case "f": {
-                    gender = GENDER.MALE.toString();
+                    gender = GENDER.FEMALE.toString();
                     break;
                 }
                 default: {
