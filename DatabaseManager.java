@@ -619,13 +619,13 @@ public void printAllCourses() {
         
          //there shouldnt be any courses with no index
          System.out.println("-----------------------------------------------------------------");
-         System.out.printf("%-5s%-6s%-10s%-8s%-9s\n","No." ,"Index" ,"Capacity" ,"Vacancy" ,"Waitlist");
+         System.out.printf("\t%-5s%-6s%-10s%-8s%-9s\n","No." ,"Index" ,"Capacity" ,"Vacancy" ,"Waitlist");
          for(int j =0; j < singleCourse.getListCindex().size();j++){
             Cindex singleCindex = singleCourse.getListCindex().get(j);
 
             
 
-            System.out.printf("%-5d%-6s%-10d%-8d%-9d\n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
+            System.out.printf("\t%-5d%-6s%-10d%-8d%-9d\n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
          }
          System.out.println("-----------------------------------------------------------------");
       }
