@@ -1010,25 +1010,36 @@ public class Main {
                                         }
                                         validStartTime = true;
                                     }
-
+                                    
                                     Date endTimeParsedLect = null;
-                                    boolean validEndTime = false;
-                                    while (!validEndTime) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLect = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLect)) {
-                                                endTimeParsedLect = timeformat.parse(endTimeLect);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime = false;
+                                    while(!endtime_After_starttime){
+                                        
+                                        boolean validEndTime = false;
+                                        while (!validEndTime) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLect = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLect)) {
+                                                    endTimeParsedLect = timeformat.parse(endTimeLect);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime = true;
                                         }
-                                        validEndTime = true;
+
+                                        if(endTimeParsedLect.after(startTimeParsedLect)){
+                                            endtime_After_starttime=true;
+                                        }else{
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
+                                    
 
                                     System.out.println("Venue: ");
                                     String venueLect = sc.next();
@@ -1103,23 +1114,35 @@ public class Main {
                                         ValidStartTime2 = true;
                                     }
 
+                                    
+
                                     Date endTimeParsedTut = null;
-                                    Boolean validEndTime2 = false;
-                                    while (!validEndTime2) {
-                                        System.out.println("End Time: ");
-                                        String endTimeTut = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeTut))
-                                                endTimeParsedTut = timeformat.parse(endTimeTut);
-                                            else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime2 = false;
+                                    while(!endtime_After_starttime2){
+                                        
+                                        Boolean validEndTime2 = false;
+                                        while (!validEndTime2) {
+                                            System.out.println("End Time: ");
+                                            String endTimeTut = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeTut))
+                                                    endTimeParsedTut = timeformat.parse(endTimeTut);
+                                                else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime2 = true;
                                         }
-                                        validEndTime2 = true;
+
+                                        if(endTimeParsedTut.after(startTimeParsedTut)){
+                                            endtime_After_starttime2=true;
+                                        }else{
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
 
                                     System.out.println("Venue: ");
@@ -1196,23 +1219,35 @@ public class Main {
                                     }
 
                                     Date endTimeParsedLab = null;
-                                    boolean validEndTime3 = false;
-                                    while (!validEndTime3) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLab = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLab)) {
-                                                endTimeParsedLab = timeformat.parse(endTimeLab);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime3 = false;
+                                    while(!endtime_After_starttime3){
+                                        
+                                        boolean validEndTime3 = false;
+                                        while (!validEndTime3) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLab = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLab)) {
+                                                    endTimeParsedLab = timeformat.parse(endTimeLab);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime3 = true;
                                         }
-                                        validEndTime3 = true;
+
+                                        if(endTimeParsedLab.after(startTimeParsedLab)){
+                                            endtime_After_starttime3=true;
+                                        }else{
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
+
+                                    
 
                                     System.out.println("Venue: ");
                                     String venueLab = sc.next();
