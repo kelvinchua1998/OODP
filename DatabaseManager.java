@@ -594,12 +594,12 @@ public class DatabaseManager {
 public void printAllStudents() {
    ArrayList<Student> studList = DeserializeStudentList();
 
-   System.out.println("No.\t\tMatricNum\t\tFirst name\t\tLast Name\t\tGender\t\tNationality\t\tEmail\t\tNum of AUs Registered\t\tAccessStartDateTime\t\tAccessEndDateTime");
+   System.out.printf("%-5s%-15s%-15s%-15s%-8s%-15s%-30s%-5s%-20s%-20s\n", "No", "MatricNum", "First name", "Last Name", "Gender", "Nationality", "Email", "AUs", "AccessStartDateTime", "AccessEndDateTime");
 
    if(studList.size() != 0){
       for(int i =0; i < studList.size();i++){
          Student singleStud = studList.get(i);
-         System.out.printf("%d.\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%d\t\t%s\t\t%s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+         System.out.printf("%-5d%-15s%-15s%-15s%-8s%-15s%-30s%-5d%-20s%-20s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
 
       }
    }else{
@@ -610,27 +610,23 @@ public void printAllStudents() {
 public void printAllCourses() {
    ArrayList<Course> courseList = DeserializeCourseList();
 
-   
-
    if(courseList.size() != 0){
       for(int i =0; i < courseList.size();i++){
-         System.out.println("No.\t\tCourse Code:\t\tCourse Name:\t\tSchool:\t\tNum of AUs:\t\tCourse Description:");
+         System.out.printf("%-5s%-15s%-15s%-10s%-12s%-30s\n","No.", "Course Code:", "Course Name:", "School:", "Num of AUs:", "Course Description:");
 
          Course singleCourse = courseList.get(i);
-         System.out.printf("%d.\t\t%s\t\t%s\t\t%s\t\t%d\t\t%s\n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
+         System.out.printf("%-5d%-15s%-15s%-10s%-12d%-30s\n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
         
          //there shouldnt be any courses with no index
          System.out.println("-----------------------------------------------------------------");
-         System.out.println("No.\t\tIndex Code\t\tCapacity\t\tVacancy\t\tWaitlist");
+         System.out.printf("%-5s%-6s%-10s%-8s%-9s\n","No." ,"Index" ,"Capacity" ,"Vacancy" ,"Waitlist");
          for(int j =0; j < singleCourse.getListCindex().size();j++){
             Cindex singleCindex = singleCourse.getListCindex().get(j);
 
             
 
-            System.out.printf("%d.\t\t%s\t\t%d\t\t%d\t\t%d\n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
-
+            System.out.printf("%-5d%-6s%-10d%-8d%-9d\n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
          }
-
          System.out.println("-----------------------------------------------------------------");
       }
    }else{
@@ -679,4 +675,9 @@ public void printAllCourses() {
       }
    }
  
+   public static void main(String[] args) {
+      DatabaseManager databaseManager = new DatabaseManager();
+      databaseManager.printAllStudents();
+      databaseManager.printAllCourses();
+   }
 }

@@ -51,8 +51,8 @@ public class Main {
                 username = sc.next();
 
                 System.out.println("Please Enter Password");
-                password = System.console().readPassword().toString();
-
+                password = String.valueOf(System.console().readPassword());
+                
                 userType = login.verifyUser(username, password);
             }
 
@@ -926,11 +926,11 @@ public class Main {
 
         System.out.println("Add new Course ");
         System.out.println("Course Code: "); // check for duplicates
-        String CourseCode = sc.next();
+        String CourseCode = sc.next().toUpperCase();
         sc.nextLine();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        Course checkCourse = databaseManager.searchCourse(CourseCode.toUpperCase());
+        Course checkCourse = databaseManager.searchCourse(CourseCode);
 
         if (checkCourse != null) {
             System.out.println("Course already exists!");
@@ -2052,8 +2052,8 @@ public class Main {
 
         System.out.println("Please enter MatricNum: ");
 
-        String matricNum = sc.next();
-        boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum.toUpperCase());
+        String matricNum = sc.next().toUpperCase();
+        boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum);
         if (!uniqueMatric) {
             System.out.println("Matric number not unique!");
             return;
@@ -2126,6 +2126,7 @@ public class Main {
             Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password, accessStartDateTime, accessEndDateTime, email);
 
             databaseManager.addStudentintoStudentDB(studentObj);
+            databaseManager.printAllStudents();
         }
 
     }
