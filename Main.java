@@ -280,7 +280,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Enter Course Code which you want to update: ");
-        String courseCode = sc.next();
+        String courseCode = sc.next().toUpperCase();
 
         DatabaseManager databaseManager = new DatabaseManager();
         Course courseObj = databaseManager.searchCourse(courseCode);
@@ -932,7 +932,7 @@ public class Main {
         sc.nextLine();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        Course checkCourse = databaseManager.searchCourse(CourseCode);
+        Course checkCourse = databaseManager.searchCourse(CourseCode.toUpperCase());
 
         if (checkCourse != null) {
             System.out.println("Course already exists!");
@@ -1738,7 +1738,7 @@ public class Main {
                     // add studnet into courses reg stud list
                     // minus student s available aus
 
-                    stud.minusAU(singleCourse);
+                    stud.plusAU(singleCourse);
                     singleIndex.addRegisteredStudent(stud.getUsername());
 
                     // create a new studentCourse
