@@ -930,7 +930,7 @@ public class Main {
         sc.nextLine();
 
         DatabaseManager databaseManager = new DatabaseManager();
-        Course checkCourse = databaseManager.searchCourse(CourseCode);
+        Course checkCourse = databaseManager.searchCourse(CourseCode.toUpperCase());
 
         if (checkCourse != null) {
             System.out.println("Course already exists!");
@@ -1604,7 +1604,7 @@ public class Main {
 
         if (vacancy != -1) {
             System.out.println("--------------------------------");
-            System.out.printf("course code: %s \nindex: %s \nvacancy: %d\n", coursecode, cindex, vacancy);
+            System.out.printf("Course Code: %s\tIndex: %s\tVacancy: %d\n", coursecode, cindex, vacancy);
             System.out.println("--------------------------------");
         } else {
             System.out.println("course index not found! please try again!");
@@ -1646,22 +1646,21 @@ public class Main {
                     System.out.println("Course already registered!");
                     continue;
                 }
-                System.out.printf("%s %s \n", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.printf("%s %s\n", singleCourse.getCourseCode(), singleCourse.getCourseName());
                 System.out.println("Description: " + singleCourse.getCourseDescription());
 
                 // print list of indexes and vacancies in the course
                 // shud show timetable clash for each index
                 // show index lesson timings
                 if (singleCourse.getListCindex().size() != 0) {
-                    System.out.println("index   /   vacacy   /    waitlist");
+                    System.out.println("Option\t\tIndex\t\tVacacy\t\tWaitlist");
                     for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
                         Cindex singleindex = singleCourse.getListCindex().get(i);
-                        System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndexName(),
+                        System.out.printf("%d.\t\t%s\t\t%d\t\t%d\n", i + 1, singleindex.getIndexName(),
                                 singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                     }
                 } else {
                     System.out.println("no Cindex Available!");
-                    ;
                 }
 
             } else {
@@ -2054,7 +2053,7 @@ public class Main {
         System.out.println("Please enter MatricNum: ");
 
         String matricNum = sc.next();
-        boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum);
+        boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum.toUpperCase());
         if (!uniqueMatric) {
             System.out.println("Matric number not unique!");
             return;
@@ -2063,7 +2062,7 @@ public class Main {
         System.out.println("Please enter Username: ");
         String username = sc.next();
 
-        boolean uniqueUsername = databaseManager.verifyUniqueMatricNum(matricNum);
+        boolean uniqueUsername = databaseManager.verifyUniqueUsername(username);
         if (!uniqueUsername) {
             System.out.println("Username not unique!");
             return;
