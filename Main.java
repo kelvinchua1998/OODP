@@ -1423,7 +1423,7 @@ public class Main {
                         }
 
                         if (checkClashBetweenLessons(schedule)) {
-                            System.out.println("The new added will not be added as it clash with previous index");
+                            System.out.println("The new added index will not be added as it clash with previous indexes");
                             continue;
                         }
 
@@ -2264,94 +2264,98 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         StudentCourse studentCourse = null;
         StudentCourse studentCoursePeer = null;
+        DatabaseManager databaseManager = new DatabaseManager();
 
         System.out.println("Enter coursecode that you want to swap index: ");
         String courseCode = sc.next();
 
-        System.out.println("Enter peer's username: ");
-        String peerUsername = sc.next();
+        Course courseObj = databaseManager.searchCourse(courseCode);
 
-        System.out.println("Enter peer's password: ");
-        String peerPassword = sc.next();
-
-        Login login = new Login();
-
-        if (login.verifyUser(peerUsername, peerPassword) == null) {
-            System.out.println("peer's username and password incorrect");
-
+        if(courseObj != null){
             System.out.println("Enter peer's username: ");
-            peerUsername = sc.next();
+            String peerUsername = sc.next();
 
             System.out.println("Enter peer's password: ");
-            peerPassword = String.valueOf(System.console().readPassword());
-        } else {
-            System.out.println("peer's username and password verified");
+            String peerPassword = sc.next();
 
-            DatabaseManager databaseManager = new DatabaseManager();
+            Login login = new Login();
 
-            Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
-            ArrayList<StudentCourse> registeredcourseList = studentobj.getRegisteredCourse();
+            if (login.verifyUser(peerUsername, peerPassword) == null) {
+                System.out.println("peer's username and password incorrect");
 
-            int indexRegisterCourseList = 0;
-            for (int i = 0; i < registeredcourseList.size(); i++) {
-                if (registeredcourseList.get(i).getCourseCode().equals(courseCode)) {
-                    studentCourse = registeredcourseList.get(i);
-                    indexRegisterCourseList = i;
-                    break;
+                System.out.println("Enter peer's username: ");
+                peerUsername = sc.next();
+
+                System.out.println("Enter peer's password: ");
+                peerPassword = String.valueOf(System.console().readPassword());
+            } else {
+                System.out.println("peer's username and password verified");
+
+                Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
+                ArrayList<StudentCourse> registeredcourseList = studentobj.getRegisteredCourse();
+
+                int indexRegisterCourseList = 0;
+                for (int i = 0; i < registeredcourseList.size(); i++) {
+                    if (registeredcourseList.get(i).getCourseCode().equals(courseCode)) {
+                        studentCourse = registeredcourseList.get(i);
+                        indexRegisterCourseList = i;
+                        break;
+                    }
+                }
+
+                Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(peerUsername);
+                ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
+
+                int indexRegisterCourseListpeer = 0;
+                for (int i = 0; i < registeredcoursePeerList.size(); i++) {
+                    if (registeredcoursePeerList.get(i).getCourseCode().equals(courseCode)) {
+                        studentCoursePeer = registeredcoursePeerList.get(i);
+                        indexRegisterCourseListpeer = i;
+                        break;
+                    }
+                }
+
+                System.out.println("your index: " + studentCourse.getCourseIndex());
+                System.out.println("peer's index: " + studentCoursePeer.getCourseIndex());
+                System.out.println("confirm swap?[y/n]");
+                String confirm = sc.next();
+
+                if (confirm.equals("y")) {
+                    Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
+                            studentCoursePeer.getCourseIndex());
+                    Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
+                            studentCourse.getCourseIndex());
+
+                    newindex.getRegisteredStudents().add(studentobj.getUsername());
+
+                    int index = oldindex.getIndexofStudent(username);
+                    oldindex.getRegisteredStudents().remove(index);
+
+                    int peerindex = newindex.getIndexofStudent(peerUsername);
+                    newindex.getRegisteredStudents().remove(peerindex);
+
+                    oldindex.getRegisteredStudents().add(studentobjPeer.getUsername());
+
+                    studentCourse.setCourseIndex(newindex.getIndexName());
+                    studentCoursePeer.setCourseIndex(oldindex.getIndexName());
+
+                    registeredcourseList.set(indexRegisterCourseList, studentCourse);
+                    registeredcoursePeerList.set(indexRegisterCourseListpeer, studentCoursePeer);
+
+                    studentobj.setRegisteredCourse(registeredcourseList);
+                    studentobjPeer.setRegisteredCourse(registeredcoursePeerList);
+
+                    databaseManager.updateDatabase(studentobj);
+                    databaseManager.updateDatabase(studentobjPeer);
+                    databaseManager.updatecindex(courseCode, newindex);
+                    databaseManager.updatecindex(courseCode, oldindex);
+
+                    System.out.println("you have swapped index successfully");
                 }
             }
-
-            Student studentobjPeer = (Student) databaseManager.getObjectbyUsername(peerUsername);
-            ArrayList<StudentCourse> registeredcoursePeerList = studentobjPeer.getRegisteredCourse();
-
-            int indexRegisterCourseListpeer = 0;
-            for (int i = 0; i < registeredcoursePeerList.size(); i++) {
-                if (registeredcoursePeerList.get(i).getCourseCode().equals(courseCode)) {
-                    studentCoursePeer = registeredcoursePeerList.get(i);
-                    indexRegisterCourseListpeer = i;
-                    break;
-                }
-            }
-
-            System.out.println("your index: " + studentCourse.getCourseIndex());
-            System.out.println("peer's index: " + studentCoursePeer.getCourseIndex());
-            System.out.println("confirm swap?[y/n]");
-            String confirm = sc.next();
-
-            if (confirm.equals("y")) {
-                Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCoursePeer.getCourseIndex());
-                Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(),
-                        studentCourse.getCourseIndex());
-
-                newindex.getRegisteredStudents().add(studentobj.getUsername());
-
-                int index = oldindex.getIndexofStudent(username);
-                oldindex.getRegisteredStudents().remove(index);
-
-                int peerindex = newindex.getIndexofStudent(peerUsername);
-                newindex.getRegisteredStudents().remove(peerindex);
-
-                oldindex.getRegisteredStudents().add(studentobjPeer.getUsername());
-
-                studentCourse.setCourseIndex(newindex.getIndexName());
-                studentCoursePeer.setCourseIndex(oldindex.getIndexName());
-
-                registeredcourseList.set(indexRegisterCourseList, studentCourse);
-                registeredcoursePeerList.set(indexRegisterCourseListpeer, studentCoursePeer);
-
-                studentobj.setRegisteredCourse(registeredcourseList);
-                studentobjPeer.setRegisteredCourse(registeredcoursePeerList);
-
-                databaseManager.updateDatabase(studentobj);
-                databaseManager.updateDatabase(studentobjPeer);
-                databaseManager.updatecindex(courseCode, newindex);
-                databaseManager.updatecindex(courseCode, oldindex);
-
-                System.out.println("you have swapped index successfully");
-            }
+        }else{
+            System.out.println("Course does not exists in the Database!");
         }
-
     }
 
     public static boolean isValidTime(String time) {
