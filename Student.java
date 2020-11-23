@@ -275,8 +275,8 @@ public class Student extends User implements Serializable{
 		long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
 		long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 		
-		Student studentObj = new Student("melvin", "chua", "male", "Singapore", "U1234567G", "student", "student", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
-		Student studentObj2 = new Student("kelvin", "chua", "male", "Singapore", "U2345678G", "student2", "student2", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
+		Student studentObj = new Student("melvin", "chua", Main.GENDER.MALE, "Singapore", "U1234567G", "student", "student", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
+		Student studentObj2 = new Student("kelvin", "chua", Main.GENDER.MALE, "Singapore", "U2345678G", "student2", "student2", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
 		// System.out.println(studentObj.getPassword()); 
 		// System.out.println(studentObj.getUsername()); 
 		// System.out.println(studentObj.getAccessEndTime()); 

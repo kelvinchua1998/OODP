@@ -2078,17 +2078,17 @@ public class Main {
         String lastname = sc.next();
 
         boolean validgender = false;
-        String gender = "";
+        GENDER gender = null;
         while (!validgender) {
             System.out.println("Please enter Gender (m/f): ");
-            gender = sc.next();
-            switch (gender.toLowerCase()) {
+            String genderInput = sc.next();
+            switch (genderInput.toLowerCase()) {
                 case "m": {
-                    gender = GENDER.MALE.toString();
+                    gender = GENDER.MALE;
                     break;
                 }
                 case "f": {
-                    gender = GENDER.MALE.toString();
+                    gender = GENDER.MALE;
                     break;
                 }
                 default: {
@@ -2123,8 +2123,7 @@ public class Main {
             long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
             long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 
-            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                    accessStartDateTime, accessEndDateTime, email);
+            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password, accessStartDateTime, accessEndDateTime, email);
 
             databaseManager.addStudentintoStudentDB(studentObj);
         }

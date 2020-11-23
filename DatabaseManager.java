@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -375,7 +376,7 @@ public class DatabaseManager {
 
    }
 
-   public void addStudent(String firstName, String lastName, String gender, String nationality, String matricNum,
+   public void addStudent(String firstName, String lastName, Main.GENDER gender, String nationality, String matricNum,
          String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
       ArrayList<Student> StudentList = DeserializeStudentList();
 
@@ -593,12 +594,12 @@ public class DatabaseManager {
 public void printAllStudents() {
    ArrayList<Student> studList = DeserializeStudentList();
 
-   System.out.println("no.     matricNum   /  First name /   Last Name   /   Gender    /    Nationality   /     Email    / num of AUs Registered / AccessStartDateTime / AccessEndDateTime");
+   System.out.println("No.\t\tMatricNum\t\tFirst name\t\tLast Name\t\tGender\t\tNationality\t\tEmail\t\tNum of AUs Registered\t\tAccessStartDateTime\t\tAccessEndDateTime");
 
    if(studList.size() != 0){
       for(int i =0; i < studList.size();i++){
          Student singleStud = studList.get(i);
-         System.out.printf("%d.     %s   /  %s  /   %s   /   %s    /    %s   /     %s    /   %d   /   %s   /   %s  \n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+         System.out.printf("%d.\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%d\t\t%s\t\t%s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
 
       }
    }else{
@@ -613,23 +614,24 @@ public void printAllCourses() {
 
    if(courseList.size() != 0){
       for(int i =0; i < courseList.size();i++){
-         System.out.println("no.     Course Code   /  Course Name /   School   /  num of AUs   /   course description");
+         System.out.println("No.\t\tCourse Code:\t\tCourse Name:\t\tSchool:\t\tNum of AUs:\t\tCourse Description:");
 
          Course singleCourse = courseList.get(i);
-         System.out.printf("%d.   %s   /  %s /   %s   /  %d   /   %s \n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
+         System.out.printf("%d.\t\t%s\t\t%s\t\t%s\t\t%d\t\t%s\n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
         
          //there shouldnt be any courses with no index
-
+         System.out.println("-----------------------------------------------------------------");
+         System.out.println("No.\t\tIndex Code\t\tCapacity\t\tVacancy\t\tWaitlist");
          for(int j =0; j < singleCourse.getListCindex().size();j++){
             Cindex singleCindex = singleCourse.getListCindex().get(j);
 
-            System.out.println("\tno.   index Code   /  capacity  /   vacancies   /  waitlist  ");
+            
 
-            System.out.printf("\t%d.   %s   /  %d  /   %d   /  %d   \n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
+            System.out.printf("%d.\t\t%s\t\t%d\t\t%d\t\t%d\n",j+1,singleCindex.getIndexName(), singleCindex.getCapacity(),singleCindex.getCurrentVacancy(), singleCindex.getWaitList().size());
 
          }
 
-         System.out.println("------------------------------------------------------------------------------------------");
+         System.out.println("-----------------------------------------------------------------");
       }
    }else{
       System.out.println("no course in database!");
