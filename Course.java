@@ -153,7 +153,7 @@ public class Course implements Serializable {
         Lesson lessonObj3 = new Labs(starttime2, endtime2, "lab1", Main.DAY_OF_WEEK.TUESDAY, Main.ODD_EVEN.EVEN);
 
         ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
-        Cindex cindexObj2 = new Cindex("2", 2);
+        Cindex cindexObj2 = new Cindex("1", 2);
         
         schedule2.add(lessonObj1);
         schedule2.add(lessonObj2);

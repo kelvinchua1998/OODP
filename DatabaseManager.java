@@ -636,5 +636,45 @@ public void printAllCourses() {
    }
 }
 
+   public void updateStudentCourseNewCourseCode(String oldCourseCode,String newCourseCode){
+      Course coursObj = searchCourse(oldCourseCode);
+      ArrayList<Cindex> cindexList = coursObj.getListCindex();
 
+      for(int i=0;i<cindexList.size();i++){
+         ArrayList<String> registeredStudentstr = cindexList.get(i).getRegisteredStudents();
+         for(int j=0;j<registeredStudentstr.size();j++){
+            Student studentObj = (Student) getObjectbyUsername(registeredStudentstr.get(j));
+
+            ArrayList<StudentCourse> StudentRegisteredCourse = studentObj.getRegisteredCourse();
+            for(int k=0; k<StudentRegisteredCourse.size();k++){
+               if(StudentRegisteredCourse.get(k).getCourseCode().equals(oldCourseCode)){
+                  StudentRegisteredCourse.get(k).setCourseCode(newCourseCode);
+                  break;
+               }
+            }
+            studentObj.setRegisteredCourse(StudentRegisteredCourse);
+            updateDatabase(studentObj);
+         }
+      }
+   }
+
+   public void updateStudentCourseNewIndexName(String courseCode,String oldIndexName,String newIndexName){
+      Cindex cindexObj = searchCindex(courseCode,oldIndexName);
+
+      ArrayList<String> registeredStudentstr = cindexObj.getRegisteredStudents();
+      for(int j=0;j<registeredStudentstr.size();j++){
+         Student studentObj = (Student) getObjectbyUsername(registeredStudentstr.get(j));
+
+         ArrayList<StudentCourse> StudentRegisteredCourse = studentObj.getRegisteredCourse();
+         for(int k=0; k<StudentRegisteredCourse.size();k++){
+            if(StudentRegisteredCourse.get(k).getCourseCode().equals(courseCode)){
+               StudentRegisteredCourse.get(k).setCourseIndex(newIndexName);
+               break;
+            }
+         }
+         studentObj.setRegisteredCourse(StudentRegisteredCourse);
+         updateDatabase(studentObj);
+      }
+   }
+ 
 }

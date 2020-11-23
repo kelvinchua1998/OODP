@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class StudentCourse implements Serializable{
-    private String CourseCode; // changed int to string cuz eg. CE2001
+    private String CourseCode;
     private String CourseName;
     private String CourseDescription;
     private int AU;
