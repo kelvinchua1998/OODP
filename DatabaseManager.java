@@ -657,8 +657,8 @@ public void printAllStudents() {
          Calendar calendar2 = Calendar.getInstance();
          calendar2.setTimeInMillis(singleStud.getAccessEndTime());
 
-         String starttimeStr = calendar.get(Calendar.DAY_OF_MONTH) +"/"+ calendar.get(Calendar.MONTH) +"/"+ calendar.get(Calendar.YEAR) + "  " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
-         String endtimeStr = calendar2.get(Calendar.DAY_OF_MONTH) +"/"+ calendar2.get(Calendar.MONTH) +"/"+ calendar2.get(Calendar.YEAR) + "  " + calendar2.get(Calendar.HOUR_OF_DAY) + ":" + calendar2.get(Calendar.MINUTE);
+         String starttimeStr = calendar.get(Calendar.DAY_OF_MONTH) +"/"+ calendar.get(Calendar.MONTH)+1 +"/"+ calendar.get(Calendar.YEAR) + "  " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+         String endtimeStr = calendar2.get(Calendar.DAY_OF_MONTH) +"/"+ calendar2.get(Calendar.MONTH)+1 +"/"+ calendar2.get(Calendar.YEAR) + "  " + calendar2.get(Calendar.HOUR_OF_DAY) + ":" + calendar2.get(Calendar.MINUTE);
 
          System.out.printf("%-5d%-15s%-15s%-15s%-8s%-15s%-30s%-5s%-20s%-20s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), starttimeStr, endtimeStr);
 

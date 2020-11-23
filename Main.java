@@ -1391,7 +1391,7 @@ public class Main {
                                     boolean validOddOrEven = false;
                                     Main.ODD_EVEN oddOrEvenLab = null;
                                     while (!validOddOrEven) {
-                                        System.out.println("odd or even or both: ");
+                                        System.out.println("odd or even or both ('odd','even','both'): ");
                                         input = sc.next();
 
                                         switch (input.toLowerCase()) {
@@ -1408,7 +1408,7 @@ public class Main {
                                                 break;
                                             }
                                             default: {
-                                                System.out.println("Enter 'ODD' or 'EVEN' only!");
+                                                System.out.println("Enter 'ODD' or 'EVEN' or 'both' only!");
                                                 continue;
                                             }
                                         }
