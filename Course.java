@@ -161,7 +161,7 @@ public class Course implements Serializable {
         cindexObj2.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
 
-        Course courseObj = new Course("c1", "course1", "course description","scse", 3, ListCindex);
+        Course courseObj = new Course("C1", "course1", "course description","scse", 3, ListCindex);
 
         courseList.add(courseObj);
         databaseManager.SerializeCourseList(courseList);

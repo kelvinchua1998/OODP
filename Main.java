@@ -56,8 +56,8 @@ public class Main {
                 username = sc.next();
 
                 System.out.println("Please Enter Password");
-                password = System.console().readPassword().toString();
-
+                password = String.valueOf(System.console().readPassword());
+                
                 userType = login.verifyUser(username, password);
             }
 
@@ -931,7 +931,7 @@ public class Main {
 
         System.out.println("Add new Course ");
         System.out.println("Course Code: "); // check for duplicates
-        String CourseCode = sc.next();
+        String CourseCode = sc.next().toUpperCase();
         sc.nextLine();
 
         DatabaseManager databaseManager = new DatabaseManager();
@@ -1609,7 +1609,7 @@ public class Main {
 
         if (vacancy != -1) {
             System.out.println("--------------------------------");
-            System.out.printf("course code: %s \nindex: %s \nvacancy: %d\n", coursecode, cindex, vacancy);
+            System.out.printf("Course Code: %s\tIndex: %s\tVacancy: %d\n", coursecode, cindex, vacancy);
             System.out.println("--------------------------------");
         } else {
             System.out.println("course index not found! please try again!");
@@ -1651,22 +1651,21 @@ public class Main {
                     System.out.println("Course already registered!");
                     continue;
                 }
-                System.out.printf("%s %s \n", singleCourse.getCourseCode(), singleCourse.getCourseName());
+                System.out.printf("%s %s\n", singleCourse.getCourseCode(), singleCourse.getCourseName());
                 System.out.println("Description: " + singleCourse.getCourseDescription());
 
                 // print list of indexes and vacancies in the course
                 // shud show timetable clash for each index
                 // show index lesson timings
                 if (singleCourse.getListCindex().size() != 0) {
-                    System.out.println("index   /   vacacy   /    waitlist");
+                    System.out.println("Option\t\tIndex\t\tVacacy\t\tWaitlist");
                     for (int i = 0; i < singleCourse.getListCindex().size(); i++) {
                         Cindex singleindex = singleCourse.getListCindex().get(i);
-                        System.out.printf("%d.  %s  /  %d  /  %d\n", i + 1, singleindex.getIndexName(),
+                        System.out.printf("%d.\t\t%s\t\t%d\t\t%d\n", i + 1, singleindex.getIndexName(),
                                 singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                     }
                 } else {
                     System.out.println("no Cindex Available!");
-                    ;
                 }
 
             } else {
@@ -2058,7 +2057,7 @@ public class Main {
 
         System.out.println("Please enter MatricNum: ");
 
-        String matricNum = sc.next();
+        String matricNum = sc.next().toUpperCase();
         boolean uniqueMatric = databaseManager.verifyUniqueMatricNum(matricNum);
         if (!uniqueMatric) {
             System.out.println("Matric number not unique!");
@@ -2068,7 +2067,7 @@ public class Main {
         System.out.println("Please enter Username: ");
         String username = sc.next();
 
-        boolean uniqueUsername = databaseManager.verifyUniqueMatricNum(matricNum);
+        boolean uniqueUsername = databaseManager.verifyUniqueUsername(username);
         if (!uniqueUsername) {
             System.out.println("Username not unique!");
             return;
@@ -2084,17 +2083,17 @@ public class Main {
         String lastname = sc.next();
 
         boolean validgender = false;
-        String gender = "";
+        GENDER gender = null;
         while (!validgender) {
             System.out.println("Please enter Gender (m/f): ");
-            gender = sc.next();
-            switch (gender.toLowerCase()) {
+            String genderInput = sc.next();
+            switch (genderInput.toLowerCase()) {
                 case "m": {
-                    gender = GENDER.MALE.toString();
+                    gender = GENDER.MALE;
                     break;
                 }
                 case "f": {
-                    gender = GENDER.FEMALE.toString();
+                    gender = GENDER.MALE;
                     break;
                 }
                 default: {
@@ -2129,10 +2128,10 @@ public class Main {
             long accessStartDateTime = new GregorianCalendar(2020, 01, 01, 00, 00).getTimeInMillis();
             long accessEndDateTime = new GregorianCalendar(2021, 01, 01, 00, 00).getTimeInMillis();
 
-            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password,
-                    accessStartDateTime, accessEndDateTime, email);
+            Student studentObj = new Student(firstname, lastname, gender, nationality, matricNum, username, password, accessStartDateTime, accessEndDateTime, email);
 
             databaseManager.addStudentintoStudentDB(studentObj);
+            databaseManager.printAllStudents();
         }
 
     }

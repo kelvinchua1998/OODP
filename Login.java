@@ -1,8 +1,17 @@
 import java.util.ArrayList;
 import java.util.Date;
-
+/**
+ * Login class for login functionalities
+ * @author kelvi
+ *
+ */
 public class Login {
-
+/**
+ * verifies the user with their password. returns the User type{Admin/ Student} when password is correct otherwise returns null.
+ * @param Username
+ * @param Password
+ * @return
+ */
     public String verifyUser(String Username,String Password){
         DatabaseManager databaseManager = new DatabaseManager();
 
@@ -22,8 +31,4 @@ public class Login {
         return null;
     }
 
-    public boolean verifyPeriod(Date currentDate){
-        // check with admin if the current date is within the period
-        return true;
-    }
 }
