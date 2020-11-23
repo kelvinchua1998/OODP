@@ -925,12 +925,18 @@ public class Main {
                 System.out.println("Course AUs: ");
                 try {
                     AU = sc.nextInt();
+                    
                 } catch (InputMismatchException e) {
                     System.out.println("Enter Integers Only!");
                     sc.nextLine();
                     continue;
                 } catch (Exception e) {
                     System.out.println("Exception Error");
+                    sc.nextLine();
+                    continue;
+                }
+                if(AU<=0){
+                    System.out.println("AUs cannot be 0 or Negative!");
                     sc.nextLine();
                     continue;
                 }
@@ -1040,6 +1046,10 @@ public class Main {
 
                             switch (choice2) {
                                 case 0:
+                                    if(ScheduleContainLect(schedule)){
+                                        System.out.println("A Index MUST contain either Lect only, Lect and Tut only ,Lect and Tut and lab only!");
+                                        continue;
+                                    }
                                     break;
                                 case 1:
                                     Date startTimeParsedLect = null;
@@ -1378,11 +1388,16 @@ public class Main {
 
                             }
                         }
+
+                        if(checkClashBetweenLessons(schedule)){
+                            System.out.println("The new added will not be added as it clash with previous index");
+                            continue;
+                        }
                         
                         CindexObj.setSchedule(schedule);
                         cindexArrayList.add(CindexObj);
                 }
-
+                
             }
 
             courseObj.setListCindex(cindexArrayList);
@@ -1396,6 +1411,8 @@ public class Main {
         databaseManager.printAllCourses();
 
     }
+
+
 
     private static void printStudentListByCIndex() {
         String coursecode;
@@ -2320,6 +2337,88 @@ public class Main {
         // Return if the time
         // matched the ReGex
         return m.matches();
+    }
+
+    public static boolean checkClashBetweenLessons(ArrayList<Lesson> schedule) {
+        int clashCounter=0;
+     
+        for (int w = 0; w< schedule.size()-1; w++ ){
+           Lesson lesson1 = schedule.get(w);
+           for (int j = w+1; j< schedule.size(); j++ ){
+              Lesson lesson2 = schedule.get(j);
+              if(lesson2.getDayoftheWeek().equals(lesson1.getDayoftheWeek()) ){
+                 if(lesson2.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(lesson2.getDayoftheWeek())){
+                    if(lesson2.getStartTime().before(lesson1.getStartTime())){
+     
+                       if(lesson2.getEndTime().before(lesson1.getStartTime())){
+                          //no clash
+                       }else{
+                          //clash
+                          clashCounter++;
+                          System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
+                          System.out.println("clashes with ");
+                          System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
+     
+                       }
+                    }else{
+                       if(lesson2.getStartTime().before(lesson1.getEndTime())){
+                          //clash
+                          clashCounter++;
+                          System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
+                          System.out.println("clashes with ");
+                          System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
+                       }else{
+                          //no clash
+     
+                       }
+                    }
+                 }
+              }
+           }
+     
+     
+     
+        }
+        if (clashCounter > 0){
+           return true;
+        }else
+        {
+           return false;
+        }
+     
+     }
+
+     private static boolean ScheduleContainLect(ArrayList<Lesson> schedule) {
+        int lectCount=0;
+        int tutCount=0;
+        int labCount=0;
+        for(int i =0; i<schedule.size();i++){
+            switch(schedule.get(i).getLessonType()){
+                case LECTURE:{
+                    lectCount++;
+                    break;
+                }
+                case TUTORIAL:{
+                    tutCount++;
+                    break;
+                }
+                case LAB:{
+                    labCount++;
+                    break;
+                }
+            }
+        }
+
+        if(lectCount>0 && tutCount>0 && labCount>0){
+            return false;
+        }else if(lectCount>0 && tutCount>0){
+            return false;
+        }else if(lectCount>0){
+            return false;
+        }else{
+            return true;
+        }
+        
     }
 
 }

@@ -636,52 +636,5 @@ public void printAllCourses() {
    }
 }
 
-public boolean checkClashBetween2Lessoons(ArrayList<Lesson> schedule){
-   int clashCounter=0;
 
-   for (int w = 0; w< schedule.size()-1; w++ ){
-      Lesson lesson1 = schedule.get(w);
-      for (int j = w+1; j< schedule.size(); j++ ){
-         Lesson lesson2 = schedule.get(j);
-         if(lesson2.getDayoftheWeek().equals(lesson1.getDayoftheWeek()) ){
-            if(lesson2.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(lesson2.getDayoftheWeek())){
-               if(lesson2.getStartTime().before(lesson1.getStartTime())){
-
-                  if(lesson2.getEndTime().before(lesson1.getStartTime())){
-                     //no clash
-                  }else{
-                     //clash
-                     clashCounter++;
-                     System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
-                     System.out.println("clashes with ");
-                     System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
-
-                  }
-               }else{
-                  if(lesson2.getStartTime().before(lesson1.getEndTime())){
-                     //clash
-                     clashCounter++;
-                     System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
-                     System.out.println("clashes with ");
-                     System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
-                  }else{
-                     //no clash
-
-                  }
-               }
-            }
-         }
-      }
-
-
-
-   }
-   if (clashCounter > 0){
-      return true;
-   }else
-   {
-      return false;
-   }
-
-}
 }
