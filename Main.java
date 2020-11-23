@@ -308,7 +308,7 @@ public class Main {
                 System.out.println("1. Update Course Code");
                 System.out.println("2. Update School");
                 System.out.println("3. Update Index Capacity");
-                System.out.println("4. Update Index Name");
+                System.out.println("4. Update Index Number");
                 System.out.println("5. Add new Index");
                 System.out.println("6. Delete Index");
                 System.out.println("===========================================");
@@ -353,7 +353,9 @@ public class Main {
 
                             courselist.add(courseObj);
 
+
                             databaseManager.SerializeCourseList(courselist);
+                            courseCode = newCourseCode;
 
                         } else {
                             System.out.println("Course Code not unique");
@@ -1604,7 +1606,7 @@ public class Main {
 
         if (vacancy != -1) {
             System.out.println("--------------------------------");
-            System.out.printf("Course Code: %s\tIndex: %s\tVacancy: %d\n", coursecode, cindex, vacancy);
+            System.out.printf("Course Code: %s\t\tIndex: %s\tVacancy: %d\n", coursecode, cindex, vacancy);
             System.out.println("--------------------------------");
         } else {
             System.out.println("course index not found! please try again!");
@@ -2088,7 +2090,7 @@ public class Main {
                     break;
                 }
                 case "f": {
-                    gender = GENDER.MALE;
+                    gender = GENDER.FEMALE;
                     break;
                 }
                 default: {
@@ -2281,7 +2283,7 @@ public class Main {
             peerUsername = sc.next();
 
             System.out.println("Enter peer's password: ");
-            peerPassword = sc.next();
+            peerPassword = String.valueOf(System.console().readPassword());
         } else {
             System.out.println("peer's username and password verified");
 
