@@ -2290,7 +2290,14 @@ public class Main {
 
                 System.out.println("Enter peer's password: ");
                 peerPassword = String.valueOf(System.console().readPassword());
-            } else {
+            }else if(peerUsername.equals(username)){
+                System.out.println("You can't swap with your ownself!");
+                System.out.println("Enter peer's username: ");
+                peerUsername = sc.next();
+
+                System.out.println("Enter peer's password: ");
+                peerPassword = String.valueOf(System.console().readPassword());
+            }else {
                 System.out.println("peer's username and password verified");
 
                 Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
@@ -2462,10 +2469,12 @@ public class Main {
 
         if (lectCount > 0 && tutCount > 0 && labCount > 0) {
             return false;
-        } else if (lectCount > 0 && tutCount > 0) {
+        } else if (lectCount > 0 && tutCount > 0 && labCount==0) {
             return false;
-        } else if (lectCount > 0) {
+        } else if (lectCount > 0 && tutCount==0 && labCount==0) {
             return false;
+        }else if(lectCount > 0 && tutCount==0 && labCount>0){
+            return true;
         } else {
             return true;
         }

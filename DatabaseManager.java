@@ -568,7 +568,6 @@ public class DatabaseManager {
             return null;
          }
       }
-
    }
 
    public boolean verifyUniqueCourseCode(String courseCode) {
@@ -660,7 +659,15 @@ public void printAllStudents() {
    if(studList.size() != 0){
       for(int i =0; i < studList.size();i++){
          Student singleStud = studList.get(i);
-         System.out.printf("%-5d%-15s%-15s%-15s%-8s%-15s%-30s%-5d%-20s%-20s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), singleStud.getAccessStartTime(), singleStud.getAccessEndTime());
+         Calendar calendar = Calendar.getInstance();
+         calendar.setTimeInMillis(singleStud.getAccessStartTime());
+         Calendar calendar2 = Calendar.getInstance();
+         calendar2.setTimeInMillis(singleStud.getAccessEndTime());
+
+         String starttimeStr = calendar.get(Calendar.DAY_OF_MONTH) +"/"+ calendar.get(Calendar.MONTH) +"/"+ calendar.get(Calendar.YEAR) + "  " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE);
+         String endtimeStr = calendar2.get(Calendar.DAY_OF_MONTH) +"/"+ calendar2.get(Calendar.MONTH) +"/"+ calendar2.get(Calendar.YEAR) + "  " + calendar2.get(Calendar.HOUR_OF_DAY) + ":" + calendar2.get(Calendar.MINUTE);
+
+         System.out.printf("%-5d%-15s%-15s%-15s%-8s%-15s%-30s%-5s%-20s%-20s\n",i+1,singleStud.getMatricNum(), singleStud.getFirstName(),singleStud.getLastName(), singleStud.getGender(), singleStud.getNationality(), singleStud.getEmail(), singleStud.getNumAuRegistered(), starttimeStr, endtimeStr);
 
       }
    }else{
@@ -739,6 +746,6 @@ public void printAllCourses() {
    public static void main(String[] args) {
       DatabaseManager databaseManager = new DatabaseManager();
       databaseManager.printAllStudents();
-      databaseManager.printAllCourses();
+      // databaseManager.printAllCourses();
    }
 }
