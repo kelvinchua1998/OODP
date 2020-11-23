@@ -982,7 +982,7 @@ public class Main {
                                 for (int i = 0; i < cindexArrayList.size(); i++) {
                                     if (cindexArrayList.get(i).getIndexName().equals(index)) {
                                         System.out.println("index not unique! ");
-                                        continue;
+                                        break;
                                     } else {
                                         uniqueIndex = true;
                                     }
