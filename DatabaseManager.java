@@ -367,8 +367,60 @@ public class DatabaseManager {
       if (waitlistCourses.size() != 0) {
          System.out.println("waitlist Courses: ");
          for (int i = 0; i < waitlistCourses.size(); i++) {
-            System.out.printf("%d. %s %s index %s\n", i + 1, waitlistCourses.get(i).getCourseCode(),
-                  waitlistCourses.get(i).getCourseName(), waitlistCourses.get(i).getCourseIndex());
+            System.out.println("---------------------------------------");
+            System.out.printf("%d. %s %s index %s\n", i + 1, waitlistCourses.get(i).getCourseCode(), waitlistCourses.get(i).getCourseName(), waitlistCourses.get(i).getCourseIndex());
+
+            Cindex cindex = searchCindex(waitlistCourses.get(i).getCourseCode(), waitlistCourses.get(i).getCourseIndex());
+            ArrayList<Lesson> Schedule = cindex.getSchedule();
+            System.out.println("Lesson Type\tStart Time\tEnd Time:\tVenue:\tDay of Week:");
+            for(int j=0; j<Schedule.size();j++){
+               Main.LESSON_TYPE lessonType = Schedule.get(j).getLessonType();
+               switch(lessonType){
+                  case LECTURE:{
+                     Lecture lectureObj = (Lecture) Schedule.get(j);
+
+                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
+
+                     Date startTime = lectureObj.getStartTime();  
+                     String startTimeStr = dateFormat.format(startTime);
+                     
+                     Date endTime = lectureObj.getEndTime();
+                     String endTimeStr = dateFormat.format(endTime);
+
+                     System.out.printf("Lecture\t\t%s\t\t%s\t\t%s\t%s\n",startTimeStr,endTimeStr,lectureObj.getVenue(),lectureObj.getDayoftheWeek());
+                     break;
+                  }
+                  case TUTORIAL:{
+                     Tutorial tutorialObj = (Tutorial) Schedule.get(j);
+
+                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
+
+                     Date startTime = tutorialObj.getStartTime();  
+                     String startTimeStr = dateFormat.format(startTime);
+                     
+                     Date endTime = tutorialObj.getEndTime();
+                     String endTimeStr = dateFormat.format(endTime);
+
+                     System.out.printf("Tutorial\t%s\t\t%s\t\t%s\t%s\n",startTimeStr,endTimeStr,tutorialObj.getVenue(),tutorialObj.getDayoftheWeek());
+                     break;
+                  }
+                  case LAB:{
+                     Labs labsObj = (Labs) Schedule.get(j);
+
+                     DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
+
+                     Date startTime = labsObj.getStartTime();  
+                     String startTimeStr = dateFormat.format(startTime);
+                     
+                     Date endTime = labsObj.getEndTime();
+                     String endTimeStr = dateFormat.format(endTime);
+
+                     System.out.printf("Lab\t\t%s\t\t%s\t\t%s\t%s %s\n",startTimeStr,endTimeStr,labsObj.getVenue(),labsObj.getDayoftheWeek(),labsObj.getOddorEven());
+                     break;
+                  }
+               }
+            }
+            System.out.println("---------------------------------------");
          }
       } else {
          System.out.println("You do not have any courses in waitlist!");
