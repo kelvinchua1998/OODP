@@ -18,7 +18,10 @@ public class Main {
         MALE,FEMALE
     }
     enum ODD_EVEN{
-        ODD,EVEN
+        ODD,EVEN,OOD_AND_EVEN
+    }
+    enum LESSON_TYPE{
+        LECTURE,TUTORIAL,LAB
     }
 
     public static void main(String[] args) {
@@ -469,7 +472,7 @@ public class Main {
                                     try {
                                         startTimeParsedTut = timeformat.parse(startTimeTut);
                                     } catch (ParseException e) {
-                                        
+
                                         e.printStackTrace();
                                     }
 
@@ -479,7 +482,7 @@ public class Main {
                                     try {
                                         endTimeParsedTut = timeformat.parse(endTimeTut);
                                     } catch (ParseException e) {
-                                        
+
                                         e.printStackTrace();
                                     }
 
@@ -501,7 +504,7 @@ public class Main {
                                     try {
                                         startTimeParsedLab = timeformat.parse(startTimeLab);
                                     } catch (ParseException e) {
-                                        
+
                                         e.printStackTrace();
                                     }
 
@@ -511,7 +514,7 @@ public class Main {
                                     try {
                                         endTimeParsedLab = timeformat.parse(endTimeLab);
                                     } catch (ParseException e) {
-                                        
+
                                         e.printStackTrace();
                                     }
 
@@ -710,40 +713,40 @@ public class Main {
 
                                     System.out.println("Venue: ");
                                     String venueLect = sc.next();
-
+                                    String input="";
                                     boolean validDayOfWeek = false;
-                                    String dayOfweekLect="";
+                                    Main.DAY_OF_WEEK dayOfweekLect=null;
                                     while(!validDayOfWeek){
                                         System.out.println("Day Of Week: ");
-                                        dayOfweekLect = sc.next();
+                                        input = sc.next();
 
-                                        switch(dayOfweekLect.toLowerCase()){
+                                        switch(input.toLowerCase()){
                                             case "monday":{
-                                                dayOfweekLect = DAY_OF_WEEK.MONDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
                                             case "tuesday":{
-                                                dayOfweekLect = DAY_OF_WEEK.TUESDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
                                             case "wednesday":{
-                                                dayOfweekLect = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
                                             case "thursday":{
-                                                dayOfweekLect = DAY_OF_WEEK.THURSDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
                                             case "friday":{
-                                                dayOfweekLect = DAY_OF_WEEK.FRIDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
                                             case "saturday":{
-                                                dayOfweekLect = DAY_OF_WEEK.SATURDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
                                             case "sunday":{
-                                                dayOfweekLect = DAY_OF_WEEK.SUNDAY.toString();
+                                                dayOfweekLect = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
                                             default:{
@@ -803,38 +806,39 @@ public class Main {
                                     String venueTut = sc.next();
 
                                     boolean validDayOfWeek2 = false;
-                                    String dayOfweekTut="";
+
+                                    Main.DAY_OF_WEEK day_of_weekTut=null;
                                     while(!validDayOfWeek2){
                                         System.out.println("Day Of Week: ");
-                                        dayOfweekTut = sc.next();
+                                        input = sc.next();
 
-                                        switch(dayOfweekTut.toLowerCase()){
+                                        switch(input.toLowerCase()){
                                             case "monday":{
-                                                dayOfweekTut = DAY_OF_WEEK.MONDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
                                             case "tuesday":{
-                                                dayOfweekTut = DAY_OF_WEEK.TUESDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
                                             case "wednesday":{
-                                                dayOfweekTut = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
                                             case "thursday":{
-                                                dayOfweekTut = DAY_OF_WEEK.THURSDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
                                             case "friday":{
-                                                dayOfweekTut = DAY_OF_WEEK.FRIDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
                                             case "saturday":{
-                                                dayOfweekTut = DAY_OF_WEEK.SATURDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
                                             case "sunday":{
-                                                dayOfweekTut = DAY_OF_WEEK.SUNDAY.toString();
+                                                day_of_weekTut = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
                                             default:{
@@ -846,7 +850,7 @@ public class Main {
                                     }
                                     
 
-                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, dayOfweekTut);
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, day_of_weekTut);
 
                                     schedule.add(tutorial);
                                     break;
@@ -897,37 +901,39 @@ public class Main {
                                     String venueLab = sc.next();
 
                                     boolean validDayOfWeek3 = false;
-                                    String dayOfweekLab = "";
+                                    input = "";
+                                    Main.DAY_OF_WEEK dayOfweekLab = null;
                                     while(!validDayOfWeek3){
                                         System.out.println("Day Of Week: ");
-                                        dayOfweekLab = sc.next();
-                                        switch(dayOfweekLab.toLowerCase()){
+                                        input = sc.next();
+
+                                        switch(input.toLowerCase()){
                                             case "monday":{
-                                                dayOfweekLab = DAY_OF_WEEK.MONDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
                                             case "tuesday":{
-                                                dayOfweekLab = DAY_OF_WEEK.TUESDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
                                             case "wednesday":{
-                                                dayOfweekLab = DAY_OF_WEEK.WEDNESDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
                                             case "thursday":{
-                                                dayOfweekLab = DAY_OF_WEEK.THURSDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
                                             case "friday":{
-                                                dayOfweekLab = DAY_OF_WEEK.FRIDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
                                             case "saturday":{
-                                                dayOfweekLab = DAY_OF_WEEK.SATURDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
                                             case "sunday":{
-                                                dayOfweekLab = DAY_OF_WEEK.SUNDAY.toString();
+                                                dayOfweekLab = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
                                             default:{
@@ -939,18 +945,22 @@ public class Main {
                                     }
 
                                     boolean validOddOrEven = false;
-                                    String oddOrEvenLab = "";
+                                    Main.ODD_EVEN oddOrEvenLab = null;
                                     while(!validOddOrEven){
-                                        System.out.println("Odd or Even: ");
-                                        oddOrEvenLab = sc.next();
+                                        System.out.println("odd or even or both: ");
+                                        input = sc.next();
 
-                                        switch(oddOrEvenLab.toLowerCase()){
+                                        switch(input.toLowerCase()){
                                             case "odd":{
-                                                oddOrEvenLab = ODD_EVEN.ODD.toString();
+                                                oddOrEvenLab = ODD_EVEN.ODD;
                                                 break;
                                             }
                                             case "even":{
-                                                oddOrEvenLab = ODD_EVEN.EVEN.toString();
+                                                oddOrEvenLab = ODD_EVEN.EVEN;
+                                                break;
+                                            }
+                                            case "both":{
+                                                oddOrEvenLab = ODD_EVEN.OOD_AND_EVEN;
                                                 break;
                                             }
                                             default:{
@@ -1745,49 +1755,81 @@ public class Main {
         int indexOfRegisteredCourse = 0;
         String input;
 
-        System.out.println("Please enter coursecode that you want to change index: ");
-        input = sc.next();
-
         DatabaseManager databaseManager = new DatabaseManager();
         Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
-        for (int i = 0; i < registeredcourse.size(); i++) {
-            if (registeredcourse.get(i).getCourseCode().equals(input)) {
-                studentCourse = registeredcourse.get(i);
-                indexOfRegisteredCourse = i;
-            }
-            break;
-        }
+        while(studentCourse == null){
+            System.out.println("Please enter coursecode that you want to change index: ");
+            System.out.println("Enter \'#\' to return to main menu ");
+            input = sc.next();
 
-        System.out.println("Your Current index: " + studentCourse.getCourseIndex());
-        System.out.println("Enter New index: ");
-        input = sc.next();
+            if (input.equals("#"))
+                return;
 
-        Cindex newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
-        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode() , studentCourse.getCourseIndex()) ;
-        if (newindex.getCurrentVacancy() == 0) {
-
-            newindex.getWaitList().add(studentobj.getUsername());
-            registeredcourse.remove(indexOfRegisteredCourse);
-            System.out.println(
-                    "index is removed from your registered course, you are placed in waitlist for your new index");
-        } else {
-            newindex.getRegisteredStudents().add(studentobj.getUsername());
-            for(int i=0;i<oldindex.getRegisteredStudents().size();i++){
-                if(oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())){
-                    oldindex.getRegisteredStudents().remove(i);
+            for (int i = 0; i < registeredcourse.size(); i++) {
+                if (registeredcourse.get(i).getCourseCode().equals(input)) {
+                    studentCourse = registeredcourse.get(i);
+                    indexOfRegisteredCourse = i;
                 }
             }
-            
 
-            studentCourse.setCourseIndex(newindex.getIndexName());
-            databaseManager.updateDatabase(studentobj);
-            databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
-            databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
-            
-            System.out.println("you have changed your index successfully");
+            if(studentCourse == null){
+                System.out.println("Can't find course in your registered courses! please enter Course Code again!");
+            }
         }
+
+
+        System.out.println("Your Current index: " + studentCourse.getCourseIndex());
+        Cindex newindex = null;
+
+        while (newindex == null){
+            System.out.println("Enter New index: ");
+            System.out.println("Enter \'#\' to return to main menu ");
+            input = sc.next();
+
+            if (input.equals("#"))
+                return;
+
+            newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
+
+            if(newindex == null){
+                System.out.println("Can't find the index the course! please enter index number again!");
+            }
+        }
+
+
+        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode() , studentCourse.getCourseIndex()) ;
+        // need to check whether the student entered the same index as the old one
+        if (!newindex.getIndexName().equals(oldindex.getIndexName())){
+            // check clash for new index
+            if (studentobj.checkClashforSameCourseNewIndex(newindex,studentobj))
+            if (newindex.getCurrentVacancy() == 0) {
+
+                newindex.getWaitList().add(studentobj.getUsername());
+                registeredcourse.remove(indexOfRegisteredCourse);
+                System.out.println(
+                        "index is removed from your registered course, you are placed in waitlist for your new index");
+            } else {
+                newindex.getRegisteredStudents().add(studentobj.getUsername());
+                for(int i=0;i<oldindex.getRegisteredStudents().size();i++){
+                    if(oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())){
+                        oldindex.getRegisteredStudents().remove(i);
+                    }
+                }
+
+
+                studentCourse.setCourseIndex(newindex.getIndexName());
+                databaseManager.updateDatabase(studentobj);
+                databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
+                databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
+
+                System.out.println("you have changed your index successfully");
+            }
+        }else{
+            System.out.println("you are already in the index!");
+        }
+
 
     }
 
