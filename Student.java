@@ -5,7 +5,7 @@ import java.util.GregorianCalendar;
  * student class that is a subclass of User and implements Serializable so that it can be serialized into the database
  * @author kelvi
  *
- */
+ **/
 public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	/**

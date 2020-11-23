@@ -567,7 +567,6 @@ public class DatabaseManager {
             return null;
          }
       }
-
    }
 
    public boolean verifyUniqueCourseCode(String courseCode) {
