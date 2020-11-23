@@ -307,9 +307,9 @@ public class DatabaseManager {
             Cindex cindex = searchCindex(registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseIndex());
             ArrayList<Lesson> Schedule = cindex.getSchedule();
             for(int j=0; j<Schedule.size();j++){
-               String lessonObj = Schedule.get(j).getClass().toString();
-               switch(lessonObj){
-                  case "class Lecture":{
+               Main.LESSON_TYPE lessonType = Schedule.get(j).getLessonType();
+               switch(lessonType){
+                  case LECTURE:{
                      Lecture lectureObj = (Lecture) Schedule.get(j);
 
                      DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
@@ -320,10 +320,10 @@ public class DatabaseManager {
                      Date endTime = lectureObj.getEndTime();
                      String endTimeStr = dateFormat.format(endTime);
 
-                     System.out.printf("Lecture\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s\n",startTimeStr,endTimeStr,lectureObj.getVenue(),lectureObj.getDayOfweek());
+                     System.out.printf("Lecture\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s\n",startTimeStr,endTimeStr,lectureObj.getVenue(),lectureObj.getDayoftheWeek());
                   }
-                  case "class Tutorial":{
-                     Tutorial tutorialObj = (Tutorial) Shedule.get(j);
+                  case TUTORIAL:{
+                     Tutorial tutorialObj = (Tutorial) Schedule.get(j);
 
                      DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
 
@@ -333,9 +333,9 @@ public class DatabaseManager {
                      Date endTime = tutorialObj.getEndTime();
                      String endTimeStr = dateFormat.format(endTime);
 
-                     System.out.printf("Tutorial\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s\n",startTimeStr,endTimeStr,tutorialObj.getVenue(),tutorialObj.getDayOfWeek());
+                     System.out.printf("Tutorial\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s\n",startTimeStr,endTimeStr,tutorialObj.getVenue(),tutorialObj.getDayoftheWeek());
                   }
-                  case "class Labs":{
+                  case LAB:{
                      Labs labsObj = (Labs) Schedule.get(j);
 
                      DateFormat dateFormat = new SimpleDateFormat("HH:mm");  
@@ -346,7 +346,7 @@ public class DatabaseManager {
                      Date endTime = labsObj.getEndTime();
                      String endTimeStr = dateFormat.format(endTime);
 
-                     System.out.printf("Lab\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s %s\n",startTimeStr,endTimeStr,labsObj.getVenue(),labsObj.getDayOfWeek(),labsObj.getOddOrEven());
+                     System.out.printf("Lab\tStart Time: %s\tEnd Time: %s\tVenue: %s\tDay of Week: %s %s\n",startTimeStr,endTimeStr,labsObj.getVenue(),labsObj.getDayoftheWeek(),labsObj.getOddorEven());
                   }
                }
             }

@@ -116,11 +116,48 @@ public class Course implements Serializable {
             e.printStackTrace();
         }
 
-        Lesson lessonObj2 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", "tuesday");
+        Lesson lessonObj1 = new Lecture(startTimeParsedLect, endTimeParsedLect, "lt2", Main.DAY_OF_WEEK.TUESDAY);
+
+        Date starttime=null;
+        try {
+            starttime = timeformat.parse("1200");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Date endtime=null;
+        try {
+            endtime = timeformat.parse("1300");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Lesson lessonObj2 = new Tutorial(starttime,endtime,"tr1",
+                    Main.DAY_OF_WEEK.TUESDAY);
+
+
+        Date starttime2=null;
+        try {
+            starttime2 = timeformat.parse("1300");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Date endtime2=null;
+        try {
+            endtime2 = timeformat.parse("1400");
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Lesson lessonObj3 = new Labs(starttime2, endtime2, "lab1", Main.DAY_OF_WEEK.TUESDAY, Main.ODD_EVEN.EVEN);
+
         ArrayList<Lesson> schedule2 = new ArrayList<Lesson>();
-        Cindex cindexObj2 = new Cindex("2", 1);
+        Cindex cindexObj2 = new Cindex("2", 2);
         
+        schedule2.add(lessonObj1);
         schedule2.add(lessonObj2);
+        schedule2.add(lessonObj3);
         cindexObj2.setSchedule(schedule2);
         ListCindex.add(cindexObj2);
 
@@ -174,8 +211,6 @@ public class Course implements Serializable {
                         // update database for student allocated
                         databaseManager.updateDatabase(studAllocated);
                     }
-                    
-                   
                 }
             }
 
