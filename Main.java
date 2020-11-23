@@ -1,6 +1,3 @@
-import com.sun.tools.jconsole.JConsoleContext;
-
-import java.io.Console;
 import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -1439,7 +1436,6 @@ public class Main {
             }
 
             courseObj.setListCindex(cindexArrayList);
-            // DatabaseManager databaseManager = new DatabaseManager();
             ArrayList<Course> courseList = databaseManager.DeserializeCourseList();
             courseList.add(courseObj);
             databaseManager.SerializeCourseList(courseList);
@@ -2017,26 +2013,27 @@ public class Main {
     private static void dropCourse(String username) {
         // have to show the student reg courses
         // remove the student from the courses registered students
+        // also have to drop for waitlist
         Scanner sc = new Scanner(System.in);
         DatabaseManager databaseManager = new DatabaseManager();
         System.out.println("Enter \' # \'to return to main menu ");
         System.out.println("Please enter coursecode: ");
         String coursecode = sc.next();
-        boolean running = true;
+        
 
         if (coursecode.equals("#"))
             return;
-        // else ... error checking
+        
         if (databaseManager.checkStudentReg(username, coursecode)) {
             System.out.println("Are you sure? [y/n]");
             String choice = sc.next();
 
-            if (choice.equals("y")) {
+            if (choice.toLowerCase().equals("y")) {
 
                 databaseManager.removeCourseMain(username, coursecode);
 
                 System.out.println("Course dropped!");
-            } else if (choice.equals("n")) {
+            } else if (choice.toLowerCase().equals("n")) {
                 return;
             } else {
                 System.out.println("invalid choice!");

@@ -2,5 +2,6 @@
     "java.project.referencedLibraries": [
         "dependencies/javax.mail.jar",
         "dependencies/activation.jar"
-    ]
+    ],
+    "java.dependency.syncWithFolderExplorer": true
 }

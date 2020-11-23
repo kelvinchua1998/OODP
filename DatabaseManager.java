@@ -499,6 +499,7 @@ public class DatabaseManager {
 
                }
             }
+            
          }
          case "student": {
             ArrayList<Student> studentList = databaseManager.DeserializeStudentList();
@@ -507,6 +508,7 @@ public class DatabaseManager {
                   return studentList.get(j);
                }
             }
+            
          }
          default: {
             System.out.println("Object does not exist with the username");
