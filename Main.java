@@ -1,3 +1,6 @@
+import com.sun.tools.jconsole.JConsoleContext;
+
+import java.io.Console;
 import java.util.Calendar;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -36,6 +39,7 @@ public class Main {
 
             Login login = new Login();
             Scanner sc = new Scanner(System.in);
+
             String username = null;
             String password = null;
 
@@ -47,7 +51,7 @@ public class Main {
                 username = sc.next();
 
                 System.out.println("Please Enter Password");
-                password = sc.next();
+                password = System.console().readPassword().toString();
 
                 userType = login.verifyUser(username, password);
             }
