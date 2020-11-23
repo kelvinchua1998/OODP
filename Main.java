@@ -2153,9 +2153,15 @@ public class Main {
                 System.out.println("Can't find course in your registered courses! please enter Course Code again!");
             }
         }
-
-        System.out.println("Your Current index: " + studentCourse.getCourseIndex());
+        //shud check if whether the course only has one index
+        Course coursefromDatabase = databaseManager.searchCourse(studentCourse.getCourseCode());
+        if (coursefromDatabase.getListCindex().size() == 1){
+            System.out.println("There is only one index in the course! Cannot change!");
+            return;
+        }
+        System.out.printf("Your Current index: %s \n",studentCourse.getCourseIndex());
         Cindex newindex = null;
+
 
         while (newindex == null) {
             System.out.println("Enter New index: ");
@@ -2176,28 +2182,31 @@ public class Main {
         // need to check whether the student entered the same index as the old one
         if (!newindex.getIndexName().equals(oldindex.getIndexName())) {
             // check clash for new index
-            // if (studentobj.checkClashforSameCourseNewIndex(newindex,studentobj))
-            if (newindex.getCurrentVacancy() == 0) {
+             if (!studentobj.checkClashforSameCourseNewIndex(newindex,studentCourse.getCourseCode())){
+                 //no clash with reg course or waitlist
+                 if (newindex.getCurrentVacancy() == 0) {
 
-                newindex.getWaitList().add(studentobj.getUsername());
-                registeredcourse.remove(indexOfRegisteredCourse);
-                System.out.println(
-                        "index is removed from your registered course, you are placed in waitlist for your new index");
-            } else {
-                newindex.getRegisteredStudents().add(studentobj.getUsername());
-                for (int i = 0; i < oldindex.getRegisteredStudents().size(); i++) {
-                    if (oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())) {
-                        oldindex.getRegisteredStudents().remove(i);
-                    }
-                }
+                     newindex.getWaitList().add(studentobj.getUsername());
+                     registeredcourse.remove(indexOfRegisteredCourse);
+                     System.out.println(
+                             "index is removed from your registered course, you are placed in waitlist for your new index");
+                 } else {
+                     newindex.getRegisteredStudents().add(studentobj.getUsername());
+                     for (int i = 0; i < oldindex.getRegisteredStudents().size(); i++) {
+                         if (oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())) {
+                             oldindex.getRegisteredStudents().remove(i);
+                         }
+                     }
 
-                studentCourse.setCourseIndex(newindex.getIndexName());
-                databaseManager.updateDatabase(studentobj);
-                databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
-                databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
+                     studentCourse.setCourseIndex(newindex.getIndexName());
+                     databaseManager.updateDatabase(studentobj);
+                     databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
+                     databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
 
-                System.out.println("you have changed your index successfully");
-            }
+                     System.out.println("you have changed your index successfully");
+                 }
+             }
+
         } else {
             System.out.println("you are already in the index!");
         }

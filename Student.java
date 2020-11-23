@@ -310,8 +310,116 @@ public class Student extends User implements Serializable{
 		
 	}
 
+	public boolean checkClashforSameCourseNewIndex(Cindex newindex,String courseCode) {
+		// won't check the student course with the same course code as this
+		// show the clash timings
+		//return true if clash
+		// false if no clash
+		int clashCounter =0;
+		DatabaseManager databaseManager = new DatabaseManager();
 
-//	public boolean checkClashforSameCourseNewIndex(Cindex newindex, Student studentobj) {
-//		studentobj.removeCourse();
-//	}
+		for(int i =0; i < newindex.getSchedule().size();i++){
+			Lesson singleLesson = newindex.getSchedule().get(i);
+
+			// check index start time less then end time in students schedule
+			for (int u=0;u<this.getRegisteredCourse().size();u++){
+				//for each cindex in student schedule
+				if (!getRegisteredCourse().get(u).getCourseCode().equals(courseCode)){
+					Course studentRegCourse = databaseManager.searchCourse(getRegisteredCourse().get(u).getCourseCode());
+					Cindex studentRegIndex = studentRegCourse.searchCindex(getRegisteredCourse().get(u).getCourseIndex());
+
+					for (int w = 0; w< studentRegIndex.getSchedule().size(); w++ ){
+						Lesson singleLessonStudent = studentRegIndex.getSchedule().get(w);
+						if(singleLesson.getDayoftheWeek().equals(singleLessonStudent.getDayoftheWeek()) ){
+							if(singleLesson.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(singleLesson.getDayoftheWeek())){
+								if(singleLesson.getStartTime().before(singleLessonStudent.getStartTime())){
+
+									if(singleLesson.getEndTime().before(singleLessonStudent.getStartTime())){
+										//no clash
+									}else{
+										//clash
+										clashCounter++;
+										System.out.printf("Index Clash with registered course : %s %S index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+										System.out.println("registered index timing : lesson type / start time - end time");
+										for (int j =0; j < studentRegIndex.getSchedule().size();j++){
+
+											System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
+										}
+
+									}
+								}else{
+									if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
+										//clash
+										clashCounter++;
+										System.out.printf("Index Clash with registered course : %s %S index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+									}else{
+										//no clash
+
+									}
+								}
+							}
+						}
+
+					}
+
+				}
+			}
+				}
+
+
+		for(int i =0; i < newindex.getSchedule().size();i++){
+			Lesson singleLesson = newindex.getSchedule().get(i);
+
+			// check index start time less then end time in students schedule
+			for (int u=0;u<this.getWaitlist().size();u++){
+				//for each cindex in student schedule
+				if (!getWaitlist().get(u).getCourseCode().equals(courseCode)){
+					Course studentWaitlistCourse = databaseManager.searchCourse(getWaitlist().get(u).getCourseCode());
+					Cindex studentWaitlistIndex = studentWaitlistCourse.searchCindex(getWaitlist().get(u).getCourseIndex());
+					for (int w = 0; w< studentWaitlistIndex.getSchedule().size(); w++ ){
+						Lesson singleLessonStudent = studentWaitlistIndex.getSchedule().get(w);
+
+						// only checks for clash when day is equal to eeach other and when both the lesson is same odd or even or when either of them is oddandeven
+						if(singleLesson.getDayoftheWeek().equals(singleLessonStudent.getDayoftheWeek()) ){
+							if(singleLesson.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(singleLesson.getDayoftheWeek())){
+								if(singleLesson.getStartTime().before(singleLessonStudent.getStartTime())){
+
+									if(singleLesson.getEndTime().before(singleLessonStudent.getStartTime())){
+										//no clash
+									}else{
+										//clash
+										clashCounter++;
+										System.out.printf("Index Clash with waitlist course : %s %S index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+									}
+								}else{
+									if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
+										//clash
+										clashCounter++;
+										System.out.printf("Index Clash with waitlist course : %s %S index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+									}else{
+										//no clash
+
+									}
+								}
+							}
+						}
+
+					}
+
+				}
+			}
+				}
+
+
+
+
+		if (clashCounter > 0){
+			return true;
+		}else
+		{
+			return false;
+		}
+	}
+
+
 }
