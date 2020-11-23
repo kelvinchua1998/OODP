@@ -344,9 +344,11 @@ public class Main {
                                 }
                             }
 
+                            databaseManager.updateStudentCourseNewCourseCode(courseObj.getCourseCode(), newCourseCode);
                             courseObj.setCourseCode(newCourseCode);
 
                             courselist.add(courseObj);
+
                             databaseManager.SerializeCourseList(courselist);
 
                         } else {
@@ -424,8 +426,26 @@ public class Main {
                             System.out.println();
                             break;
                         } else {
-                            System.out.println("Enter new Index:");
-                            String newIndex = sc.next();
+
+                            boolean uniqueIndex = false;
+                            String newIndex = "";
+                            while (!uniqueIndex) {
+                                System.out.println("Enter new Index:");
+                                newIndex = sc.next();
+
+                                boolean found = false;
+                                for (int i = 0; i < courseObj.getListCindex().size(); i++) {
+                                    if (courseObj.getListCindex().get(i).getIndexName().equals(newIndex)) {
+                                        System.out.println("index not unique! ");
+                                        found = true;
+                                        break;
+                                    } 
+                                }
+
+                                if(found == false){
+                                    uniqueIndex = true;
+                                }
+                            }
 
                             for (int i = 0; i < cindexList.size(); i++) {
                                 if (cindexList.get(i).getIndexName().equals(index)) {
@@ -433,6 +453,8 @@ public class Main {
                                     break;
                                 }
                             }
+                            databaseManager.updateStudentCourseNewIndexName(courseCode, cindexobj.getIndexName(),
+                                    newIndex);
 
                             cindexobj.setIndex(newIndex);
                             cindexList.add(cindexobj);
@@ -925,7 +947,7 @@ public class Main {
                 System.out.println("Course AUs: ");
                 try {
                     AU = sc.nextInt();
-                    
+
                 } catch (InputMismatchException e) {
                     System.out.println("Enter Integers Only!");
                     sc.nextLine();
@@ -935,7 +957,7 @@ public class Main {
                     sc.nextLine();
                     continue;
                 }
-                if(AU<=0){
+                if (AU <= 0) {
                     System.out.println("AUs cannot be 0 or Negative!");
                     sc.nextLine();
                     continue;
@@ -985,13 +1007,17 @@ public class Main {
                             index = sc.next();
 
                             if (cindexArrayList.size() != 0) {
+                                boolean found=false;
                                 for (int i = 0; i < cindexArrayList.size(); i++) {
                                     if (cindexArrayList.get(i).getIndexName().equals(index)) {
                                         System.out.println("index not unique! ");
+                                        found=true;
                                         break;
-                                    } else {
-                                        uniqueIndex = true;
                                     }
+                                }
+
+                                if(found==false){
+                                    uniqueIndex=true;
                                 }
                             } else {
                                 uniqueIndex = true;
@@ -1046,8 +1072,9 @@ public class Main {
 
                             switch (choice2) {
                                 case 0:
-                                    if(ScheduleContainLect(schedule)){
-                                        System.out.println("A Index MUST contain either Lect only, Lect and Tut only ,Lect and Tut and lab only!");
+                                    if (ScheduleContainLect(schedule)) {
+                                        System.out.println(
+                                                "A Index MUST contain either Lect only, Lect and Tut only ,Lect and Tut and lab only!");
                                         continue;
                                     }
                                     break;
@@ -1389,15 +1416,15 @@ public class Main {
                             }
                         }
 
-                        if(checkClashBetweenLessons(schedule)){
+                        if (checkClashBetweenLessons(schedule)) {
                             System.out.println("The new added will not be added as it clash with previous index");
                             continue;
                         }
-                        
+
                         CindexObj.setSchedule(schedule);
                         cindexArrayList.add(CindexObj);
                 }
-                
+
             }
 
             courseObj.setListCindex(cindexArrayList);
@@ -1411,8 +1438,6 @@ public class Main {
         databaseManager.printAllCourses();
 
     }
-
-
 
     private static void printStudentListByCIndex() {
         String coursecode;
@@ -2171,15 +2196,14 @@ public class Main {
                 System.out.println("Can't find course in your registered courses! please enter Course Code again!");
             }
         }
-        //shud check if whether the course only has one index
+        // shud check if whether the course only has one index
         Course coursefromDatabase = databaseManager.searchCourse(studentCourse.getCourseCode());
-        if (coursefromDatabase.getListCindex().size() == 1){
+        if (coursefromDatabase.getListCindex().size() == 1) {
             System.out.println("There is only one index in the course! Cannot change!");
             return;
         }
-        System.out.printf("Your Current index: %s \n",studentCourse.getCourseIndex());
+        System.out.printf("Your Current index: %s \n", studentCourse.getCourseIndex());
         Cindex newindex = null;
-
 
         while (newindex == null) {
             System.out.println("Enter New index: ");
@@ -2200,30 +2224,30 @@ public class Main {
         // need to check whether the student entered the same index as the old one
         if (!newindex.getIndexName().equals(oldindex.getIndexName())) {
             // check clash for new index
-             if (!studentobj.checkClashforSameCourseNewIndex(newindex,studentCourse.getCourseCode())){
-                 //no clash with reg course or waitlist
-                 if (newindex.getCurrentVacancy() == 0) {
+            if (!studentobj.checkClashforSameCourseNewIndex(newindex, studentCourse.getCourseCode())) {
+                // no clash with reg course or waitlist
+                if (newindex.getCurrentVacancy() == 0) {
 
-                     newindex.getWaitList().add(studentobj.getUsername());
-                     registeredcourse.remove(indexOfRegisteredCourse);
-                     System.out.println(
-                             "index is removed from your registered course, you are placed in waitlist for your new index");
-                 } else {
-                     newindex.getRegisteredStudents().add(studentobj.getUsername());
-                     for (int i = 0; i < oldindex.getRegisteredStudents().size(); i++) {
-                         if (oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())) {
-                             oldindex.getRegisteredStudents().remove(i);
-                         }
-                     }
+                    newindex.getWaitList().add(studentobj.getUsername());
+                    registeredcourse.remove(indexOfRegisteredCourse);
+                    System.out.println(
+                            "index is removed from your registered course, you are placed in waitlist for your new index");
+                } else {
+                    newindex.getRegisteredStudents().add(studentobj.getUsername());
+                    for (int i = 0; i < oldindex.getRegisteredStudents().size(); i++) {
+                        if (oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())) {
+                            oldindex.getRegisteredStudents().remove(i);
+                        }
+                    }
 
-                     studentCourse.setCourseIndex(newindex.getIndexName());
-                     databaseManager.updateDatabase(studentobj);
-                     databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
-                     databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
+                    studentCourse.setCourseIndex(newindex.getIndexName());
+                    databaseManager.updateDatabase(studentobj);
+                    databaseManager.updatecindex(studentCourse.getCourseCode(), oldindex);
+                    databaseManager.updatecindex(studentCourse.getCourseCode(), newindex);
 
-                     System.out.println("you have changed your index successfully");
-                 }
-             }
+                    System.out.println("you have changed your index successfully");
+                }
+            }
 
         } else {
             System.out.println("you are already in the index!");
@@ -2349,85 +2373,92 @@ public class Main {
     }
 
     public static boolean checkClashBetweenLessons(ArrayList<Lesson> schedule) {
-        int clashCounter=0;
-     
-        for (int w = 0; w< schedule.size()-1; w++ ){
-           Lesson lesson1 = schedule.get(w);
-           for (int j = w+1; j< schedule.size(); j++ ){
-              Lesson lesson2 = schedule.get(j);
-              if(lesson2.getDayoftheWeek().equals(lesson1.getDayoftheWeek()) ){
-                 if(lesson2.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || lesson1.getOddorEven().equals(lesson2.getDayoftheWeek())){
-                    if(lesson2.getStartTime().before(lesson1.getStartTime())){
-     
-                       if(lesson2.getEndTime().before(lesson1.getStartTime())){
-                          //no clash
-                       }else{
-                          //clash
-                          clashCounter++;
-                          System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
-                          System.out.println("clashes with ");
-                          System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
-     
-                       }
-                    }else{
-                       if(lesson2.getStartTime().before(lesson1.getEndTime())){
-                          //clash
-                          clashCounter++;
-                          System.out.printf("%s %s %s %s - %s\n",lesson1.getLessonType(),lesson1.getDayoftheWeek(),lesson1.getOddorEven(), lesson1.getVenue(), lesson1.getStartTime(),lesson1.getEndTime());
-                          System.out.println("clashes with ");
-                          System.out.printf("%s %s %s %s - %s\n",lesson2.getLessonType(),lesson2.getDayoftheWeek(),lesson2.getOddorEven(), lesson2.getVenue(), lesson2.getStartTime(),lesson2.getEndTime());
-                       }else{
-                          //no clash
-     
-                       }
-                    }
-                 }
-              }
-           }
-     
-     
-     
-        }
-        if (clashCounter > 0){
-           return true;
-        }else
-        {
-           return false;
-        }
-     
-     }
+        int clashCounter = 0;
 
-     private static boolean ScheduleContainLect(ArrayList<Lesson> schedule) {
-        int lectCount=0;
-        int tutCount=0;
-        int labCount=0;
-        for(int i =0; i<schedule.size();i++){
-            switch(schedule.get(i).getLessonType()){
-                case LECTURE:{
+        for (int w = 0; w < schedule.size() - 1; w++) {
+            Lesson lesson1 = schedule.get(w);
+            for (int j = w + 1; j < schedule.size(); j++) {
+                Lesson lesson2 = schedule.get(j);
+                if (lesson2.getDayoftheWeek().equals(lesson1.getDayoftheWeek())) {
+                    if (lesson2.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN)
+                            || lesson1.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN)
+                            || lesson1.getOddorEven().equals(lesson2.getDayoftheWeek())) {
+                        if (lesson2.getStartTime().before(lesson1.getStartTime())) {
+
+                            if (lesson2.getEndTime().before(lesson1.getStartTime())) {
+                                // no clash
+                            } else {
+                                // clash
+                                clashCounter++;
+                                System.out.printf("%s %s %s %s - %s\n", lesson1.getLessonType(),
+                                        lesson1.getDayoftheWeek(), lesson1.getOddorEven(), lesson1.getVenue(),
+                                        lesson1.getStartTime(), lesson1.getEndTime());
+                                System.out.println("clashes with ");
+                                System.out.printf("%s %s %s %s - %s\n", lesson2.getLessonType(),
+                                        lesson2.getDayoftheWeek(), lesson2.getOddorEven(), lesson2.getVenue(),
+                                        lesson2.getStartTime(), lesson2.getEndTime());
+
+                            }
+                        } else {
+                            if (lesson2.getStartTime().before(lesson1.getEndTime())) {
+                                // clash
+                                clashCounter++;
+                                System.out.printf("%s %s %s %s - %s\n", lesson1.getLessonType(),
+                                        lesson1.getDayoftheWeek(), lesson1.getOddorEven(), lesson1.getVenue(),
+                                        lesson1.getStartTime(), lesson1.getEndTime());
+                                System.out.println("clashes with ");
+                                System.out.printf("%s %s %s %s - %s\n", lesson2.getLessonType(),
+                                        lesson2.getDayoftheWeek(), lesson2.getOddorEven(), lesson2.getVenue(),
+                                        lesson2.getStartTime(), lesson2.getEndTime());
+                            } else {
+                                // no clash
+
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+        if (clashCounter > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    private static boolean ScheduleContainLect(ArrayList<Lesson> schedule) {
+        int lectCount = 0;
+        int tutCount = 0;
+        int labCount = 0;
+        for (int i = 0; i < schedule.size(); i++) {
+            switch (schedule.get(i).getLessonType()) {
+                case LECTURE: {
                     lectCount++;
                     break;
                 }
-                case TUTORIAL:{
+                case TUTORIAL: {
                     tutCount++;
                     break;
                 }
-                case LAB:{
+                case LAB: {
                     labCount++;
                     break;
                 }
             }
         }
 
-        if(lectCount>0 && tutCount>0 && labCount>0){
+        if (lectCount > 0 && tutCount > 0 && labCount > 0) {
             return false;
-        }else if(lectCount>0 && tutCount>0){
+        } else if (lectCount > 0 && tutCount > 0) {
             return false;
-        }else if(lectCount>0){
+        } else if (lectCount > 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
-        
+
     }
 
 }
