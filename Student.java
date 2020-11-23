@@ -6,7 +6,7 @@ public class Student extends User implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String matricNum;
-	private String gender;
+	private Main.GENDER gender;
 	private String firstName;
 	private String lastName;
 	private String nationality;
@@ -17,7 +17,7 @@ public class Student extends User implements Serializable{
 	private ArrayList<StudentCourse> registeredCourse;
 	private ArrayList<StudentCourse> waitlist;
 
-	public Student(String firstName, String lastName, String gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime, String email) {
+	public Student(String firstName, String lastName, Main.GENDER gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime, String email) {
 		super(username,password,"student");
 	
 		User userObj = new User(username, password, "student");
@@ -49,8 +49,11 @@ public class Student extends User implements Serializable{
 		return lastName;
 	}
 
-	public String getGender() {
+	public Main.GENDER getGender() {
 		return gender;
+	}
+	public void setGender(Main.GENDER gender) {
+		this.gender = gender;
 	}
 
 	public String getNationality() {
