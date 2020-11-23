@@ -67,27 +67,23 @@ public class Main {
                         System.out.println("9. Print available courses");
                         System.out.println("==================================================");
 
-
-
                         boolean validchoice = false;
                         int choice = -1;
-                        while(!validchoice){
+                        while (!validchoice) {
                             System.out.println("Enter choice: ");
-                            try{
+                            try {
                                 choice = sc.nextInt();
-                            }catch (InputMismatchException e){
+                            } catch (InputMismatchException e) {
                                 System.out.println("Enter Integer only!");
                                 sc.nextLine();
                                 continue;
-                            }catch(Exception e){
+                            } catch (Exception e) {
                                 System.out.println("invalid input! please try again!");
                                 sc.nextLine();
                                 continue;
                             }
                             validchoice = true;
                         }
-
-
 
                         switch (choice) {
                             case 1: {
@@ -155,18 +151,17 @@ public class Main {
                             System.out.println("7. Logout");
                             System.out.println("==================================================");
 
-
                             boolean validchoice = false;
                             int choice = -1;
-                            while(!validchoice){
+                            while (!validchoice) {
                                 System.out.println("Enter choice: ");
-                                try{
+                                try {
                                     choice = sc.nextInt();
-                                }catch (InputMismatchException e){
+                                } catch (InputMismatchException e) {
                                     System.out.println("Enter Integer only!");
                                     sc.nextLine();
                                     continue;
-                                }catch(Exception e){
+                                } catch (Exception e) {
                                     System.out.println("invalid input! please try again!");
                                     sc.nextLine();
                                     continue;
@@ -309,14 +304,13 @@ public class Main {
                 System.out.println("5. Add new Index");
                 System.out.println("6. Delete Index");
                 System.out.println("===========================================");
-                
 
                 boolean validchoice = false;
-                while(!validchoice){
+                while (!validchoice) {
                     System.out.println("Enter choice: ");
-                    try{
+                    try {
                         choice = sc.nextInt();
-                    }catch (InputMismatchException e) {
+                    } catch (InputMismatchException e) {
                         System.out.println("Enter Integers Only!");
                         sc.nextLine();
                         continue;
@@ -327,7 +321,6 @@ public class Main {
                     }
                     validchoice = true;
                 }
-                
 
                 switch (choice) {
                     case 0: {
@@ -447,15 +440,15 @@ public class Main {
                         break;
                     }
                     case 5: {
-                        
+
                         boolean uniqueIndex = false;
                         String index = "";
-                        while(!uniqueIndex){
+                        while (!uniqueIndex) {
                             System.out.println("New Index: ");
                             index = sc.next();
-                            if(databaseManager.searchCindex(courseCode, index) == null){
+                            if (databaseManager.searchCindex(courseCode, index) == null) {
                                 uniqueIndex = true;
-                            }else{
+                            } else {
                                 System.out.println("Index not unique!");
                             }
                         }
@@ -491,11 +484,11 @@ public class Main {
                             System.out.println("3.Add new Lab ");
 
                             boolean validchoice2 = false;
-                            while(!validchoice2){
+                            while (!validchoice2) {
                                 System.out.println("Enter choice: ");
-                                try{
+                                try {
                                     choice2 = sc.nextInt();
-                                }catch (InputMismatchException e) {
+                                } catch (InputMismatchException e) {
                                     System.out.println("Enter Integers Only!");
                                     sc.nextLine();
                                     continue;
@@ -508,10 +501,10 @@ public class Main {
                             }
 
                             switch (choice2) {
-                                case 0:{
+                                case 0: {
                                     break;
                                 }
-                                case 1:{
+                                case 1: {
                                     Date startTimeParsedLect = null;
                                     boolean validStartTime = false;
                                     while (!validStartTime) {
@@ -597,12 +590,13 @@ public class Main {
                                         validDayOfWeek = true;
                                     }
 
-                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect, dayOfweekLect);
+                                    Lecture lecture = new Lecture(startTimeParsedLect, endTimeParsedLect, venueLect,
+                                            dayOfweekLect);
 
                                     schedule.add(lecture);
                                     break;
                                 }
-                                case 2:{
+                                case 2: {
 
                                     Date startTimeParsedTut = null;
                                     Boolean ValidStartTime2 = false;
@@ -695,7 +689,7 @@ public class Main {
                                     schedule.add(tutorial);
                                     break;
                                 }
-                                case 3:{
+                                case 3: {
 
                                     Date startTimeParsedLab = null;
                                     boolean validStartTime3 = false;
@@ -810,13 +804,13 @@ public class Main {
                                     schedule.add(lab);
                                     break;
                                 }
-                                default:{
+                                default: {
                                     System.out.println("Choice from 0 to 3 only!");
                                 }
                             }
                         }
                         CindexObj.setSchedule(schedule);
-                        databaseManager.addcindex(courseCode,CindexObj);
+                        databaseManager.addcindex(courseCode, CindexObj);
 
                         courseObj = databaseManager.searchCourse(courseCode);
 
@@ -827,7 +821,7 @@ public class Main {
                         System.out.println("Enter the Index that you want to delete:");
                         String index = sc.next();
 
-                        if(databaseManager.searchCindex(courseCode, index) != null){
+                        if (databaseManager.searchCindex(courseCode, index) != null) {
                             for (int i = 0; i < cindexList.size(); i++) {
                                 if (cindexList.get(i).getIndexName().equals(index)) {
                                     cindexList.remove(i);
@@ -837,19 +831,19 @@ public class Main {
 
                             courseObj.setListCindex(cindexList);
                             databaseManager.updateDatabase(courseObj);
-                        }else{
+                        } else {
                             System.out.println("Index does not exists in selected course");
                         }
-                            
+
                         choice = -1;
                         break;
                     }
-                    default:{
+                    default: {
                         System.out.println("Choice from 0 to 6 Only!");
                     }
                 }
             }
-        }else{
+        } else {
             System.out.println("Course Code does not exists in DataBase");
         }
     }
@@ -895,7 +889,24 @@ public class Main {
                 System.out.println("Add new index: ");
                 System.out.println("0.Quit");
                 System.out.println("1.Add new index");
-                choice = sc.nextInt();
+
+                boolean validchoice = false;
+                while (!validchoice) {
+                    System.out.println("Enter choice: ");
+                    try {
+                        choice = sc.nextInt();
+                    } catch (InputMismatchException e) {
+                        System.out.println("Enter Integers Only!");
+                        sc.nextLine();
+                        continue;
+                    } catch (Exception e) {
+                        System.out.println("Exception Error");
+                        sc.nextLine();
+                        continue;
+                    }
+                    validchoice = true;
+                }
+
                 System.out.println("--------------------------------------");
                 switch (choice) {
                     case 0:
@@ -913,8 +924,9 @@ public class Main {
                                     if (cindexArrayList.get(i).getIndexName().equals(index)) {
                                         System.out.println("index not unique! ");
                                         continue;
+                                    } else {
+                                        uniqueIndex = true;
                                     }
-                                    ;
                                 }
                             } else {
                                 uniqueIndex = true;
@@ -950,7 +962,22 @@ public class Main {
                             System.out.println("2.Add new Tutorial ");
                             System.out.println("3.Add new Lab ");
 
-                            choice2 = sc.nextInt();
+                            boolean validchoice2 = false;
+                            while(!validchoice2){
+                                System.out.println("Enter choice: ");
+                                try{
+                                    choice2 = sc.nextInt();
+                                }catch (InputMismatchException e) {
+                                    System.out.println("Enter Integers Only!");
+                                    sc.nextLine();
+                                    continue;
+                                } catch (Exception e) {
+                                    System.out.println("Exception Error");
+                                    sc.nextLine();
+                                    continue;
+                                }
+                                validchoice2 = true;
+                            }
 
                             switch (choice2) {
                                 case 0:
@@ -1364,7 +1391,7 @@ public class Main {
         coursecode = sc.next();
 
         studentList = databaseManager.getStudentListbyCourse(coursecode);
-        if(studentList != null){
+        if (studentList != null) {
             if (studentList.size() != 0) {
                 System.out.println("--------------------------------------");
                 System.out.printf("student in %s \n", coursecode);
@@ -1378,7 +1405,7 @@ public class Main {
                 System.out.println("--------------------------------------");
             } else if (studentList.size() == 0) {
                 System.out.printf("There are no registered students in %s \n", coursecode);
-            } 
+            }
         }
     }
 
@@ -1399,12 +1426,12 @@ public class Main {
                 Course singleCourse = courseList.get(i);
 
                 System.out.println("-------------------------------------");
-                System.out.println("index   /   vacacy   /    waitlist");
+                System.out.println("\tindex\tvacacy\twaitlist");
 
                 if (singleCourse.getListCindex() != null) {
                     for (int j = 0; j < singleCourse.getListCindex().size(); j++) {
                         Cindex singleindex = singleCourse.getListCindex().get(j);
-                        System.out.printf("%d.  %s  /  %d  /  %d\n", j + 1, singleindex.getIndexName(),
+                        System.out.printf("%d.\t%s\t%d\t%d\n", j + 1, singleindex.getIndexName(),
                                 singleindex.getCurrentVacancy(), singleindex.getWaitList().size());
                     }
                 } else {
@@ -1499,30 +1526,30 @@ public class Main {
                 continue;
             }
 
-
             String choiceIndex;
 
             boolean validchoice = false;
 
-            while(!validchoice){
+            while (!validchoice) {
                 System.out.println("Enter choice: ");
                 System.out.println("Enter \'#\'to go back to main menu");
                 choiceIndex = sc.next();
-                try{
+                try {
                     if (choiceIndex.equals("#"))
                         return;
 
-                    else if(Integer.parseInt(choiceIndex) - 1>= 0 && Integer.parseInt(choiceIndex) - 1< singleCourse.getListCindex().size()){
+                    else if (Integer.parseInt(choiceIndex) - 1 >= 0
+                            && Integer.parseInt(choiceIndex) - 1 < singleCourse.getListCindex().size()) {
                         singleIndex = singleCourse.getListCindex().get(Integer.parseInt(choiceIndex) - 1);
-                    }else{
+                    } else {
                         System.out.println("invalid input! please try again!");
                         continue;
                     }
-                }catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                     System.out.println("Enter Integer only!");
                     sc.nextLine();
                     continue;
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println("invalid input! please try again!");
                     sc.nextLine();
                     continue;
@@ -1530,10 +1557,9 @@ public class Main {
                 validchoice = true;
             }
 
-
             // check timetable clash
 
-            Cindex courseIndex = databaseManager.searchCindex(coursecode,  singleIndex.getIndexName());
+            Cindex courseIndex = databaseManager.searchCindex(coursecode, singleIndex.getIndexName());
 
             if (stud.checkClash(courseIndex)) {
                 // CLASH
@@ -1548,21 +1574,20 @@ public class Main {
                 // if got vacancy add stud
                 // if no vacancy add into waitlist
 
-                //ask for confirmation
+                // ask for confirmation
                 boolean validConfirmation = false;
-                while(!validConfirmation){
+                while (!validConfirmation) {
                     System.out.println("Are you sure? [y/n]");
                     String confirmation1 = sc.next();
                     confirmation1.toUpperCase();
-                    if(confirmation1.toUpperCase().equals("N")){
+                    if (confirmation1.toUpperCase().equals("N")) {
                         return;
-                    }else if (confirmation1.toUpperCase().equals("Y")){
+                    } else if (confirmation1.toUpperCase().equals("Y")) {
                         validConfirmation = true;
-                    }else{
+                    } else {
                         System.out.println("invalid input! Please Enter again!");
                     }
                 }
-
 
                 if (singleIndex.getCurrentVacancy() > 0) {
                     // add course into student reg courses
