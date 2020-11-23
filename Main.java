@@ -2469,10 +2469,12 @@ public class Main {
 
         if (lectCount > 0 && tutCount > 0 && labCount > 0) {
             return false;
-        } else if (lectCount > 0 && tutCount > 0) {
+        } else if (lectCount > 0 && tutCount > 0 && labCount==0) {
             return false;
-        } else if (lectCount > 0) {
+        } else if (lectCount > 0 && tutCount==0 && labCount==0) {
             return false;
+        }else if(lectCount > 0 && tutCount==0 && labCount>0){
+            return true;
         } else {
             return true;
         }
