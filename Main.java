@@ -2024,7 +2024,7 @@ public class Main {
         if (coursecode.equals("#"))
             return;
         
-        if (databaseManager.checkStudentReg(username, coursecode)) {
+        if (databaseManager.checkStudentRegAndWaitList(username, coursecode)) {
             System.out.println("Are you sure? [y/n]");
             String choice = sc.next();
 
@@ -2039,7 +2039,7 @@ public class Main {
                 System.out.println("invalid choice!");
             }
         } else {
-            System.out.println("cant find course in your registered courses! pls try agaain");
+            System.out.println("cant find course in your registered or Waitlist courses! pls try again");
         }
 
     }

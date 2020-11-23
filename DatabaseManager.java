@@ -277,10 +277,11 @@ public class DatabaseManager {
 
       Course courseObj = searchCourse(courseCode);
 
-      //checks if the sutdent is in the reg course
-      if(courseObj.checkIfStudentFromReg(username)){
-         // true means that the student is registered in the course
-         studentObj.removeCourse(courseCode);
+      //checks if the sutdent is in the course registered and waitlist
+      if(courseObj.checkIfStudentFromRegAndWaitlist(username)){
+         // true means that the student is registered in the course or is in the waitlist
+         studentObj.removeCourseFromRegORWait(courseCode);
+
          studentObj.plusAU(courseObj);
 
          courseObj.removeStudentFromIndex(studentObj.getUsername());
@@ -289,7 +290,7 @@ public class DatabaseManager {
          updateDatabase(studentObj);
       } else {
          /// false means that the student is not reg
-         System.out.println("you are not registered in the course!");
+         System.out.println("you are not registered or in the waitlist for the course!");
       }
 
    }
@@ -613,11 +614,17 @@ public class DatabaseManager {
       return false;
    }
 
-   public boolean checkStudentReg(String username, String courseCode) {
+   public boolean checkStudentRegAndWaitList(String username, String courseCode) {
       Student studentObj = (Student) getObjectbyUsername(username);
       ArrayList regC = studentObj.getRegisteredCourse();
       for (int i = 0; i < regC.size(); i++) {
          if (studentObj.getRegisteredCourse().get(i).getCourseCode().equals(courseCode)) {
+            return true;
+         }
+      }
+      ArrayList waitC = studentObj.getWaitlist();
+      for (int i = 0; i < waitC.size(); i++) {
+         if (studentObj.getWaitlist().get(i).getCourseCode().equals(courseCode)) {
             return true;
          }
       }

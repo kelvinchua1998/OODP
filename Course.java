@@ -81,11 +81,16 @@ public class Course implements Serializable {
         School = school;
     }
 
-    public boolean checkIfStudentFromReg(String username) {
+    public boolean checkIfStudentFromRegAndWaitlist(String username) {
         // search student throughout the Cindex and remove
         for (int i = 0; i < this.listCindex.size(); i++) {
             for (int j = 0; j < this.listCindex.get(i).getRegisteredStudents().size(); j++) {
                 if (this.listCindex.get(i).getRegisteredStudents().get(j).equals(username)) {
+                    return true;
+                }
+            }
+            for (int j = 0; j < this.listCindex.get(i).getWaitList().size(); j++) {
+                if (this.listCindex.get(i).getWaitList().get(j).equals(username)) {
                     return true;
                 }
             }
@@ -194,6 +199,7 @@ public class Course implements Serializable {
 	public void removeStudentFromIndex(String username) {
         DatabaseManager databaseManager= new DatabaseManager();
 
+        //checks reg for the stud
         for (int i = 0; i < listCindex.size(); i++) {
             for (int j = 0; j < listCindex.get(i).getRegisteredStudents().size(); j++) {
                 if (listCindex.get(i).getRegisteredStudents().get(j).equals(username)) {
@@ -215,6 +221,19 @@ public class Course implements Serializable {
             }
 
         }
+
+        //checks waitlist as well
+        for (int i = 0; i < listCindex.size(); i++) {
+            for (int j = 0; j < listCindex.get(i).getWaitList().size(); j++) {
+                if (listCindex.get(i).getWaitList().get(j).equals(username)) {
+                    //remove student
+                    listCindex.get(i).getWaitList().remove(j);
+                    
+                }
+            }
+
+        }
+
 	}
 
 

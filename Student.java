@@ -261,7 +261,8 @@ public class Student extends User implements Serializable{
  * @param CourseCode
  */
 
-	public void removeCourse(String CourseCode) {
+	public void removeCourseFromRegORWait(String CourseCode) {
+		//search course in reg courses
 		for (int i = 0; i < registeredCourse.size(); i++) {
 			if (registeredCourse.get(i).getCourseCode().equals(CourseCode)) {
 
@@ -269,6 +270,18 @@ public class Student extends User implements Serializable{
 				sendMail.droppedCourse(registeredCourse.get(i), email);
 				
 				registeredCourse.remove(i);
+				
+
+			}
+		}
+		//search course in waitlist as well
+		for (int i = 0; i < waitlist.size(); i++) {
+			if (waitlist.get(i).getCourseCode().equals(CourseCode)) {
+
+				SendMail sendMail = new SendMail();
+				sendMail.droppedCourse(waitlist.get(i), email);
+				
+				waitlist.remove(i);
 				
 
 			}
