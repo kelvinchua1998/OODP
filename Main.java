@@ -18,11 +18,13 @@ public class Main {
     enum GENDER {
         MALE, FEMALE
     }
-    enum ODD_EVEN{
-        ODD,EVEN,OOD_AND_EVEN
+
+    enum ODD_EVEN {
+        ODD, EVEN, OOD_AND_EVEN
     }
-    enum LESSON_TYPE{
-        LECTURE,TUTORIAL,LAB
+
+    enum LESSON_TYPE {
+        LECTURE, TUTORIAL, LAB
     }
 
     public static void main(String[] args) {
@@ -527,22 +529,33 @@ public class Main {
                                     }
 
                                     Date endTimeParsedLect = null;
-                                    boolean validEndTime = false;
-                                    while (!validEndTime) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLect = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLect)) {
-                                                endTimeParsedLect = timeformat.parse(endTimeLect);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime = false;
+                                    while (!endtime_After_starttime) {
+
+                                        boolean validEndTime = false;
+                                        while (!validEndTime) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLect = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLect)) {
+                                                    endTimeParsedLect = timeformat.parse(endTimeLect);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime = true;
                                         }
-                                        validEndTime = true;
+
+                                        if (endTimeParsedLect.after(startTimeParsedLect)) {
+                                            endtime_After_starttime = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
+
                                     }
 
                                     System.out.println("Venue: ");
@@ -621,22 +634,33 @@ public class Main {
                                     }
 
                                     Date endTimeParsedTut = null;
-                                    Boolean validEndTime2 = false;
-                                    while (!validEndTime2) {
-                                        System.out.println("End Time: ");
-                                        String endTimeTut = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeTut))
-                                                endTimeParsedTut = timeformat.parse(endTimeTut);
-                                            else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime = false;
+                                    while (!endtime_After_starttime) {
+
+                                        Boolean validEndTime2 = false;
+                                        while (!validEndTime2) {
+                                            System.out.println("End Time: ");
+                                            String endTimeTut = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeTut))
+                                                    endTimeParsedTut = timeformat.parse(endTimeTut);
+                                                else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime2 = true;
                                         }
-                                        validEndTime2 = true;
+
+                                        if (endTimeParsedTut.after(startTimeParsedTut)) {
+                                            endtime_After_starttime = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
+
                                     }
 
                                     System.out.println("Venue: ");
@@ -714,22 +738,33 @@ public class Main {
                                     }
 
                                     Date endTimeParsedLab = null;
-                                    boolean validEndTime3 = false;
-                                    while (!validEndTime3) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLab = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLab)) {
-                                                endTimeParsedLab = timeformat.parse(endTimeLab);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime = false;
+                                    while (!endtime_After_starttime) {
+
+                                        boolean validEndTime3 = false;
+                                        while (!validEndTime3) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLab = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLab)) {
+                                                    endTimeParsedLab = timeformat.parse(endTimeLab);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime3 = true;
                                         }
-                                        validEndTime3 = true;
+
+                                        if (endTimeParsedLab.after(startTimeParsedLab)) {
+                                            endtime_After_starttime = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
+
                                     }
 
                                     System.out.println("Venue: ");
@@ -795,7 +830,7 @@ public class Main {
                                                 oddOrEvenLab = ODD_EVEN.EVEN;
                                                 break;
                                             }
-                                            case "both":{
+                                            case "both": {
                                                 oddOrEvenLab = ODD_EVEN.OOD_AND_EVEN;
                                                 break;
                                             }
@@ -884,8 +919,23 @@ public class Main {
             System.out.println("Course School: ");
             String school = sc.nextLine();
 
-            System.out.println("Course AUs: ");
-            int AU = sc.nextInt();
+            boolean validAU = false;
+            int AU = -1;
+            while (!validAU) {
+                System.out.println("Course AUs: ");
+                try {
+                    AU = sc.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Enter Integers Only!");
+                    sc.nextLine();
+                    continue;
+                } catch (Exception e) {
+                    System.out.println("Exception Error");
+                    sc.nextLine();
+                    continue;
+                }
+                validAU = true;
+            }
 
             Course courseObj = new Course(CourseCode, CourseName, CourseDescription, school, AU, CindexList);
 
@@ -972,11 +1022,11 @@ public class Main {
                             System.out.println("3.Add new Lab ");
 
                             boolean validchoice2 = false;
-                            while(!validchoice2){
+                            while (!validchoice2) {
                                 System.out.println("Enter choice: ");
-                                try{
+                                try {
                                     choice2 = sc.nextInt();
-                                }catch (InputMismatchException e) {
+                                } catch (InputMismatchException e) {
                                     System.out.println("Enter Integers Only!");
                                     sc.nextLine();
                                     continue;
@@ -1012,59 +1062,69 @@ public class Main {
                                     }
 
                                     Date endTimeParsedLect = null;
-                                    boolean validEndTime = false;
-                                    while (!validEndTime) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLect = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLect)) {
-                                                endTimeParsedLect = timeformat.parse(endTimeLect);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime = false;
+                                    while (!endtime_After_starttime) {
+
+                                        boolean validEndTime = false;
+                                        while (!validEndTime) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLect = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLect)) {
+                                                    endTimeParsedLect = timeformat.parse(endTimeLect);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime = true;
                                         }
-                                        validEndTime = true;
+
+                                        if (endTimeParsedLect.after(startTimeParsedLect)) {
+                                            endtime_After_starttime = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
 
                                     System.out.println("Venue: ");
                                     String venueLect = sc.next();
-                                    String input="";
+                                    String input = "";
                                     boolean validDayOfWeek = false;
-                                    Main.DAY_OF_WEEK dayOfweekLect=null;
-                                    while(!validDayOfWeek){
+                                    Main.DAY_OF_WEEK dayOfweekLect = null;
+                                    while (!validDayOfWeek) {
                                         System.out.println("Day Of Week: ");
                                         input = sc.next();
 
-                                        switch(input.toLowerCase()){
-                                            case "monday":{
+                                        switch (input.toLowerCase()) {
+                                            case "monday": {
                                                 dayOfweekLect = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
-                                            case "tuesday":{
+                                            case "tuesday": {
                                                 dayOfweekLect = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
-                                            case "wednesday":{
+                                            case "wednesday": {
                                                 dayOfweekLect = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
-                                            case "thursday":{
+                                            case "thursday": {
                                                 dayOfweekLect = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
-                                            case "friday":{
+                                            case "friday": {
                                                 dayOfweekLect = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
-                                            case "saturday":{
+                                            case "saturday": {
                                                 dayOfweekLect = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
-                                            case "sunday":{
+                                            case "sunday": {
                                                 dayOfweekLect = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
@@ -1104,22 +1164,32 @@ public class Main {
                                     }
 
                                     Date endTimeParsedTut = null;
-                                    Boolean validEndTime2 = false;
-                                    while (!validEndTime2) {
-                                        System.out.println("End Time: ");
-                                        String endTimeTut = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeTut))
-                                                endTimeParsedTut = timeformat.parse(endTimeTut);
-                                            else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime2 = false;
+                                    while (!endtime_After_starttime2) {
+
+                                        Boolean validEndTime2 = false;
+                                        while (!validEndTime2) {
+                                            System.out.println("End Time: ");
+                                            String endTimeTut = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeTut))
+                                                    endTimeParsedTut = timeformat.parse(endTimeTut);
+                                                else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime2 = true;
                                         }
-                                        validEndTime2 = true;
+
+                                        if (endTimeParsedTut.after(startTimeParsedTut)) {
+                                            endtime_After_starttime2 = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
 
                                     System.out.println("Venue: ");
@@ -1127,37 +1197,37 @@ public class Main {
 
                                     boolean validDayOfWeek2 = false;
 
-                                    Main.DAY_OF_WEEK day_of_weekTut=null;
-                                    while(!validDayOfWeek2){
+                                    Main.DAY_OF_WEEK day_of_weekTut = null;
+                                    while (!validDayOfWeek2) {
                                         System.out.println("Day Of Week: ");
                                         input = sc.next();
 
-                                        switch(input.toLowerCase()){
-                                            case "monday":{
+                                        switch (input.toLowerCase()) {
+                                            case "monday": {
                                                 day_of_weekTut = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
-                                            case "tuesday":{
+                                            case "tuesday": {
                                                 day_of_weekTut = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
-                                            case "wednesday":{
+                                            case "wednesday": {
                                                 day_of_weekTut = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
-                                            case "thursday":{
+                                            case "thursday": {
                                                 day_of_weekTut = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
-                                            case "friday":{
+                                            case "friday": {
                                                 day_of_weekTut = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
-                                            case "saturday":{
+                                            case "saturday": {
                                                 day_of_weekTut = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
-                                            case "sunday":{
+                                            case "sunday": {
                                                 day_of_weekTut = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
@@ -1170,7 +1240,8 @@ public class Main {
                                         validDayOfWeek2 = true;
                                     }
 
-                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut, day_of_weekTut);
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
+                                            day_of_weekTut);
 
                                     schedule.add(tutorial);
                                     break;
@@ -1196,22 +1267,32 @@ public class Main {
                                     }
 
                                     Date endTimeParsedLab = null;
-                                    boolean validEndTime3 = false;
-                                    while (!validEndTime3) {
-                                        System.out.println("End Time: ");
-                                        String endTimeLab = sc.next();
-                                        try {
-                                            if (isValidTime(endTimeLab)) {
-                                                endTimeParsedLab = timeformat.parse(endTimeLab);
-                                            } else {
-                                                System.out.println("Enter time in 24hr Format!");
+                                    boolean endtime_After_starttime3 = false;
+                                    while (!endtime_After_starttime3) {
+
+                                        boolean validEndTime3 = false;
+                                        while (!validEndTime3) {
+                                            System.out.println("End Time: ");
+                                            String endTimeLab = sc.next();
+                                            try {
+                                                if (isValidTime(endTimeLab)) {
+                                                    endTimeParsedLab = timeformat.parse(endTimeLab);
+                                                } else {
+                                                    System.out.println("Enter time in 24hr Format!");
+                                                    continue;
+                                                }
+                                            } catch (ParseException e) {
+                                                System.out.println("Enter Integer Only!");
                                                 continue;
                                             }
-                                        } catch (ParseException e) {
-                                            System.out.println("Enter Integer Only!");
-                                            continue;
+                                            validEndTime3 = true;
                                         }
-                                        validEndTime3 = true;
+
+                                        if (endTimeParsedLab.after(startTimeParsedLab)) {
+                                            endtime_After_starttime3 = true;
+                                        } else {
+                                            System.out.println("End time must be later than Start Time!");
+                                        }
                                     }
 
                                     System.out.println("Venue: ");
@@ -1220,36 +1301,36 @@ public class Main {
                                     boolean validDayOfWeek3 = false;
                                     input = "";
                                     Main.DAY_OF_WEEK dayOfweekLab = null;
-                                    while(!validDayOfWeek3){
+                                    while (!validDayOfWeek3) {
                                         System.out.println("Day Of Week: ");
                                         input = sc.next();
 
-                                        switch(input.toLowerCase()){
-                                            case "monday":{
+                                        switch (input.toLowerCase()) {
+                                            case "monday": {
                                                 dayOfweekLab = DAY_OF_WEEK.MONDAY;
                                                 break;
                                             }
-                                            case "tuesday":{
+                                            case "tuesday": {
                                                 dayOfweekLab = DAY_OF_WEEK.TUESDAY;
                                                 break;
                                             }
-                                            case "wednesday":{
+                                            case "wednesday": {
                                                 dayOfweekLab = DAY_OF_WEEK.WEDNESDAY;
                                                 break;
                                             }
-                                            case "thursday":{
+                                            case "thursday": {
                                                 dayOfweekLab = DAY_OF_WEEK.THURSDAY;
                                                 break;
                                             }
-                                            case "friday":{
+                                            case "friday": {
                                                 dayOfweekLab = DAY_OF_WEEK.FRIDAY;
                                                 break;
                                             }
-                                            case "saturday":{
+                                            case "saturday": {
                                                 dayOfweekLab = DAY_OF_WEEK.SATURDAY;
                                                 break;
                                             }
-                                            case "sunday":{
+                                            case "sunday": {
                                                 dayOfweekLab = DAY_OF_WEEK.SUNDAY;
                                                 break;
                                             }
@@ -1264,20 +1345,20 @@ public class Main {
 
                                     boolean validOddOrEven = false;
                                     Main.ODD_EVEN oddOrEvenLab = null;
-                                    while(!validOddOrEven){
+                                    while (!validOddOrEven) {
                                         System.out.println("odd or even or both: ");
                                         input = sc.next();
 
-                                        switch(input.toLowerCase()){
-                                            case "odd":{
+                                        switch (input.toLowerCase()) {
+                                            case "odd": {
                                                 oddOrEvenLab = ODD_EVEN.ODD;
                                                 break;
                                             }
-                                            case "even":{
+                                            case "even": {
                                                 oddOrEvenLab = ODD_EVEN.EVEN;
                                                 break;
                                             }
-                                            case "both":{
+                                            case "both": {
                                                 oddOrEvenLab = ODD_EVEN.OOD_AND_EVEN;
                                                 break;
                                             }
@@ -2053,7 +2134,7 @@ public class Main {
         Student studentobj = (Student) databaseManager.getObjectbyUsername(username);
         ArrayList<StudentCourse> registeredcourse = studentobj.getRegisteredCourse();
 
-        while(studentCourse == null){
+        while (studentCourse == null) {
             System.out.println("Please enter coursecode that you want to change index: ");
             System.out.println("Enter \'#\' to return to main menu ");
             input = sc.next();
@@ -2068,16 +2149,15 @@ public class Main {
                 }
             }
 
-            if(studentCourse == null){
+            if (studentCourse == null) {
                 System.out.println("Can't find course in your registered courses! please enter Course Code again!");
             }
         }
 
-
         System.out.println("Your Current index: " + studentCourse.getCourseIndex());
         Cindex newindex = null;
 
-        while (newindex == null){
+        while (newindex == null) {
             System.out.println("Enter New index: ");
             System.out.println("Enter \'#\' to return to main menu ");
             input = sc.next();
@@ -2087,17 +2167,16 @@ public class Main {
 
             newindex = databaseManager.searchCindex(studentCourse.getCourseCode(), input);
 
-            if(newindex == null){
+            if (newindex == null) {
                 System.out.println("Can't find the index the course! please enter index number again!");
             }
         }
 
-
-        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode() , studentCourse.getCourseIndex()) ;
+        Cindex oldindex = databaseManager.searchCindex(studentCourse.getCourseCode(), studentCourse.getCourseIndex());
         // need to check whether the student entered the same index as the old one
-        if (!newindex.getIndexName().equals(oldindex.getIndexName())){
+        if (!newindex.getIndexName().equals(oldindex.getIndexName())) {
             // check clash for new index
-//            if (studentobj.checkClashforSameCourseNewIndex(newindex,studentobj))
+            // if (studentobj.checkClashforSameCourseNewIndex(newindex,studentobj))
             if (newindex.getCurrentVacancy() == 0) {
 
                 newindex.getWaitList().add(studentobj.getUsername());
@@ -2106,12 +2185,11 @@ public class Main {
                         "index is removed from your registered course, you are placed in waitlist for your new index");
             } else {
                 newindex.getRegisteredStudents().add(studentobj.getUsername());
-                for(int i=0;i<oldindex.getRegisteredStudents().size();i++){
-                    if(oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())){
+                for (int i = 0; i < oldindex.getRegisteredStudents().size(); i++) {
+                    if (oldindex.getRegisteredStudents().get(i).equals(studentobj.getUsername())) {
                         oldindex.getRegisteredStudents().remove(i);
                     }
                 }
-
 
                 studentCourse.setCourseIndex(newindex.getIndexName());
                 databaseManager.updateDatabase(studentobj);
@@ -2120,10 +2198,9 @@ public class Main {
 
                 System.out.println("you have changed your index successfully");
             }
-        }else{
+        } else {
             System.out.println("you are already in the index!");
         }
-
 
     }
 
