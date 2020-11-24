@@ -33,10 +33,10 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * default constructor to create Lecture class
- * @param startTime Date
- * @param endTime Date
- * @param venue String
- * @param dayOfweek Main.DAY_OF_WEEK
+ * @param startTime start time of lecture
+ * @param endTime end time of lecture
+ * @param venue venue of lecture
+ * @param dayOfweek day of the week lecture is on
  */
     public Lecture(Date startTime, Date endTime, String venue, Main.DAY_OF_WEEK dayOfweek) {
         this.startTime = startTime;
@@ -100,7 +100,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the start time of the lecture
- * @param startTime Date
+ * @param startTime start time of lecture
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
@@ -108,7 +108,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the end time of the lecture
- * @param endTime Date
+ * @param endTime end time of lecture
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
@@ -116,7 +116,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the venue of the lecture
- * @param venue String
+ * @param venue venue of lecture
  */
     public void setVenue(String venue) {
         this.venue = venue;
@@ -124,7 +124,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets which day of the week the lecture is on
- * @param dayOfweek Main.DAY_OF_WEEK
+ * @param dayOfweek day of the week lecture is on
  */
     public void setDayOfweek(Main.DAY_OF_WEEK dayOfweek) {
         this.dayOfweek = dayOfweek;

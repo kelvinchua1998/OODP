@@ -33,11 +33,11 @@ public class Labs extends Lesson implements Serializable {
 
 /**
  * default constructor for creating Labs class
- * @param startTime java.util.Date
- * @param endTime java.util.Date
- * @param venue String
- * @param dayOfWeek Main.DAY_OF_WEEK
- * @param oddOrEven Main.ODD_EVEN
+ * @param startTime start time of lab
+ * @param endTime end time of lab
+ * @param venue venue of lab
+ * @param dayOfWeek day of week lab is on
+ * @param oddOrEven lab is on odd week or even week or both
  */
     public Labs(java.util.Date startTime, java.util.Date endTime, String venue, Main.DAY_OF_WEEK dayOfWeek, Main.ODD_EVEN oddOrEven) {
         this.startTime = startTime;
@@ -95,35 +95,35 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * sets the start time of the lab
- * @param startTime Date
+ * @param startTime start time of lab
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 /**
  * sets the end time of the lab
- * @param endTime Date
+ * @param endTime end time of lab
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 /**
  * sets the venue of the lab
- * @param venue String
+ * @param venue venue of lab
  */
     public void setVenue(String venue) {
         this.venue = venue;
     }
 /**
  * sets which day of the week the lab is on
- * @param dayOfWeek Main.DAY_OF_WEEK
+ * @param dayOfWeek day of the week lab is on
  */
     public void setDayOfWeek(Main.DAY_OF_WEEK dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 /**
  * sets whether labs occur on odd or even weeks or both
- * @param oddOrEven Main.ODD_EVEN
+ * @param oddOrEven which week lab is on
  */
     public void setOddOrEven(Main.ODD_EVEN oddOrEven) {
         this.oddOrEven = oddOrEven;

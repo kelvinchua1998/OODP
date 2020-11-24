@@ -31,10 +31,10 @@ public class Tutorial extends Lesson implements Serializable{
     private Main.LESSON_TYPE lesson_type;
 /**
  * default constructor for creating Tutorial class
- * @param startTimeParsed java.util.Date 
- * @param endTimeParsed java.util.Date
- * @param venue String
- * @param dayOfWeek Main.DAY_OF_WEEK
+ * @param startTimeParsed start time of tutorial 
+ * @param endTimeParsed end time of tutorial
+ * @param venue venue of tutorial
+ * @param dayOfWeek day of week tutorial is on
  */
     public Tutorial(java.util.Date startTimeParsed, java.util.Date endTimeParsed, String venue, Main.DAY_OF_WEEK dayOfWeek) {
         this.startTime = startTimeParsed;
@@ -54,7 +54,7 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the start time of the tutorial
- * @param startTime Date
+ * @param startTime start time of tutorial
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
@@ -92,7 +92,7 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the end time of the tutorial
- * @param endTime Date
+ * @param endTime end time of tutorial
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
@@ -106,14 +106,14 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the venue of the tutorial
- * @param venue String
+ * @param venue venue of tutorial
  */
     public void setVenue(String venue) {
         this.venue = venue;
     }
 /**
  * sets which day of the week the tutorial is on
- * @param dayOfWeek Main.DAY_OF_WEEK
+ * @param dayOfWeek day of the week tutorial is on
  */
     public void setDayOfWeek(Main.DAY_OF_WEEK dayOfWeek) {
         this.dayOfWeek = dayOfWeek;

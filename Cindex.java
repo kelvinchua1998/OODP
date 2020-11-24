@@ -30,11 +30,11 @@ public class Cindex implements Serializable{
 
 /**
  * default constructor to create Cindex class
- * @param index
- * @param Capacity
- * @param waitList
- * @param registeredStudents
- * @param schedule
+ * @param index index of course
+ * @param Capacity capacity of course
+ * @param waitList ArrayList of students on waitlist
+ * @param registeredStudents ArrayList of students that are registered
+ * @param schedule ArrayList of lessons
  */
     public Cindex(String index, int Capacity, ArrayList<String> waitList, ArrayList<String> registeredStudents,
             ArrayList<Lesson> schedule) {
@@ -47,8 +47,8 @@ public class Cindex implements Serializable{
 
 /**
  * constructor that creates an empty list of waitList, registeredStudents and schedule
- * @param index String
- * @param Capacity int
+ * @param index index of course
+ * @param Capacity capacity of Cindex
  */
     public Cindex(String index, int Capacity) {
         this.index = index;
@@ -66,7 +66,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the index code
- * @param index String
+ * @param index Cindex
  */
     public void setIndex(String index) {
         this.index = index;
@@ -80,7 +80,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the capacity of the Cindex
- * @param Capacity int
+ * @param Capacity capacity of Cindex
  */
     public void setCapacity(int Capacity) {
         this.Capacity = Capacity;
@@ -94,7 +94,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the waitlist of the Cindex
- * @param waitList ArrayList<String>
+ * @param waitList ArrayList<String> list of students on waitlist
  */
     public void setWaitList(ArrayList<String> waitList) {
         this.waitList = waitList;
@@ -108,21 +108,21 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the list of registered students of the Cindex
- * @param registeredStudents ArrayList<String>
+ * @param registeredStudents ArrayList<String> list of registered students
  */
     public void setRegisteredStudents(ArrayList<String> registeredStudents) {
         this.registeredStudents = registeredStudents;
     }
 /**
  * adds registered students to the list for registered students of the Cindex
- * @param studentUsername String
+ * @param studentUsername username of student
  */
     public void addRegisteredStudent(String studentUsername){
         this.registeredStudents.add(studentUsername);
     }
 /**
  * adds students to waitlist if Cindex capacity is full
- * @param studentUsername String
+ * @param studentUsername username of student
  */
     public void addWaitlistStudent(String studentUsername){
         this.waitList.add(studentUsername);
@@ -136,7 +136,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the schedule of the Cindex
- * @param schedule ArrayList<Lesson>
+ * @param schedule ArrayList<Lesson> list of the lesson schedule
  */
     public void setSchedule(ArrayList<Lesson> schedule) {
         this.schedule = schedule;
@@ -151,7 +151,7 @@ public class Cindex implements Serializable{
 
 /**
  * get the index of the specified student in the list of registered students for the Cindex. If the student is not found -1 is returned
- * @param username String
+ * @param username username of student
  * @return index of student if they are in the list. -1 otherwise.
  */
     public int getIndexofStudent(String username){
