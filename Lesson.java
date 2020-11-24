@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.Date;
 /**
- * this is the parent class for Lecture, Tutorial and Labs
+ * this is the parent class for Lecture, Tutorial and Labs. It implements Serializable so that it can be serialized into the database
  */
 public abstract class Lesson implements Serializable {
 /**

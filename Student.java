@@ -430,6 +430,19 @@ public class Student extends User implements Serializable{
 		
 		Student studentObj = new Student("melvin", "chua",Main.GENDER.MALE , "Singapore", "U1234567G", "student", "student", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
 		Student studentObj2 = new Student("kelvin", "chua",Main.GENDER.MALE , "Singapore", "U2345678G", "student2", "student2", accessStartDateTime, accessEndDateTime, "chua0946@e.ntu.edu.sg");
+		Student studentObj3 = new Student("jing da", "lim",Main.GENDER.MALE , "Singapore", "U3456789A", "student3", "student3", accessStartDateTime, accessEndDateTime, "jlim@e.ntu.edu.sg");
+		Student studentObj4 = new Student("jeremy", "tan",Main.GENDER.MALE , "Singapore", "U4567890N", "student4", "student4", accessStartDateTime, accessEndDateTime, "jemtan@e.ntu.edu.sg");
+		Student studentObj5 = new Student("shaun", "koh",Main.GENDER.MALE , "Singapore", "U5678901M", "student5", "student5", accessStartDateTime, accessEndDateTime, "shaun@e.ntu.edu.sg");
+		Student studentObj6 = new Student("xavier", "soh",Main.GENDER.MALE , "Singapore", "U6789102Z", "student6", "student6", accessStartDateTime, accessEndDateTime, "xav123@e.ntu.edu.sg");
+		Student studentObj7 = new Student("narvin", "halima",Main.GENDER.MALE , "Singapore", "U7890123A", "student7", "student7", accessStartDateTime, accessEndDateTime, "narvin@e.ntu.edu.sg");
+		Student studentObj8 = new Student("jessica", "jung",Main.GENDER.FEMALE , "Korea", "U8901234K", "student8", "student8", accessStartDateTime, accessEndDateTime, "jess@e.ntu.edu.sg");
+		Student studentObj9 = new Student("hongwei", "tan",Main.GENDER.MALE , "Malaysia", "U9012345G", "student9", "student9", accessStartDateTime, accessEndDateTime, "hong123@e.ntu.edu.sg");
+		Student studentObj10 = new Student("jennie", "lim",Main.GENDER.FEMALE , "Singapore", "U7654321Q", "student10", "student10", accessStartDateTime, accessEndDateTime, "jenlim@e.ntu.edu.sg");
+		Student studentObj11 = new Student("john", "chan",Main.GENDER.MALE , "Singapore", "U8765432S", "student11", "student11", accessStartDateTime, accessEndDateTime, "john546@e.ntu.edu.sg");
+		Student studentObj12 = new Student("tommy", "han",Main.GENDER.MALE , "Singapore", "U9876543F", "student12", "student12", accessStartDateTime, accessEndDateTime, "tommyboy@e.ntu.edu.sg");
+		Student studentObj13 = new Student("aaron", "judge",Main.GENDER.MALE , "America", "U6543210A", "student13", "student13", accessStartDateTime, accessEndDateTime, "aaron@e.ntu.edu.sg");
+		Student studentObj14 = new Student("xinyi", "cheh",Main.GENDER.FEMALE , "Singapore", "U5432101Z", "student14", "student14", accessStartDateTime, accessEndDateTime, "cheh0546@e.ntu.edu.sg");
+		Student studentObj15 = new Student("jerome", "peng",Main.GENDER.MALE , "Singapore", "U4321012P", "student15", "student15", accessStartDateTime, accessEndDateTime, "jeromes14@e.ntu.edu.sg");
 		// System.out.println(studentObj.getPassword()); 
 		// System.out.println(studentObj.getUsername()); 
 		// System.out.println(studentObj.getAccessEndTime()); 
@@ -438,6 +451,19 @@ public class Student extends User implements Serializable{
 		ArrayList<Student> studentList = new ArrayList<Student>();
 		studentList.add(studentObj);
 		studentList.add(studentObj2);
+		studentList.add(studentObj3);
+		studentList.add(studentObj4);
+		studentList.add(studentObj5);
+		studentList.add(studentObj6);
+		studentList.add(studentObj7);
+		studentList.add(studentObj8);
+		studentList.add(studentObj9);
+		studentList.add(studentObj10);
+		studentList.add(studentObj11);
+		studentList.add(studentObj12);
+		studentList.add(studentObj13);
+		studentList.add(studentObj14);
+		studentList.add(studentObj15);
 
         databaseManager.SerializeStudentList(studentList);
 	}

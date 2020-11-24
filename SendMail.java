@@ -8,8 +8,20 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * This class is to send email to students when they add course, drop course, or allocated course from the waitlist
+ */
 public class SendMail {
 
+/**
+ * method to send the email to students
+ * @param senderGMail String
+ * @param senderGMailUsername String
+ * @param senderGMailPassword String
+ * @param RecipientEmail String
+ * @param EmailSubject String
+ * @param EmailContent String
+ */
 	public void sendgmail(String senderGMail,String senderGMailUsername, String senderGMailPassword, String RecipientEmail, String EmailSubject, String EmailContent){
 		final String username = senderGMailUsername;
 		final String password = senderGMailPassword; // to be added
@@ -42,13 +54,21 @@ public class SendMail {
 			throw new RuntimeException(e);
 		}
 	}
-
+/**
+ * compose email to students that dropped course
+ * @param courseObj StudentCourse
+ * @param StudentEmail String
+ */
 	public void droppedCourse(StudentCourse courseObj, String StudentEmail){
 		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+"been successfully dropped\n Thank You\n NTU STARS";
 
             sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",StudentEmail, "Course dropped", EmailContent);
 	}
-
+/**
+ * compose email to students that are allocated the course from the waitlist
+ * @param courseObj StudentCourse
+ * @param StudentEmail String
+ */
 	public void allocatedRegfromWaitlist(StudentCourse courseObj, String StudentEmail){
 		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+" been successfully added from waitlist\n Thank You\n NTU STARS";
 
