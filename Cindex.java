@@ -101,7 +101,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the list of registered students of the Cindex
- * @return list of registered students
+ * @return ArrayList of registered students
  */
     public ArrayList<String> getRegisteredStudents() {
         return registeredStudents;
@@ -129,7 +129,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the schedule of the Cindex
- * @return list of the schedule of the Cindex
+ * @return ArrayList of the schedule of the Cindex
  */
     public ArrayList<Lesson> getSchedule() {
         return this.schedule;

@@ -126,7 +126,7 @@ public class Course implements Serializable {
     }
 /**
  * gets the list of Cindex for the course
- * @return list of Cindex
+ * @return ArrayList of Cindex
  */
     public ArrayList<Cindex> getListCindex() {
         return listCindex;
