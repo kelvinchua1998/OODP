@@ -329,6 +329,7 @@ public class Student extends User implements Serializable{
 									//clash
 									clashCounter++;
 									System.out.printf("Index Clash with registered course : %s %s index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+
 									System.out.println("registered index timing : lesson type / start time - end time");
 									for (int j =0; j < studentRegIndex.getSchedule().size();j++){
 
@@ -350,6 +351,24 @@ public class Student extends User implements Serializable{
 									//clash
 									clashCounter++;
 									System.out.printf("Index Clash with registered course : %s %s index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+
+									System.out.println("registered index timing : lesson type / start time - end time");
+									for (int j =0; j < studentRegIndex.getSchedule().size();j++){
+
+										Calendar calendar = Calendar.getInstance();
+										calendar.setTimeInMillis(studentRegIndex.getSchedule().get(j).getStartTime().getTime());
+
+										Calendar calendar2 = Calendar.getInstance();
+										calendar2.setTimeInMillis(studentRegIndex.getSchedule().get(j).getEndTime().getTime());
+
+										String startTimeStr = calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+
+										String endTimeStr = calendar2.get(Calendar.HOUR_OF_DAY)+":"+calendar2.get(Calendar.MINUTE);
+
+										System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getLessonType().toString(),startTimeStr,endTimeStr);
+									}
+
+
 								}else{
 									//no clash
 
@@ -385,12 +404,42 @@ public class Student extends User implements Serializable{
 									//clash
 									clashCounter++;
 									System.out.printf("Index Clash with waitlist course : %s %s index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+
+									System.out.println("registered index timing : lesson type / start time - end time");
+									for (int j =0; j < studentWaitlistIndex.getSchedule().size();j++){
+
+										Calendar calendar = Calendar.getInstance();
+										calendar.setTimeInMillis(studentWaitlistIndex.getSchedule().get(j).getStartTime().getTime());
+										Calendar calendar2 = Calendar.getInstance();
+										calendar2.setTimeInMillis(studentWaitlistIndex.getSchedule().get(j).getEndTime().getTime());
+
+										String startTimeStr = calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+
+										String endTimeStr = calendar2.get(Calendar.HOUR_OF_DAY)+":"+calendar2.get(Calendar.MINUTE);
+
+										System.out.printf("%s / %s - %s ",studentWaitlistIndex.getSchedule().get(j).getLessonType().toString(),startTimeStr,endTimeStr);
+									}
 								}
 							}else{
 								if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
 									//clash
 									clashCounter++;
 									System.out.printf("Index Clash with waitlist course : %s %s index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+
+									System.out.println("registered index timing : lesson type / start time - end time");
+									for (int j =0; j < studentWaitlistIndex.getSchedule().size();j++){
+
+										Calendar calendar = Calendar.getInstance();
+										calendar.setTimeInMillis(studentWaitlistIndex.getSchedule().get(j).getStartTime().getTime());
+										Calendar calendar2 = Calendar.getInstance();
+										calendar2.setTimeInMillis(studentWaitlistIndex.getSchedule().get(j).getEndTime().getTime());
+
+										String startTimeStr = calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+
+										String endTimeStr = calendar2.get(Calendar.HOUR_OF_DAY)+":"+calendar2.get(Calendar.MINUTE);
+
+										System.out.printf("%s / %s - %s ",studentWaitlistIndex.getSchedule().get(j).getLessonType().toString(),startTimeStr,endTimeStr);
+									}
 								}else{
 									//no clash
 
