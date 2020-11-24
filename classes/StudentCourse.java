@@ -1,3 +1,4 @@
+package classes;
 import java.io.Serializable;
 /**
  * StudentCourse class that is used to store the required information in the student's registered List and waitlist
