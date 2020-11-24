@@ -19,7 +19,7 @@ public class DatabaseManager {
 /**
  * Constant relative filepath tot he database
  */
-   String FILEPATH = "database\\";
+   String FILEPATH = ".\\database\\";
 /**
  * method to serialize the course list
  * @param courseList the course list to be set
