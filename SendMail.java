@@ -56,7 +56,7 @@ public class SendMail {
 	}
 /**
  * compose email to students that dropped course
- * @param courseObj object to get specified course code
+ * @param courseObj course that students dropped
  * @param StudentEmail email of the student
  */
 	public void droppedCourse(StudentCourse courseObj, String StudentEmail){
@@ -66,7 +66,7 @@ public class SendMail {
 	}
 /**
  * compose email to students that are allocated the course from the waitlist
- * @param courseObj object to get specified course code
+ * @param courseObj course that students were allocated to from the waitlist
  * @param StudentEmail email of the student
  */
 	public void allocatedRegfromWaitlist(StudentCourse courseObj, String StudentEmail){
