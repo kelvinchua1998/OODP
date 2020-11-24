@@ -339,9 +339,9 @@ public class DatabaseManager {
       return -1;
    }
 /**
- * the method for the drop course function
- * @param username 
- * @param courseCode
+ * the method for the drop  a course for a specified student
+ * @param username the username of the student
+ * @param courseCode the course code for the course to be dropped
  */
    public void removeCourseMain(String username, String courseCode) {
       Student studentObj = (Student) getObjectbyUsername(username);
@@ -366,8 +366,8 @@ public class DatabaseManager {
 
    }
 /**
- * print all the course registered by the student
- * @param username
+ * print all the courses registered by the student
+ * @param username the username of the student
  */
    public void printCourseRegistered(String username) {
       Student studentObj = (Student) getObjectbyUsername(username);
@@ -504,16 +504,16 @@ public class DatabaseManager {
    }
 /**
  * add a single student into the database
- * @param firstName string
- * @param lastName string
- * @param gender Main.GENDER
- * @param nationality String
- * @param matricNum String
- * @param username String
- * @param password String
- * @param AccessStartTime Long
- * @param AccessEndTimE Long
- * @param email String
+ * @param firstName first name of the new student
+ * @param lastName last name of the new student
+ * @param gender gender of the new student
+ * @param nationality nationality of the new student
+ * @param matricNum matric number of the new student
+ * @param username username of the new student
+ * @param password password of the new student
+ * @param AccessStartTime access start time of the new student
+ * @param AccessEndTimE access end time of the new student
+ * @param email email of the new student
  */
    public void addStudent(String firstName, String lastName, Main.GENDER gender, String nationality, String matricNum,
          String username, String password, Calendar AccessStartTime, Calendar AccessEndTime, String email) {
@@ -531,7 +531,7 @@ public class DatabaseManager {
    }
 /**
  * add a single User object into the user database
- * @param userObj User
+ * @param userObj the User object to be added
  */
    public void adduser(User userObj) {
       ArrayList<User> userList = DeserializeUserList();
@@ -539,11 +539,11 @@ public class DatabaseManager {
       SerializeUserList(userList);
    }
 /**
- * Check clash method for checking clashes for whether a specific Cindex clashes with the student's registered course. returns true if there is any clashes, otherwise false.
- * @param username String
- * @param courseCode String
- * @param Cindex String
- * @return boolean
+ * Check clash method for checking clashes for whether a specific Cindex clashes with the student's registered course
+ * @param username teh username of the student
+ * @param courseCode the course code of the course to be checked with the student
+ * @param Cindex index of the course
+ * @return returns true if there is any clashes, otherwise false
  */
    public boolean checkClashforStudent(String username, String courseCode, String Cindex) {
 
@@ -555,8 +555,8 @@ public class DatabaseManager {
    }
 /**
  * returns the index for the course in the database
- * @param courseCode
- * @return int
+ * @param courseCode course code to be searched
+ * @return the index of the course. returns -1 if the index cannot be found
  */
    public int getIndexByCourseCode(String courseCode) {
       ArrayList<Course> courseList = DeserializeCourseList();
@@ -570,8 +570,8 @@ public class DatabaseManager {
    }
 /**
  * get the index of the user in the database
- * @param username
- * @return
+ * @param username username of the user
+ * @return index of the user in the database, returns -1 if the user cannot be found
  */
    public int getIndexByUsername(String username) {
       ArrayList<User> userList = DeserializeUserList();
@@ -599,7 +599,7 @@ public class DatabaseManager {
    }
 /**
  * a general method that updates the database according to the type of object passed in. only works for overwriting an existing object in the database, does not add or remove the obejcts
- * @param obj
+ * @param obj object to update the database
  */
    public void updateDatabase(Object obj) {
       if (obj instanceof Student) {
@@ -639,8 +639,8 @@ public class DatabaseManager {
    }
 /**
  * returns the Student or Admin Object depending on the username
- * @param username String
- * @return Object
+ * @param username user of the user
+ * @return Student or admin Object
  */
    public Object getObjectbyUsername(String username) {
       DatabaseManager databaseManager = new DatabaseManager();
@@ -680,9 +680,9 @@ public class DatabaseManager {
       }
    }
 /**
- * method to check whether the course code is unique. returns true if it is unique, otherwise false
- * @param courseCode string
- * @return boolean
+ * method to check whether the course code is unique
+ * @param courseCode course code to be checked
+ * @return returns true if it is unique, otherwise false
  */
    public boolean verifyUniqueCourseCode(String courseCode) {
       ArrayList<Course> courseList = DeserializeCourseList();
@@ -695,9 +695,9 @@ public class DatabaseManager {
       return true;
    }
 /**
- * method to check whether the matric number is unique. returns true if it is unique, otherwise false
- * @param matricNum string
- * @return boolean
+ * method to check whether the matric number is unique
+ * @param matricNum the matric number to be checked
+ * @return  returns true if it is unique, otherwise false
  */
    public boolean verifyUniqueMatricNum(String matricNum) {
       ArrayList<Student> StudentList = DeserializeStudentList();
@@ -710,9 +710,9 @@ public class DatabaseManager {
       return true;
    }
 /**
- * method to check whether the username is unique. returns true if it is unique, otherwise false
- * @param username string
- * @return boolean
+ * method to check whether the username is unique. 
+ * @param username the username to be checked
+ * @return returns true if it is unique, otherwise false
  */
    public boolean verifyUniqueUsername(String username) {
       ArrayList<Student> StudentList = DeserializeStudentList();
@@ -726,9 +726,9 @@ public class DatabaseManager {
    }
 /**
  * check whether the student have already registered for the course. returns true if the student is already registered, otherwise false.
- * @param stud Student
- * @param singleCourse Course
- * @return Boolean
+ * @param stud student object to be checked with
+ * @param singleCourse course to to be check with
+ * @return returns true if the student is already registered, otherwise false.
  */
    public boolean checkStudentRegisteredCourses(Student stud, Course singleCourse) {
       // returns true if the course is already registered
@@ -740,10 +740,10 @@ public class DatabaseManager {
       return false;
    }
 /**
- * Cheak whether the course is the student's registered or waitlist Courses. returns true if the course is found in the student's registered or waitlist courses, otherwise false.
- * @param username String
- * @param courseCode String
- * @return boolean
+ * Cheak whether the course is the student's registered or waitlist Courses
+ * @param username username of teh student
+ * @param courseCode the course code to be checked
+ * @return returns true if the course is found in the student's registered or waitlist courses, otherwise false.
  */
    public boolean checkStudentRegAndWaitList(String username, String courseCode) {
       Student studentObj = (Student) getObjectbyUsername(username);
@@ -763,8 +763,8 @@ public class DatabaseManager {
    }
 /**
  * Main method to update the the specifed Cindex and course
- * @param courseCode String
- * @param cindexObj String
+ * @param courseCode course to be updated
+ * @param cindexObj the Cindex object to be updated
  */
    public void updatecindex(String courseCode, Cindex cindexObj) {
       Course courseObj = searchCourse(courseCode);
@@ -868,10 +868,10 @@ public void printAllCourses() {
       }
    }
 /**
- * update the registered in the Cindex with the new index name
- * @param courseCode String
- * @param oldIndexName String
- * @param newIndexName String
+ * update the registered student in the Cindex with the new index name
+ * @param courseCode the course code of the course
+ * @param oldIndexName the old index name
+ * @param newIndexName the new index name
  */
    public void updateStudentCourseNewIndexName(String courseCode,String oldIndexName,String newIndexName){
       Cindex cindexObj = searchCindex(courseCode,oldIndexName);
