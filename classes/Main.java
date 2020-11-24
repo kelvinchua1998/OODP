@@ -1089,6 +1089,7 @@ public class Main {
                                     if (ScheduleContainLect(schedule)) {
                                         System.out.println(
                                                 "A Index MUST contain either Lect only, Lect and Tut only ,Lect and Tut and lab only!");
+                                        choice2=-1;
                                         continue;
                                     }
                                     break;
