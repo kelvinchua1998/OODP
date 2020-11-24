@@ -88,28 +88,29 @@ public class Student extends User implements Serializable{
 		waitlist = new ArrayList<StudentCourse>();
 	}
 /**
- * returns password of the student
+ * returns the password of the student
+ * @return string
  */
 	public String getPassword() {
 		return this.password;
 	}
 /**
  * returns first name of the student
- * @return
+ * @return string
  */
 	public String getFirstName() {
 		return firstName;
 	}
 /**
  * returns last name of the student
- * @return
+ * @return string
  */
 	public String getLastName() {
 		return lastName;
 	}
 /**
  * returns enum Main.GENDER of the student
- * @return
+ * @return enum Main.GENDER
  */
 	public Main.GENDER getGender() {
 		return gender;
@@ -123,21 +124,21 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the nationality of the student
- * @return
+ * @return string
  */
 	public String getNationality() {
 		return nationality;
 	}
 /**
  * returns the matric number of the student
- * @return
+ * @return string 
  */
 	public String getMatricNum() {
 		return matricNum;
 	}
 /**
  * returns the total number of AUs that the student registered
- * @return
+ * @return int
  */
 	public int getNumAuRegistered() {
 		return numAUsRegistered;
@@ -159,7 +160,7 @@ public class Student extends User implements Serializable{
 /**
  * Method to verify password. returns true if the password is correct else false.
  * @param enPwd
- * @return
+ * @return boolean
  */
 	public Boolean verifyPassword(String enPwd) {
 		if (enPwd == password)
@@ -169,7 +170,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * return the access Start time of the student
- * @return
+ * @return	Long
  */
 	public long getAccessStartTime() {
 		return AccessStartDateTime;
@@ -183,7 +184,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the access end time of the student
- * @return
+ * @return Long
  */
 	public long getAccessEndTime() {
 		return AccessEndDateTime;
@@ -197,12 +198,14 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the username of the student
+ * @return String
  */
 	public String getUsername() {
 		return username;
 	}
 /**
  * sets the username of the student
+ * @return String
  */
 	public void setUsername(String username) {
 		this.username = username;
@@ -230,7 +233,7 @@ public class Student extends User implements Serializable{
 	
 /**
  * returns the arrayList of the students registered courses
- * @return
+ * @return ArrayList of class StudentCourse
  */
 	public ArrayList<StudentCourse> getRegisteredCourse() {
 		return registeredCourse;
@@ -244,7 +247,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the arraylist of students waitlist courses
- * @return
+ * @return ArrayList of class StudentCourse
  */
 	public ArrayList<StudentCourse> getWaitlist() {
 		return waitlist;
@@ -291,7 +294,7 @@ public class Student extends User implements Serializable{
 	/**
 	 * check whether any of student's registered and waitlist courses clashes with the index that is passed in. returns true if there is any clashes, otherwise false if there is no clashes
 	 * @param index
-	 * @return
+	 * @return boolean
 	 */
 
 	public boolean checkClash(Cindex index){
@@ -407,7 +410,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the email of the student
- * @return
+ * @return string 
  */
 	public String getEmail() {
 		return email;
@@ -441,7 +444,7 @@ public class Student extends User implements Serializable{
 /**
  * returns the StudentCourse object from the student's waitlist
  * @param courseCode
- * @return
+ * @return StudentCourse
  */
 	public StudentCourse checkWaitlist(String courseCode) {
 		for (int i =0 ; i <waitlist.size(); i++){
@@ -474,7 +477,7 @@ public class Student extends User implements Serializable{
  * returns true if there is any clashes otherwise false.
  * @param newindex
  * @param courseCode
- * @return
+ * @return	boolean
  */
 	public boolean checkClashforSameCourseNewIndex(Cindex newindex,String courseCode) {
 		// won't check the student course with the same course code as this

@@ -25,7 +25,7 @@ public class User implements Serializable{
 
     /**
      * return the User's username
-     * @return their username
+     * @return String of the User's username
      */
     public String getUsername() {
         return username;
@@ -39,7 +39,7 @@ public class User implements Serializable{
     }
 /**
  * return the User's password
- * @return
+ * @return string of user's password
  */
     public String getPassword() {
         return password;
@@ -64,7 +64,7 @@ public class User implements Serializable{
     }
     /**
      * get User Type
-     * @return
+     * @return String of User type
      */
 
     public String getUserType() {
