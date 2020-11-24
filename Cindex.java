@@ -47,6 +47,8 @@ public class Cindex implements Serializable{
 
 /**
  * constructor that creates an empty list of waitList, registeredStudents and schedule
+ * @param index String
+ * @param Capacity int
  */
     public Cindex(String index, int Capacity) {
         this.index = index;
@@ -57,7 +59,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the index code 
- * @return String index
+ * @return index of the Cindex
  */
     public String getIndexName() {
         return index;
@@ -71,7 +73,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the capacity of the Cindex
- * @return int Capacity
+ * @return Capacity of the Cindex
  */
     public int getCapacity() {
         return Capacity;
@@ -85,7 +87,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the list of students on waitlist for the Cindex
- * @return ArrayList<String> waitList
+ * @return list of students on waitList
  */
     public ArrayList<String> getWaitList() {
         return waitList;
@@ -99,7 +101,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the list of registered students of the Cindex
- * @return ArrayList<String> registeredStudents
+ * @return ArrayList of registered students
  */
     public ArrayList<String> getRegisteredStudents() {
         return registeredStudents;
@@ -127,7 +129,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the schedule of the Cindex
- * @return ArrayList<Lesson> schedule
+ * @return ArrayList of the schedule of the Cindex
  */
     public ArrayList<Lesson> getSchedule() {
         return this.schedule;
@@ -141,7 +143,7 @@ public class Cindex implements Serializable{
     }
 /**
  * gets the current vacancy of the Cindex
- * @return int this.Capacity - registeredStudents.size()
+ * @return current vacancy of the Cindex
  */
     public int getCurrentVacancy() {
         return this.Capacity - registeredStudents.size();
@@ -150,7 +152,7 @@ public class Cindex implements Serializable{
 /**
  * get the index of the specified student in the list of registered students for the Cindex. If the student is not found -1 is returned
  * @param username String
- * @return int 
+ * @return index of student if they are in the list. -1 otherwise.
  */
     public int getIndexofStudent(String username){
         for(int i=0; i<this.registeredStudents.size(); i++){
