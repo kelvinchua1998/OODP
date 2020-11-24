@@ -100,7 +100,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the start time of the lecture
- * @param startTime
+ * @param startTime Date
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
@@ -108,7 +108,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the end time of the lecture
- * @param endTime
+ * @param endTime Date
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
@@ -116,7 +116,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets the venue of the lecture
- * @param venue
+ * @param venue String
  */
     public void setVenue(String venue) {
         this.venue = venue;
@@ -124,7 +124,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * sets which day of the week the lecture is on
- * @param dayOfweek
+ * @param dayOfweek Main.DAY_OF_WEEK
  */
     public void setDayOfweek(Main.DAY_OF_WEEK dayOfweek) {
         this.dayOfweek = dayOfweek;

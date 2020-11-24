@@ -54,6 +54,7 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the start time of the tutorial
+ * @param startTime Date
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
@@ -91,7 +92,7 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the end time of the tutorial
- * @param endTime
+ * @param endTime Date
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
@@ -105,14 +106,14 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * sets the venue of the tutorial
- * @param venue
+ * @param venue String
  */
     public void setVenue(String venue) {
         this.venue = venue;
     }
 /**
  * sets which day of the week the tutorial is on
- * @param dayOfWeek
+ * @param dayOfWeek Main.DAY_OF_WEEK
  */
     public void setDayOfWeek(Main.DAY_OF_WEEK dayOfWeek) {
         this.dayOfWeek = dayOfWeek;

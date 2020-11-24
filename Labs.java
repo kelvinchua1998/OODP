@@ -95,35 +95,35 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * sets the start time of the lab
- * @param startTime
+ * @param startTime Date
  */
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
 /**
  * sets the end time of the lab
- * @param endTime
+ * @param endTime Date
  */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
 /**
  * sets the venue of the lab
- * @param venue
+ * @param venue String
  */
     public void setVenue(String venue) {
         this.venue = venue;
     }
 /**
  * sets which day of the week the lab is on
- * @param dayOfWeek
+ * @param dayOfWeek Main.DAY_OF_WEEK
  */
     public void setDayOfWeek(Main.DAY_OF_WEEK dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 /**
  * sets whether labs occur on odd or even weeks or both
- * @param oddOrEven
+ * @param oddOrEven Main.ODD_EVEN
  */
     public void setOddOrEven(Main.ODD_EVEN oddOrEven) {
         this.oddOrEven = oddOrEven;
