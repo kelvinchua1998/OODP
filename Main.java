@@ -1005,6 +1005,10 @@ public class Main {
                 System.out.println("--------------------------------------");
                 switch (choice) {
                     case 0:
+                        if (cindexArrayList.size()==0) {
+                            System.out.println("course must contain at least 1 index!");
+                            continue;
+                        }
                         break;
                     case 1:
 

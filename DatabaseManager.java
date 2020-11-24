@@ -283,9 +283,9 @@ public class DatabaseManager {
    }
 /**
  * update the student's start access date time and his end access date time
- * @param matricNum string
- * @param newAccessStartDateTime Calender
- * @param newAccessEndDateTime Calender
+ * @param matricNum the matric number of the student
+ * @param newAccessStartDateTime the access date time for the period
+ * @param newAccessEndDateTime the access date time for the period
  */
    public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
          Calendar newAccessEndDateTime) {
@@ -310,8 +310,8 @@ public class DatabaseManager {
    }
 /**
  * returns Student Object by Matric number 
- * @param matricNum string 
- * @return Student 
+ * @param matricNum matric number of the student 
+ * @return student object 
  */
    public Student getStudentbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -325,8 +325,8 @@ public class DatabaseManager {
    }
 /**
  * get the index of the student in the student database
- * @param matricNum string
- * @return int
+ * @param matricNum matric number of the student
+ * @return index of the student
  */
    private int getIndexbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -340,7 +340,7 @@ public class DatabaseManager {
    }
 /**
  * the method for the drop course function
- * @param username
+ * @param username 
  * @param courseCode
  */
    public void removeCourseMain(String username, String courseCode) {
