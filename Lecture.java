@@ -49,7 +49,7 @@ public class Lecture extends Lesson implements Serializable{
     
 /**
  * gets the start time of lectures
- * @return startTime of lecture using Date 
+ * @return startTime of lecture
  */
     public Date getStartTime() {
         return startTime;
@@ -57,7 +57,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * gets the end time of lectures
- * @return endTime of lecture using Date
+ * @return endTime of lecture 
  */
     public Date getEndTime() {
         return endTime;
@@ -65,7 +65,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * gets the lesson type
- * @return Main.LESSON_TYPE lesson_type = lecture
+ * @return lesson_type as lecture
  */
     @Override
     public Main.LESSON_TYPE getLessonType() {
@@ -74,7 +74,7 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * gets the day of the week that lecture is on
- * @return Main.DAY_OF_WEEK dayOfweek
+ * @return day of the week lecture is on
  */
     @Override
     public Main.DAY_OF_WEEK getDayoftheWeek() {
@@ -82,8 +82,8 @@ public class Lecture extends Lesson implements Serializable{
     }
 
 /**
- * gets whether lesson occurs on odd or even week. For lecture, it is always both
- * @return Main.ODD_EVEN.OOD_AND_EVEN
+ * gets whether lesson occurs on odd or even week
+ * @return lecture is both on odd and even weeks
  */
     @Override
     public Main.ODD_EVEN getOddorEven() {

@@ -58,7 +58,7 @@ public class Course implements Serializable {
 /**
  * gets the index of the specified Cindex in the list of Cindex of the course. If Cindex is not found, -1 is returned
  * @param cindexName String
- * @return int
+ * @return index of specified Cindex, if it exists in the list of Cindex. -1 otherwise.
  */
     public int getIndexOfCindex(String cindexName) {
         for (int i = 0; i < this.listCindex.size(); i++) {
@@ -70,7 +70,7 @@ public class Course implements Serializable {
     }
 /**
  * gets the course code of the course
- * @return String CourseCode
+ * @return code of the course
  */
     public String getCourseCode() {
         return CourseCode;
@@ -84,7 +84,7 @@ public class Course implements Serializable {
     }
 /**
  * gets the name of the course
- * @return String CourseName
+ * @return course name of the course
  */
     public String getCourseName() {
         return CourseName;
@@ -98,7 +98,7 @@ public class Course implements Serializable {
     }
 /**
  * gets the description of the course
- * @return String CourseDescription
+ * @return Course Description of the course
  */
     public String getCourseDescription() {
         return CourseDescription;
@@ -119,14 +119,14 @@ public class Course implements Serializable {
     }
 /**
  * gets the number of AU for the course
- * @return int AU
+ * @return value of AU
  */
     public int getAU() {
         return this.AU;
     }
 /**
  * gets the list of Cindex for the course
- * @return ArrayList<Cindex> listCindex
+ * @return list of Cindex
  */
     public ArrayList<Cindex> getListCindex() {
         return listCindex;
@@ -140,7 +140,7 @@ public class Course implements Serializable {
     }
 /** 
  * gets the school the course belongs to 
- * @return String School
+ * @return School that course belongs to
  */
     public String getSchool() {
         return School;
@@ -155,7 +155,7 @@ public class Course implements Serializable {
 /**
  * checks if the specified student is in the list of registered students or in the waitlist
  * @param username String
- * @return boolean
+ * @return true if student is in list of registered students or the waitlist. false otherwise.
  */
     public boolean checkIfStudentFromRegAndWaitlist(String username) {
         // search student throughout the Cindex and remove
@@ -531,9 +531,9 @@ public class Course implements Serializable {
         
 	}
 /**
- * searches for the specified Cindex in the list of Cindex
+ * method that searches for the specified Cindex in the list of Cindex. If specified Cindex does not exist, method returns null
  * @param courseIndex String
- * @return Cindex
+ * @return the specified Cindex if it exists. null otherwise.
  */
 	public Cindex searchCindex(String courseIndex) {
         for (int i = 0 ; i < listCindex.size();i++){
@@ -545,7 +545,7 @@ public class Course implements Serializable {
 		return null;
 	}
 /**
- * removes specified student from list of registered students when they drop the course and move a student from the waitlist into the list of registered students
+ * method that removes specified student from list of registered students when they drop the course and move a student from the waitlist into the list of registered students
  * @param username String
  */
 	public void removeStudentFromIndex(String username) {

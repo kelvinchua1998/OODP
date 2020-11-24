@@ -47,7 +47,7 @@ public class Tutorial extends Lesson implements Serializable{
 
 /**
  * gets the start time of the tutorial
- * @return Date startTime
+ * @return startTime of tutorial
  */
 	public Date getStartTime() {
         return startTime;
@@ -61,14 +61,14 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * gets the end time of the tutorial
- * @return Date endTime
+ * @return endTime of tutorial
  */
     public Date getEndTime() {
         return endTime;
     }
 /**
  * gets the lesson type which is tutorial for this class
- * @return Main.LESSON_TYPE lesson_type
+ * @return lesson_type as tutorial
  */
     @Override
     public Main.LESSON_TYPE getLessonType() {
@@ -76,15 +76,15 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * gets the day of the week that the tutorial is on
- * @return Main.DAY_OF_WEEK dayOfWeek
+ * @return day of the week tutorial is on
  */
     @Override
     public Main.DAY_OF_WEEK getDayoftheWeek() {
         return dayOfWeek;
     }
 /**
- * gets whether lesson occurs on odd or even week. For tutorial, it is always both.
- * @return Main.ODD_EVEN oddOrEven
+ * gets whether lesson occurs on odd or even week
+ * @return tutorial is on both odd and even weeks
  */
     @Override
     public Main.ODD_EVEN getOddorEven() {
@@ -99,7 +99,7 @@ public class Tutorial extends Lesson implements Serializable{
     }
 /**
  * gets the venue of the tutorial
- * @return String venue
+ * @return String venue of tutorial
  */
     public String getVenue() {
         return venue;

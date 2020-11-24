@@ -49,21 +49,21 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * gets the start time of labs
- * @return java.util.Date startTime
+ * @return startTime of lab
  */
     public java.util.Date getStartTime() {
         return startTime;
     }
 /**
  * gets the end time of labs
- * @return java.util.Date endTime
+ * @return endTime of lab
  */
     public java.util.Date getEndTime() {
         return endTime;
     }
 /**
  * gets the lesson type which is labs for this class
- * @return Main.LESSON_TYPE lesson_type
+ * @return lesson_type as lab
  */
     @Override
     public Main.LESSON_TYPE getLessonType() {
@@ -71,7 +71,7 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * gets the day of the week the lab is on
- * @return Main.DAY_OF_WEEK dayOfWeek
+ * @return day of the week lab is on
  */
     @Override
     public Main.DAY_OF_WEEK getDayoftheWeek() {
@@ -80,7 +80,7 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * gets whether the labs occur on odd or even weeks or both.
- * @return Main.ODD_EVEN oddOrEven
+ * @return whether lab is on odd week or even week or both
  */
     @Override
     public Main.ODD_EVEN getOddorEven() {
@@ -88,7 +88,7 @@ public class Labs extends Lesson implements Serializable {
     }
 /**
  * gets the venue of the lab
- * @return String venue
+ * @return venue of the lab
  */
     public String getVenue() {
         return venue;
