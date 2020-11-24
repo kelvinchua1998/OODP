@@ -2,6 +2,7 @@
 package classes;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 /**
  * student class that is a subclass of User and implements Serializable so that it can be serialized into the database
@@ -327,11 +328,20 @@ public class Student extends User implements Serializable{
 								}else{
 									//clash
 									clashCounter++;
-									System.out.printf("Index Clash with registered course : %s %S index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+									System.out.printf("Index Clash with registered course : %s %s index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
 									System.out.println("registered index timing : lesson type / start time - end time");
 									for (int j =0; j < studentRegIndex.getSchedule().size();j++){
 
-										System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getLessonType().toString(),studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
+										Calendar calendar = Calendar.getInstance();
+										calendar.setTimeInMillis(studentRegIndex.getSchedule().get(j).getStartTime().getTime());
+										Calendar calendar2 = Calendar.getInstance();
+										calendar2.setTimeInMillis(studentRegIndex.getSchedule().get(j).getEndTime().getTime());
+
+										String startTimeStr = calendar.get(Calendar.HOUR_OF_DAY)+":"+calendar.get(Calendar.MINUTE);
+
+										String endTimeStr = calendar2.get(Calendar.HOUR_OF_DAY)+":"+calendar2.get(Calendar.MINUTE);
+
+										System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getLessonType().toString(),startTimeStr,endTimeStr);
 									}
 
 								}
@@ -374,13 +384,13 @@ public class Student extends User implements Serializable{
 								}else{
 									//clash
 									clashCounter++;
-									System.out.printf("Index Clash with waitlist course : %s %S index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+									System.out.printf("Index Clash with waitlist course : %s %s index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
 								}
 							}else{
 								if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
 									//clash
 									clashCounter++;
-									System.out.printf("Index Clash with waitlist course : %s %S index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
+									System.out.printf("Index Clash with waitlist course : %s %s index %s\n",studentWaitlistCourse.getCourseCode(),studentWaitlistCourse.getCourseName(),studentWaitlistIndex.getIndexName());
 								}else{
 									//no clash
 
