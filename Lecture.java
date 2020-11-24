@@ -6,11 +6,29 @@ import java.util.Date;
  */
 public class Lecture extends Lesson implements Serializable{
     
+    /**
+     * start time of lecture
+     */
     private Date startTime;
+    /**
+     * end time of lecture
+     */
     private Date endTime;
+    /**
+     * venue of the lecture
+     */
     private String venue;
+    /**
+     * stores which day of the week lecture is on
+     */
     private Main.DAY_OF_WEEK dayOfweek;
+    /**
+     * states whether lecture occurs on odd or even weeks
+     */
     private Main.ODD_EVEN oddOrEven;
+    /**
+     * states the type of lesson which is lecture for this class
+     */
     private Main.LESSON_TYPE lesson_type;
 
 /**

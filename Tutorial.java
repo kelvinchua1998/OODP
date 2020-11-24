@@ -5,11 +5,29 @@ import java.util.Date;
  * subclass of Lesson and implements Serializable so that it can be serialized into the database
  */
 public class Tutorial extends Lesson implements Serializable{
+    /**
+     * start time of the tutorial
+     */
     private Date startTime;
+    /**
+     * end time of the tutorial
+     */
     private Date endTime;
+    /**
+     * venue of the tutorial
+     */
     private String venue;
+    /**
+     * stores which day of the week the tutorial is on
+     */
     private Main.DAY_OF_WEEK dayOfWeek;
+    /**
+     * states whether tutorial occurs on odd or even weeks
+     */
     private Main.ODD_EVEN oddOrEven;
+    /**
+     * states the lesson type which is tutorial for this class
+     */
     private Main.LESSON_TYPE lesson_type;
 /**
  * default constructor for creating Tutorial class
