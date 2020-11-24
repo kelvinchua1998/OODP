@@ -104,6 +104,10 @@ public class Course implements Serializable {
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Course> courseList = new ArrayList<Course>();
         
+        DatabaseManager databaseManager = new DatabaseManager();
+
+/*COURSE 1
+        ArrayList<Course> courseList = new ArrayList<Course>();
         ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
         DateFormat timeformat = new SimpleDateFormat("HHmm");
@@ -170,7 +174,7 @@ public class Course implements Serializable {
         Course courseObj = new Course("CZ2001", "Algorithms", "Introduction to algorithms, basics for analysis of algorithms, sorting, searching, graphs, basic computability and complexity theory","scse", 3, ListCindex);
 
         courseList.add(courseObj);
-
+*/
 
         //course2 (CZ2002, 10126)
         Date startTimeParsedLect1=null;
@@ -431,6 +435,9 @@ public class Course implements Serializable {
         Course courseObj6 = new Course("CZ2004", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex);
 
         courseList.add(courseObj6);
+        //COURSE 2
+        
+        databaseManager.SerializeCourseList(courseList);
 
     }
 
