@@ -378,7 +378,7 @@ public class DatabaseManager {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
             System.out.println("---------------------------------------");
-            System.out.printf("%d. %s \n%s index %s\n", i + 1, registercourses.get(i).getCourseCode(),
+            System.out.printf("%d. %s %s index %s\n", i + 1, registercourses.get(i).getCourseCode(),
                   registercourses.get(i).getCourseName(), registercourses.get(i).getCourseIndex());
 
             Cindex cindex = searchCindex(registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseIndex());
@@ -825,7 +825,7 @@ public void printAllCourses() {
          System.out.printf("%-5s%-15s%-15s%-10s%-12s%-30s\n","No.", "Course Code:", "Course Name:", "School:", "Num of AUs:", "Course Description:");
 
          Course singleCourse = courseList.get(i);
-         System.out.printf("%-5d%-15s%-15s%-10s%-12d%-30s\n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
+         System.out.printf("%-5d%-15s\n%-15s%-10s%-12d\n%-30s\n",i+1,singleCourse.getCourseCode(), singleCourse.getCourseName(),singleCourse.getSchool(), singleCourse.getAU(), singleCourse.getCourseDescription());
         
          //there shouldnt be any courses with no index
          System.out.println("-----------------------------------------------------------------");

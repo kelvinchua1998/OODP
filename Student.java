@@ -57,16 +57,16 @@ public class Student extends User implements Serializable{
 
 	/**
 	 * default constructor for the Student Class
-	 * @param firstName
-	 * @param lastName
-	 * @param gender
-	 * @param nationality
-	 * @param matricNum
-	 * @param username
-	 * @param password
-	 * @param accessStartTime
-	 * @param accessEndTime
-	 * @param email
+	 * @param firstName the first name of the student
+	 * @param lastName the last name of the student
+	 * @param gender the gender of the student
+	 * @param nationality the nationality of the student
+	 * @param matricNum the matric number of the student
+	 * @param username the username of the student
+	 * @param password the password of the student
+	 * @param accessStartTime the start access time of the student
+	 * @param accessEndTime the end access time of the student
+	 * @param email the email of the student
 	 */
 	public Student(String firstName, String lastName, Main.GENDER gender, String nationality, String matricNum, String username, String password, long accessStartTime, long accessEndTime, String email) {
 		super(username,password,"student");
@@ -89,77 +89,77 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the password of the student
- * @return string
+ * @return the student's password
  */
 	public String getPassword() {
 		return this.password;
 	}
 /**
  * returns first name of the student
- * @return string
+ * @return the first name of the student
  */
 	public String getFirstName() {
 		return firstName;
 	}
 /**
  * returns last name of the student
- * @return string
+ * @return the last name of the student
  */
 	public String getLastName() {
 		return lastName;
 	}
 /**
  * returns enum Main.GENDER of the student
- * @return enum Main.GENDER
+ * @return the gender of the student
  */
 	public Main.GENDER getGender() {
 		return gender;
 	}
 	/**
 	 * set the gender of the student
-	 * @param gender
+	 * @param gender gender of the student
 	 */
 	public void setGender(Main.GENDER gender) {
 		this.gender = gender;
 	}
 /**
  * returns the nationality of the student
- * @return string
+ * @return nationality of the student
  */
 	public String getNationality() {
 		return nationality;
 	}
 /**
  * returns the matric number of the student
- * @return string 
+ * @return matric number of the student 
  */
 	public String getMatricNum() {
 		return matricNum;
 	}
 /**
  * returns the total number of AUs that the student registered
- * @return int
+ * @return the toal number of AUs that the student registered
  */
 	public int getNumAuRegistered() {
 		return numAUsRegistered;
 	}
 /**
  * minus the total number of AUs registered by the course passed into the method
- * @param course
+ * @param course the number of AUs of this course will be subtracted from the student's total number of AUs
  */
 	public void minusAU(Course course) { // minus after adding course
 		numAUsRegistered -= course.getAU();
 	}
 /**
  * add to the total number of AUs registered by the course passed into the method
- * @param course
+ * @param course the number of AUs of this course will be Added to  the student's total number of AUs
  */
 	public void plusAU(Course course) { // plus after dropping course
 		numAUsRegistered += course.getAU();           //use Course or String?
 	}
 /**
  * Method to verify password. returns true if the password is correct else false.
- * @param enPwd
+ * @param enPwd the password to be verified
  * @return boolean
  */
 	public Boolean verifyPassword(String enPwd) {
@@ -170,65 +170,65 @@ public class Student extends User implements Serializable{
 	}
 /**
  * return the access Start time of the student
- * @return	Long
+ * @return	teh access start time of the student in milliseconds
  */
 	public long getAccessStartTime() {
 		return AccessStartDateTime;
 	}
 /**
  * set the access start time for the student 
- * @param accessStartDateTime
+ * @param accessStartDateTime the access start time of the student in milliseconds
  */
 	public void setAccessStartTime(long accessStartDateTime) {
 		AccessStartDateTime = accessStartDateTime;
 	}
 /**
  * returns the access end time of the student
- * @return Long
+ * @return the access end time of the student in milliseconds
  */
 	public long getAccessEndTime() {
 		return AccessEndDateTime;
 	}
 /**
  * set the access end time for the student
- * @param accessEndDateTime
+ * @param accessEndDateTime the access end time of the student in milliseconds
  */
 	public void setAccessEndTime(long accessEndDateTime) {
 		AccessEndDateTime = accessEndDateTime;
 	}
 /**
  * returns the username of the student
- * @return String
+ * @return the username of the student
  */
 	public String getUsername() {
 		return username;
 	}
 /**
  * sets the username of the student
- * @return String
+ * @return the username to be set
  */
 	public void setUsername(String username) {
 		this.username = username;
 	}
 /**
  * add a course to the students list of registered courses
- * @param registeredCourse
+ * @param registeredCourse the course to be added to the student's list of registered courses
  */
 	public void addCourse(StudentCourse registeredCourse) {
 		this.registeredCourse.add(registeredCourse);
 	}
 /**
  * add a course to the student's list of waitlist courses
- * @param registeredCourse
+ * @param waitlistCourse the course to be added to the student's list of registered courses
  */
-	public void addWaitlist(StudentCourse registeredCourse) {
+	public void addWaitlist(StudentCourse waitlistCourse) {
 		//remove any exiting waitlist for indexes of the same course
 		for (int i=0; i <waitlist.size();i++){
-			if( waitlist.get(i).getCourseCode().equals(registeredCourse.getCourseCode())){
+			if( waitlist.get(i).getCourseCode().equals(waitlistCourse.getCourseCode())){
 				waitlist.remove(i);
 			}
 		}
-		this.waitlist.add(registeredCourse);
+		this.waitlist.add(waitlistCourse);
 	}
 	
 /**
@@ -240,28 +240,28 @@ public class Student extends User implements Serializable{
 	}
 /**
  * sets an ArrayList of registered courses for the student
- * @param registeredCourse
+ * @param registeredCourse the arrayList of Student's course to be set for the student
  */
 	public void setRegisteredCourse(ArrayList<StudentCourse> registeredCourse) {
 		this.registeredCourse = registeredCourse;
 	}
 /**
  * returns the arraylist of students waitlist courses
- * @return ArrayList of class StudentCourse
+ * @return ArrayList of the student's waitlist
  */
 	public ArrayList<StudentCourse> getWaitlist() {
 		return waitlist;
 	}
 /**
  * sets an ArrayList of waitlist courses for the student
- * @param waitlist
+ * @param waitlist ArrayList of the student's waitlist to be set
  */
 	public void setWaitlist(ArrayList<StudentCourse> waitlist) {
 		this.waitlist = waitlist;
 	}
 /**
  * remove a specific course from the students list of registered courses
- * @param CourseCode
+ * @param CourseCode course to be removed
  */
 
 	public void removeCourseFromRegORWait(String CourseCode) {
@@ -292,9 +292,9 @@ public class Student extends User implements Serializable{
 	}
 
 	/**
-	 * check whether any of student's registered and waitlist courses clashes with the index that is passed in. returns true if there is any clashes, otherwise false if there is no clashes
-	 * @param index
-	 * @return boolean
+	 * check whether any of student's registered and waitlist courses clashes with the index that is passed in. 
+	 * @param index the index to check check for clashes 
+	 * @return returns true if there is any clashes, otherwise false if there is no clashes
 	 */
 
 	public boolean checkClash(Cindex index){
@@ -403,21 +403,21 @@ public class Student extends User implements Serializable{
 
 	/**
 	 * sets the matric number of the student
-	 * @param matricNum
+	 * @param matricNum the matric number to be set
 	 */
 	public void setMatricNum(String matricNum) {
 		this.matricNum = matricNum;
 	}
 /**
  * returns the email of the student
- * @return string 
+ * @return the email of the student 
  */
 	public String getEmail() {
 		return email;
 	}
 /**
  * sets the email of the student
- * @param email
+ * @param email the email of the student
  */
 	public void setEmail(String email) {
 		this.email = email;
@@ -469,7 +469,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * returns the StudentCourse object from the student's waitlist
- * @param courseCode
+ * @param courseCode the coursesCode to be searched
  * @return StudentCourse
  */
 	public StudentCourse checkWaitlist(String courseCode) {

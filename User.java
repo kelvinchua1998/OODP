@@ -32,30 +32,30 @@ public class User implements Serializable{
     }
 	/**
 	 * sets their username
-	 * @param username
+	 * @param username the username of User
 	 */
     public void setUsername(String username) {
         this.username = username;
     }
 /**
  * return the User's password
- * @return string of user's password
+ * @return user's password
  */
     public String getPassword() {
         return password;
     }
 /**
  * sets the User's password
- * @param password
+ * @param password the password to be set
  */
     public void setPassword(String password) {
         this.password = password;
     }
 /**
  * default constructor for creating a User class
- * @param username
- * @param password
- * @param userType
+ * @param username the username of the user
+ * @param password the password of the user
+ * @param userType the usertype of the user
  */
     public User(String username, String password,String userType) {
         this.username = username;
@@ -64,7 +64,7 @@ public class User implements Serializable{
     }
     /**
      * get User Type
-     * @return String of User type
+     * @return User type
      */
 
     public String getUserType() {
@@ -72,7 +72,7 @@ public class User implements Serializable{
     }
 /**
  * sets the User Type
- * @param userType
+ * @param userType the usertype to be set
  */
     public void setUserType(String userType) {
         this.userType = userType;

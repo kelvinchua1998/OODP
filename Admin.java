@@ -12,8 +12,8 @@ public class Admin extends User implements Serializable{
     
 /**
  * default constructor for the admin class
- * @param username
- * @param password
+ * @param username the username of the admin
+ * @param password the password of the admin
  */
     public Admin(String username, String password){
         super(username,password,"admin");
