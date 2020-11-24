@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 /**
  * Database Manager Class for any database related methods
+ * @author kelvin melvin
  */
 public class DatabaseManager {
 /**

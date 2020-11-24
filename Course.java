@@ -7,6 +7,7 @@ import java.util.Date;
 
 /**
  * This class is to identify different courses. It implements Serializable so that it can be serialized into the database
+ * @author kelvin melvin
  */
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,12 +39,12 @@ public class Course implements Serializable {
 
 /**
  * default constructor to create the Course class
- * @param CourseCode String
- * @param CourseName String
- * @param CourseDescription String
- * @param AU int
- * @param School String
- * @param ListCindex ArrayList<Cindex>
+ * @param CourseCode course code of the course
+ * @param CourseName course name of the course
+ * @param CourseDescription course description of the course
+ * @param AU number of AUs of the course
+ * @param School school which the course belongs to
+ * @param ListCindex list of indexes of the course
  */
     public Course(String cc, String cn, String d, String school, int AU,
             ArrayList<Cindex> ListCindex) {
@@ -77,7 +78,7 @@ public class Course implements Serializable {
     }
 /**
  * sets the course code of the course
- * @param courseCode String
+ * @param courseCode the course code for the course
  */
     public void setCourseCode(String courseCode) {
         CourseCode = courseCode;
@@ -91,7 +92,7 @@ public class Course implements Serializable {
     }
 /**
  * sets the name of the course
- * @param courseName String
+ * @param courseName the name to be set for the course
  */
     public void setCourseName(String courseName) {
         CourseName = courseName;
@@ -105,14 +106,14 @@ public class Course implements Serializable {
     }
 /**
  * sets the description of the course
- * @param courseDescription String
+ * @param courseDescription the description to be set
  */
     public void setCourseDescription(String courseDescription) {
         CourseDescription = courseDescription;
     }
 /**
  * sets the number of AU for the course
- * @param au int
+ * @param au number of AUs
  */
     public void setAU(int au) {
         this.AU = au;
@@ -147,7 +148,7 @@ public class Course implements Serializable {
     }
 /**
  * sets the school the course belongs to
- * @param school String
+ * @param school school to be set
  */
     public void setSchool(String school) {
         School = school;
@@ -516,7 +517,7 @@ public class Course implements Serializable {
 
 /**
  * removes specified student from the waitlist
- * @param usernameString
+ * @param username the username of the student
  */
 	public void removeStudentfromWailist(String username) {
         DatabaseManager databaseManager = new DatabaseManager();
@@ -545,8 +546,8 @@ public class Course implements Serializable {
 		return null;
 	}
 /**
- * method that removes specified student from list of registered students when they drop the course and move a student from the waitlist into the list of registered students
- * @param username String
+ * method that removes specified student from list of registered students or waitlist student when they drop the course and move a student from the waitlist into the list of registered students
+ * @param username username of the student
  */
 	public void removeStudentFromIndex(String username) {
         DatabaseManager databaseManager= new DatabaseManager();

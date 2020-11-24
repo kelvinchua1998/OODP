@@ -10,6 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * This class is to send email to students when they add course, drop course, or allocated course from the waitlist
+ * @author kelvin melvin
  */
 public class SendMail {
 
@@ -73,6 +74,19 @@ public class SendMail {
 		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+" been successfully added from waitlist\n Thank You\n NTU STARS";
 
             sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",StudentEmail, "Course Allocated from Waitlist", EmailContent);
+	}
+/**
+ * compose email to students that are successfully added course
+ * @param courseObj course that the student added
+ * @param StudentEmail email of the student
+ */
+	public void addCourse(StudentCourse courseObj, String StudentEmail){
+		String EmailContent = "Dear Sir/Mdm,\n This a confirmation email that your course "
+		+ courseObj.getCourseCode() + " " + courseObj.getCourseName() + " index "
+		+ courseObj.getCourseIndex() + " have been successfully added\n Thank You\n NTU STARS";
+
+		sendgmail("melvinchuaqwerty@gmail.com", "melvinchuaqwerty@gmail.com", "s9825202i",
+		StudentEmail, "Course Added", EmailContent);
 	}
 	public static void main(String[] args) {
 

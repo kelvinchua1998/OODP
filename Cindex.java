@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 /**
  * This class is to identify the various indexes for each course. It implements serializable so that it can be serialized into the database
+ * @author kelvin melvin
  */
 public class Cindex implements Serializable{
     private static final long serialVersionUID = 1L;
@@ -66,7 +67,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the index code
- * @param index Cindex
+ * @param index Cindex to be set
  */
     public void setIndex(String index) {
         this.index = index;

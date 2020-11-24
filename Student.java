@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 /**
  * student class that is a subclass of User and implements Serializable so that it can be serialized into the database
- * @author kelvi
+ * @author kelvin melvin
  *
  **/
 public class Student extends User implements Serializable{

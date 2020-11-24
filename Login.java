@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Date;
 /**
  * Login class for login functionalities
- * @author kelvi
+ * @author kelvin melvin
  *
  */
 public class Login {

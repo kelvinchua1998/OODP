@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 /**
  * User parent class for Students and Admin
- * @author kelvin
+ * @author kelvin melvin
  *
  */
 public class User implements Serializable{

@@ -3,6 +3,7 @@ import java.util.Date;
 
 /**
  * subclass of Lesson and implements Serializable so that it can be serialized into the database
+ * @author kelvin melvin
  */
 public class Tutorial extends Lesson implements Serializable{
     /**
