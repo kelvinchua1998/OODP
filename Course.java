@@ -100,9 +100,10 @@ public class Course implements Serializable {
     }
 
     public static void main(String[] args) {
-        ArrayList<Course> courseList = new ArrayList<Course>();
         DatabaseManager databaseManager = new DatabaseManager();
-        
+
+//COURSE 1
+        ArrayList<Course> courseList = new ArrayList<Course>();
         ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
         DateFormat timeformat = new SimpleDateFormat("HHmm");
@@ -169,6 +170,9 @@ public class Course implements Serializable {
         Course courseObj = new Course("C1", "course1", "course description","scse", 3, ListCindex);
 
         courseList.add(courseObj);
+
+        //COURSE 2
+        
         databaseManager.SerializeCourseList(courseList);
 
     }
