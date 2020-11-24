@@ -33,10 +33,10 @@ public class Lecture extends Lesson implements Serializable{
 
 /**
  * default constructor to create Lecture class
- * @param startTimeParsed
- * @param endTimeParsed
- * @param venue
- * @param dayOfWeek
+ * @param startTime Date
+ * @param endTime Date
+ * @param venue String
+ * @param dayOfweek Main.DAY_OF_WEEK
  */
     public Lecture(Date startTime, Date endTime, String venue, Main.DAY_OF_WEEK dayOfweek) {
         this.startTime = startTime;
@@ -82,7 +82,7 @@ public class Lecture extends Lesson implements Serializable{
     }
 
 /**
- * gets whether lesson occurs on odd or even week. For this class it is both
+ * gets whether lesson occurs on odd or even week. For lecture, it is always both
  * @return Main.ODD_EVEN oddOrEven
  */
     @Override
