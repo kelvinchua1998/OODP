@@ -482,7 +482,7 @@ public class Student extends User implements Serializable{
 	}
 /**
  * method that adds the course from the students waitlist into their registered courses list
- * @param courseCode
+ * @param courseCode the course to be allocated
  */
 	public void courseAllocatedFromWaitlist(String courseCode) {
 		DatabaseManager databaseManager = new DatabaseManager();
@@ -500,10 +500,10 @@ public class Student extends User implements Serializable{
 	}
 /**
  * method that checks clashes for a new index , not considering the old index from the same course for both the students registered and waitlist courses. used for changing of index function.
- * returns true if there is any clashes otherwise false.
- * @param newindex
- * @param courseCode
- * @return	boolean
+ * 
+ * @param newindex the new index to be checked
+ * @param courseCode the course code of the index
+ * @return	returns true if there is any clashes otherwise false.
  */
 	public boolean checkClashforSameCourseNewIndex(Cindex newindex,String courseCode) {
 		// won't check the student course with the same course code as this

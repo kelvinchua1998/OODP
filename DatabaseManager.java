@@ -19,7 +19,7 @@ public class DatabaseManager {
    String FILEPATH = "database\\";
 /**
  * method to serialize the course list
- * @param courseList ArrayList<Course>
+ * @param courseList the course list to be set
  */
    public void SerializeCourseList(ArrayList<Course> courseList) {
       FileOutputStream fileOut;
@@ -58,7 +58,7 @@ public class DatabaseManager {
    }
 /**
  * serialize the user list. The user database contains the login infomation for all the users.
- * @param UserList ArrayList<User>
+ * @param UserList the user list to be set
  */
    public void SerializeUserList(ArrayList<User> UserList) {
       FileOutputStream fileOut;
@@ -97,7 +97,7 @@ public class DatabaseManager {
    }
 /**
  * serialise an array List of admins into the database
- * @param adminList ArrayList
+ * @param adminList the admin list to be set
  */
    public void SerializeAdminList(ArrayList<Admin> adminList) {
       try {
@@ -113,7 +113,7 @@ public class DatabaseManager {
    }
 /**
  * desrialise admin list from the database
- * @return ArrayList<Admin>
+ * @return admin list
  */
    public ArrayList<Admin> DeserializeAdminList() {
       try {
@@ -133,7 +133,7 @@ public class DatabaseManager {
    }
 /**
  * serialize a list of student into the database
- * @param studentList
+ * @param studentList the student list to be set
  */
    public void SerializeStudentList(ArrayList<Student> studentList) {
       try {
@@ -149,7 +149,7 @@ public class DatabaseManager {
    }
 /**
  * desrialize the student list from the database
- * @return ArrayList<Student>
+ * @return the student list
  */
    public ArrayList<Student> DeserializeStudentList() {
       try {
@@ -168,10 +168,10 @@ public class DatabaseManager {
       return null;
    }
 /**
- * get vacaney for the specified course and index
- * @param coursecode string
- * @param index string
- * @return int
+ * get vacancy for the specified course and index
+ * @param coursecode the course code to be searched
+ * @param index the index to be searched
+ * @return the number of vacency
  */
    public int getVacancyCindex(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
@@ -184,9 +184,9 @@ public class DatabaseManager {
    }
 /**
  * returns the Cindex object from the specified CourseCode and Cindex
- * @param coursecode string
- * @param Cindex string
- * @return Cindex
+ * @param coursecode the course code to be search
+ * @param Cindex the  index to be searched
+ * @return Cindex object
  */
    public Cindex searchCindex(String coursecode, String Cindex) {
       ArrayList<Course> courseList;
@@ -213,10 +213,10 @@ public class DatabaseManager {
 
    }
 /**
- * return the student list from the database
- * @param coursecode string
- * @param index string
- * @return ArrayList<String>
+ * return the student list of a specified course and index from the database
+ * @param coursecode course code to be searched
+ * @param index the index to be searched
+ * @return the student list 
  */
    public ArrayList<String> getStudentList(String coursecode, String index) {
       Cindex singleIndex = searchCindex(coursecode, index);
@@ -230,8 +230,8 @@ public class DatabaseManager {
    }
 /**
  * returns the specified course from the database
- * @param coursecode string
- * @return Course
+ * @param coursecode the course code specified
+ * @return Course object
  */
    // for print student list by course
    public Course searchCourse(String coursecode) {
@@ -252,8 +252,8 @@ public class DatabaseManager {
    }
 /**
  * get all the student registered for the course
- * @param coursecode string
- * @return ArrayList <String>
+ * @param coursecode the course code to be searched
+ * @return list of student Usernames
  */
    public ArrayList<String> getStudentListbyCourse(String coursecode) {
       Course singleCourse = searchCourse(coursecode);
@@ -274,7 +274,7 @@ public class DatabaseManager {
    }
 /**
  * add a single Student Object into the database
- * @param studentObj Student
+ * @param studentObj Student to be added
  */
    public void addStudentintoStudentDB(Student studentObj) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -283,9 +283,9 @@ public class DatabaseManager {
    }
 /**
  * update the student's start access date time and his end access date time
- * @param matricNum string
- * @param newAccessStartDateTime Calender
- * @param newAccessEndDateTime Calender
+ * @param matricNum the matric number of the student
+ * @param newAccessStartDateTime the access date time for the period
+ * @param newAccessEndDateTime the access date time for the period
  */
    public void EditStudentAccessPeriod(String matricNum, Calendar newAccessStartDateTime,
          Calendar newAccessEndDateTime) {
@@ -310,8 +310,8 @@ public class DatabaseManager {
    }
 /**
  * returns Student Object by Matric number 
- * @param matricNum string 
- * @return Student 
+ * @param matricNum matric number of the student 
+ * @return student object 
  */
    public Student getStudentbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -325,8 +325,8 @@ public class DatabaseManager {
    }
 /**
  * get the index of the student in the student database
- * @param matricNum string
- * @return int
+ * @param matricNum matric number of the student
+ * @return index of the student
  */
    private int getIndexbyMatricNum(String matricNum) {
       ArrayList<Student> studentList = DeserializeStudentList();
@@ -340,7 +340,7 @@ public class DatabaseManager {
    }
 /**
  * the method for the drop course function
- * @param username
+ * @param username 
  * @param courseCode
  */
    public void removeCourseMain(String username, String courseCode) {
