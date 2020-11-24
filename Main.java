@@ -740,8 +740,7 @@ public class Main {
                                         validDayOfWeek2 = true;
                                     }
 
-                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,
-                                            dayOfweekTut);
+                                    Tutorial tutorial = new Tutorial(startTimeParsedTut, endTimeParsedTut, venueTut,dayOfweekTut);
 
                                     schedule.add(tutorial);
                                     break;
@@ -1007,6 +1006,7 @@ public class Main {
                     case 0:
                         if (cindexArrayList.size()==0) {
                             System.out.println("course must contain at least 1 index!");
+                            choice = -1;
                             continue;
                         }
                         break;
@@ -1435,7 +1435,7 @@ public class Main {
 
                         CindexObj.setSchedule(schedule);
                         cindexArrayList.add(CindexObj);
-                }
+                    }
 
             }
 
