@@ -2475,6 +2475,8 @@ public class Main {
             return false;
         }else if(lectCount > 0 && tutCount==0 && labCount>0){
             return true;
+        }else if(lectCount == 0 && tutCount == 0 && labCount == 0){
+            return true;
         } else {
             return true;
         }
