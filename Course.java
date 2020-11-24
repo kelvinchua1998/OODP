@@ -102,17 +102,8 @@ public class Course implements Serializable {
     public static void main(String[] args) {
         //course1 (CZ2001, 10124)
         DatabaseManager databaseManager = new DatabaseManager();
-<<<<<<< HEAD
-
-
-=======
         ArrayList<Course> courseList = new ArrayList<Course>();
-        
-        DatabaseManager databaseManager = new DatabaseManager();
 
-/*COURSE 1
->>>>>>> 24c388b75a628a987becea645b1219ba320722f7
-        ArrayList<Course> courseList = new ArrayList<Course>();
         ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
         DateFormat timeformat = new SimpleDateFormat("HHmm");
@@ -179,12 +170,9 @@ public class Course implements Serializable {
         Course courseObj = new Course("CZ2001", "Algorithms", "Introduction to algorithms, basics for analysis of algorithms, sorting, searching, graphs, basic computability and complexity theory","scse", 3, ListCindex);
 
         courseList.add(courseObj);
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 24c388b75a628a987becea645b1219ba320722f7
 
         //course2 (CZ2002, 10126)
+        ArrayList<Cindex> ListCindex1 = new ArrayList<Cindex>();
         Date startTimeParsedLect1=null;
         try {
             startTimeParsedLect1 = timeformat.parse("0830");
@@ -243,13 +231,14 @@ public class Course implements Serializable {
         schedule3.add(lessonObj5);
         schedule3.add(lessonObj6);
         cindexObj3.setSchedule(schedule3);
-        ListCindex.add(cindexObj3);
+        ListCindex1.add(cindexObj3);
 
-        Course courseObj2 = new Course("CZ2002", "Object Oriented Design & Programming", "You will discover how to describe these concepts using appropriate UML diagrams. Finally, you will also learn good design principles for reuse, and to realise these principles using object-oriented programming languages such as Java and/or C++","scse", 3, ListCindex);
+        Course courseObj2 = new Course("CZ2002", "Object Oriented Design & Programming", "You will discover how to describe these concepts using appropriate UML diagrams. Finally, you will also learn good design principles for reuse, and to realise these principles using object-oriented programming languages such as Java and/or C++","scse", 3, ListCindex1);
 
         courseList.add(courseObj2);
 
         //course3 (CZ2003, 10128)
+        ArrayList<Cindex> ListCindex2 = new ArrayList<Cindex>();
         Date startTimeParsedLect2=null;
         try {
             startTimeParsedLect2 = timeformat.parse("1130");
@@ -308,13 +297,14 @@ public class Course implements Serializable {
         schedule4.add(lessonObj8);
         schedule4.add(lessonObj9);
         cindexObj4.setSchedule(schedule4);
-        ListCindex.add(cindexObj4);
+        ListCindex2.add(cindexObj4);
 
-        Course courseObj3 = new Course("CZ2003", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex);
+        Course courseObj3 = new Course("CZ2003", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex2);
 
         courseList.add(courseObj3);
 
         //course4 (CZ2004, 10129)
+        ArrayList<Cindex> ListCindex3 = new ArrayList<Cindex>();
         Date startTimeParsedLect3=null;
         try {
             startTimeParsedLect3 = timeformat.parse("0930");
@@ -373,9 +363,9 @@ public class Course implements Serializable {
         schedule5.add(lessonObj11);
         schedule5.add(lessonObj12);
         cindexObj5.setSchedule(schedule5);
-        ListCindex.add(cindexObj5);
+        ListCindex3.add(cindexObj5);
 
-        Course courseObj4 = new Course("CZ2004", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex);
+        Course courseObj4 = new Course("CZ2004", "Human Computer Interaction", "Usability and application spaces; Guidelines and principles for text-based interactions; Hardware devices for interaction; Development processes and assessments; Software tools in user interface development; Interaction styles; Practical UI development concepts; Design Issues","scse", 3, ListCindex3);
 
         courseList.add(courseObj4);
 
@@ -438,12 +428,11 @@ public class Course implements Serializable {
         schedule6.add(lessonObj14);
         schedule6.add(lessonObj15);
         cindexObj6.setSchedule(schedule6);
-        ListCindex.add(cindexObj6);
+        ListCindex3.add(cindexObj6);
 
-        Course courseObj6 = new Course("CZ2004", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex);
+        //Course courseObj6 = new Course("CZ2004", "Computer Graphics and Visualisation", "Foundation mathematics for computer graphics; Visual rendering pipeline; Virtual reality Modelling Language (VRML) and Extensible 3D (X3D); Geometric shapes; Transformations and motions; Visual Appearance; Rendering","scse", 3, ListCindex3);
 
-        courseList.add(courseObj6);
-        //COURSE 2
+        //courseList.add(courseObj6);
         
         databaseManager.SerializeCourseList(courseList);
 
