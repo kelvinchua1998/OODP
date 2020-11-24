@@ -95,7 +95,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the waitlist of the Cindex
- * @param waitList ArrayList<String> list of students on waitlist
+ * @param waitList ArrayList list of students on waitlist
  */
     public void setWaitList(ArrayList<String> waitList) {
         this.waitList = waitList;
@@ -109,7 +109,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the list of registered students of the Cindex
- * @param registeredStudents ArrayList<String> list of registered students
+ * @param registeredStudents ArrayList list of registered students
  */
     public void setRegisteredStudents(ArrayList<String> registeredStudents) {
         this.registeredStudents = registeredStudents;
@@ -137,7 +137,7 @@ public class Cindex implements Serializable{
     }
 /**
  * sets the schedule of the Cindex
- * @param schedule ArrayList<Lesson> list of the lesson schedule
+ * @param schedule ArrayList list of the lesson schedule
  */
     public void setSchedule(ArrayList<Lesson> schedule) {
         this.schedule = schedule;

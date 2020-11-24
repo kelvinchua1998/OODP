@@ -75,7 +75,7 @@ public class StudentCourse implements Serializable{
     }
 /**
  * set the course description of the course
- * @param courseDescription
+ * @param courseDescription dexcription to be set
  */
     public void setCourseDescription(String courseDescription) {
         CourseDescription = courseDescription;

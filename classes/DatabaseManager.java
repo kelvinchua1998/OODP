@@ -513,7 +513,7 @@ public class DatabaseManager {
  * @param username username of the new student
  * @param password password of the new student
  * @param AccessStartTime access start time of the new student
- * @param AccessEndTimE access end time of the new student
+ * @param AccessEndTime access end time of the new student
  * @param email email of the new student
  */
    public void addStudent(String firstName, String lastName, Main.GENDER gender, String nationality, String matricNum,
@@ -780,6 +780,8 @@ public class DatabaseManager {
    }
 /**
  * main method to add a new Cindex object into an existing Course
+ * @param courseCode course code for the index to be added into
+ * @param cindexObj Cindex object to be added into the course
  */
    public void addcindex(String courseCode, Cindex cindexObj) {
       Course courseObj = searchCourse(courseCode);
@@ -846,6 +848,8 @@ public void printAllCourses() {
 }
 /**
  * update all the student registered for the course with the new courseCode
+ * @param oldCourseCode old course code
+ * @param newCourseCode new course code
  */
    public void updateStudentCourseNewCourseCode(String oldCourseCode,String newCourseCode){
       Course coursObj = searchCourse(oldCourseCode);

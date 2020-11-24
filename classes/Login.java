@@ -7,10 +7,10 @@ import java.util.Date;
  */
 public class Login {
 /**
- * verifies the user with their password. returns the User type{Admin/ Student} when password is correct otherwise returns null.
- * @param Username
- * @param Password
- * @return
+ * verifies the user with their password 
+ * @param Username username of the user
+ * @param Password password of the user
+ * @return returns the User type{Admin/ Student} when password is correct otherwise returns null
  */
     public String verifyUser(String Username,String Password){
         DatabaseManager databaseManager = new DatabaseManager();

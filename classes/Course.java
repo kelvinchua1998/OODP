@@ -39,11 +39,11 @@ public class Course implements Serializable {
 
 /**
  * default constructor to create the Course class
- * @param CourseCode course code of the course
- * @param CourseName course name of the course
- * @param CourseDescription course description of the course
+ * @param cc course code of the course
+ * @param cn course name of the course
+ * @param d course description of the course
  * @param AU number of AUs of the course
- * @param School school which the course belongs to
+ * @param school school which the course belongs to
  * @param ListCindex list of indexes of the course
  */
     public Course(String cc, String cn, String d, String school, int AU,
@@ -134,7 +134,7 @@ public class Course implements Serializable {
     }
 /**
  * sets the list of Cindex for the course
- * @param Cindex ArrayList<Cindex>
+ * @param Cindex ArrayList
  */
     public void setListCindex(ArrayList<Cindex> Cindex) {
         this.listCindex = Cindex;
