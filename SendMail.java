@@ -15,12 +15,12 @@ public class SendMail {
 
 /**
  * method to send the email to students
- * @param senderGMail String
- * @param senderGMailUsername String
- * @param senderGMailPassword String
- * @param RecipientEmail String
- * @param EmailSubject String
- * @param EmailContent String
+ * @param senderGMail email of admin
+ * @param senderGMailUsername username of admin
+ * @param senderGMailPassword password of admin
+ * @param RecipientEmail email of receiver of the email
+ * @param EmailSubject subject of the email
+ * @param EmailContent body of the email
  */
 	public void sendgmail(String senderGMail,String senderGMailUsername, String senderGMailPassword, String RecipientEmail, String EmailSubject, String EmailContent){
 		final String username = senderGMailUsername;
@@ -56,8 +56,8 @@ public class SendMail {
 	}
 /**
  * compose email to students that dropped course
- * @param courseObj StudentCourse
- * @param StudentEmail String
+ * @param courseObj object to get specified course code
+ * @param StudentEmail email of the student
  */
 	public void droppedCourse(StudentCourse courseObj, String StudentEmail){
 		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+"been successfully dropped\n Thank You\n NTU STARS";
@@ -66,8 +66,8 @@ public class SendMail {
 	}
 /**
  * compose email to students that are allocated the course from the waitlist
- * @param courseObj StudentCourse
- * @param StudentEmail String
+ * @param courseObj object to get specified course code
+ * @param StudentEmail email of the student
  */
 	public void allocatedRegfromWaitlist(StudentCourse courseObj, String StudentEmail){
 		String EmailContent = "Dear Sir/Mdm,\n This is a confirmation email that your course "+ courseObj.getCourseCode()+" "+courseObj.getCourseName()+" index "+courseObj.getCourseIndex()+" been successfully added from waitlist\n Thank You\n NTU STARS";
