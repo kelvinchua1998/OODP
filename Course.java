@@ -180,11 +180,6 @@ public class Course implements Serializable {
         DatabaseManager databaseManager = new DatabaseManager();
         ArrayList<Course> courseList = new ArrayList<Course>();
 
-<<<<<<< HEAD
-=======
-/*COURSE 1
-        ArrayList<Course> courseList = new ArrayList<Course>();
->>>>>>> 5da474b10262ea0ae8c9fe7cb1cdc5f26353619c
         ArrayList<Cindex> ListCindex = new ArrayList<Cindex>();
 
         DateFormat timeformat = new SimpleDateFormat("HHmm");
@@ -251,10 +246,6 @@ public class Course implements Serializable {
         Course courseObj = new Course("CZ2001", "Algorithms", "Introduction to algorithms, basics for analysis of algorithms, sorting, searching, graphs, basic computability and complexity theory","scse", 3, ListCindex);
 
         courseList.add(courseObj);
-<<<<<<< HEAD
-=======
-*/
->>>>>>> 5da474b10262ea0ae8c9fe7cb1cdc5f26353619c
 
         //course2 (CZ2002, 10126)
         ArrayList<Cindex> ListCindex1 = new ArrayList<Cindex>();
