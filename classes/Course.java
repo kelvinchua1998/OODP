@@ -349,8 +349,7 @@ public class Course implements Serializable {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Lesson lessonObj8 = new Tutorial(starttime5,endtime5,"tr+15",
-                    Main.DAY_OF_WEEK.THURSDAY);
+        Lesson lessonObj8 = new Tutorial(starttime5,endtime5,"tr+15",Main.DAY_OF_WEEK.FRIDAY);
 
 
         Date starttime6=null;
@@ -403,14 +402,14 @@ public class Course implements Serializable {
 
         Date starttime7=null;
         try {
-            starttime7 = timeformat.parse("1530");
+            starttime7 = timeformat.parse("1430");
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Date endtime7=null;
         try {
-            endtime7 = timeformat.parse("1630");
+            endtime7 = timeformat.parse("1530");
         } catch (ParseException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

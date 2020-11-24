@@ -315,10 +315,11 @@ public class Student extends User implements Serializable{
 				//for each cindex in student schedule
 				Course studentRegCourse = databaseManager.searchCourse(getRegisteredCourse().get(u).getCourseCode());
 				Cindex studentRegIndex = studentRegCourse.searchCindex(getRegisteredCourse().get(u).getCourseIndex());
+
 				for (int w = 0; w< studentRegIndex.getSchedule().size(); w++ ){
 					Lesson singleLessonStudent = studentRegIndex.getSchedule().get(w);
 					if(singleLesson.getDayoftheWeek().equals(singleLessonStudent.getDayoftheWeek()) ){
-						if(singleLesson.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(singleLesson.getDayoftheWeek())){
+						if(singleLesson.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(Main.ODD_EVEN.OOD_AND_EVEN) || singleLessonStudent.getOddorEven().equals(singleLesson.getOddorEven())){
 							if(singleLesson.getStartTime().before(singleLessonStudent.getStartTime())){
 
 								if(singleLesson.getEndTime().before(singleLessonStudent.getStartTime())){
@@ -330,7 +331,7 @@ public class Student extends User implements Serializable{
 									System.out.println("registered index timing : lesson type / start time - end time");
 									for (int j =0; j < studentRegIndex.getSchedule().size();j++){
 
-										System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
+										System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getLessonType().toString(),studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
 									}
 
 								}
@@ -338,7 +339,7 @@ public class Student extends User implements Serializable{
 								if(singleLesson.getStartTime().before(singleLessonStudent.getEndTime())){
 									//clash
 									clashCounter++;
-									System.out.printf("Index Clash with registered course : %s %S index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
+									System.out.printf("Index Clash with registered course : %s %s index %s\n",studentRegCourse.getCourseCode(),studentRegCourse.getCourseName(),studentRegIndex.getIndexName());
 								}else{
 									//no clash
 
@@ -540,7 +541,7 @@ public class Student extends User implements Serializable{
 										System.out.println("registered index timing : lesson type / start time - end time");
 										for (int j =0; j < studentRegIndex.getSchedule().size();j++){
 
-											System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
+											System.out.printf("%s / %s - %s ",studentRegIndex.getSchedule().get(j).getLessonType().toString(),studentRegIndex.getSchedule().get(j).getStartTime(),studentRegIndex.getSchedule().get(j).getEndTime() );
 										}
 
 									}
