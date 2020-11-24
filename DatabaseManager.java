@@ -378,7 +378,7 @@ public class DatabaseManager {
          System.out.println("registered Courses: ");
          for (int i = 0; i < registercourses.size(); i++) {
             System.out.println("---------------------------------------");
-            System.out.printf("%d. %s %s index %s\n", i + 1, registercourses.get(i).getCourseCode(),
+            System.out.printf("%d. %s \n%s index %s\n", i + 1, registercourses.get(i).getCourseCode(),
                   registercourses.get(i).getCourseName(), registercourses.get(i).getCourseIndex());
 
             Cindex cindex = searchCindex(registercourses.get(i).getCourseCode(), registercourses.get(i).getCourseIndex());
