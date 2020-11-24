@@ -2,7 +2,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This classis to identify the various indexes for each course. It implements serializable so that it can be serialized into the database
+ * This class is to identify the various indexes for each course. It implements serializable so that it can be serialized into the database
  */
 public class Cindex implements Serializable{
     private static final long serialVersionUID = 1L;

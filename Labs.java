@@ -33,11 +33,11 @@ public class Labs extends Lesson implements Serializable {
 
 /**
  * default constructor for creating Labs class
- * @param startTime
- * @param endTime
- * @param venue
- * @param dayOfWeek
- * @param oddOrEven
+ * @param startTime java.util.Date
+ * @param endTime java.util.Date
+ * @param venue String
+ * @param dayOfWeek Main.DAY_OF_WEEK
+ * @param oddOrEven Main.ODD_EVEN
  */
     public Labs(java.util.Date startTime, java.util.Date endTime, String venue, Main.DAY_OF_WEEK dayOfWeek, Main.ODD_EVEN oddOrEven) {
         this.startTime = startTime;

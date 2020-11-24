@@ -31,10 +31,10 @@ public class Tutorial extends Lesson implements Serializable{
     private Main.LESSON_TYPE lesson_type;
 /**
  * default constructor for creating Tutorial class
- * @param startTimeParsed
- * @param endTimeParsed
- * @param venue
- * @param dayOfWeek
+ * @param startTimeParsed java.util.Date 
+ * @param endTimeParsed java.util.Date
+ * @param venue String
+ * @param dayOfWeek Main.DAY_OF_WEEK
  */
     public Tutorial(java.util.Date startTimeParsed, java.util.Date endTimeParsed, String venue, Main.DAY_OF_WEEK dayOfWeek) {
         this.startTime = startTimeParsed;
@@ -83,7 +83,7 @@ public class Tutorial extends Lesson implements Serializable{
         return dayOfWeek;
     }
 /**
- * gets whether lesson occurs on odd or even week. For tutorial, it is both.
+ * gets whether lesson occurs on odd or even week. For tutorial, it is always both.
  * @return Main.ODD_EVEN oddOrEven
  */
     @Override

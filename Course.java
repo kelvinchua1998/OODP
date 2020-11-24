@@ -5,15 +5,46 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * This class is to identify different courses. It implements Serializable so that it can be serialized into the database
+ */
 public class Course implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String CourseCode; // changed int to string cuz eg. CE2001
+
+    /**
+     * course code of the course
+     */
+    private String CourseCode; //string cuz eg. CE2001
+    /**
+     * name of the course
+     */
     private String CourseName;
+    /**
+     * description of the course
+     */
     private String CourseDescription;
+    /**
+     * which school the course belongs to
+     */
     private String School;
+    /**
+     * number of academic units of the course
+     */
     private int AU;
+    /**
+     * list of the different indexes in the course
+     */
     private ArrayList<Cindex> listCindex;
 
+/**
+ * default constructor to create the Course class
+ * @param CourseCode String
+ * @param CourseName String
+ * @param CourseDescription String
+ * @param AU int
+ * @param School String
+ * @param ListCindex ArrayList<Cindex>
+ */
     public Course(String cc, String cn, String d, String school, int AU,
             ArrayList<Cindex> ListCindex) {
         this.CourseCode = cc;
@@ -24,6 +55,11 @@ public class Course implements Serializable {
         this.listCindex = ListCindex;
     }
 
+/**
+ * gets the index of the specified Cindex in the list of Cindex of the course. If Cindex is not found, -1 is returned
+ * @param cindexName String
+ * @return int
+ */
     public int getIndexOfCindex(String cindexName) {
         for (int i = 0; i < this.listCindex.size(); i++) {
             if (this.listCindex.get(i).getIndexName().equals(cindexName)) {
@@ -32,55 +68,95 @@ public class Course implements Serializable {
         }
         return -1;
     }
-
+/**
+ * gets the course code of the course
+ * @return String CourseCode
+ */
     public String getCourseCode() {
         return CourseCode;
     }
-
+/**
+ * sets the course code of the course
+ * @param courseCode String
+ */
     public void setCourseCode(String courseCode) {
         CourseCode = courseCode;
     }
-
+/**
+ * gets the name of the course
+ * @return String CourseName
+ */
     public String getCourseName() {
         return CourseName;
     }
-
+/**
+ * sets the name of the course
+ * @param courseName String
+ */
     public void setCourseName(String courseName) {
         CourseName = courseName;
     }
-
+/**
+ * gets the description of the course
+ * @return String CourseDescription
+ */
     public String getCourseDescription() {
         return CourseDescription;
     }
-
+/**
+ * sets the description of the course
+ * @param courseDescription String
+ */
     public void setCourseDescription(String courseDescription) {
         CourseDescription = courseDescription;
     }
-
+/**
+ * sets the number of AU for the course
+ * @param au int
+ */
     public void setAU(int au) {
         this.AU = au;
     }
-
+/**
+ * gets the number of AU for the course
+ * @return int AU
+ */
     public int getAU() {
         return this.AU;
     }
-
+/**
+ * gets the list of Cindex for the course
+ * @return ArrayList<Cindex> listCindex
+ */
     public ArrayList<Cindex> getListCindex() {
         return listCindex;
     }
-
+/**
+ * sets the list of Cindex for the course
+ * @param Cindex ArrayList<Cindex>
+ */
     public void setListCindex(ArrayList<Cindex> Cindex) {
         this.listCindex = Cindex;
     }
-
+/** 
+ * gets the school the course belongs to 
+ * @return String School
+ */
     public String getSchool() {
         return School;
     }
-
+/**
+ * sets the school the course belongs to
+ * @param school String
+ */
     public void setSchool(String school) {
         School = school;
     }
-
+/**
+ * checks if the specified student is in the list of registered students or in the waitlist
+ * @param username String
+ * @return boolean
+ */
     public boolean checkIfStudentFromRegAndWaitlist(String username) {
         // search student throughout the Cindex and remove
         for (int i = 0; i < this.listCindex.size(); i++) {
@@ -177,6 +253,10 @@ public class Course implements Serializable {
 
     }
 
+/**
+ * removes specified student from the waitlist
+ * @param usernameString
+ */
 	public void removeStudentfromWailist(String username) {
         DatabaseManager databaseManager = new DatabaseManager();
         for (int i = 0; i<listCindex.size();i++){
@@ -189,7 +269,11 @@ public class Course implements Serializable {
         }
         
 	}
-
+/**
+ * searches for the specified Cindex in the list of Cindex
+ * @param courseIndex String
+ * @return Cindex
+ */
 	public Cindex searchCindex(String courseIndex) {
         for (int i = 0 ; i < listCindex.size();i++){
             if(listCindex.get(i).getIndexName().equals(courseIndex)){
@@ -199,7 +283,10 @@ public class Course implements Serializable {
         }
 		return null;
 	}
-
+/**
+ * removes specified student from list of registered students when they drop the course and move a student from the waitlist into the list of registered students
+ * @param username String
+ */
 	public void removeStudentFromIndex(String username) {
         DatabaseManager databaseManager= new DatabaseManager();
 
